@@ -95,8 +95,11 @@ export async function getSummary() {
   const u = user.status === "fulfilled" ? user.value : null;
 
   // Ventes du jour
-  const today = new Date().toISOString().split("T")[0];
-  const todayOrders = o30.filter((o) => o.creationDate?.startsWith(today));
+  // "Aujourd'hui" en heure du Québec (America/Toronto), pas en UTC
+  const today = localDateString(new Date(), "America/Toronto");
+  const todayOrders = o30.filter(
+    (o) => o.creationDate && localDateString(new Date(o.creationDate), "America/Toronto") === today
+  );
   const todayRev = sumOrders(todayOrders);
   const rev7 = sumOrders(o30.filter((o) => dateMinusDays(o.creationDate ?? "", 7)));
   const rev30 = sumOrders(o30);
@@ -149,13 +152,14 @@ export async function getDailyRevenue(days = 30) {
   const orders = data.orders ?? [];
   const byDay = new Map<string, number>();
   for (const o of orders) {
-    const d = (o.creationDate ?? "").split("T")[0];
+    if (!o.creationDate) continue;
+    const d = localDateString(new Date(o.creationDate), "America/Toronto");
     const v = Number(o.pricingSummary?.total?.value ?? 0);
     byDay.set(d, (byDay.get(d) ?? 0) + v);
   }
   const result: Array<[string, number]> = [];
   for (let i = days - 1; i >= 0; i--) {
-    const d = new Date(Date.now() - i * 24 * 3600 * 1000).toISOString().split("T")[0];
+    const d = localDateString(new Date(Date.now() - i * 24 * 3600 * 1000), "America/Toronto");
     result.push([d, Math.round((byDay.get(d) ?? 0) * 100) / 100]);
   }
   return result;
@@ -283,6 +287,20 @@ export async function getActiveReturnsCount(): Promise<number> {
 }
 
 /* ─────────────── Helpers ─────────────── */
+
+/** Retourne la date "YYYY-MM-DD" dans le fuseau horaire demandé. */
+function localDateString(d: Date, tz: string): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: tz,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(d);
+  const y = parts.find((p) => p.type === "year")?.value;
+  const m = parts.find((p) => p.type === "month")?.value;
+  const day = parts.find((p) => p.type === "day")?.value;
+  return `${y}-${m}-${day}`;
+}
 
 function sumOrders(orders: EbayOrder[]): number {
   return orders.reduce((acc, o) => acc + Number(o.pricingSummary?.total?.value ?? 0), 0);
