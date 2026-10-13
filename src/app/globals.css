@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design system « Clean editorial » — Info Liquidation Recycle        */
+/* Palette: blanc dominant, noir pour l'alternance, vert accent        */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  /* Palette — thème clair par défaut.
+     Les noms (ink / mist / moss / surface) restent pour compatibilité
+     avec le code existant ; leurs valeurs sont désormais claires. */
+  --color-paper: #ffffff;         /* fond principal */
+  --color-cream: #fafafa;         /* fond alterné doux */
+  --color-ink: #0a0a0a;           /* noir profond pour CTA + sections sombres */
+  --color-noir: #0a0a0a;          /* alias */
+  --color-surface: #f4f4f5;       /* carte / surface subtile */
+  --color-surface-2: #e4e4e7;     /* surface élevée */
+  --color-mist: #0a0a0a;          /* texte principal (anciennement blanc, flip) */
+  --color-moss: #52525b;          /* texte secondaire */
+  --color-emerald: #16a34a;       /* vert accent principal */
+  --color-lime: #22c55e;          /* vert accent plus clair */
+  --color-emerald-soft: rgba(22, 163, 74, 0.1);
+  --color-line: rgba(10, 10, 10, 0.08);         /* bordures très subtiles */
+  --color-line-strong: rgba(10, 10, 10, 0.14);
+
+  /* Typographie */
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-manifest: var(--font-mono), "SF Mono", Menlo, Consolas, monospace;
+
+  /* Ombres */
+  --shadow-glow: 0 10px 30px rgba(22, 163, 74, 0.18);
+  --shadow-glow-lg: 0 20px 60px rgba(22, 163, 74, 0.25);
+  --shadow-card: 0 1px 2px rgba(10, 10, 10, 0.04), 0 8px 28px rgba(10, 10, 10, 0.06);
+  --shadow-card-dark: 0 8px 30px rgba(0, 0, 0, 0.35);
+
+  /* Animations */
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-blob: blob 16s ease-in-out infinite;
+  --animate-blob-slow: blob 24s ease-in-out infinite reverse;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-scroll-hint: scroll-hint 1.8s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-grid-pan: grid-pan 24s linear infinite;
+  --animate-sweep: sweep 6s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-emerald);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Alternance : sections sombres                                       */
+/* Appliquer `data-theme="dark"` sur une section pour l'inverser.      */
+/* ------------------------------------------------------------------ */
+
+[data-theme="dark"] {
+  background-color: var(--color-ink);
+  color: #fafafa;
+  --color-mist: #fafafa;
+  --color-moss: #a1a1aa;
+  --color-surface: #171717;
+  --color-surface-2: #262626;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-emerald-soft: rgba(34, 197, 94, 0.15);
+}
+
+/* ------------------------------------------------------------------ */
+/* Composants utilitaires                                              */
+/* ------------------------------------------------------------------ */
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-card);
+}
+
+@utility glass-light {
+  background: rgba(10, 10, 10, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--color-line);
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(23, 23, 23, 0.65);
+  border-color: var(--color-line);
+  box-shadow: var(--shadow-card-dark);
+}
+
+[data-theme="dark"] .glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-line);
+}
+
+@utility text-gradient {
+  background: linear-gradient(92deg, #16a34a 0%, #22c55e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-accent {
+  background: linear-gradient(92deg, #16a34a 0%, #22c55e 100%);
+}
+
+@utility circuit-grid {
+  background-image:
+    linear-gradient(rgba(10, 10, 10, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 10, 10, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+[data-theme="dark"] .circuit-grid {
+  background-image:
+    linear-gradient(rgba(34, 197, 94, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.08) 1px, transparent 1px);
+}
+
+/* Ligne verticale décorative "editorial" */
+@utility rule-x {
+  background-image: linear-gradient(to right, var(--color-line-strong), transparent);
+  height: 1px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Keyframes                                                           */
+/* ------------------------------------------------------------------ */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%      { transform: translate(6%, -8%) scale(1.08); }
+  50%      { transform: translate(-5%, 6%) scale(0.95); }
+  75%      { transform: translate(4%, 4%) scale(1.05); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes scroll-hint {
+  0%   { transform: translateY(0); opacity: 1; }
+  70%  { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes grid-pan {
+  from { background-position: 0 0; }
+  to   { background-position: 72px 72px; }
+}
+
+@keyframes sweep {
+  0%   { transform: translateX(-120%); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes morphLetter {
+  from { opacity: 0; transform: translateY(14px) rotateX(-70deg); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0) rotateX(0); filter: blur(0); }
+}
+
+@keyframes confettiOut {
+  from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  to   { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3); opacity: 0; }
+}
+
+@utility font-manifest {
+  font-family: var(--font-manifest);
+  font-feature-settings: "ss01", "zero";
+}
+
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ------------------------------------------------------------------ */
+/* Accessibilité : prefers-reduced-motion                              */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,1176 @@
+{
+  "meta": {
+    "siteName": "Info Liquidation Recycle",
+    "home": {
+      "title": "Computer & Electronic Recycling Montreal - InfoLiquidation Recycle",
+      "description": "Computer and electronic recycling in Montreal and Laval. End-of-life equipment pick-up - InfoLiquidation Recycle"
+    },
+    "about": {
+      "title": "About Us - Computer Recycling Experts Since 2005 | Info Liquidation Recycle",
+      "description": "Founded in 2005 by Éric Després, Info Liquidation Recycle collects and processes your end-of-life computer and electronic equipment in Montreal, Laval and the North Shore."
+    },
+    "informations": {
+      "title": "Why Recycle? Facts About Electronic Recycling in Quebec",
+      "description": "Over 680,000 computers sold every year in Quebec, 50,000 tonnes of electronic waste. Find out why computer recycling is everyone's responsibility."
+    },
+    "computer": {
+      "title": "Computer & Laptop Recycling in Montreal, Laval and the North Shore",
+      "description": "Free recycling of computers, laptops and peripherals in Montreal. Protect the environment and your data with Info Liquidation Recycle."
+    },
+    "pickup": {
+      "title": "Free Pick-Up Request - Computer Recycling Montreal",
+      "description": "Request a free pick-up of your computer equipment in Montreal, Laval and the North Shore. Reply within 24 h, pick-up within 72 h maximum, no fees."
+    },
+    "data": {
+      "title": "Certified Data Destruction - Montreal & Laval | Info Liquidation Recycle",
+      "description": "Data destruction meeting RCMP, NASA and U.S. Department of Defense standards. Destruction certificate issued free of charge."
+    },
+    "materials": {
+      "title": "Recyclable Materials: Metals, Plastics, Batteries, Cables - Montreal",
+      "description": "Metals, plastics, printed circuits, computer equipment, telecommunications, batteries and cables: discover the 5 categories of materials we recycle."
+    },
+    "procedure": {
+      "title": "Computer Equipment Recovery Procedure - Montreal & Laval",
+      "description": "100% of computer components can be reclaimed and recycled. Discover our recovery procedure for CRT screens, LCD screens and computer components."
+    },
+    "hardDrives": {
+      "title": "On-Site Hard Drive Destruction - Montreal, Laval, North Shore",
+      "description": "Secure shredding and crushing of your hard drives, destruction certificate and full traceability. On-site service across Greater Montreal."
+    },
+    "phones": {
+      "title": "Cell Phone and Tablet Recycling - Montreal & Laval",
+      "description": "Recycle your old cell phones and tablets in Montreal. Plastic, copper, glass and cobalt are reclaimed. Free pick-up."
+    },
+    "faq": {
+      "title": "F.A.Q. - Frequently Asked Questions About Computer Recycling | Info Liquidation Recycle",
+      "description": "Fees, minimum quantity, service areas, regular agreements: all the answers to your questions about our free computer recycling service."
+    },
+    "blog": {
+      "title": "Blog - Electronic Recycling Tips and News in Quebec",
+      "description": "Practical tips and news about computer and electronic recycling in Montreal and Quebec, by Info Liquidation Recycle."
+    },
+    "contact": {
+      "title": "Contact - Info Liquidation Recycle | Saint-Eustache (450) 473-4636",
+      "description": "Contact Info Liquidation Recycle: (450) 473-4636, info@infoliquidationrecycle.com. 514 Chemin De La Rivière Sud, Local 102, Saint-Eustache, QC J7R 0E2."
+    },
+    "city": {
+      "title": "Computer Recycling {city} - Free Pick-Up | Info Liquidation Recycle",
+      "description": "Computer and electronic recycling in {city}: free pick-up, reply within 24 h, free data destruction certificate. (450) 473-4636."
+    },
+    "notFound": {
+      "title": "Page Not Found | Info Liquidation Recycle"
+    },
+    "cookies": {
+      "title": "Cookie policy | Info Liquidation Recycle",
+      "description": "How we use cookies in compliance with Quebec's Law 25."
+    }
+  },
+  "common": {
+    "slogan": "The reference for your computer and electronic recycling",
+    "experts": "THE RECYCLING EXPERTS",
+    "freePickupCta": "Free pick-up",
+    "requestPickup": "Request a free pick-up",
+    "discoverServices": "Discover our services",
+    "contactUs": "Contact us",
+    "learnMore": "Learn more",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "addressLabel": "Address",
+    "hoursLabel": "Opening hours",
+    "hoursMonThu": "Monday to Thursday: 8 a.m. – 5 p.m.",
+    "hoursFri": "Friday: 8 a.m. – 4 p.m.",
+    "hoursWeekend": "Saturday and Sunday: closed",
+    "skipToContent": "Skip to main content",
+    "orCallUs": "or call us at",
+    "freeBadge": "Free of charge"
+  },
+  "topbar": {
+    "message": "The reference for your computer and electronic recycling"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "informations": "Information",
+    "services": "Services",
+    "faq": "F.A.Q.",
+    "blog": "Blog",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "servicesMenuLabel": "Open the Services submenu",
+    "langSwitchLabel": "Switch language",
+    "mainNavLabel": "Main navigation"
+  },
+  "services": {
+    "computer": {
+      "title": "Computer and laptop recycling",
+      "desc": "Give a second life to your end-of-life computers, laptops and peripherals."
+    },
+    "pickupForm": {
+      "title": "Pick-up request",
+      "desc": "Fill out the form: reply within 24 h, free pick-up within 72 h maximum."
+    },
+    "data": {
+      "title": "Data destruction",
+      "desc": "Certified erasure meeting RCMP, NASA and U.S. Department of Defense standards."
+    },
+    "materials": {
+      "title": "Recyclable materials",
+      "desc": "Metals, plastics, printed circuits, batteries, cables: 5 categories reclaimed."
+    },
+    "procedure": {
+      "title": "Recovery procedure",
+      "desc": "100% of computer components can be reclaimed and recycled."
+    },
+    "hardDrives": {
+      "title": "On-site hard drive destruction",
+      "desc": "Secure shredding or crushing, destruction certificate and traceability."
+    },
+    "phones": {
+      "title": "Cell phone and tablet recycling",
+      "desc": "Plastic, copper, glass, cobalt: recycle your old mobile devices."
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "♻️ Free recycling — Greater Montreal",
+      "title": "Computer & electronic recycling in Montreal",
+      "subtitle": "We collect, process and recycle your end-of-life computer equipment. Free pick-up, certified data destruction. Make the RIGHT choice!",
+      "ctaPrimary": "Request a free pick-up",
+      "ctaSecondary": "Discover our services",
+      "proofs": [
+        "Free pick-up",
+        "Free destruction certificate",
+        "Reply within 24 h"
+      ],
+      "scrollHint": "Scroll down"
+    },
+    "stats": {
+      "items": [
+        {
+          "prefix": "Since",
+          "value": 2005,
+          "suffix": "",
+          "label": "serving Greater Montreal",
+          "plain": true
+        },
+        {
+          "prefix": "Reply within",
+          "value": 24,
+          "suffix": "h",
+          "label": "to process your request"
+        },
+        {
+          "prefix": "Pick-up within",
+          "value": 72,
+          "suffix": "h",
+          "label": "maximum turnaround"
+        },
+        {
+          "prefix": "",
+          "value": 0,
+          "suffix": "$",
+          "label": "in pick-up or transport fees"
+        },
+        {
+          "prefix": "",
+          "text": "Certificate",
+          "suffix": "",
+          "label": "of data destruction, free"
+        }
+      ]
+    },
+    "steps": {
+      "eyebrow": "Quick and easy",
+      "title": "How does it work?",
+      "subtitle": "Three steps are all it takes to dispose of your computer equipment in an eco-friendly and secure way.",
+      "items": [
+        {
+          "title": "Form",
+          "desc": "Fill out the pick-up request form indicating the quantity of each item — for example: 45 computers, 30 CRT screens, 6 printers, 4 laptops, 1 fax, 2 servers, 4 boxes of assorted cables."
+        },
+        {
+          "title": "Confirm a date",
+          "desc": "Your request will be processed within 24 hours and the pick-up will take place within a maximum of 72 hours."
+        },
+        {
+          "title": "Pick-up",
+          "desc": "We charge no fees whatsoever, whether for the pick-up or the equipment. A data destruction certificate is available."
+        }
+      ]
+    },
+    "servicesSection": {
+      "eyebrow": "Our services",
+      "title": "A turnkey solution for your end-of-life equipment",
+      "subtitle": "From free pick-up to certified data destruction, we handle the entire life cycle of your computer and electronic equipment."
+    },
+    "why": {
+      "eyebrow": "Why recycle?",
+      "title": "Electronic waste, the only growing waste stream in Canada",
+      "intro": "When buried or incinerated, electronic equipment releases toxic substances — lead, cadmium, mercury — that contaminate soil and air for decades.",
+      "stats": [
+        {
+          "value": 680000,
+          "suffix": "+",
+          "label": "computers sold every year in Quebec"
+        },
+        {
+          "value": 50000,
+          "suffix": "+",
+          "label": "tonnes of electronic waste annually"
+        },
+        {
+          "value": 120,
+          "suffix": "M",
+          "label": "batteries consumed per year in Quebec"
+        },
+        {
+          "value": 6,
+          "suffix": "%",
+          "label": "of batteries are actually recovered"
+        }
+      ],
+      "cta": "All the facts about recycling"
+    },
+    "security": {
+      "eyebrow": "Security",
+      "title": "Certified data destruction",
+      "p1": "We destroy all the data on your storage media using software with powerful algorithms that meet the standards of the RCMP, NASA and the U.S. Department of Defense.",
+      "p2": "A confidential data destruction certificate is issued free of charge, upon request. If the equipment is unusable, we carry out the complete physical destruction of the media.",
+      "bullets": [
+        "Algorithms compliant with RCMP · NASA · U.S. DoD",
+        "Destruction certificate issued free of charge",
+        "Physical destruction of unusable media"
+      ],
+      "cta": "Learn more about data destruction"
+    },
+    "zones": {
+      "eyebrow": "Service areas",
+      "title": "Everywhere in Greater Montreal",
+      "desc": "We cover Montreal, the North Shore and Laval. For more than 50 items, we also travel to the South Shore. Minimum of 10 items for a free pickup.",
+      "regions": [
+        "Greater Montreal",
+        "North Shore",
+        "South Shore",
+        "Laval"
+      ],
+      "addressNote": "New address: 514 Chemin de la Rivière Sud, Suite 102, Saint-Eustache",
+      "marqueeLabel": "Cities served"
+    },
+    "adapted": {
+      "eyebrow": "Our approach",
+      "title": "Computer equipment recycling in Montreal: a solution tailored to your needs",
+      "p1": "Looking for a computer equipment recycling solution in Montreal or Laval? We support you from A to Z and your equipment is reclaimed through our network of professionals.",
+      "p2": "Equipment that is too damaged is dismantled, shredded and melted down to extract raw materials — copper, iron, gold, aluminum — and help preserve the environment."
+    },
+    "equipment": {
+      "title": "Which equipment can be recycled?",
+      "items": [
+        "Laptop and desktop computers",
+        "Screens",
+        "Printers",
+        "CD drives",
+        "Phones",
+        "Batteries"
+      ],
+      "outro": "… and any computer equipment."
+    },
+    "choice": {
+      "title": "Residential & commercial computer recycling",
+      "highlight": "Make the RIGHT choice!",
+      "bullets": [
+        "Free on-site assessment — whether you have a single workstation or a large quantity",
+        "Direct collection: free up space and modernize your obsolete IT equipment",
+        "Eco-friendly approach: meticulous dismantling and reduction of electronic waste"
+      ]
+    },
+    "faq": {
+      "eyebrow": "F.A.Q.",
+      "title": "Frequently asked questions",
+      "subtitle": "Answers to the questions we hear most often.",
+      "cta": "See all questions"
+    },
+    "finalCta": {
+      "title": "Ready to free up some space?",
+      "subtitle": "Free pick-up everywhere in Greater Montreal",
+      "button": "Request a free pick-up"
+    }
+  },
+  "faqItems": [
+    {
+      "q": "Why don't you charge any fees, while most others do?",
+      "a": "Because we have buyers for all types of components, metals, plastic and even cardboard, which allows us to offer a free service."
+    },
+    {
+      "q": "Is there a minimum quantity of equipment?",
+      "a": "Minimum of 10 items for a free pickup."
+    },
+    {
+      "q": "Do you have a maximum distance?",
+      "a": "We cover Montreal and the North Shore. For more than 50 items, we also travel to the South Shore."
+    },
+    {
+      "q": "Is it possible to do business with you on a regular basis?",
+      "a": "Yes, long-term agreements are possible depending on your needs."
+    },
+    {
+      "q": "Can equipment be too old or too damaged?",
+      "a": "No, all electronic and computer equipment can be recycled, regardless of age."
+    }
+  ],
+  "faqPage": {
+    "eyebrow": "Frequently asked questions",
+    "title": "Your questions, our answers",
+    "subtitle": "Fees, quantities, service areas: everything you need to know about our computer and electronic recycling service.",
+    "ctaTitle": "Another question?",
+    "ctaText": "We will be happy to answer you within 24 hours.",
+    "ctaButton": "Contact us"
+  },
+  "about": {
+    "eyebrow": "About us",
+    "title": "The recycling experts since 2005",
+    "founderName": "Éric Després",
+    "founderRole": "Founder & Chief Executive Officer",
+    "founderText": "He founded Info Liquidation Recycle in 2005 and the company has been growing ever since. A specialist in computer recycling, he is in charge of finding the resources needed to process used products and equipment in compliance with current standards and directives.",
+    "companyTitle": "Info Liquidation Recycle",
+    "p1": "We collect and process your end-of-life computer and electronic equipment in strict compliance with the latest legislation.",
+    "p2": "We offer you a turnkey solution to reduce your fixed assets and insurance costs. We have built a complete network of subcontractors specialized in recycling each type of material.",
+    "missionTitle": "Our mission",
+    "p3": "Our waste disposal solution prevents hundreds of thousands of electronic components from being recklessly buried, where they would pollute our soil for decades.",
+    "p4": "Our organization reuses the materials contained in computer products in order to give a new life to these thousands of tonnes of material.",
+    "ctaTitle": "Make the RIGHT choice with us",
+    "ctaText": "Free pick-up, reply within 24 hours, free data destruction certificate."
+  },
+  "informations": {
+    "eyebrow": "Information",
+    "title": "Why should we recycle?",
+    "banner": "\"Make the right choice: depollution, recycling and the processing of computer materials are everyone's responsibility.\"",
+    "whyTitle": "A societal issue",
+    "whyP1": "Electronic waste is the only growing waste stream in Canada. In Quebec alone, more than 680,000 computers are sold every year, not counting cell phones, printers and televisions: more than 50,000 tonnes of electronic waste annually.",
+    "whyP2": "The average lifespan of equipment is 3 and a half years. Although safe for their users, these devices contain toxic substances — lead, cadmium, mercury — that contaminate soil and air when buried or incinerated.",
+    "batteriesTitle": "Battery recycling",
+    "batteriesP1": "More than 120 million batteries are consumed every year in Quebec, but only 6% of them are recovered: 94% of batteries go straight to the garbage, i.e. 4,000 tonnes of heavy metals heading to the landfill every year.",
+    "batteriesP2": "A single mercury battery can contaminate 1 m³ of soil and 1,000 m³ of water for 50 years. Yet batteries are recyclable: from one tonne of batteries, up to 600 kg of reusable materials can be extracted.",
+    "batteriesStats": [
+      {
+        "value": 120,
+        "suffix": "M",
+        "label": "batteries consumed per year in Quebec"
+      },
+      {
+        "value": 6,
+        "suffix": "%",
+        "label": "only are recovered"
+      },
+      {
+        "value": 4000,
+        "suffix": "t",
+        "label": "of heavy metals sent to the landfill every year"
+      },
+      {
+        "value": 600,
+        "suffix": "kg",
+        "label": "of reusable materials extracted from one tonne of batteries"
+      }
+    ],
+    "productsTitle": "What happens to your products?",
+    "collectTitle": "Collection and processing",
+    "collectText": "After collection, our dismantling teams weigh and count the equipment. The material is then dismantled and distributed to industries specialized in recycling metals, glass and plastics — subcontractors selected with the utmost care.",
+    "dataTitle": "Data destruction",
+    "dataText": "We destroy all data on hard drives using software that meets the standards of the RCMP, NASA and the U.S. Department of Defense. A destruction certificate is available upon request.",
+    "ctaTitle": "Ready to make the right choice?",
+    "ctaText": "Request a free pick-up: reply within 24 hours."
+  },
+  "svcComputer": {
+    "eyebrow": "Service",
+    "title": "Computer and laptop recycling",
+    "intro": "After a certain period of use, your electronic devices become obsolete or defective. In many cases, old devices pile up in a room and are forgotten. Yet you should dispose of all these items that clutter your space and pollute the environment.",
+    "whyTitle": "Why recycle a laptop?",
+    "whyText": "Laptop recycling is an important step in preserving the environment and avoiding data confidentiality risks. By entrusting your laptop's recycling to our qualified professionals, you help reduce electronic waste that is harmful to nature, lower your ecological footprint and secure your personal information.",
+    "deeeTitle": "What is WEEE?",
+    "deeeText": "All devices running on electric power are called waste electrical and electronic equipment (WEEE). When a device bears the crossed-out garbage bin logo, it means it must never be thrown in the trash.",
+    "deeeItems": [
+      "Computers",
+      "Printers",
+      "Central processing units",
+      "Cathode-ray screens",
+      "Keyboards",
+      "Mice",
+      "Modems",
+      "Mobile / cell phones",
+      "Cables, chargers, batteries"
+    ],
+    "benefitsTitle": "The benefits of recycling your equipment",
+    "benefitsIntro": "Recycling protects the environment, contributes to the economy and creates jobs, by giving a new life to your electronic equipment and devices.",
+    "benefit1Title": "Protecting the environment and natural resources",
+    "benefit1Text": "Preserving nature is one of the major outcomes of recycling: it reduces the amount of waste released into nature as well as the toxic and hazardous substances dispersed in it. Electronic components are made of natural resources — gold, copper, aluminum — that are non-renewable and finite.",
+    "benefit2Title": "Job creation",
+    "benefit2Text": "Another benefit of recycling electronic devices is job creation. This fast-growing sector recruits nearly 8,000 people every year.",
+    "howTitle": "How to get your devices recycled?",
+    "howText": "To recycle your computer, laptop or any electronic device in Montreal, several options are available to you — all free of charge, unless you decide to hire a technician for a repair.",
+    "zonesTitle": "We serve",
+    "faqTitle": "Frequently asked questions about computer recycling",
+    "faq": [
+      {
+        "q": "Why shouldn't I throw my laptop in the garbage?",
+        "a": "Throwing a laptop in the garbage may seem like a quick fix, but it carries major environmental risks. Laptops contain toxic materials — lead, mercury, cadmium — that can contaminate soil and groundwater, affecting local wildlife and plants. Moreover, landfills are already overflowing with electronic waste. By recycling, you help reduce pollution and preserve our precious natural resources."
+      },
+      {
+        "q": "Where can I recycle my laptop?",
+        "a": "Recycling your laptop is easier than you think. Many local recycling centres have collection points for electronic devices. You can also turn to certified recycling companies specialized in the responsible processing of end-of-life electronic equipment."
+      },
+      {
+        "q": "What if my laptop is still in good working order?",
+        "a": "If it is still functional, you can extend its useful life: donate it to a charity that redistributes these devices to people in need, or sell it at an affordable price. This approach promotes reuse and minimizes electronic waste."
+      },
+      {
+        "q": "How can I securely erase my data before recycling my laptop?",
+        "a": "Use reputable data erasure software: it securely overwrites all the information stored on your hard drive, making it virtually impossible to recover. Choose reliable software, preferably recommended by IT security experts."
+      },
+      {
+        "q": "Is laptop recycling free?",
+        "a": "In many cases, yes — especially at local recycling centres or during special collection events. Some centres may however charge processing fees: check their pricing policy. At Info Liquidation Recycle, pick-up and processing are entirely free."
+      },
+      {
+        "q": "What happens once my laptop is recycled?",
+        "a": "Reusable components — RAM, hard drives, screen — are extracted and prepared for a new use. Non-recyclable materials are processed responsibly, often transformed into building materials or solid fuels. Metals and plastics are recovered to manufacture new electronic products: a more circular and sustainable economy."
+      }
+    ],
+    "ctaTitle": "Recycle your computers free of charge",
+    "ctaText": "Free pick-up in Montreal, on the North Shore and in Laval."
+  },
+  "svcData": {
+    "eyebrow": "Service",
+    "title": "Data destruction",
+    "intro": "The protection of information is of the utmost importance to Info Liquidation Recycle.",
+    "p1": "We are aware that all kinds of secret and confidential data, related to a company's activities or to people's private lives, end up on the hard drives and storage media we recover. That is why we pay very special attention to it: we destroy all of this data using software with powerful algorithms that meet the standards of the RCMP, NASA and the U.S. Department of Defense.",
+    "p2": "To meet our clients' requirements, confidential data destruction certificates can be issued at their request, free of charge.",
+    "p3": "If the recovered equipment is unusable, the best and most effective solution is the complete destruction of all storage media, so that the data can never be used by anyone again.",
+    "knowTitle": "Good to know!",
+    "knowText": "Even if you think you have deleted all the information from your computer, some data cannot be erased from the hard drive without a formatting process that makes data recovery software useless. Authorities such as the Royal Canadian Mounted Police (RCMP) and the OPC recommend formatting each hard drive between three and seven times, at 45 minutes per formatting. If you plan to donate your computer to an organization or a recycling company like Info Liquidation Recycle, know that most have strict confidentiality clauses.",
+    "standards": [
+      "RCMP",
+      "NASA",
+      "U.S. Department of Defense"
+    ],
+    "standardsLabel": "Our software meets the standards of:",
+    "ctaTitle": "Your data deserves certified destruction",
+    "ctaText": "Destruction certificate issued free of charge, upon request."
+  },
+  "svcMaterials": {
+    "eyebrow": "Service",
+    "title": "Recyclable materials",
+    "intro": "We have classified electronic and computer waste into 5 categories and created a list of recoverable equipment. These lists are not complete: they are only examples, as it is impossible for us to list every recoverable part and product.",
+    "note": "Questions about specific waste? Do not hesitate to contact us: we will be happy to answer you within 24 h.",
+    "categories": [
+      {
+        "title": "Metals, plastics and printed circuits",
+        "examples": [
+          "Printed circuit boards",
+          "Ferrous and non-ferrous metals",
+          "Copper, iron, gold, aluminum",
+          "Plastics"
+        ]
+      },
+      {
+        "title": "Computer and office equipment",
+        "examples": [
+          "Desktop and laptop computers",
+          "Servers",
+          "CRT and LCD screens",
+          "Printers and photocopiers",
+          "Keyboards and mice"
+        ]
+      },
+      {
+        "title": "Telecommunication equipment",
+        "examples": [
+          "Phones and cell phones",
+          "Tablets",
+          "Fax machines",
+          "Modems, routers, switches"
+        ]
+      },
+      {
+        "title": "Batteries and power sources",
+        "examples": [
+          "Batteries",
+          "UPS units",
+          "Chargers"
+        ]
+      },
+      {
+        "title": "Computer and electrical cables",
+        "examples": [
+          "Computer cables",
+          "Electrical cables",
+          "Assorted wiring"
+        ]
+      }
+    ],
+    "examplesLabel": "Examples (non-exhaustive list)",
+    "faqTitle": "Frequently asked questions about recyclable materials",
+    "faq": [
+      {
+        "q": "Is recycling really important?",
+        "a": "Absolutely! Recycling is essential to reduce our carbon footprint, preserve natural resources and protect the environment for future generations."
+      },
+      {
+        "q": "What are the economic benefits of recycling?",
+        "a": "In addition to the environmental benefits, recycling creates jobs in the recycling industry and saves money by using recycled materials rather than virgin raw materials."
+      },
+      {
+        "q": "How can I recycle electronic devices?",
+        "a": "Electronic devices must be brought to specialized recycling centres to guarantee their responsible and secure processing."
+      },
+      {
+        "q": "Can all plastics be recycled?",
+        "a": "No, not all plastics are recyclable. It is essential to check the recycling symbols on packaging to know whether they can be recycled."
+      },
+      {
+        "q": "What about recyclable materials that are not accepted locally?",
+        "a": "In such cases, look for specialized recycling programs or companies that accept these materials."
+      }
+    ],
+    "ctaTitle": "Unsure about a material?",
+    "ctaText": "Contact us: reply guaranteed within 24 hours."
+  },
+  "svcProcedure": {
+    "eyebrow": "Service",
+    "title": "Recovery procedure",
+    "intro": "100% of computer components, obsolete or not, can be reclaimed and recycled.",
+    "blocks": [
+      {
+        "title": "CRT screens",
+        "text": "After dismantling the casings and electronic boards, everything is separated manually and sent to different centres to recycle the plastic and metals. The material is then melted down to be reinjected into industries producing all kinds of products."
+      },
+      {
+        "title": "LCD, LED or plasma screens",
+        "text": "Screens are sorted by type, as their distinct components call for different treatment solutions. For standard LCD screens with backlighting, the main challenge is separating the fluorescent tubes that contain mercury, a toxic substance. These tubes follow a dedicated stream where shredders separate the glass from the mercury-containing powder for neutralization and disposal."
+      },
+      {
+        "title": "Computer components",
+        "text": "Devices are recovered, dismantled, shredded and crushed, manually or using specialized machines. Recoverable fragments are extracted: ferrous metals, non-ferrous metals, cables, plastics and other materials. Each type of equipment has its specific end-of-life destination."
+      }
+    ],
+    "ctaTitle": "Reclaim 100% of your equipment",
+    "ctaText": "Request a free pick-up today."
+  },
+  "svcHardDrives": {
+    "eyebrow": "Service",
+    "title": "On-site hard drive destruction",
+    "whyTitle": "Why use a specialized organization?",
+    "whyP1": "Your hard drives are destroyed securely, in compliance with environmental ethical rules. Hard drives contain polluting heavy metals and must not be thrown out with ordinary garbage.",
+    "whyP2": "Formatting a hard drive is not enough: slight residual magnetization can remain and allow the data to be read again with specialized devices.",
+    "whyBullets": [
+      "Collection on agreed dates or one-time destruction",
+      "Certificate issued after every destruction service",
+      "Approved secure recycling"
+    ],
+    "whereTitle": "Where to dispose of old hard drives?",
+    "whereText": "Proper disposal of your hard drives is crucial to prevent leaks of sensitive information and protect the environment. Our specialized services ensure the responsible and secure disposal of your old devices.",
+    "methodsTitle": "How is hard drive destruction carried out?",
+    "method1Title": "Shredding",
+    "method1Text": "The drives are reduced to small chips: platters, mechanisms and electronic components are completely destroyed, making the data unrecoverable.",
+    "method2Title": "Crushing",
+    "method2Text": "A pressure of at least 3,400 kg is applied to the magnetic platters, punching an irreparable hole through them: the data becomes inaccessible.",
+    "stepsTitle": "The 5 steps of the destruction process",
+    "steps": [
+      {
+        "title": "Secure storage",
+        "text": "The drives are placed in secure containers awaiting a regular or one-time collection."
+      },
+      {
+        "title": "Weighing, destruction and traceability",
+        "text": "Our team weighs the drives before destruction, then provides a destruction certificate and a waste tracking slip."
+      },
+      {
+        "title": "Transport to a recycling centre",
+        "text": "The residues are transported to a specialized centre and poured into a recycling pit."
+      },
+      {
+        "title": "Recycling",
+        "text": "The material obtained from your hard drive chips becomes the base substance that will be reclaimed."
+      },
+      {
+        "title": "Second destruction",
+        "text": "Non-recyclable elements undergo another destruction phase."
+      }
+    ],
+    "faqTitle": "Frequently asked questions about hard drive destruction",
+    "faq": [
+      {
+        "q": "Is it possible to recover data after erasing a hard drive with software?",
+        "a": "Yes, in some cases data can be recovered after erasure. That is why physical destruction is recommended as a more reliable method."
+      },
+      {
+        "q": "Can damaged hard drives be destroyed safely?",
+        "a": "Yes, damaged drives can be destroyed safely, provided you inform the service of the devices' condition."
+      },
+      {
+        "q": "How long does it take to destroy a hard drive?",
+        "a": "The timeframe depends on the method used and the number of drives. The process is relatively quick, especially if you use a professional service."
+      },
+      {
+        "q": "Can I destroy my hard drives myself?",
+        "a": "Personal destruction is possible with the appropriate equipment and knowledge. However, calling on experts is recommended for greater security."
+      },
+      {
+        "q": "What are the environmental standards for hard drive destruction?",
+        "a": "Standards vary from country to country. Choose a service that complies with the regional regulations in force."
+      },
+      {
+        "q": "What happens to the debris resulting from hard drive destruction?",
+        "a": "The debris resulting from hard drive destruction can be recycled where possible; some services offer suitable recycling options."
+      }
+    ],
+    "ctaTitle": "Destroy your hard drives with confidence",
+    "ctaText": "Destruction certificate and tracking slip provided."
+  },
+  "svcPhones": {
+    "eyebrow": "Service",
+    "title": "Cell phone and tablet recycling and pick-up",
+    "intro": "Your electronic and computer equipment is reaching the end of its life and you are looking for an eco-friendly way to dispose of it? Recycling offers economic and environmental benefits: it creates jobs and helps clean up the environment.",
+    "componentsTitle": "Some recyclable components of cell phones",
+    "components": [
+      {
+        "name": "Plastic",
+        "value": "~50%"
+      },
+      {
+        "name": "Copper",
+        "value": "~25%"
+      },
+      {
+        "name": "Glass",
+        "value": "~25%"
+      },
+      {
+        "name": "Cobalt",
+        "value": "~4%"
+      },
+      {
+        "name": "Silver",
+        "value": "~1%"
+      },
+      {
+        "name": "Mercury",
+        "value": "present (hazardous)"
+      }
+    ],
+    "reasonsTitle": "Some good reasons to recycle your old cell phone",
+    "reasons": [
+      "Slow down the depletion of natural resources",
+      "Reduce pollution caused by toxic materials",
+      "Make technology accessible through affordable devices"
+    ],
+    "zonesTitle": "We serve",
+    "faqTitle": "Frequently asked questions about phone recycling",
+    "faq": [
+      {
+        "q": "What recyclable materials does a phone contain?",
+        "a": "Aluminum, glass, plastic and certain rare metals such as lithium."
+      },
+      {
+        "q": "How do I erase my data before recycling?",
+        "a": "Restore the device to factory settings or use specialized erasure applications."
+      },
+      {
+        "q": "Can damaged phones be recycled?",
+        "a": "Yes, many recycling programs also accept damaged or broken phones."
+      },
+      {
+        "q": "What happens to recycled phones?",
+        "a": "They are dismantled to recover precious materials; reusable components are refurbished for second-hand sale."
+      },
+      {
+        "q": "Where can I find collection points?",
+        "a": "Check the websites of environmental organizations or your local community — or simply request our free pick-up."
+      }
+    ],
+    "ctaTitle": "Recycle your mobile devices",
+    "ctaText": "Free pick-up in Montreal, on the North Shore and in Laval."
+  },
+  "pickup": {
+    "eyebrow": "Free pick-up",
+    "title": "Pick-up request form",
+    "requiredNote": "* Required fields. Your data will remain confidential and will be used strictly for the pick-up of your computer and electronic equipment.",
+    "minItemsNote": "Minimum of 10 items required for a free pickup.",
+    "identityTitle": "Your contact information",
+    "quantitiesTitle": "Approximate quantities",
+    "certificateTitle": "Destruction certificate",
+    "fields": {
+      "title": "Title",
+      "titleOptions": {
+        "mr": "Mr.",
+        "mrs": "Mrs."
+      },
+      "firstName": "First name",
+      "lastName": "Last name",
+      "company": "Company",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "city": "City",
+      "postalCode": "Postal code",
+      "otherEquipment": "Other equipment",
+      "otherEquipmentPlaceholder": "Describe any other equipment (fax, boxes of assorted cables…)",
+      "extraNamePlaceholder": "Equipment (e.g. fax, cables…)",
+      "extraQuantityPlaceholder": "Qty",
+      "extraAdd": "Add an item",
+      "extraRemove": "Remove this item"
+    },
+    "quantities": {
+      "towers": "Computer towers",
+      "servers": "Servers",
+      "laptops": "Laptops",
+      "tablets": "Tablets",
+      "switches": "Switches",
+      "lcd": "LCD screens",
+      "deskPhones": "Desk phones",
+      "cellphones": "Cell phones",
+      "printers": "Printers",
+      "photocopiers": "Photocopiers",
+      "audioVideo": "Audio/Video systems",
+      "ups": "UPS"
+    },
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "certificateQuestion": "I would like to obtain a data destruction certificate for the hard drives",
+    "yes": "Yes",
+    "no": "No",
+    "submit": "Send my request",
+    "submitting": "Sending…",
+    "bottomNote": "Your request will be processed within 24 hours and the pick-up will take place within a maximum of 72 hours. We charge no fees whatsoever for the pick-up or the transport.",
+    "successTitle": "Request sent!",
+    "successText": "Thank you! Your request will be processed within 24 hours and the pick-up will take place within a maximum of 72 hours.",
+    "errorTitle": "An error occurred",
+    "errorText": "Your request could not be sent. Try again or call us at (450) 473-4636.",
+    "newRequest": "Send another request",
+    "errors": {
+      "titleRequired": "Choose a title",
+      "firstNameRequired": "First name is required",
+      "lastNameRequired": "Last name is required",
+      "emailInvalid": "Enter a valid email",
+      "phoneRequired": "Phone is required",
+      "addressRequired": "Address is required",
+      "cityRequired": "City is required",
+      "postalCodeInvalid": "Enter a valid postal code",
+      "certificateRequired": "Indicate whether you want a certificate",
+      "minItems": "A minimum of 10 items is required for a free pickup"
+    },
+    "totalItems": "Total items: {count}"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your equipment",
+    "ownerName": "Éric Després",
+    "ownerRole": "Owner",
+    "formTitle": "Write to us",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message"
+    },
+    "errors": {
+      "nameRequired": "Name is required",
+      "emailInvalid": "Enter a valid email",
+      "messageRequired": "Message is required"
+    },
+    "submit": "Send message",
+    "submitting": "Sending…",
+    "successTitle": "Message sent!",
+    "successText": "Thank you! We will reply within 24 hours.",
+    "errorTitle": "An error occurred",
+    "errorText": "Your message could not be sent. Try again or call us at (450) 473-4636.",
+    "mapTitle": "Info Liquidation Recycle Inc. — Saint-Eustache",
+    "directions": "Google Maps directions"
+  },
+  "blog": {
+    "eyebrow": "Blog",
+    "title": "Recycling tips and news",
+    "subtitle": "Our practical tips for recycling your computer and electronic equipment in an eco-friendly and secure way.",
+    "readArticle": "Read the article",
+    "backToBlog": "Back to blog",
+    "publishedOn": "Published on",
+    "moreArticles": "Also worth reading",
+    "articles": {
+      "cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme": {
+        "title": "Cybersecurity and IT recycling: how to protect your SMB's data",
+        "date": "2026-02-10",
+        "excerpt": "Quebec SMBs must treat professional data destruction as an essential investment. One in five hard drives sold on the secondary market still holds recoverable data.",
+        "sections": [
+          {
+            "h": "Les données oubliées dans les appareils recyclés",
+            "p": "L'Université de Guelph a démontré que les supports de stockage conservent des informations sensibles même après un formatage standard. Les données résiduelles incluent mots de passe, dossiers clients et contrats confidentiels, exposant les entreprises à des poursuites et dommages réputationnels."
+          },
+          {
+            "h": "Les obligations légales des entreprises québécoises",
+            "p": "La Loi 25 du Québec impose la destruction des renseignements personnels lorsque leur finalité est atteinte. Le non-respect expose à des sanctions administratives pouvant atteindre 10 millions de dollars ou 2 % du chiffre d'affaires mondial."
+          },
+          {
+            "h": "Bâtir un protocole de disposition sécuritaire",
+            "p": "Un protocole efficace comprend l'inventaire précis de tous les appareils contenant des données, la classification selon la sensibilité, et la documentation rigoureuse avec certificats de destruction pour prouver la conformité."
+          },
+          {
+            "h": "Les imprimantes : un angle mort de la sécurité",
+            "p": "Les imprimantes multifonctions stockent une copie de chaque document imprimé, numérisé ou faxé. Ce disque dur doit être traité avec le même soin qu'un disque d'ordinateur lors du recyclage."
+          },
+          {
+            "h": "Le BYOD et les appareils personnels",
+            "p": "La tendance du BYOD complique la disposition sécuritaire puisque les employés utilisent leurs appareils personnels pour accéder aux données d'entreprise. Une politique claire de désinscription est essentielle lors du départ des employés."
+          },
+          {
+            "h": "Choisir un prestataire de destruction de données fiable",
+            "p": "Recherchez les certifications NAID, R2 ou e-Stewards. Exigez un certificat détaillé mentionnant les numéros de série et vérifiez que le prestataire dispose d'une assurance responsabilité professionnelle."
+          }
+        ]
+      },
+      "panneaux-solaires-en-fin-de-vie-le-prochain-grand-defi-du-recyclage-electronique-au-quebec": {
+        "title": "End-of-life solar panels: the next big electronic recycling challenge in Quebec",
+        "date": "2026-01-20",
+        "excerpt": "Solar panel waste will reach 78 million cumulative tonnes worldwide by 2050. In Canada, the first generation of panels (2005-2015) is now reaching end of life.",
+        "sections": [
+          {
+            "h": "La composition d'un panneau solaire",
+            "p": "Un panneau solaire photovoltaïque se compose de 76 % de verre, 10 % de polymères, 8 % d'aluminium, 5 % de silicium et 1 % de cuivre et argent. Bien que hautement recyclable théoriquement, le défi réside dans la séparation des couches laminées et la récupération du silicium encapsulé."
+          },
+          {
+            "h": "Les procédés de recyclage actuels",
+            "p": "Deux approches coexistent : le recyclage mécanique, rapide et économique, récupère principalement le verre et l'aluminium mais perd le silicium ; le recyclage thermochimique, plus coûteux, récupère jusqu'à 95 % des matériaux, y compris le silicium de qualité solaire réutilisable."
+          },
+          {
+            "h": "Les défis spécifiques au contexte québécois",
+            "p": "Le Québec manque d'installations dédiées au recyclage de panneaux solaires à grande échelle. Les cycles de gel-dégel peuvent accélérer le vieillissement mécanique. Les entreprises de recyclage électronique récupèrent déjà les composants associés aux installations solaires."
+          },
+          {
+            "h": "Le cadre réglementaire en développement",
+            "p": "Le Canada n'a pas encore de réglementation spécifique pour ce secteur. L'Union européenne impose un taux de recyclage de 85 % depuis 2012. Le Québec pourrait intégrer les panneaux solaires dans son programme de responsabilité élargie des producteurs."
+          },
+          {
+            "h": "L'économie circulaire du solaire",
+            "p": "Une filière circulaire complète valoriserait les matériaux récupérés. Le silicium recyclé nécessite 75 % moins d'énergie que le silicium produit à partir de quartz. Ce modèle contribue à rendre l'énergie solaire durable sur tout son cycle de vie."
+          },
+          {
+            "h": "Durée de vie et substances toxiques",
+            "p": "Les panneaux garantissent 80 % de performance après 25 ans et fonctionnent souvent au-delà de 30 ans. Les panneaux à silicium cristallin contiennent de petites quantités de plomb et de cadmium, encapsulés de manière sécuritaire et traités lors du recyclage approprié."
+          }
+        ]
+      },
+      "le-passeport-numerique-des-produits-la-revolution-de-la-tracabilite-electronique-arrive-au-canada": {
+        "title": "The Digital Product Passport: electronic traceability arrives in Canada",
+        "date": "2026-01-05",
+        "excerpt": "The EU adopted the Digital Product Passport in 2024 — a tool that will accompany every electronic device from manufacture to recycling starting in 2027.",
+        "sections": [
+          {
+            "h": "Qu'est-ce que le passeport numérique des produits ?",
+            "p": "Le passeport numérique est un registre électronique accessible via QR code ou puce NFC intégrée au produit. Il contient les informations sur la composition matérielle, l'origine, les conditions de fabrication, l'empreinte carbone, les instructions de réparation et les filières de recyclage recommandées."
+          },
+          {
+            "h": "Les bénéfices pour le recyclage électronique",
+            "p": "Pour les recycleurs, le système représente une avancée majeure permettant un tri plus rapide et précis. Chaque appareil en fin de vie est accompagné de sa composition exacte, du type de plastiques utilisés et des instructions de démontage optimales."
+          },
+          {
+            "h": "L'impact sur les consommateurs canadiens",
+            "p": "Bien qu'initiative européenne, son impact sera mondial puisque les fabricants vendant en Europe devront l'intégrer. Les consommateurs canadiens pourront scanner le QR code pour connaître la composition, trouver le recycleur approprié et vérifier les options de réparation."
+          },
+          {
+            "h": "Vers une traçabilité complète de la chaîne de valeur",
+            "p": "Le passeport numérique permet de tracer un appareil de la mine au recyclage. La traçabilité documente l'extraction des matières premières, suit leur transformation, enregistre l'assemblage et note chaque réparation ou changement de propriétaire."
+          },
+          {
+            "h": "Le Canada pourrait-il adopter un système similaire ?",
+            "p": "Plusieurs signaux indiquent un intérêt canadien pour la traçabilité des produits. La Stratégie pour un Canada plus propre inclut des objectifs de circularité pouvant bénéficier d'un tel système, et les entreprises exportant vers l'Europe devront de toute façon s'y conformer."
+          },
+          {
+            "h": "Ce que contient un passeport numérique de produit",
+            "p": "Le passeport inclut la composition matérielle, l'empreinte carbone, les instructions de réparation, le guide de démontage et l'origine des matériaux. Chaque catégorie d'information répond à des besoins spécifiques des consommateurs, réparateurs et recycleurs."
+          }
+        ]
+      },
+      "batteries-de-vehicules-electriques-en-fin-de-vie-seconde-vie-et-recyclage-au-quebec": {
+        "title": "End-of-life EV batteries: second life and recycling in Quebec",
+        "date": "2025-12-15",
+        "excerpt": "Canada expects 2.4 million EVs on the road by 2030 — an unprecedented wave of batteries to manage. Quebec is building the dedicated recycling supply chain.",
+        "sections": [
+          {
+            "h": "Le tsunami annoncé des batteries de VE en fin de vie",
+            "p": "Les batteries conservent 70-80 % de leur capacité après 8-10 ans d'utilisation automobile. Les premiers véhicules électriques vendus au Québec entre 2015-2018 atteindront ce seuil critique entre 2025-2028, créant des volumes croissants à traiter."
+          },
+          {
+            "h": "La seconde vie : le stockage d'énergie stationnaire",
+            "p": "Avant recyclage, les batteries peuvent être réutilisées dans des systèmes de stockage d'énergie, alimentant des bâtiments commerciaux, stabilisant le réseau électrique, ou servant de batteries de secours pour les télécommunications. Cette réutilisation prolonge la durée de vie de 5-10 ans supplémentaires."
+          },
+          {
+            "h": "Le recyclage : récupérer les métaux stratégiques",
+            "p": "Le recyclage permet de récupérer 50-95 % des métaux contenus dans les batteries. Le cobalt, nickel, lithium et manganèse sont extraits par hydrométallurgie ou pyrométallurgie. Le cuivre et l'aluminium sont également récupérés pour réintégrer la chaîne d'approvisionnement."
+          },
+          {
+            "h": "Les défis logistiques du transport",
+            "p": "Les batteries pèsent 300-700 kg et sont classées comme marchandises dangereuses. Leur manipulation exige des équipements spécialisés, du personnel formé et des véhicules conformes aux normes de transport de matières dangereuses."
+          },
+          {
+            "h": "Le Québec développe sa filière",
+            "p": "Plusieurs projets structurants émergent : Recyc-Québec finance des recherches sur les procédés hydrométallurgiques, des entreprises développent le tri automatisé des cellules, et la proximité des usines de fabrication crée un écosystème intégré."
+          },
+          {
+            "h": "Impact environnemental du recyclage",
+            "p": "Les procédés modernes minimisent les impacts environnementaux. L'hydrométallurgie utilise des solutions chimiques en circuit fermé avec faible impact atmosphérique. Le bilan global reste largement positif en évitant l'extraction minière."
+          }
+        ]
+      },
+      "le-droit-a-la-reparation-au-canada-ce-que-ca-change-pour-vos-appareils-electroniques": {
+        "title": "The right to repair in Canada: what it changes for your electronics",
+        "date": "2025-11-28",
+        "excerpt": "In 2024 the federal government opened consultations on a national right-to-repair framework. In Quebec, Bill 29 is already putting concrete rules in place.",
+        "sections": [
+          {
+            "h": "Qu'est-ce que le droit à la réparation ?",
+            "p": "Le droit à la réparation constitue un ensemble de mesures législatives obligeant les fabricants à faciliter les réparations par les consommateurs et ateliers indépendants. Cela comprend la mise à disposition de pièces détachées à prix raisonnable, l'accès aux manuels techniques, l'interdiction des verrous logiciels, et la publication d'un indice de réparabilité pour contrer l'obsolescence programmée."
+          },
+          {
+            "h": "L'état des lieux au Canada et au Québec",
+            "p": "Le Québec figure en avance avec la Loi 29 imposant aux fabricants de garantir la disponibilité des pièces de rechange et d'afficher un indice de durabilité. Le projet de loi C-244 au fédéral vise à exempter la réparation de certaines dispositions de la Loi sur le droit d'auteur, facilitant la réparation des appareils dotés de logiciels intégrés."
+          },
+          {
+            "h": "Les impacts concrets pour les consommateurs",
+            "p": "Les consommateurs québécois réalisent des économies significatives : remplacer un écran téléphonique coûte 100-300 $ contre 800-1 500 $ pour un appareil neuf, changer la batterie 50-150 $. Ces réparations prolongent la vie utile de 2 à 5 ans, réduisant proportionnellement la production de déchets électroniques."
+          },
+          {
+            "h": "L'essor des cafés-réparation",
+            "p": "Les cafés-réparation se multiplient au Québec, offrant des ateliers communautaires où des bénévoles experts aident les citoyens à réparer gratuitement leurs appareils. Montréal compte désormais plus de 15 cafés-réparation actifs, sensibilisant le public à la réparabilité et créant du lien social."
+          },
+          {
+            "h": "Les fabricants s'adaptent",
+            "p": "Face à la pression réglementaire, les fabricants évoluent : Apple a lancé son programme Self Service Repair, Samsung propose un programme similaire avec iFixit, Framework Computer vend des ordinateurs modulaires, et Google conçoit ses Pixel avec réparabilité accrue."
+          },
+          {
+            "h": "Réparation vs remplacement : analyse coût-bénéfice",
+            "p": "Un tableau comparatif démontre des économies substantielles : écran téléphone (70-80 %), batterie portable (85-95 %), remplacement SSD (85-90 %), ajout RAM (90-95 %), port de charge (85-95 %). Ces chiffres illustrent l'intérêt financier et environnemental de la réparation."
+          }
+        ]
+      },
+      "intelligence-artificielle-et-dechets-electroniques-le-nouveau-defi-du-recyclage-en-2026": {
+        "title": "AI and e-waste: the new recycling challenge in 2026",
+        "date": "2025-11-10",
+        "excerpt": "The rise of generative AI is accelerating hardware refresh cycles, creating a massive flow of e-waste rich in precious metals.",
+        "sections": [
+          {
+            "h": "L'accélération du renouvellement des équipements",
+            "p": "L'IA exige une puissance de calcul sans précédent. Les GPU sont remplacés tous les 18-24 mois, tandis que les serveurs des centres de données, autrefois utilisés 5-7 ans, sont désormais renouvelés tous les 3 ans. Cette accélération génère des millions de tonnes d'équipements contenant des métaux rares et des composants spécialisés."
+          },
+          {
+            "h": "Les GPU : un nouveau flux de déchets précieux",
+            "p": "Une carte graphique comme la NVIDIA H100 pèse environ 3 kg et contient du cuivre, de l'or, du palladium, de l'indium et des terres rares. Avec des millions de GPU déployés mondialement, ce flux de déchets présente une valeur matérielle considérable."
+          },
+          {
+            "h": "L'IA au service du recyclage",
+            "p": "Les systèmes de vision par ordinateur identifient et trient automatiquement les composants électroniques, augmentant la précision et la vitesse du tri. Les algorithmes d'optimisation planifient les itinéraires de collecte efficaces et les modèles prédictifs anticipent les volumes de déchets."
+          },
+          {
+            "h": "Les robots trieurs intelligents",
+            "p": "Des startups développent des robots avec pinces adaptatives et caméras IA capables de désassembler les appareils composant par composant. Cette automatisation pourrait résoudre la pénurie de main-d'œuvre qualifiée et améliorer les taux de récupération."
+          },
+          {
+            "h": "Les enjeux éthiques et environnementaux",
+            "p": "La course à l'IA soulève des questions éthiques concernant les déchets générés. La consommation d'eau pour le refroidissement des centres de données est considérable, et la demande en métaux rares intensifie la pression sur les ressources minières mondiales."
+          }
+        ]
+      },
+      "nos-5-conseils-pour-un-recyclage-reussi": {
+        "title": "5 essential tips for successful electronic recycling in 2026",
+        "date": "2025-10-15",
+        "excerpt": "A practical guide to improve e-waste recycling in Quebec, where the recovery rate still sits at 25-30%.",
+        "sections": [
+          {
+            "h": "1. Protégez vos données avant tout",
+            "p": "Avant le recyclage, sauvegardez vos informations sur un disque externe ou le nuage, puis réinitialisez l'appareil complètement. Pour les données sensibles, recourez à un service professionnel de destruction certifié qui fournira un certificat de conformité."
+          },
+          {
+            "h": "2. Triez et regroupez vos appareils par catégorie",
+            "p": "Séparez les ordinateurs des téléphones et tablettes, isolez les câbles, retirez les piles amovibles et mettez les cartouches d'encre à part. Ce tri préalable facilite le travail des recycleurs et maximise la récupération des matériaux."
+          },
+          {
+            "h": "3. Choisissez le bon canal de disposition",
+            "p": "Les appareils fonctionnels de moins de 5 ans devraient être donnés ou revendus plutôt que recyclés. Pour les appareils en fin de vie, utilisez l'écocentre municipal ou contactez des services de récupération spécialisés pour les entreprises."
+          },
+          {
+            "h": "4. Manipulez les appareils en toute sécurité",
+            "p": "Les batteries gonflées nécessitent des gants et un contenant non combustible. Les écrans cathodiques contiennent du plomb et une charge électrique dangereuse. Transportez les appareils dans un véhicule bien ventilé pour éviter les risques."
+          },
+          {
+            "h": "5. Privilégiez les recycleurs certifiés",
+            "p": "Vérifiez les certifications R2 (Responsible Recycling) ou e-Stewards, qui garantissent un traitement éthique, une destruction sécurisée des données et le respect de l'environnement. Demandez les certificats de recyclage pour chaque lot."
+          }
+        ]
+      },
+      "recyclage-informatique-guide-du-filage-electrique-responsable": {
+        "title": "A responsible guide to recycling computer and electrical cabling in 2026",
+        "date": "2025-09-25",
+        "excerpt": "Computer and electrical cabling holds real economic value. A guide to cable types, responsible recovery, and best practices.",
+        "sections": [
+          {
+            "h": "Les types de filage informatique et leur composition",
+            "p": "Le secteur informatique génère une variété de câbles : les câbles d'alimentation (C13, C14, NEMA) contiennent du cuivre 16-18 AWG, les câbles Ethernet renferment des paires torsadées de cuivre fin, et les câbles de fibre optique combinent verre, kevlar et gaines plastiques. Chaque type possède une valeur de récupération distincte selon sa composition métallique."
+          },
+          {
+            "h": "Le câblage structuré d'entreprise : un gisement important",
+            "p": "Les immeubles de bureaux contiennent des centaines de mètres de câblage réseau dans leurs plénums et faux planchers. Lors de rénovations, ce câblage est souvent retiré et remplacé. Les câbles plénum ignifugés contiennent du cuivre de qualité supérieure et présentent une valeur de recyclage élevée."
+          },
+          {
+            "h": "Le processus de recyclage responsable du filage",
+            "p": "Le recyclage débute par une collecte sécuritaire sans endommager l'infrastructure. Les câbles sont triés par type et calibre, puis traités via granulation mécanique séparant le cuivre de la gaine plastique sans produits chimiques. Le cuivre granulé est fondu et coulé en lingots d'une pureté de 99 %, directement utilisable en manufacture."
+          },
+          {
+            "h": "La gestion des connecteurs et des embouts",
+            "p": "Les connecteurs RJ45, USB et HDMI méritent attention particulière. Les connecteurs plaqués or contiennent de l'or récupérable, tandis que les boîtiers métalliques renferment zinc ou aluminium recyclable. Les connecteurs de fibre optique possèdent ferrules en céramique et ressorts en acier, nécessitant un tri soigneux pour maximiser la valeur totale."
+          },
+          {
+            "h": "Guide de bonnes pratiques pour les entreprises",
+            "p": "Les entreprises doivent établir une procédure formelle de gestion des câbles usagés, désigner un espace de stockage propre et sec, tenir un registre des volumes accumulés, et établir un contrat avec un recycleur certifié pour collectes régulières. La sensibilisation des équipes techniques favorise la séparation des câbles des autres déchets."
+          }
+        ]
+      },
+      "destruction-securisee-des-disques-durs-protegez-vos-donnees-sensibles": {
+        "title": "Secure hard-drive destruction: protect your data and comply with Law 25",
+        "date": "2025-09-05",
+        "excerpt": "Quebec's Law 25 imposes strict obligations for destroying personal data, with penalties reaching $25 million.",
+        "sections": [
+          {
+            "h": "Pourquoi un simple effacement ne suffit pas",
+            "p": "Supprimer des fichiers ou formater un disque dur ne détruit pas réellement les données. Des logiciels gratuits comme Recuva peuvent restaurer des fichiers « supprimés » en quelques clics. Des laboratoires spécialisés peuvent même récupérer des données après un formatage complet. Pour une destruction réelle, des méthodes certifiées sont indispensables."
+          },
+          {
+            "h": "Les normes et certifications de destruction",
+            "p": "Le NIST SP 800-88 est la référence nord-américaine, classant les méthodes en trois niveaux : Clear, Purge et Destroy. La norme CSA-STAR fournit des lignes directrices canadiennes spécifiques. Les entreprises de récupération d'équipements informatiques suivent ces protocoles certifiés."
+          },
+          {
+            "h": "La destruction sur site vs hors site",
+            "p": "La destruction sur site offre le niveau de sécurité maximal avec un camion équipé se déplaçant dans vos locaux. La destruction hors site est plus économique pour les gros volumes. Dans les deux cas, un certificat de destruction nominatif est fourni pour chaque lot traité."
+          },
+          {
+            "h": "Le certificat de destruction : votre preuve de conformité",
+            "p": "Un certificat professionnel documente la date, la méthode, les numéros de série et l'identité du responsable. Ce document est essentiel pour démontrer la conformité à la Loi 25 et aux réglementations sectorielles. Conservez ces certificats pendant au moins 7 ans."
+          },
+          {
+            "h": "Au-delà des disques durs : les autres supports à détruire",
+            "p": "Les clés USB, cartes SD, bandes de sauvegarde, téléphones, tablettes, imprimantes et photocopieurs peuvent contenir des données sensibles. Les services de recyclage incluent la destruction sécurisée des données de ces appareils. N'oubliez pas non plus les documents papier."
+          },
+          {
+            "h": "Niveaux de sécurité selon le type de données",
+            "p": "Les données personnelles nécessitent un niveau Purge avec effacement certifié. Les données financières nécessitent une démagnétisation. Les données médicales et les secrets commerciaux nécessitent une destruction physique par broyage. Les données gouvernementales classifiées requièrent broyage plus incinération des résidus."
+          }
+        ]
+      },
+      "gestion-ecologique-des-dechets-electroniques-a-montreal": {
+        "title": "Ecological e-waste management in Montreal: 2026 outlook",
+        "date": "2025-08-20",
+        "excerpt": "Montreal has committed to diverting 85% of waste from landfill by 2030. The city has a full-service e-waste collection network.",
+        "sections": [
+          {
+            "h": "L'écosystème montréalais de gestion des e-déchets",
+            "p": "Montréal possède sept écocentres gratuits répartis sur son territoire, complétés par le programme Recycle mes électroniques de l'ARPE-Québec qui finance des points de dépôt dans les commerces. Des entreprises privées certifiées assurent la collecte commerciale tandis que des organismes communautaires comme Insertech et OPEQ contribuent à réemploi et l'économie sociale."
+          },
+          {
+            "h": "Les défis spécifiques à une grande ville",
+            "p": "La densité urbaine crée des obstacles logistiques particuliers. Les résidents d'appartements manquent de moyens de transport pour acheminer des appareils encombrants aux écocentres, tandis que les petites entreprises du centre-ville disposent d'espaces de stockage limités. Ces contraintes pratiques expliquent des taux de recyclage insuffisants malgré l'infrastructure disponible."
+          },
+          {
+            "h": "Les solutions innovantes déployées à Montréal",
+            "p": "Plusieurs initiatives émergentes améliorent la collecte : des collectes mobiles sillonnent les arrondissements selon un calendrier annuel, des applications mobiles géolocalisent les points de dépôt, et des projets pilotes de consignes sur appareils sont à l'étude. Des partenariats avec les transports facilitent l'accès aux écocentres."
+          },
+          {
+            "h": "Le rôle des arrondissements",
+            "p": "Chaque arrondissement adapte les services à sa réalité locale. Les arrondissements périphériques avec maisons unifamiliales génèrent davantage de gros appareils comme téléviseurs et ordinateurs de bureau, tandis que les secteurs centraux produisent surtout des petits appareils portables, nécessitant des approches différenciées."
+          },
+          {
+            "h": "L'avenir de la gestion des e-déchets à Montréal",
+            "p": "La ville travaille sur plusieurs fronts : augmenter les points de dépôt de proximité dans les quartiers denses, développer une filière locale pour les batteries de véhicules électriques, intégrer l'économie circulaire dans les achats municipaux, et sensibiliser les jeunes par des programmes scolaires."
+          }
+        ]
+      }
+    }
+  },
+  "city": {
+    "eyebrow": "Service area",
+    "title": "Computer and electronic recycling in {city}",
+    "intro": "Info Liquidation Recycle offers a free pick-up service for computer and electronic equipment in {city} and everywhere in Greater Montreal. Your request is processed within 24 hours and the pick-up carried out within a maximum of 72 hours — at no charge.",
+    "regionLabels": {
+      "montreal": "Island of Montreal",
+      "laval": "Laval",
+      "rive-nord": "North Shore",
+      "rive-sud": "South Shore"
+    },
+    "southShoreNote": "For the South Shore, we travel for 50 items or more.",
+    "minNote": "Minimum of 10 items for a free pickup.",
+    "whatTitle": "What we recover in {city}",
+    "whatText": "Laptop and desktop computers, screens, printers, CD drives, phones, batteries and any computer equipment — regardless of the equipment's age or condition.",
+    "servicesTitle": "Our services in {city}",
+    "howTitle": "How does it work?",
+    "ctaTitle": "Need a pick-up in {city}?",
+    "ctaText": "Fill out the form: reply within 24 hours, free pick-up within 72 hours maximum.",
+    "otherCities": "Other cities served"
+  },
+  "footer": {
+    "bannerTitle": "FREE pick-up service — Greater Montreal",
+    "bannerCta": "Request a pick-up",
+    "aboutText": "We collect and process your end-of-life computer and electronic equipment, in strict compliance with the latest legislation.",
+    "navTitle": "Navigation",
+    "servicesTitle": "Services",
+    "citiesTitle": "Cities served",
+    "contactTitle": "Contact information",
+    "facebookLabel": "Follow us on Facebook",
+    "copyright": "© 2026 Info Liquidation Recycle",
+    "sitemap": "Sitemap"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has been moved.",
+    "back": "Back to home"
+  },
+  "merci": {
+    "title": "Thank you for your request!",
+    "intro": "We've received your pickup request. A team member will contact you within 24 business hours to confirm date and address.",
+    "next": "A confirmation email was just sent — check your inbox (and the spam folder just in case).",
+    "home": "Back to home",
+    "contact": "Contact us",
+    "urgent": "Need it faster? Call us at"
+  },
+  "cookies": {
+    "eyebrow": "Privacy · Law 25",
+    "title": "Cookie policy",
+    "intro": "This policy explains how Info Liquidation Recycle uses cookies and similar technologies when you visit infoliquidationrecycle.com, in compliance with Quebec's Law 25 and applicable Canadian laws.",
+    "sections": [
+      {
+        "h": "What is a cookie?",
+        "p": "A cookie is a small text file placed on your device by the site you visit. It allows the site to recognize your browser, remember certain choices (such as language) and measure page audience."
+      },
+      {
+        "h": "Cookies we use",
+        "p": "We only use strictly necessary cookies for the site to function (language preferences, form submissions, security). No analytics or advertising cookies are activated without your prior consent."
+      },
+      {
+        "h": "Your consent",
+        "p": "On your first visit, a banner informs you about cookie use. You can accept or refuse non-essential cookies. You can change your choice at any time by clearing cookies from your browser."
+      },
+      {
+        "h": "Retention period",
+        "p": "Strictly necessary cookies are kept for the duration of the session or for a maximum of 12 months. No personal data is associated with these cookies."
+      },
+      {
+        "h": "Your rights",
+        "p": "Under Law 25, you may at any time request access, correction or deletion of personal information we hold about you. For questions, email info@infoliquidationrecycle.com."
+      },
+      {
+        "h": "Changes",
+        "p": "We may update this cookie policy. The last update date appears at the bottom of the page. Changes take effect as soon as they are published on the site."
+      }
+    ]
+  },
+  "cookieBanner": {
+    "message": "We only use strictly necessary cookies to operate the site (Quebec Law 25).",
+    "accept": "Got it",
+    "learnMore": "Learn more"
+  }
+}

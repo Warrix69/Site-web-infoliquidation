@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx *)",
+      "Bash(npm *)",
+      "Bash(node *)",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(sed *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(ls)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(where *)",
+      "Bash(grep *)",
+      "Bash(echo *)",
+      "Bash(bash *)",
+      "Bash(printf *)",
+      "Bash(timeout *)",
+      "Bash(test *)",
+      "Bash(curl *)",
+      "PowerShell(powercfg *)",
+      "PowerShell(npm *)",
+      "PowerShell(npx *)",
+      "PowerShell(Get-* *)",
+      "PowerShell(Add-Type *)",
+      "WebFetch(domain:infoliquidationrecycle.com)",
+      "WebFetch(domain:infoliquidationrecycle.vercel.app)",
+      "WebFetch(domain:vercel.app)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:ebay.ca)",
+      "WebFetch(domain:ebay.com)",
+      "Skill(schedule)"
+    ]
+  }
+}
