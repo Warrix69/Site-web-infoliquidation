@@ -1,15 +1,66 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { DeviceKey } from "./HeroDevices";
+import { HeroDevicesFallback } from "./HeroDevicesFallback";
 
 const HeroDevices = dynamic(() => import("./HeroDevices").then((m) => m.HeroDevices), {
   ssr: false,
   loading: () => <HeroDevicesSkeleton />
 });
+
+/** Détecte si le navigateur supporte WebGL. */
+function hasWebGL(): boolean {
+  if (typeof window === "undefined") return true; // SSR : optimiste
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      canvas.getContext("webgl2") ||
+      canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl")
+    );
+  } catch {
+    return false;
+  }
+}
+
+/** Error boundary : si Three.js crash, affiche le fallback statique. */
+class ThreeErrorBoundary extends Component<
+  { children: ReactNode; fallback: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error: Error) {
+    console.warn("[Hero3D] fallback déclenché :", error.message);
+  }
+  render() {
+    return this.state.hasError ? this.props.fallback : this.props.children;
+  }
+}
+
+/**
+ * Wrapper : affiche le fallback statique si pas de WebGL,
+ * sinon tente le 3D avec protection en cas de crash runtime.
+ */
+function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) => void }) {
+  const [webglOk, setWebglOk] = useState<boolean | null>(null);
+  useEffect(() => {
+    setWebglOk(hasWebGL());
+  }, []);
+  if (webglOk === null) return <HeroDevicesSkeleton />;
+  if (!webglOk) return <HeroDevicesFallback />;
+  return (
+    <ThreeErrorBoundary fallback={<HeroDevicesFallback />}>
+      <HeroDevices onDeviceChange={onDeviceChange} />
+    </ThreeErrorBoundary>
+  );
+}
 
 /**
  * Précharge le chunk HeroDevices (Three + drei + PBR) dès que le script
@@ -287,7 +338,7 @@ export function Hero({ labels }: { labels: HeroLabels }) {
         <div className="relative mt-8 w-full" style={{ minHeight: "220vh" }}>
           <div className="sticky top-20 mx-auto flex w-full max-w-3xl flex-col items-center">
             <div className="pointer-events-none relative h-[62vh] max-h-[560px] min-h-[380px] w-full">
-              <HeroDevices onDeviceChange={setDevice} />
+              <SafeHeroDevices onDeviceChange={setDevice} />
             </div>
 
             {/* Nom de l'appareil courant + pastilles d'index — juste sous le canvas */}
