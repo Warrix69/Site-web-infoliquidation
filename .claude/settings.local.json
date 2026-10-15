@@ -33,7 +33,11 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:ebay.ca)",
       "WebFetch(domain:ebay.com)",
-      "Skill(schedule)"
+      "Skill(schedule)",
+      "Bash(cp \"C:/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/90b25ca1-975d-4f2a-8775-ab0e4ceee481/images/28.webp\" \"C:/Users/Admin/Documents/Site Infoliquidation recycle/public/images/hero-poubelle.webp\" && ls -la \"C:/Users/Admin/Documents/Site Infoliquidation recycle/public/images/hero-poubelle.webp\")",
+      "Bash(npx tsc *)",
+      "Bash(touch src/components/home/Hero.tsx)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)"
     ]
   }
 }

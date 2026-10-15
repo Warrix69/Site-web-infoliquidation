@@ -94,21 +94,21 @@ export function Header({ locale, labels }: HeaderProps) {
 
   return (
     <div className="fixed inset-x-0 top-0 z-50">
-      {/* Topbar */}
+      {/* Topbar — vert accent */}
       <div
-        className={`overflow-hidden bg-surface-2/95 transition-all duration-300 ${
+        className={`overflow-hidden bg-emerald transition-all duration-300 ${
           scrolled ? "max-h-0" : "max-h-12"
         }`}
       >
         <div className="mx-auto flex h-10 w-full max-w-6xl items-center justify-between gap-4 px-5 text-xs sm:px-8">
           <a
             href={SITE.phoneHref}
-            className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-emerald transition-colors hover:text-lime"
+            className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-paper transition-opacity hover:opacity-90"
           >
             <Phone className="h-3.5 w-3.5" aria-hidden="true" />
             {SITE.phoneDisplay}
           </a>
-          <p className="hidden truncate text-moss md:block">{labels.topbarMessage}</p>
+          <p className="hidden truncate text-paper/90 md:block">{labels.topbarMessage}</p>
           <LangSwitcher currentLocale={locale} label={labels.langSwitchLabel} />
         </div>
       </div>
@@ -121,7 +121,7 @@ export function Header({ locale, labels }: HeaderProps) {
       >
         <div className="mx-auto flex h-[72px] w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
           <Link href="/" aria-label="Info Liquidation Recycle" className="shrink-0">
-            <LogoPlaque width={132} priority />
+            <LogoPlaque width={180} priority />
           </Link>
 
           {/* Nav desktop */}
@@ -216,6 +216,7 @@ export function Header({ locale, labels }: HeaderProps) {
                 <Link
                   key={item.route}
                   href={item.route}
+                  onClick={() => setMobileOpen(false)}
                   className="rounded-xl px-4 py-3 font-display text-base font-semibold text-mist hover:bg-emerald-soft hover:text-emerald"
                 >
                   {item.label}
@@ -228,6 +229,7 @@ export function Header({ locale, labels }: HeaderProps) {
                 <Link
                   key={service.route}
                   href={service.route}
+                  onClick={() => setMobileOpen(false)}
                   className="rounded-xl px-4 py-2.5 text-sm text-mist/90 hover:bg-emerald-soft hover:text-emerald"
                 >
                   {service.title}
@@ -238,6 +240,7 @@ export function Header({ locale, labels }: HeaderProps) {
                 <Link
                   key={item.route}
                   href={item.route}
+                  onClick={() => setMobileOpen(false)}
                   className="rounded-xl px-4 py-3 font-display text-base font-semibold text-mist hover:bg-emerald-soft hover:text-emerald"
                 >
                   {item.label}
@@ -245,6 +248,7 @@ export function Header({ locale, labels }: HeaderProps) {
               ))}
               <Link
                 href="/formulaire-de-ramassage"
+                onClick={() => setMobileOpen(false)}
                 className="mt-3 inline-flex items-center justify-center rounded-full bg-gradient-accent px-5 py-3 font-display text-sm font-bold text-ink shadow-glow"
               >
                 {labels.cta}

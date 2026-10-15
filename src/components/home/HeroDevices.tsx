@@ -74,11 +74,17 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
 
   useEffect(() => {
     const update = () => {
-      const section = document.querySelector("section");
+      const section =
+        (document.querySelector("[data-hero-3d]") as HTMLElement | null) ||
+        document.querySelector("section");
       if (!section) return;
       const rect = section.getBoundingClientRect();
-      const h = rect.height;
-      const p = Math.min(1, Math.max(0, -rect.top / h));
+      // Progress basé sur le passage de la section dans le viewport :
+      // 0 = section tout en bas, 1 = section tout en haut (hors du viewport).
+      // Marche même quand la section fait exactement 1 viewport.
+      const total = rect.height + window.innerHeight;
+      const traveled = window.innerHeight - rect.top;
+      const p = Math.min(1, Math.max(0, traveled / total));
       scrollRef.current = p;
     };
     update();
@@ -99,7 +105,12 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
   });
 
   useFrame((state) => {
-    const p = reduce ? 0 : scrollRef.current;
+    const rawP = reduce ? 0 : scrollRef.current;
+    // Le laptop reste visible un peu plus longtemps : les 28% premiers du scroll,
+    // puis les 4 autres appareils se partagent les 72% restants.
+    const LAPTOP_HOLD = 0.28;
+    const p =
+      rawP < LAPTOP_HOLD ? 0 : (rawP - LAPTOP_HOLD) / (1 - LAPTOP_HOLD);
     const stepSize = 1 / DEVICES.length;
     const idxFloat = p / stepSize;
     const currentIdx = Math.min(DEVICES.length - 1, Math.floor(idxFloat));

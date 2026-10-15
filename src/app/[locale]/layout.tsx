@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
+import { IBM_Plex_Sans, Inter, JetBrains_Mono, Poppins, Space_Grotesk } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -15,6 +15,20 @@ const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap"
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-tech",
+  weight: ["400", "500", "600", "700"],
+  display: "swap"
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  variable: "--font-hero",
+  weight: ["400", "500", "600", "700"],
   display: "swap"
 });
 
@@ -148,7 +162,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`${poppins.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang={locale} className={`${poppins.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a
           href="#main"
