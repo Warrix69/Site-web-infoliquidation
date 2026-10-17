@@ -37,7 +37,12 @@
       "Bash(cp \"C:/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/90b25ca1-975d-4f2a-8775-ab0e4ceee481/images/28.webp\" \"C:/Users/Admin/Documents/Site Infoliquidation recycle/public/images/hero-poubelle.webp\" && ls -la \"C:/Users/Admin/Documents/Site Infoliquidation recycle/public/images/hero-poubelle.webp\")",
       "Bash(npx tsc *)",
       "Bash(touch src/components/home/Hero.tsx)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(mkdir -p /c/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/5c4af729-c4ff-4854-a4d6-55fb8eb03a9a/scratchpad/scrollcraft)",
+      "Bash(unzip -o -q '/c/Users/Admin/Documents/Claude skills/scroll-craft-main.zip' -d /c/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/5c4af729-c4ff-4854-a4d6-55fb8eb03a9a/scratchpad/scrollcraft)",
+      "Read(//c/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/5c4af729-c4ff-4854-a4d6-55fb8eb03a9a/scratchpad/**)",
+      "Read(//c/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/5c4af729-c4ff-4854-a4d6-55fb8eb03a9a/scratchpad/scrollcraft/scroll-craft-main/plugins/nateherk-design/skills/scroll-craft/**)",
+      "Read(//c/Users/Admin/AppData/Local/Temp/claude/C--Users-Admin-Documents-Site-Infoliquidation-recycle/5c4af729-c4ff-4854-a4d6-55fb8eb03a9a/scratchpad/scrollcraft/scroll-craft-main/plugins/nateherk-design/skills/scroll-craft/scripts/**)"
     ]
   }
 }

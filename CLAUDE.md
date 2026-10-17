@@ -2,6 +2,31 @@
 
 Next.js 15 (App Router) + TS + Tailwind v4 + next-intl + Framer Motion + Resend.
 
+## Règles d'économie de tokens (IMPORTANT — appliquer en permanence)
+
+**Lecture de fichiers**
+- Toujours `Grep` d'abord pour localiser avant de `Read`.
+- `Read` avec `offset` + `limit` ciblés (jamais le fichier entier sauf si <50 lignes).
+- Ne jamais relire un fichier qu'on vient d'éditer (Edit a déjà confirmé le succès).
+- Les gros fichiers (`public/admin/dashboard.html` 190Ko, `src/messages/*.json`) : toujours `Grep` + `Read` ciblé.
+
+**Vérifications visuelles**
+- Pas de screenshot sauf si (a) l'utilisateur demande explicitement de voir, (b) changement critique de layout, ou (c) debug visuel d'un bug reproduit par l'user.
+- Pour les simples changements de texte/couleur/padding : zéro screenshot, zéro vérification browser.
+- Pour les changements de code logique : TypeScript check seulement (`npx tsc --noEmit`), pas de dev server reload.
+
+**Édition et outils**
+- Grouper les Edit multiples dans un même message en parallèle.
+- Pas de narration avant/pendant les tool calls (« je vais faire X, maintenant Y »).
+- Pas de récap verbeux à la fin — 1-2 phrases max : ce qui a changé + fichier.
+- Pas de `TaskCreate` sauf si l'user demande ou si >5 étapes.
+
+**Déploiements et vérifications prod**
+- Après `npx vercel --prod --yes` : juste confirmer le status Ready, pas de screenshot Vercel.
+- `git push` + `vercel deploy` groupés en une seule commande chaînée.
+
+**Si l'user donne un feedback vague** (« c'est laid », « rend-le mieux ») : demander 1 question précise AVANT d'itérer, pas essayer 3 versions.
+
 ## Direction artistique
 
 - Palette stricte : vert (#16A34A, accent #22C55E), blanc (#FFFFFF), gris (#F4F4F5 / #71717A / #27272A), noir (#0A0A0A). Le vert sert d'accent (CTA, mots clés, chips), jamais de fond principal.

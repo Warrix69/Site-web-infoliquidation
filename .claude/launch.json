@@ -6,6 +6,18 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "prototype",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Admin/.claude/skills/scroll-craft/scripts/serve.mjs", "--root", "scrollcraft/builds/ilr-rapport", "--port", "4500"],
+      "port": 4500
+    },
+    {
+      "name": "admin-static",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/Admin/.claude/skills/scroll-craft/scripts/serve.mjs", "--root", "public", "--port", "4510"],
+      "port": 4510
     }
   ]
 }
