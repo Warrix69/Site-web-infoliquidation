@@ -1,0 +1,9 @@
+node_modules/
+lab/
+package-lock.json
+# generated originals and check images (heavy, re-creatable)
+out/*.png
+out/*.jpg
+out/*.log
+out/parts/
+out/index-v2-backup.html
