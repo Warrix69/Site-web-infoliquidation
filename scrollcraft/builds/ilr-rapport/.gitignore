@@ -7,3 +7,6 @@ out/*.jpg
 out/*.log
 out/parts/
 out/index-v2-backup.html
+
+.vercel
+.env*

@@ -1,0 +1,10 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    { "source": "/admin", "destination": "https://infoliquidationrecycle.vercel.app/admin" },
+    { "source": "/admin/", "destination": "https://infoliquidationrecycle.vercel.app/admin" },
+    { "source": "/admin/:path*", "destination": "https://infoliquidationrecycle.vercel.app/admin/:path*" },
+    { "source": "/api/:path*", "destination": "https://infoliquidationrecycle.vercel.app/api/:path*" },
+    { "source": "/favicon-logo.png", "destination": "https://infoliquidationrecycle.vercel.app/favicon-logo.png" }
+  ]
+}

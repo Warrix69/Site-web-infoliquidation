@@ -1,0 +1,14 @@
+node_modules
+lab
+out
+package.json
+package-lock.json
+build.mjs
+index.src.html
+home.i18n.json
+BRIEF.md
+.gitignore
+.env*
+.vercel
+vercel.json.bak
+admin
