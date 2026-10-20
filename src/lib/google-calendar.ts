@@ -69,3 +69,15 @@ export async function createEvent(input: {
   });
   return res.data;
 }
+
+/** Message d'erreur lisible pour le dashboard (clé manquante, token expiré, etc.). */
+export function describeGoogleError(err: unknown): string {
+  const message = err instanceof Error ? err.message : "Unknown error";
+  if (/invalid_grant/i.test(message)) {
+    return "Google Calendar : GOOGLE_REFRESH_TOKEN expiré ou révoqué. Refaire l'autorisation via /api/google/auth-start puis mettre à jour la variable (.env.local + Vercel).";
+  }
+  if (/invalid_client/i.test(message)) {
+    return "Google Calendar : GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET invalides.";
+  }
+  return message;
+}

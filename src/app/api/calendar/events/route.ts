@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createEvent, listEvents } from "@/lib/google-calendar";
+import { createEvent, describeGoogleError, listEvents } from "@/lib/google-calendar";
 
 /**
  * GET /api/calendar/events?from=2026-10-08&to=2026-10-15
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
       }
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
+    const message = describeGoogleError(err);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ event });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
+    const message = describeGoogleError(err);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

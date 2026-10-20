@@ -45,6 +45,24 @@ export async function GET(request: Request) {
       `);
     }
 
+    // En local : on écrit directement le token dans .env.local (rien à copier-coller)
+    if (process.env.NODE_ENV === "development") {
+      const { readFile, writeFile } = await import("node:fs/promises");
+      const { join } = await import("node:path");
+      const envPath = join(process.cwd(), ".env.local");
+      const env = await readFile(envPath, "utf8");
+      const line = `GOOGLE_REFRESH_TOKEN=${refreshToken}`;
+      const next = /^GOOGLE_REFRESH_TOKEN=.*$/m.test(env)
+        ? env.replace(/^GOOGLE_REFRESH_TOKEN=.*$/m, line)
+        : `${env.trimEnd()}\n${line}\n`;
+      await writeFile(envPath, next, "utf8");
+      return htmlPage(`
+        <h1 style="color:#16a34a">✅ Nouveau token Google enregistré</h1>
+        <p><code>GOOGLE_REFRESH_TOKEN</code> a été mis à jour dans <code>.env.local</code>.</p>
+        <p>Tu peux fermer cette page et retourner sur <a href="/admin">/admin</a>.</p>
+      `);
+    }
+
     return htmlPage(`
       <h1 style="color:#16a34a">✅ Refresh token obtenu !</h1>
       <p>Copie cette valeur et colle-la dans <code>.env.local</code> à la place de la valeur actuelle de <code>GOOGLE_REFRESH_TOKEN</code> :</p>

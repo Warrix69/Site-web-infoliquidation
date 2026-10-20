@@ -1351,7 +1351,10 @@ function canonicalClientName(raw){return raw
   .replace(/\s*-\s*(?:a\s+partir|from)\s+.+$/i,'')      // "- A PARTIR 6 OCTOBRE"
   .replace(/\s+/g,' ').trim()}
 function clientSlug(name){return 'gcal-'+canonicalClientName(name).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)}
-async function fetchCalendarPickups(){try{const r=await fetch('/api/calendar/events?from='+iso(new Date(new Date().getFullYear(),new Date().getMonth()-1,1))+'&to='+iso(new Date(new Date().getFullYear(),new Date().getMonth()+3,0)));if(!r.ok)return;const{events}=await r.json();
+// Erreurs API (clé manquante, token expiré…) : un seul toast par message, pas de bascule silencieuse
+const __apiErrors=new Map();
+function reportApiError(src,msg){console.warn('['+src+']',msg);if(__apiErrors.get(src)===msg)return;__apiErrors.set(src,msg);showToast(src+' indisponible — '+msg,'error')}
+async function fetchCalendarPickups(){try{const r=await fetch('/api/calendar/events?from='+iso(new Date(new Date().getFullYear(),new Date().getMonth()-1,1))+'&to='+iso(new Date(new Date().getFullYear(),new Date().getMonth()+3,0)));const body=await r.json().catch(()=>({error:'HTTP '+r.status}));if(!r.ok||body.error){reportApiError('Google Calendar',body.error||('HTTP '+r.status));return}__apiErrors.delete('Google Calendar');const{events}=body;
 const mapped=events.map(e=>{const dt=new Date(e.start);const dateStr=iso(dt);const timeStr=e.allDay?'09:00':`${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;const statusMap={confirmed:'confirmed',tentative:'pending',cancelled:'completed'};const rawName=e.title.replace(/^(Ramassage|Pickup)\s*[:—-]?\s*/i,'').trim()||e.title;const canonical=canonicalClientName(rawName);const cid=clientSlug(rawName);return{id:e.id,clientId:cid,clientName:canonical,date:dateStr,time:timeStr,items:e.description||'Via Google Calendar',status:statusMap[e.status]||'pending',notes:(e.location?'📍 '+e.location+'\n':'')+(e.description||'')}});
 // Détection de nouveaux ramassages (ne joue pas au premier chargement)
 const currentIds=new Set(mapped.map(m=>m.id));if(!__firstFetch){const newOnes=mapped.filter(m=>!__knownEventIds.has(m.id));for(const n of newOnes){playNotificationSound();showToast('🔔 Nouveau ramassage : '+n.clientName+' — '+n.date+' à '+n.time);addNotif('pickup','Nouveau ramassage : '+n.clientName,n.date+' à '+n.time)}}
@@ -1374,7 +1377,7 @@ let EBAY_STATS={today:0,week7:0,month31:0,month90:0,changePct31:0};
 let EBAY_ACTIONS={toShip:0,unreadMessages:0,eligibleOffers:0,disputes:0,returns:0};
 let EBAY_RECENT_ORDERS=[]; // vraies commandes eBay (depuis l'API)
 // Fetch des vraies données eBay depuis l'API — refresh auto toutes les 60s
-async function fetchEbayData(){try{const r=await fetch('/api/ebay/summary');if(!r.ok)return;const d=await r.json();if(d.error){console.warn('[eBay]',d.error);return}
+async function fetchEbayData(){try{const r=await fetch('/api/ebay/summary');const d=await r.json().catch(()=>({error:'HTTP '+r.status}));if(!r.ok||d.error){reportApiError('eBay',d.error||('HTTP '+r.status));return}__apiErrors.delete('eBay');
 EBAY_STATS={today:d.salesToday||0,week7:d.sales7d||0,month31:d.sales30d||0,month90:d.sales90d||d.sales30d||0,changePct31:0};
 EBAY_ACTIONS={toShip:d.awaitingShipCount||0,unreadMessages:EBAY_ACTIONS.unreadMessages,eligibleOffers:d.listings||0,disputes:EBAY_ACTIONS.disputes,returns:d.returns||0};
 EBAY_RECENT_ORDERS=Array.isArray(d.orders)?d.orders:[];

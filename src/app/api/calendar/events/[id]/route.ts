@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCalendarClient, CALENDAR_ID } from "@/lib/google-calendar";
+import { getCalendarClient, CALENDAR_ID, describeGoogleError } from "@/lib/google-calendar";
 
 /**
  * PATCH /api/calendar/events/:id
@@ -29,7 +29,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     return NextResponse.json({ event: res.data });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
+    const message = describeGoogleError(err);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -45,7 +45,7 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     await cal.events.delete({ calendarId: CALENDAR_ID, eventId: id });
     return NextResponse.json({ ok: true });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
+    const message = describeGoogleError(err);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
