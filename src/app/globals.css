@@ -13,8 +13,8 @@
   --color-cream: #faf7f1;         /* fond alterné doux (sable très clair) */
   --color-forest: #0c0f0d;        /* noir profond : sections fortes */
   --color-forest-deep: #060807;   /* noir le plus profond : pied de page */
-  --color-vivid: #22c55e;         /* vert recyclage flash (marque) : grands aplats, texte noir */
-  --color-vivid-deep: #16a34a;    /* vert vif soutenu : appel final */
+  --color-vivid: #00f060;         /* vert recyclage flash (marque) : grands aplats, texte noir */
+  --color-vivid-deep: #00d452;    /* vert vif soutenu : appel final */
   --color-sand: #f3eee4;          /* sable chaud : sections douces */
   --color-sand-deep: #e9e1d2;     /* sable soutenu : bordures, cartes */
   --color-ink: #0a0a0a;           /* noir profond pour CTA + sections sombres */
@@ -23,9 +23,9 @@
   --color-surface-2: #e9e1d2;     /* surface élevée (sable soutenu) */
   --color-mist: #0a0a0a;          /* texte principal (anciennement blanc, flip) */
   --color-moss: #4f5650;          /* texte secondaire */
-  --color-emerald: #16a34a;       /* vert accent principal */
-  --color-lime: #22c55e;          /* vert accent plus clair */
-  --color-emerald-soft: rgba(22, 163, 74, 0.1);
+  --color-emerald: #01a447;       /* vert accent principal */
+  --color-lime: #00f060;          /* vert accent plus clair */
+  --color-emerald-soft: rgba(1,164,71, 0.1);
   --color-line: rgba(10, 10, 10, 0.08);         /* bordures très subtiles */
   --color-line-strong: rgba(10, 10, 10, 0.14);
 
@@ -35,8 +35,8 @@
   --font-manifest: var(--font-mono), "SF Mono", Menlo, Consolas, monospace;
 
   /* Ombres */
-  --shadow-glow: 0 10px 30px rgba(22, 163, 74, 0.18);
-  --shadow-glow-lg: 0 20px 60px rgba(22, 163, 74, 0.25);
+  --shadow-glow: 0 10px 30px rgba(1,164,71, 0.18);
+  --shadow-glow-lg: 0 20px 60px rgba(1,164,71, 0.25);
   --shadow-card: 0 1px 2px rgba(10, 10, 10, 0.04), 0 8px 28px rgba(10, 10, 10, 0.06);
   --shadow-card-dark: 0 8px 30px rgba(0, 0, 0, 0.35);
 
@@ -51,12 +51,41 @@
   --animate-sweep: sweep 6s ease-in-out infinite;
 }
 
+/* Écrans à large gamme (téléphones, Mac, écrans récents) : vert néon encore plus vif,
+   l’émeraude (texte sur blanc) reste assez foncé pour être lisible */
+@media (color-gamut: p3) {
+  :root {
+    --color-vivid: oklch(83.3% 0.339 147.7);
+    --color-lime: oklch(83.3% 0.339 147.7);
+    --color-vivid-deep: oklch(75.8% 0.312 147.4);
+    --color-emerald: oklch(62.7% 0.246 149.2);
+  }
+  .bg-gradient-accent {
+    background-color: oklch(81.2% 0.332 147.6);
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* Base                                                                */
 /* ------------------------------------------------------------------ */
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Lenis (défilement lissé à la souris) : évite le double lissage avec scroll-behavior */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
@@ -92,7 +121,7 @@ body {
   --color-surface-2: #1f2622;
   --color-line: rgba(255, 255, 255, 0.12);
   --color-line-strong: rgba(255, 255, 255, 0.2);
-  --color-emerald-soft: rgba(74, 222, 128, 0.14);
+  --color-emerald-soft: rgba(6,226,116, 0.14);
 }
 
 /* ------------------------------------------------------------------ */
@@ -155,12 +184,12 @@ body {
 }
 
 [data-theme="dark"] .text-gradient {
-  color: #4ade80;
+  color: #00f060;
 }
 
 /* Fond des boutons principaux : vert plein (texte encre au-dessus) */
 @utility bg-gradient-accent {
-  background-color: #2fb764;
+  background-color: #00e85c;
 }
 
 /* Quadrillé retiré du design (trop « généré ») : la classe ne dessine plus rien */

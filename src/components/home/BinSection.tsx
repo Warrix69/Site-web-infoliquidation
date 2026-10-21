@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 
@@ -166,6 +167,16 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
 
   const full = count >= TOTAL;
 
+  // Petite pluie de confettis quand le 10e appareil tombe dans le bac
+  const [confetti, setConfetti] = useState(0);
+  const wasFull = useRef(false);
+  useEffect(() => {
+    if (full && !wasFull.current && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setConfetti((c) => c + 1);
+    }
+    wasFull.current = full;
+  }, [full]);
+
   const shake = () => {
     setShaking(false);
     requestAnimationFrame(() => setShaking(true));
@@ -200,10 +211,12 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                     <p className="text-sm font-semibold text-ink">{labels.full}</p>
                     <Link
                       href="/formulaire-de-ramassage"
-                      className="group inline-flex items-center gap-2 self-start rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-emerald"
+                      className="group inline-flex items-center gap-2.5 self-start rounded-full bg-lime py-2 pl-5 pr-2 text-sm font-semibold text-ink ring-2 ring-lime transition-[background-color,color,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-paper hover:text-emerald active:scale-[0.98]"
                     >
                       {cta}
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-paper text-emerald transition-colors duration-300 group-hover:bg-lime group-hover:text-ink">
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                      </span>
                     </Link>
                   </div>
                 ) : (
@@ -279,7 +292,7 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                     <span
                       ref={glowRef}
                       aria-hidden="true"
-                      className="absolute inset-0 z-30 opacity-0 [filter:drop-shadow(0_0_14px_rgba(34,197,94,0.75))]"
+                      className="absolute inset-0 z-30 opacity-0 [filter:drop-shadow(0_0_14px_rgba(0,198,90,0.75))]"
                     >
                       <span
                         className="absolute inset-0 bg-lime"
@@ -293,6 +306,7 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                     </span>
                   </button>
                 </div>
+                {confetti > 0 && <Confetti key={confetti} />}
               </div>
             </div>
           </div>
@@ -300,5 +314,61 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
         </div>
       </div>
     </section>
+  );
+}
+
+const CONFETTI_COLORS = ["var(--color-lime)", "var(--color-emerald)", "#a1ffc4", "#0a0a0a", "#ffffff"];
+
+/** Gerbe de confettis qui jaillit du bac puis retombe en tournoyant. */
+function Confetti() {
+  const pieces = useMemo(
+    () =>
+      Array.from({ length: 36 }, (_, i) => {
+        const angle = (-90 + (Math.random() - 0.5) * 130) * (Math.PI / 180);
+        const speed = 120 + Math.random() * 150;
+        const shape = i % 3;
+        return {
+          x: Math.cos(angle) * speed,
+          peak: Math.sin(angle) * speed,
+          fall: 90 + Math.random() * 120,
+          spin: (Math.random() - 0.5) * 900,
+          delay: Math.random() * 0.12,
+          duration: 1.5 + Math.random() * 0.6,
+          color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+          w: shape === 0 ? 7 : shape === 1 ? 5 : 3,
+          h: shape === 0 ? 11 : shape === 1 ? 5 : 13,
+          round: shape === 1
+        };
+      }),
+    []
+  );
+
+  return (
+    <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[18%] z-20">
+      {pieces.map((p, i) => (
+        <motion.span
+          key={i}
+          className="absolute left-0 top-0 block shadow-[0_1px_2px_rgba(10,10,10,0.15)]"
+          style={{ width: p.w, height: p.h, backgroundColor: p.color, borderRadius: p.round ? 999 : 1.5 }}
+          initial={{ x: 0, y: 0, rotate: 0, opacity: 0, scale: 0.6 }}
+          animate={{
+            x: [0, p.x * 0.75, p.x],
+            y: [0, p.peak, p.peak + p.fall],
+            rotate: [0, p.spin * 0.5, p.spin],
+            opacity: [0, 1, 1, 0],
+            scale: [0.6, 1, 1, 0.9]
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            x: { duration: p.duration, delay: p.delay, ease: [0.16, 1, 0.3, 1] },
+            y: { duration: p.duration, delay: p.delay, times: [0, 0.32, 1], ease: [[0.2, 0.8, 0.4, 1], [0.5, 0, 0.9, 0.6]] },
+            opacity: { duration: p.duration, delay: p.delay, times: [0, 0.05, 0.75, 1] },
+            scale: { duration: p.duration, delay: p.delay, times: [0, 0.1, 0.8, 1] },
+            rotate: { duration: p.duration, delay: p.delay, ease: "linear" }
+          }}
+        />
+      ))}
+    </span>
   );
 }

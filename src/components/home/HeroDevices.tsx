@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, RoundedBox } from "@react-three/drei";
 import { EffectComposer, Bloom, N8AO, SMAA } from "@react-three/postprocessing";
 import { useReducedMotion } from "framer-motion";
@@ -28,8 +28,9 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
   return (
     <Canvas
       camera={{ position: [0, 0.6, 6], fov: 30 }}
-      dpr={high ? [1, 2] : [1, 1.5]}
-      frameloop={active ? "always" : "never"}
+      dpr={high ? [1, 2] : [1, 1.25]}
+      // Mode léger : on ne redessine que lorsque le scroll change (fluidité mobile)
+      frameloop={active ? (high ? "always" : "demand") : "never"}
       gl={{
         antialias: true,
         alpha: true,
@@ -49,7 +50,7 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
       {/* Éclairage réaliste à 3 points */}
       <ambientLight intensity={0.25} />
       <directionalLight position={[5, 7, 4]} intensity={2.4} />
-      <directionalLight position={[-6, 2, 2]} intensity={0.5} color="#bbf7d0" />
+      <directionalLight position={[-6, 2, 2]} intensity={0.5} color="#a1ffc4" />
       <directionalLight position={[0, 1, -5]} intensity={0.7} color="#ffffff" />
 
       {/* Environnement de reflets généré localement (aucun téléchargement externe) */}
@@ -57,10 +58,10 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
         <Lightformer form="rect" intensity={2.2} position={[0, 5, -3]} scale={[10, 3, 1]} />
         <Lightformer form="rect" intensity={1.2} position={[-6, 1, 2]} rotation-y={Math.PI / 2} scale={[6, 4, 1]} />
         <Lightformer form="rect" intensity={1.2} position={[6, 1, 2]} rotation-y={-Math.PI / 2} scale={[6, 4, 1]} />
-        <Lightformer form="ring" color="#bbf7d0" intensity={0.8} position={[0, -2, 4]} scale={4} />
+        <Lightformer form="ring" color="#a1ffc4" intensity={0.8} position={[0, -2, 4]} scale={4} />
       </Environment>
 
-      <DeviceCarousel onDeviceChange={onDeviceChange} />
+      <DeviceCarousel onDeviceChange={onDeviceChange} demand={!high} />
 
       {/* Post-traitement studio : ordinateurs seulement */}
       {high && (
@@ -76,12 +77,41 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
 
 const DEVICES: DeviceKey[] = ["laptop", "phone", "tower", "switch", "monitor"];
 
-function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) => void }) {
+function DeviceCarousel({ onDeviceChange, demand = false }: { onDeviceChange?: (d: DeviceKey) => void; demand?: boolean }) {
   const scrollRef = useRef(0);
+  const smoothRef = useRef(0);
   const reduce = useReducedMotion();
   const lastDevice = useRef<DeviceKey>("laptop");
   const pinnedRef = useRef(false);
   const pointer = useRef({ x: 0, y: 0, ex: 0, ey: 0 });
+  const invalidate = useThree((s) => s.invalidate);
+  const refs = useRef<Record<DeviceKey, THREE.Group | null>>({
+    laptop: null,
+    phone: null,
+    tower: null,
+    switch: null,
+    monitor: null
+  });
+  const gl = useThree((s) => s.gl);
+  const scene = useThree((s) => s.scene);
+  const camera = useThree((s) => s.camera);
+
+  // Précompile les matériaux des 5 appareils dès le chargement : pas d'à-coup quand un appareil apparaît
+  useEffect(() => {
+    const groups = Object.values(refs.current).filter((g): g is THREE.Group => !!g);
+    const prev = groups.map((g) => g.visible);
+    groups.forEach((g) => (g.visible = true));
+    try {
+      gl.compile(scene, camera);
+    } catch {
+      /* sans conséquence : la compilation se fera au premier affichage */
+    }
+    groups.forEach((g, i) => (g.visible = prev[i]));
+    invalidate();
+  }, [gl, scene, camera, invalidate]);
+  // Matériaux de chaque appareil, collectés une seule fois (évite de parcourir la scène à chaque image)
+  const matsRef = useRef<Map<DeviceKey, (THREE.Material & { opacity: number; transparent: boolean })[]>>(new Map());
+  const opacityRef = useRef<Record<DeviceKey, number>>({ laptop: -1, phone: -1, tower: -1, switch: -1, monitor: -1 });
 
   // L'appareil affiché s'oriente vers le pointeur (souris uniquement)
   useEffect(() => {
@@ -90,10 +120,11 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
     const onMove = (e: PointerEvent) => {
       pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
+      invalidate();
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
-  }, []);
+  }, [invalidate]);
 
   useEffect(() => {
     const update = () => {
@@ -106,44 +137,56 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
       if (section.dataset.pinned === "1") {
         pinnedRef.current = true;
         scrollRef.current = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height - window.innerHeight)));
-        return;
+      } else {
+        const total = rect.height + window.innerHeight;
+        const traveled = window.innerHeight - rect.top;
+        scrollRef.current = Math.min(1, Math.max(0, traveled / total));
       }
-      // Progress basé sur le passage de la section dans le viewport :
-      // 0 = section tout en bas, 1 = section tout en haut (hors du viewport).
-      // Marche même quand la section fait exactement 1 viewport.
-      const total = rect.height + window.innerHeight;
-      const traveled = window.innerHeight - rect.top;
-      const p = Math.min(1, Math.max(0, traveled / total));
-      scrollRef.current = p;
+      invalidate();
     };
     update();
+    smoothRef.current = scrollRef.current;
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, []);
+  }, [invalidate]);
 
-  const refs = useRef<Record<DeviceKey, THREE.Group | null>>({
-    laptop: null,
-    phone: null,
-    tower: null,
-    switch: null,
-    monitor: null
-  });
+
+  const materialsOf = (key: DeviceKey, group: THREE.Group) => {
+    let mats = matsRef.current.get(key);
+    if (!mats) {
+      const set = new Set<THREE.Material & { opacity: number; transparent: boolean }>();
+      group.traverse((obj) => {
+        const mesh = obj as THREE.Mesh;
+        if (!mesh.isMesh || !mesh.material) return;
+        (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).forEach((m) => {
+          const mat = m as THREE.Material & { opacity: number; transparent: boolean };
+          mat.transparent = true;
+          set.add(mat);
+        });
+      });
+      mats = [...set];
+      matsRef.current.set(key, mats);
+    }
+    return mats;
+  };
 
   useFrame((state) => {
-    const rawP = reduce ? 0 : scrollRef.current;
-    // Le laptop reste visible un peu plus longtemps : les 28% premiers du scroll,
-    // puis les 4 autres appareils se partagent les 72% restants.
+    const rawTarget = reduce ? 0 : scrollRef.current;
+    // Progression lissée : les transitions restent fluides même avec une molette par crans
+    const k = demand ? 0.22 : 0.12;
+    smoothRef.current += (rawTarget - smoothRef.current) * k;
+    if (Math.abs(rawTarget - smoothRef.current) < 0.0004) smoothRef.current = rawTarget;
+    const rawP = smoothRef.current;
+
     const LAPTOP_HOLD = pinnedRef.current ? 0.06 : 0.28;
-    const p =
-      rawP < LAPTOP_HOLD ? 0 : (rawP - LAPTOP_HOLD) / (1 - LAPTOP_HOLD);
+    const p = rawP < LAPTOP_HOLD ? 0 : (rawP - LAPTOP_HOLD) / (1 - LAPTOP_HOLD);
     const stepSize = 1 / DEVICES.length;
     const idxFloat = p / stepSize;
     const currentIdx = Math.min(DEVICES.length - 1, Math.floor(idxFloat));
-    const localProgress = idxFloat - currentIdx;
 
     const currentDevice = DEVICES[currentIdx];
     if (currentDevice !== lastDevice.current) {
@@ -161,33 +204,27 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
       if (!group) return;
       const distance = i - idxFloat;
       const abs = Math.abs(distance);
-      const visible = abs < 1;
-      const opacity = visible ? Math.max(0, 1 - abs) : 0;
-      const scale = 0.5 + 0.5 * opacity;
-      const posY = -distance * 1.1;
+      const opacity = abs < 1 ? Math.max(0, 1 - abs) : 0;
+      const shown = opacity > 0.01;
+      group.visible = shown;
 
-      group.position.y = posY;
-      group.scale.setScalar(scale);
-      group.visible = opacity > 0.01;
+      // Opacité appliquée seulement quand elle change vraiment
+      if (Math.abs(opacity - opacityRef.current[key]) > 0.002) {
+        opacityRef.current[key] = opacity;
+        for (const mat of materialsOf(key, group)) mat.opacity = opacity;
+      }
+      if (!shown) return;
 
-      // L'appareil fait face à la caméra quand il est centré (distance = 0).
-      // En entrée (distance négative), il arrive tourné vers la gauche ;
-      // en sortie (distance positive), il part tourné vers la droite.
-      group.rotation.y = distance * Math.PI * 0.55 + (reduce ? 0 : Math.sin(t * 0.3) * 0.06) + ptr.ex * 0.45 * opacity;
+      group.position.y = -distance * 1.1;
+      group.scale.setScalar(0.5 + 0.5 * opacity);
+      // Face caméra au centre ; arrive tourné vers la gauche, repart vers la droite
+      const wobble = reduce || demand ? 0 : Math.sin(t * 0.3) * 0.06;
+      group.rotation.y = distance * Math.PI * 0.55 + wobble + ptr.ex * 0.45 * opacity;
       group.rotation.x = ptr.ey * 0.16 * opacity;
-
-      group.traverse((obj) => {
-        const mesh = obj as THREE.Mesh;
-        if (mesh.isMesh && mesh.material) {
-          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-          mats.forEach((m) => {
-            const mat = m as THREE.Material & { opacity?: number; transparent?: boolean };
-            mat.transparent = true;
-            mat.opacity = opacity;
-          });
-        }
-      });
     });
+
+    // En mode « à la demande », on redemande des images tant que le lissage n'est pas terminé
+    if (demand && smoothRef.current !== rawTarget) invalidate();
   });
 
   return (
@@ -511,7 +548,7 @@ function TowerPC() {
         </mesh>
         <mesh position={[0.38, 0.66, 0.691]}>
           <cylinderGeometry args={[0.014, 0.014, 0.008, 16]} />
-          <meshStandardMaterial color="#22c55e" emissive="#22c55e" emissiveIntensity={2} />
+          <meshStandardMaterial color="#00f060" emissive="#00f060" emissiveIntensity={2} />
         </mesh>
         {/* Ports USB (3) */}
         {Array.from({ length: 3 }, (_, i) => (
@@ -569,8 +606,8 @@ function NetworkSwitch() {
             >
               <sphereGeometry args={[0.008, 12, 12]} />
               <meshStandardMaterial
-                color="#22c55e"
-                emissive="#22c55e"
+                color="#00f060"
+                emissive="#00f060"
                 emissiveIntensity={3}
               />
             </mesh>
@@ -692,7 +729,7 @@ function buildPhoneScreenTexture(): THREE.CanvasTexture {
     ctx.fillText("Grand Montréal · Depuis 2005", cx, 614);
 
     // Bouton CTA
-    ctx.fillStyle = "#16a34a";
+    ctx.fillStyle = "#01a447";
     ctx.beginPath();
     ctx.roundRect(50, 720, canvas.width - 100, 92, 46);
     ctx.fill();
@@ -781,7 +818,7 @@ function buildScreenTexture(): THREE.CanvasTexture {
     );
 
     ctx.font = "600 20px Inter, Arial, sans-serif";
-    ctx.fillStyle = "#16a34a";
+    ctx.fillStyle = "#01a447";
     ctx.fillText("infoliquidationrecycle.com", cx, cy + 198);
   };
 

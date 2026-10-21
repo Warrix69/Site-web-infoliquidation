@@ -50,29 +50,30 @@ export function HeroCopy({ labels }: { labels: HeroCopyLabels }) {
       variants={container}
       initial="hidden"
       animate="show"
-      className="relative z-10 max-w-xl lg:max-w-[52%]"
+      // Mobile : « contents » pour que le titre, la 3D, le badge et les boutons s'ordonnent dans la colonne du hero
+      className="contents lg:relative lg:z-10 lg:block lg:max-w-[52%]"
     >
-      <h1 className="font-display font-bold tracking-[-0.035em] text-paper">
+      <h1 className="order-1 font-display font-bold tracking-[-0.035em] text-paper">
         <Line
           text={labels.titleLead}
           wordVariants={word}
           className="text-[clamp(1.3rem,2.5vw,2.05rem)] font-semibold leading-tight tracking-[-0.02em] text-lime"
         />
-        <Line text={labels.titleAccent} wordVariants={word} className="mt-1 text-[clamp(2.4rem,5vw,4.6rem)] leading-[1.04]" />
+        <Line text={labels.titleAccent} wordVariants={word} className="mt-1 text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.04]" />
       </h1>
 
-      <motion.div variants={item} className="hero-safe mt-7">
+      <motion.div variants={item} className="hero-safe order-3 mt-3 lg:mt-7">
         <YearsBadge years={labels.years} sentence={labels.since} reduce={!!reduce} />
       </motion.div>
 
       <motion.p
         variants={item}
-        className="hero-safe mt-6 max-w-md text-base leading-relaxed text-paper/80 sm:text-lg"
+        className="hero-safe order-4 mt-3 max-w-md text-sm leading-relaxed text-paper/85 sm:text-base lg:mt-6 lg:text-lg"
       >
         {labels.promise}
       </motion.p>
 
-      <motion.div variants={item} className="hero-safe mt-8 flex flex-wrap items-center gap-4">
+      <motion.div variants={item} className="hero-safe order-5 mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 lg:mt-8">
         <MagneticCta href="/formulaire-de-ramassage" label={labels.ctaPrimary} reduce={!!reduce} />
         <Link
           href="/informations"
@@ -112,7 +113,18 @@ export type YearsLabels = { prefix: string; number: number; unit: string; suffix
 function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence: string; reduce: boolean }) {
   const [spin, setSpin] = useState(0);
   const [bursts, setBursts] = useState<number[]>([]);
+  // Une fois le compteur arrivé, le badge garde la pose « survol » (20 penché + étoile)
+  const [settled, setSettled] = useState(false);
   const digits = String(years.number).split("").map(Number);
+
+  useEffect(() => {
+    if (reduce) {
+      setSettled(true);
+      return;
+    }
+    const id = window.setTimeout(() => setSettled(true), 2300);
+    return () => window.clearTimeout(id);
+  }, [reduce]);
 
   const replay = () => {
     if (reduce) return;
@@ -129,7 +141,7 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
       aria-label={`${sentence}. ${years.replay}`}
       // Toujours définis (rendu serveur = client) ; en mouvement réduit les variantes sont neutres
       initial="rest"
-      animate="rest"
+      animate={settled ? "hover" : "rest"}
       whileHover="hover"
       whileTap="tap"
       variants={{ rest: { scale: 1 }, hover: { scale: 1 }, tap: { scale: reduce ? 1 : 0.97 } }}
@@ -252,7 +264,7 @@ function MagneticCta({ href, label, reduce }: { href: StaticAppPathname; label: 
     <motion.span ref={ref} style={{ x: sx, y: sy }} onPointerMove={onMove} onPointerLeave={onLeave} className="inline-flex">
       <Link
         href={href}
-        className="group inline-flex items-center gap-3 whitespace-nowrap rounded-full bg-paper py-1.5 pl-6 pr-1.5 font-display text-sm font-semibold text-ink shadow-[0_18px_40px_-18px_rgba(3,40,20,0.7)] transition-[background-color,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#22c55e] active:scale-[0.98] sm:text-base"
+        className="group inline-flex items-center gap-3 whitespace-nowrap rounded-full bg-paper py-1.5 pl-6 pr-1.5 font-display text-sm font-semibold text-ink shadow-[0_18px_40px_-18px_rgba(3,40,20,0.7)] transition-[background-color,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#00f060] active:scale-[0.98] sm:text-base"
       >
         {label}
         <motion.span

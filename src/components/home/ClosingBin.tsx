@@ -77,7 +77,7 @@ export function ClosingBin() {
             ))}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={`${IMG}bac-avant.webp`} alt="" loading="lazy" draggable={false} className="absolute inset-0 h-full w-full" />
-            <span className="absolute inset-0 [filter:drop-shadow(0_0_14px_rgba(34,197,94,0.7))]">
+            <span className="absolute inset-0 [filter:drop-shadow(0_0_14px_rgba(0,198,90,0.7))]">
               <span
                 className="absolute inset-0 bg-lime"
                 style={{

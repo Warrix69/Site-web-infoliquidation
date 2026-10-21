@@ -200,7 +200,7 @@ function Truck() {
       {/* Toit : bande verte accent */}
       <mesh position={[0.15, 1.03, 0]}>
         <boxGeometry args={[1.98, 0.025, 1.14]} />
-        <meshStandardMaterial color="#16a34a" metalness={0.5} roughness={0.3} />
+        <meshStandardMaterial color="#01a447" metalness={0.5} roughness={0.3} />
       </mesh>
 
       {/* Cabine */}
@@ -383,11 +383,11 @@ function FloatingBox({
       {/* Ruban vert sur le dessus */}
       <mesh position={[0, 0.152, 0]}>
         <boxGeometry args={[0.36, 0.004, 0.08]} />
-        <meshStandardMaterial color="#16a34a" />
+        <meshStandardMaterial color="#01a447" />
       </mesh>
       <mesh position={[0, 0.152, 0]} rotation={[0, Math.PI / 2, 0]}>
         <boxGeometry args={[0.36, 0.004, 0.08]} />
-        <meshStandardMaterial color="#16a34a" />
+        <meshStandardMaterial color="#01a447" />
       </mesh>
     </group>
   );
@@ -424,7 +424,7 @@ function Planet() {
       <mesh scale={1.002}>
         <sphereGeometry args={[0.42, 48, 48]} />
         <meshStandardMaterial
-          color="#16a34a"
+          color="#01a447"
           roughness={0.6}
           transparent
           opacity={0.75}
@@ -439,7 +439,7 @@ function Planet() {
       {/* Anneau */}
       <mesh ref={ringRef} rotation={[0.4, 0, 0]}>
         <torusGeometry args={[0.68, 0.006, 16, 128]} />
-        <meshBasicMaterial color="#22c55e" transparent opacity={0.6} />
+        <meshBasicMaterial color="#00c65a" transparent opacity={0.6} />
       </mesh>
       <OrbitDot />
     </Float>
@@ -478,14 +478,14 @@ function buildLogoTexture(): THREE.CanvasTexture {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Bandes vertes haut/bas
-  ctx.fillStyle = "#16a34a";
+  ctx.fillStyle = "#01a447";
   ctx.fillRect(0, 0, canvas.width, 26);
   ctx.fillRect(0, canvas.height - 26, canvas.width, 26);
 
   // Icône recyclage (3 flèches en triangle)
   ctx.save();
   ctx.translate(140, canvas.height / 2);
-  ctx.strokeStyle = "#16a34a";
+  ctx.strokeStyle = "#01a447";
   ctx.lineWidth = 22;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
@@ -508,7 +508,7 @@ function buildLogoTexture(): THREE.CanvasTexture {
     ctx.lineTo(ax, ay);
     ctx.lineTo(bx, by);
     ctx.closePath();
-    ctx.fillStyle = "#16a34a";
+    ctx.fillStyle = "#01a447";
     ctx.fill();
   }
   ctx.restore();
@@ -522,7 +522,7 @@ function buildLogoTexture(): THREE.CanvasTexture {
   ctx.fillText("INFO", 290, canvas.height / 2 - 78);
 
   ctx.font = "900 118px 'Arial Black', Arial, sans-serif";
-  ctx.fillStyle = "#16a34a";
+  ctx.fillStyle = "#01a447";
   ctx.fillText("LIQUIDATION", 290, canvas.height / 2 + 42);
 
   ctx.font = "700 44px Arial, sans-serif";

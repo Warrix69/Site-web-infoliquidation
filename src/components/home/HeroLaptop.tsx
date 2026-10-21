@@ -216,7 +216,7 @@ function buildScreenTexture(): THREE.CanvasTexture {
   ctx.textBaseline = "middle";
   ctx.fillText("InfoLiquidationRecycle.com", 32, 40);
 
-  ctx.fillStyle = "#16a34a";
+  ctx.fillStyle = "#01a447";
   ctx.beginPath();
   ctx.roundRect(canvas.width - 220, 20, 190, 42, 24);
   ctx.fill();
@@ -229,7 +229,7 @@ function buildScreenTexture(): THREE.CanvasTexture {
   ctx.font = "900 92px Arial, sans-serif";
   ctx.textBaseline = "alphabetic";
   ctx.fillText("Recycler.", 60, 240);
-  ctx.fillStyle = "#16a34a";
+  ctx.fillStyle = "#01a447";
   ctx.fillText("Simplement.", 60, 340);
 
   // Petite ligne descriptive
@@ -249,8 +249,8 @@ function buildScreenTexture(): THREE.CanvasTexture {
 
   // Carré d'image à droite (placeholder vert dégradé)
   const gRight = ctx.createLinearGradient(650, 180, 980, 540);
-  gRight.addColorStop(0, "#16a34a");
-  gRight.addColorStop(1, "#22c55e");
+  gRight.addColorStop(0, "#01a447");
+  gRight.addColorStop(1, "#00c65a");
   ctx.fillStyle = gRight;
   ctx.beginPath();
   ctx.roundRect(680, 160, 300, 400, 24);
@@ -279,7 +279,7 @@ function buildLidLogoTexture(): THREE.CanvasTexture {
   // Logo "triangle flèches recyclage"
   ctx.save();
   ctx.translate(canvas.width / 2 - 110, canvas.height / 2);
-  ctx.strokeStyle = "#16a34a";
+  ctx.strokeStyle = "#01a447";
   ctx.lineWidth = 16;
   ctx.lineCap = "round";
   const r = 54;
@@ -301,7 +301,7 @@ function buildLidLogoTexture(): THREE.CanvasTexture {
     ctx.lineTo(ax, ay);
     ctx.lineTo(bx, by);
     ctx.closePath();
-    ctx.fillStyle = "#16a34a";
+    ctx.fillStyle = "#01a447";
     ctx.fill();
   }
   ctx.restore();
@@ -311,7 +311,7 @@ function buildLidLogoTexture(): THREE.CanvasTexture {
   ctx.font = "900 32px Arial, sans-serif";
   ctx.textBaseline = "middle";
   ctx.fillText("INFO", 230, canvas.height / 2 - 20);
-  ctx.fillStyle = "#16a34a";
+  ctx.fillStyle = "#01a447";
   ctx.fillText("LIQUIDATION", 230, canvas.height / 2 + 18);
   ctx.fillStyle = "#52525b";
   ctx.font = "600 16px Arial, sans-serif";

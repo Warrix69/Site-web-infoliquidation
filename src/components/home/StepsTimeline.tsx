@@ -64,7 +64,9 @@ export function StepsTimeline({
     if (reduce || !track) return;
     const top = track.getBoundingClientRect().top + window.scrollY;
     const travel = track.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: top + ((i + 0.5) / n) * travel, behavior: "smooth" });
+    const target = top + ((i + 0.5) / n) * travel;
+    if (window.__lenis) window.__lenis.scrollTo(target, { duration: 1.1 });
+    else window.scrollTo({ top: target, behavior: "smooth" });
   };
 
   return (
@@ -82,7 +84,9 @@ export function StepsTimeline({
           <div className="mt-6 grid items-center gap-6 lg:mt-10 lg:grid-cols-12 lg:gap-12">
             {/* Étapes + progression */}
             <div className="relative lg:col-span-5">
-              <div aria-hidden="true" className="absolute bottom-3 left-[27px] top-3 w-[3px] overflow-hidden rounded-full bg-ink/10 motion-reduce:hidden">
+              {/* La ligne de progression est limitée à la liste (elle ne touche plus le bouton) */}
+              <div className="relative">
+              <div aria-hidden="true" className="absolute bottom-6 left-[32.5px] top-6 w-[3px] overflow-hidden rounded-full bg-ink/10 motion-reduce:hidden sm:left-[34.5px]">
                 <motion.div className="h-full w-full origin-top rounded-full bg-lime" style={{ scaleY: progress }} />
               </div>
               <ol className="relative space-y-2.5">
@@ -122,6 +126,7 @@ export function StepsTimeline({
                   );
                 })}
               </ol>
+              </div>
               <Link
                 href="/formulaire-de-ramassage"
                 className="group mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-accent px-6 py-3.5 font-display text-sm font-semibold text-ink transition-[filter] hover:brightness-95 sm:text-base"
@@ -242,22 +247,6 @@ function VanArrival({ mock, reduce }: { mock: StepsMock; reduce: boolean }) {
           />
         </motion.div>
       </motion.div>
-      <div className="absolute -top-2 right-0 flex flex-col items-end gap-2 sm:-top-4">
-        <motion.span
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1, transition: reduce ? { duration: 0 } : { duration: 0.5, delay: 0.9, ease: EASE } }}
-          className="rounded-full bg-ink px-4 py-1.5 font-display text-sm font-bold text-paper sm:text-base"
-        >
-          {mock.free}
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1, transition: reduce ? { duration: 0 } : { duration: 0.5, delay: 1.05, ease: EASE } }}
-          className="rounded-full bg-lime px-4 py-1.5 text-xs font-bold text-ink sm:text-sm"
-        >
-          {mock.within}
-        </motion.span>
-      </div>
     </div>
   );
 }

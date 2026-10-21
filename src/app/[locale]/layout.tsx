@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CookieBanner, type CookieBannerLabels } from "@/components/layout/CookieBanner";
 import { Footer } from "@/components/layout/Footer";
 import { Header, type HeaderLabels } from "@/components/layout/Header";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { routing, type Locale } from "@/i18n/routing";
 import { SERVICES, SITE } from "@/lib/site";
@@ -164,6 +165,7 @@ export default async function LocaleLayout({
           <main id="main">{children}</main>
           <Footer />
           <CookieBanner labels={cookieLabels} />
+          <SmoothScroll />
         </NextIntlClientProvider>
         <JsonLd data={localBusinessJsonLd()} />
       </body>

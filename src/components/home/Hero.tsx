@@ -134,25 +134,15 @@ export function Hero({ labels }: { labels: HeroLabels }) {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[70%_center] [filter:saturate(1.15)_brightness(1)]"
+            className="object-cover object-[70%_center] [filter:saturate(1.8)_brightness(1.08)]"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,78,38,0.9)_0%,rgba(10,100,48,0.78)_38%,rgba(22,163,74,0.2)_58%,rgba(22,163,74,0)_72%)] lg:bg-[linear-gradient(100deg,rgba(6,78,38,0.92)_0%,rgba(10,100,48,0.8)_30%,rgba(16,130,62,0.38)_50%,rgba(22,163,74,0)_66%)]"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,78,37,0.9)_0%,rgba(1,101,46,0.72)_26%,rgba(1,164,71,0.08)_42%,rgba(1,164,71,0.08)_54%,rgba(1,101,46,0.78)_70%,rgba(1,78,37,0.92)_100%)] lg:bg-[linear-gradient(100deg,rgba(1,78,37,0.92)_0%,rgba(1,101,46,0.8)_30%,rgba(1,131,60,0.38)_50%,rgba(1,164,71,0)_66%)]"
           />
 
-          {/* Appareils 3D : toute la hauteur à droite (moitié basse sur mobile) */}
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] lg:left-auto lg:right-0 lg:top-28 lg:h-auto lg:w-[58%]"
-            style={{ animation: "heroFadeIn 1000ms ease-out 300ms both" }}
-          >
-            {/* Halo lumineux derrière l'appareil */}
-            <div className="absolute inset-[6%] rounded-full bg-[radial-gradient(closest-side,rgba(220,252,231,0.5),rgba(187,247,208,0.18)_55%,transparent)]" />
-            <SafeHeroDevices onDeviceChange={setDevice} />
-          </div>
-
-          <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col px-5 pb-6 pt-28 sm:px-8 lg:justify-center lg:pb-10 lg:pt-28">
-            {/* Message */}
+          <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col px-5 pb-5 pt-[7.25rem] sm:px-8 lg:justify-center lg:pb-10 lg:pt-28">
+            {/* Message (titre, badge, promesse, boutons) */}
             <HeroCopy
               labels={{
                 titleLead: labels.titleLead,
@@ -165,30 +155,38 @@ export function Hero({ labels }: { labels: HeroLabels }) {
               }}
             />
 
-            {/* Appareil affiché */}
-            <div className="relative z-10 mt-auto flex items-end justify-between gap-4 [text-shadow:0_1px_14px_rgba(3,40,20,0.55)] lg:absolute lg:bottom-10 lg:right-8 lg:mt-0 lg:flex-col lg:items-end">
-              <div className="lg:text-right">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-paper/85">{labels.devices.eyebrow}</p>
-                <p
-                  key={device}
-                  className="mt-0.5 font-display text-xl font-bold tracking-[-0.02em] text-paper sm:text-3xl"
-                  style={{ animation: "heroRiseIn 450ms ease-out both" }}
-                >
-                  {deviceName}
-                </p>
-                <p className="mt-0.5 text-xs font-medium text-paper/80 sm:text-sm">
-                  {labels.devices.titleAccent} {labels.devices.titleRest}
-                </p>
+            {/* Scène 3D + appareil affiché : au centre sur mobile, à droite sur ordinateur */}
+            <div className="pointer-events-none relative order-2 my-2 min-h-[150px] flex-1 lg:absolute lg:bottom-0 lg:right-0 lg:top-28 lg:my-0 lg:w-[56%]">
+              <div className="absolute inset-0" style={{ animation: "heroFadeIn 1000ms ease-out 300ms both" }}>
+                {/* Halo lumineux derrière l'appareil */}
+                <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(closest-side,rgba(220,252,231,0.5),rgba(187,247,208,0.18)_55%,transparent)]" />
+                <SafeHeroDevices onDeviceChange={setDevice} />
               </div>
-              <div className="flex items-center gap-1.5 pb-1" aria-hidden="true">
-                {DEVICE_KEYS.map((k, i) => (
-                  <span
-                    key={k}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      i === index ? "w-8 bg-paper" : "w-3 bg-paper/35"
-                    }`}
-                  />
-                ))}
+
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 [text-shadow:0_1px_14px_rgba(3,40,20,0.55)] lg:bottom-10 lg:left-auto lg:right-8 lg:flex-col lg:items-end">
+                <div className="lg:text-right">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-paper/85 sm:text-xs">{labels.devices.eyebrow}</p>
+                  <p
+                    key={device}
+                    className="mt-0.5 font-display text-lg font-bold tracking-[-0.02em] text-paper sm:text-3xl"
+                    style={{ animation: "heroRiseIn 450ms ease-out both" }}
+                  >
+                    {deviceName}
+                  </p>
+                  <p className="mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm">
+                    {labels.devices.titleAccent} {labels.devices.titleRest}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5 pb-1" aria-hidden="true">
+                  {DEVICE_KEYS.map((k, i) => (
+                    <span
+                      key={k}
+                      className={`h-1.5 rounded-full transition-[width,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        i === index ? "w-8 bg-paper" : "w-3 bg-paper/35"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

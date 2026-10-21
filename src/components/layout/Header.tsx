@@ -58,9 +58,11 @@ export function Header({ locale, labels }: HeaderProps) {
     setServicesOpen(false);
   }, [pathname]);
 
-  // Verrouille le scroll quand le menu mobile est ouvert
+  // Verrouille le scroll quand le menu mobile est ouvert (y compris le défilement lissé)
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+    if (mobileOpen) window.__lenis?.stop();
+    else window.__lenis?.start();
     return () => {
       document.body.style.overflow = "";
     };
