@@ -938,7 +938,7 @@ a.sheet-it{text-decoration:none;color:inherit}
           <span id="notif-badge" style="display:none">0</span>
         </button>
         <div id="notif-panel" class="notif-panel" style="display:none">
-          <div class="np-hd"><b>Notifications</b><button onclick="markNotifsRead()">Tout marquer lu</button></div>
+          <div class="np-hd"><b>Notifications</b><span style="display:flex;gap:10px"><button onclick="playMoneySound()" title="Son joué à chaque nouvelle vente eBay">🔊 Tester le son</button><button onclick="markNotifsRead()">Tout marquer lu</button></span></div>
           <div id="notif-list"></div>
         </div>
       </div>
@@ -1287,7 +1287,24 @@ document.querySelectorAll('[data-tab]').forEach(n=>{n.addEventListener('click',(
 // Son de notification : court « ding » généré par Web Audio API (aucun asset externe)
 let __audioCtx=null;let __knownEventIds=new Set();let __firstFetch=true;
 function playNotificationSound(){try{if(!__audioCtx)__audioCtx=new (window.AudioContext||window.webkitAudioContext)();const ctx=__audioCtx;const now=ctx.currentTime;const g=ctx.createGain();g.connect(ctx.destination);g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(0.25,now+0.01);g.gain.exponentialRampToValueAtTime(0.001,now+0.6);const o1=ctx.createOscillator();o1.type='sine';o1.frequency.setValueAtTime(880,now);o1.frequency.exponentialRampToValueAtTime(1760,now+0.08);o1.connect(g);o1.start(now);o1.stop(now+0.6);}catch(e){}}
-// Ouvre Google Maps avec les adresses du jour comme waypoints
+
+// Son de vente eBay : « ka-ching » de caisse enregistreuse, synthétisé par Web Audio (aucun fichier externe)
+function __getAudio(){if(!__audioCtx)__audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(__audioCtx.state==='suspended')__audioCtx.resume();return __audioCtx}
+// Les navigateurs bloquent le son tant qu'on n'a pas interagi : on l'active au premier clic / touche
+['pointerdown','keydown'].forEach(function(ev){document.addEventListener(ev,function(){try{__getAudio()}catch(e){}},{once:true,passive:true})});
+function playMoneySound(){try{const ctx=__getAudio();const t0=ctx.currentTime+0.02;
+  const master=ctx.createGain();master.gain.value=0.5;master.connect(ctx.destination);
+  // « ka » : claquement métallique du tiroir (bruit filtré très court + petit choc grave)
+  const len=Math.floor(ctx.sampleRate*0.05);const buf=ctx.createBuffer(1,len,ctx.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);
+  const noise=ctx.createBufferSource();noise.buffer=buf;const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2400;bp.Q.value=1.2;const ng=ctx.createGain();ng.gain.value=0.9;noise.connect(bp);bp.connect(ng);ng.connect(master);noise.start(t0);
+  const thunk=ctx.createOscillator();thunk.type='triangle';thunk.frequency.setValueAtTime(220,t0);thunk.frequency.exponentialRampToValueAtTime(90,t0+0.08);const tg=ctx.createGain();tg.gain.setValueAtTime(0.5,t0);tg.gain.exponentialRampToValueAtTime(0.001,t0+0.1);thunk.connect(tg);tg.connect(master);thunk.start(t0);thunk.stop(t0+0.12);
+  // « schli-schling » : deux coups de cloche brillants (partiels inharmoniques)
+  function bell(at,base,vol,dur){[1,2.01,2.76,4.07,5.43].forEach(function(r,k){const o=ctx.createOscillator();o.type=k===0?'triangle':'sine';o.frequency.setValueAtTime(base*r,at);const g=ctx.createGain();const v=vol/(k+1.2);g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(v,at+0.004);g.gain.exponentialRampToValueAtTime(0.0008,at+dur*(1-k*0.12));o.connect(g);g.connect(master);o.start(at);o.stop(at+dur+0.05)})}
+  bell(t0+0.07,1318.5,0.55,0.45);
+  bell(t0+0.2,1760,0.75,1.3);
+  // scintillement de pièces
+  for(let k=0;k<7;k++){const at=t0+0.24+k*0.045+Math.random()*0.02;const o=ctx.createOscillator();o.type='sine';o.frequency.setValueAtTime(3200+Math.random()*2200,at);const g=ctx.createGain();g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(0.08,at+0.003);g.gain.exponentialRampToValueAtTime(0.0005,at+0.18);o.connect(g);g.connect(master);o.start(at);o.stop(at+0.2)}
+}catch(e){}}// Ouvre Google Maps avec les adresses du jour comme waypoints
 // (dans l'ordre des rendez-vous — Google Maps peut réordonner pour optimiser)
 function openRouteMaps(){const addrs=window.__todayAddresses||[];if(!addrs.length){showToast('Aucune adresse enregistrée pour les ramassages d’aujourd’hui','error');return}
   const base='https://www.google.com/maps/dir/?api=1&travelmode=driving';
@@ -1383,7 +1400,7 @@ EBAY_ACTIONS={toShip:d.awaitingShipCount||0,unreadMessages:EBAY_ACTIONS.unreadMe
 EBAY_RECENT_ORDERS=Array.isArray(d.orders)?d.orders:[];
 // Détection de nouvelles ventes eBay (silencieux au premier chargement)
 if(__knownOrderIds===null){__knownOrderIds=new Set(EBAY_RECENT_ORDERS.map(o=>o.id));__firstEbayFetch=false}
-else{for(const o of EBAY_RECENT_ORDERS){if(!__knownOrderIds.has(o.id)){const it=(o.items&&o.items[0])||{};const title=(it.title||'Vente eBay').slice(0,80);const price=(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})+' $';playNotificationSound();showToast('💰 Nouvelle vente eBay : '+price);addNotif('ebay','Nouvelle vente eBay · '+price,title+(o.buyer?' · '+o.buyer:''),it.url||null);__knownOrderIds.add(o.id)}}}
+else{for(const o of EBAY_RECENT_ORDERS){if(!__knownOrderIds.has(o.id)){const it=(o.items&&o.items[0])||{};const title=(it.title||'Vente eBay').slice(0,80);const price=(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})+' $';playMoneySound();showToast('💰 Nouvelle vente eBay : '+price);addNotif('ebay','Nouvelle vente eBay · '+price,title+(o.buyer?' · '+o.buyer:''),it.url||null);__knownOrderIds.add(o.id)}}}
 // ── Store bar (haut) ──
 const fb=d.feedback||{};const fbEl=document.getElementById('ebay-feedback');
 if(fbEl){const score=(fb.score||0).toLocaleString('fr-CA');const pct=fb.positivePercent?(' <span style="color:var(--emerald)">'+fb.positivePercent+'%</span>'):'';fbEl.innerHTML=score;const parent=fbEl.parentElement;if(parent){const lbl=parent.querySelector('.esb-ml');if(lbl&&fb.positivePercent)lbl.innerHTML='Feedback <span style="color:var(--emerald)">'+fb.positivePercent+'%</span>';}}

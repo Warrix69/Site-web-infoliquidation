@@ -95,11 +95,7 @@ export default async function BlogArticlePage({ params }: Params) {
   return (
     <>
       <article>
-        <header className="relative overflow-hidden pb-10 pt-32 sm:pt-40">
-          <div aria-hidden="true" className="absolute inset-0 -z-10">
-            <div className="circuit-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
-            <div className="absolute -top-32 left-1/2 h-[420px] w-[680px] -translate-x-1/2 rounded-full bg-emerald/15 blur-[120px]" />
-          </div>
+        <header data-theme="green" className="relative overflow-hidden pb-12 pt-32 sm:pb-16 sm:pt-40">
           <div className="mx-auto w-full max-w-3xl px-5 sm:px-8">
             <Reveal>
               <Link

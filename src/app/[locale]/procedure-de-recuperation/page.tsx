@@ -27,7 +27,7 @@ export default async function ProcedurePage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} image={{ kind: "photo", src: "/images/centre/allee.webp" }} />
 
       <Section className="pt-0">
         <div className="space-y-6">

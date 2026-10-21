@@ -15,17 +15,10 @@ export async function CtaBanner({ title, text, buttonLabel }: CtaBannerProps) {
   const t = await getTranslations("common");
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-24">
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/2 h-[360px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald/15 blur-[130px]" />
-      </div>
+    <section className="relative overflow-hidden bg-sand py-16 sm:py-24">
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-        <Reveal className="glass relative overflow-hidden rounded-3xl px-6 py-12 text-center sm:px-12 sm:py-16">
-          <div
-            aria-hidden="true"
-            className="circuit-grid absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_60%_80%_at_50%_50%,black,transparent)]"
-          />
-          <div className="relative">
+        <Reveal className="relative overflow-hidden rounded-3xl bg-forest px-6 py-12 text-center text-mist shadow-[0_30px_60px_-30px_rgba(15,61,46,0.6)] sm:px-12 sm:py-16">
+          <div data-theme="dark" className="relative">
             <h2 className="mx-auto max-w-2xl font-display text-3xl font-bold leading-tight text-mist sm:text-4xl">
               {title}
             </h2>

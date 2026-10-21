@@ -23,7 +23,6 @@ export function Reveal({ children, className, delay = 0, y = 28, once = true }: 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (reduce) return;
     const t = setTimeout(() => {
       const el = containerRef.current;
       if (!el) return;
@@ -32,9 +31,11 @@ export function Reveal({ children, className, delay = 0, y = 28, once = true }: 
       if (parseFloat(style.opacity) < 0.5) setForceShow(true);
     }, 1500);
     return () => clearTimeout(t);
-  }, [reduce]);
+  }, []);
 
-  if (reduce || forceShow) {
+  // Le rendu initial doit être identique serveur/client : le mouvement réduit
+  // ne change que la durée, sinon le style SSR (opacité 0) n'est jamais corrigé.
+  if (forceShow) {
     return (
       <div ref={containerRef} className={className}>
         {children}
@@ -49,7 +50,7 @@ export function Reveal({ children, className, delay = 0, y = 28, once = true }: 
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount: 0.05 }}
-      transition={{ duration: 0.65, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      transition={reduce ? { duration: 0 } : { duration: 0.65, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
     >
       {children}
     </motion.div>

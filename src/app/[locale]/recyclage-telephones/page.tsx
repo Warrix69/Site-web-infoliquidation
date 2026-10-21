@@ -29,7 +29,7 @@ export default async function PhonesPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} image={{ kind: "object", src: "/images/bac/telephone.webp", width: 84 }} />
 
       <Section className="pt-0">
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">

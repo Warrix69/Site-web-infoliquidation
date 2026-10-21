@@ -65,11 +65,6 @@ export default async function MerciPage({ params }: Params) {
 
       {/* Étapes qui suivent — section avec fond vert très doux pour l'emphase */}
       <section className="relative overflow-hidden bg-emerald-soft py-16 sm:py-20">
-        {/* Décor léger : grille circuit en fond */}
-        <div
-          aria-hidden="true"
-          className="circuit-grid pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]"
-        />
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <Reveal className="mb-10 text-center">
             <p className="font-manifest text-xs uppercase tracking-[0.22em] text-emerald">

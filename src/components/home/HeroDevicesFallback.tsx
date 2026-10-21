@@ -1,32 +1,28 @@
 "use client";
 
+import Image from "next/image";
+
 /**
- * Fallback visuel pour navigateurs sans WebGL (ou si Three.js crash).
- * Montre un visuel statique avec les icônes des appareils qu'on recycle.
+ * Secours si WebGL est absent ou si la 3D échoue : le portable en studio, qui flotte doucement.
  */
 export function HeroDevicesFallback() {
-  const devices = [
-    { emoji: "💻", label: "Portables" },
-    { emoji: "📱", label: "Téléphones" },
-    { emoji: "🖥️", label: "Tours & serveurs" },
-    { emoji: "📺", label: "Écrans" }
-  ];
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-6 p-8">
-      <div className="relative flex h-48 w-48 items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-emerald/15 blur-2xl" />
-        <div className="relative text-7xl">♻️</div>
-      </div>
-      <div className="grid max-w-md grid-cols-2 gap-3 text-center sm:grid-cols-4">
-        {devices.map((d) => (
-          <div
-            key={d.label}
-            className="rounded-2xl border border-line/60 bg-paper/70 p-3 backdrop-blur-sm"
-          >
-            <div className="text-2xl">{d.emoji}</div>
-            <div className="mt-1 text-xs font-semibold text-moss">{d.label}</div>
-          </div>
-        ))}
+    <div className="flex h-full w-full items-center justify-center p-6">
+      <div className="relative w-[min(78%,520px)]">
+        <span
+          aria-hidden="true"
+          className="absolute -bottom-6 left-1/2 h-6 w-3/4 -translate-x-1/2 rounded-[50%] bg-black/30 blur-lg"
+        />
+        <div className="animate-float">
+          <Image
+            src="/images/bac/portable.webp"
+            alt=""
+            width={560}
+            height={253}
+            sizes="(max-width: 1024px) 80vw, 40vw"
+            className="h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.35)]"
+          />
+        </div>
       </div>
     </div>
   );

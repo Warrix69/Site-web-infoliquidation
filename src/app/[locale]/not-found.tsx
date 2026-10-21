@@ -6,9 +6,6 @@ export default async function NotFoundPage() {
 
   return (
     <section className="relative flex min-h-[70vh] flex-col items-center justify-center px-5 pt-24 text-center">
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="circuit-grid absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,black,transparent)]" />
-      </div>
       <p className="font-display text-7xl font-bold text-gradient sm:text-8xl">404</p>
       <h1 className="mt-4 font-display text-2xl font-bold text-mist sm:text-3xl">{t("title")}</h1>
       <p className="mt-3 max-w-md text-moss">{t("text")}</p>

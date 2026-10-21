@@ -40,7 +40,7 @@ export default async function BlogPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("subtitle")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("subtitle")} image={{ kind: "photo", src: "/images/centre/etabli.webp" }} />
 
       <Section className="pt-0">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

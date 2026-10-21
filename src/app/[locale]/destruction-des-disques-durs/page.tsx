@@ -29,7 +29,7 @@ export default async function HardDrivesPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} image={{ kind: "object", src: "/images/bac/disque-dur.webp", width: 80 }} />
 
       <Section className="pt-0">
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">

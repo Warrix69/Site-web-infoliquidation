@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { LangSwitcher } from "@/components/layout/LangSwitcher";
 import { LogoPlaque } from "@/components/layout/LogoPlaque";
@@ -96,9 +96,7 @@ export function Header({ locale, labels }: HeaderProps) {
     <div className="fixed inset-x-0 top-0 z-50">
       {/* Topbar — vert accent */}
       <div
-        className={`overflow-hidden bg-emerald transition-all duration-300 ${
-          scrolled ? "max-h-0" : "max-h-12"
-        }`}
+        className="overflow-hidden bg-forest"
       >
         <div className="mx-auto flex h-10 w-full max-w-6xl items-center justify-between gap-4 px-5 text-xs sm:px-8">
           <a
@@ -116,7 +114,9 @@ export function Header({ locale, labels }: HeaderProps) {
       {/* Barre principale */}
       <header
         className={`transition-all duration-300 ${
-          scrolled ? "glass border-x-0 border-t-0" : "border-b border-transparent"
+          scrolled
+            ? "border-b border-line bg-paper/95 shadow-[0_8px_24px_-16px_rgba(10,10,10,0.35)] backdrop-blur"
+            : "border-b border-line bg-paper/95 backdrop-blur"
         }`}
       >
         <div className="mx-auto flex h-[72px] w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
@@ -155,18 +155,27 @@ export function Header({ locale, labels }: HeaderProps) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={reduce ? undefined : { opacity: 0, y: 8, scale: 0.98 }}
                     transition={{ duration: 0.22, ease: [0.21, 0.47, 0.32, 0.98] }}
-                    className="glass absolute left-1/2 top-full mt-3 w-[560px] -translate-x-1/2 rounded-2xl p-3"
+                    className="absolute left-1/2 top-full w-[600px] -translate-x-1/2 pt-3"
                   >
-                    <div className="grid grid-cols-2 gap-1">
-                      {labels.services.map((service) => (
-                        <Link
-                          key={service.route}
-                          href={service.route}
-                          className="rounded-xl px-4 py-3 text-sm font-medium text-mist/90 transition-colors hover:bg-emerald-soft hover:text-emerald"
-                        >
-                          {service.title}
-                        </Link>
-                      ))}
+                    {/* pt-3 : zone de survol continue entre le bouton et le panneau */}
+                    <div className="grid grid-cols-2 gap-1.5 rounded-2xl border border-line bg-paper p-2 shadow-[0_24px_60px_-20px_rgba(10,10,10,0.35)]">
+                      {labels.services.map((service) => {
+                        const current = pathname === service.route;
+                        return (
+                          <Link
+                            key={service.route}
+                            href={service.route}
+                            onClick={() => setServicesOpen(false)}
+                            aria-current={current ? "page" : undefined}
+                            className={`group/item flex items-center justify-between gap-3 rounded-xl px-4 py-3.5 text-sm font-semibold transition-colors ${
+                              current ? "bg-emerald text-paper" : "bg-sand/60 text-ink hover:bg-ink hover:text-paper"
+                            }`}
+                          >
+                            {service.title}
+                            <ArrowUpRight className="h-4 w-4 shrink-0 opacity-60 transition-transform group-hover/item:-translate-y-0.5 group-hover/item:translate-x-0.5 group-hover/item:opacity-100" aria-hidden="true" />
+                          </Link>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}
@@ -209,7 +218,7 @@ export function Header({ locale, labels }: HeaderProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? undefined : { opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="glass mx-4 mt-2 max-h-[calc(100dvh-120px)] overflow-y-auto rounded-2xl p-4 lg:hidden"
+            className="mx-4 mt-2 max-h-[calc(100dvh-120px)] overflow-y-auto rounded-2xl border border-line bg-paper p-4 shadow-[0_24px_60px_-20px_rgba(10,10,10,0.35)] lg:hidden"
           >
             <div className="flex flex-col">
               {before.map((item) => (

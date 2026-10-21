@@ -23,7 +23,7 @@ export default async function AboutPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} image={{ kind: "photo", src: "/images/centre/allee.webp" }} />
 
       <Section className="pt-0">
         <div className="grid gap-8 lg:grid-cols-5">

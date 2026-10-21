@@ -3,14 +3,17 @@ import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CitiesMarquee } from "@/components/home/CitiesMarquee";
+import { ClosingBin } from "@/components/home/ClosingBin";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { BinSection, type BinLabels } from "@/components/home/BinSection";
+import { DataDestruction, type DestructionLabels } from "@/components/home/DataDestruction";
+import { FlowSection, type FlowLabels } from "@/components/home/FlowSection";
 import { Hero, type HeroLabels } from "@/components/home/Hero";
-import { StepsTimeline, type StepItem } from "@/components/home/StepsTimeline";
+import { StepsTimeline, type StepItem, type StepsMock } from "@/components/home/StepsTimeline";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal } from "@/components/motion/Reveal";
 import { ServicesGrid } from "@/components/services/ServicesGrid";
-import { Accordion, type AccordionItem } from "@/components/ui/Accordion";
-import { GhostButtonLink, PrimaryButtonLink } from "@/components/ui/Button";
-import { Section, SectionHeading } from "@/components/ui/Section";
+import { PrimaryButtonLink } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
@@ -33,11 +36,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return pageMetadata({ locale, ns: "home", href: "/" });
 }
 
-const STEP_IMAGES = [
-  "/images/etape-formulaire.png",
-  "/images/etape-date.png",
-  "/images/etape-ramassage.png"
-];
 
 export default async function HomePage({ params }: Params) {
   const { locale } = await params;
@@ -47,39 +45,41 @@ export default async function HomePage({ params }: Params) {
   const tAll = await getTranslations();
 
   const heroLabels: HeroLabels = {
-    badge: t("hero.badge"),
-    title: t("hero.title"),
-    subtitle: t("hero.subtitle"),
+    titleLead: t("hero.titleLead"),
+    titleAccent: t("hero.titleAccent"),
+    since: t("hero.since"),
+    years: t.raw("hero.years") as HeroLabels["years"],
+    promise: t("hero.promise"),
     ctaPrimary: t("hero.ctaPrimary"),
-    ctaSecondary: t("hero.ctaSecondary"),
-    proofs: t.raw("hero.proofs") as string[],
-    scrollHint: t("hero.scrollHint")
+    ctaHow: t("hero.ctaHow"),
+    devices: t.raw("hero.devices") as HeroLabels["devices"]
   };
+  const binLabels = t.raw("hero.bin") as BinLabels;
+  const flowLabels = t.raw("flow") as FlowLabels;
+  const destructionLabels = t.raw("destruction") as DestructionLabels;
+
 
   const stats = t.raw("stats.items") as StatItem[];
-  const steps = (t.raw("steps.items") as { title: string; desc: string }[]).map((s, i) => ({
-    ...s,
-    img: STEP_IMAGES[i]
-  })) satisfies StepItem[];
+  const steps = t.raw("steps.short") as StepItem[];
+  const stepsMock = t.raw("steps.mock") as StepsMock;
   const regions = t.raw("zones.regions") as string[];
-  const faqItems = tAll.raw("faqItems") as AccordionItem[];
 
   return (
     <>
-      {/* 3. HERO plein écran */}
+      {/* Hero : chaque appareil a une seconde vie (3D) */}
       <Hero labels={heroLabels} />
 
-      {/* 4. Bande de statistiques — bannière verte */}
-      <section className="relative overflow-hidden bg-emerald text-paper">
+      {/* Chiffres clés */}
+      <section data-theme="dark" className="relative overflow-hidden text-mist">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-5 py-16 sm:grid-cols-3 sm:px-8 lg:grid-cols-5 lg:py-20">
           {stats.map((item, i) => (
             <Reveal key={i} delay={i * 0.08}>
               {item.prefix ? (
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-paper/80">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-moss">
                   {item.prefix}
                 </p>
               ) : null}
-              <p className="mt-2 font-display text-3xl font-bold leading-none text-paper sm:text-4xl">
+              <p className="mt-2 font-display text-3xl font-bold leading-none text-lime sm:text-4xl">
                 {item.text ? (
                   item.text
                 ) : (
@@ -91,7 +91,7 @@ export default async function HomePage({ params }: Params) {
                   />
                 )}
               </p>
-              <p className="mt-3 text-xs font-medium uppercase tracking-[0.14em] text-paper/80 sm:text-sm">
+              <p className="mt-3 text-xs font-medium uppercase tracking-[0.14em] text-moss sm:text-sm">
                 {item.label}
               </p>
             </Reveal>
@@ -99,106 +99,110 @@ export default async function HomePage({ params }: Params) {
         </div>
       </section>
 
-      {/* 5. Comment ça marche — 3 étapes */}
-      <Section>
-        <SectionHeading
-          eyebrow={t("steps.eyebrow")}
-          title={t("steps.title")}
-          subtitle={t("steps.subtitle")}
+      {/* Comment ça marche : 3 étapes interactives */}
+      <section className="relative bg-paper">
+        <StepsTimeline
+          heading={{ eyebrow: t("steps.eyebrow"), title: t("steps.title"), subtitle: t("steps.subtitle") }}
+          items={steps}
+          mock={stepsMock}
+          cta={t("steps.cta")}
         />
-        <StepsTimeline items={steps} />
-      </Section>
+      </section>
 
-      {/* 6. Grille des services */}
-      <Section className="bg-surface/30">
-        <SectionHeading
-          eyebrow={t("servicesSection.eyebrow")}
-          title={t("servicesSection.title")}
-          subtitle={t("servicesSection.subtitle")}
-          className="mb-12"
-        />
-        <ServicesGrid />
-      </Section>
+      {/* Le bac bleu se remplit : minimum 10 items */}
+      <BinSection labels={binLabels} cta={t("hero.ctaPrimary")} />
 
+      {/* Destruction des données : le disque dur se dissout */}
+      <DataDestruction labels={destructionLabels} />
 
-      {/* 9. Zones desservies + marquee */}
-      <Section className="bg-surface/30">
-        <SectionHeading
-          eyebrow={t("zones.eyebrow")}
-          title={t("zones.title")}
-          subtitle={t("zones.desc")}
-        />
-        <Reveal className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {regions.map((region) => (
-            <span
-              key={region}
-              className="glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display text-sm font-semibold text-mist"
+      {/* Zones desservies */}
+      <section className="relative overflow-hidden bg-sand py-16 sm:py-24">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12">
+          <Reveal className="lg:col-span-5">
+            <p className="text-sm font-semibold text-emerald">{t("zones.eyebrow")}</p>
+            <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-[-0.02em] text-ink sm:text-4xl lg:text-[2.75rem]">
+              {t("zones.title")}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-moss sm:text-lg">{t("zones.desc")}</p>
+            <Link
+              href="/contact"
+              className="mt-6 inline-flex items-start gap-2 text-sm font-semibold text-ink underline decoration-emerald/50 underline-offset-4 transition-colors hover:text-emerald"
             >
-              <MapPin className="h-4 w-4 text-emerald" aria-hidden="true" />
-              {region}
-            </span>
-          ))}
-        </Reveal>
-        <Reveal className="mt-6 text-center">
-          <Link
-            href="/contact"
-            className="text-sm text-moss underline decoration-emerald/50 underline-offset-4 transition-colors hover:text-emerald"
-          >
-            {t("zones.addressNote")}
-          </Link>
-        </Reveal>
-        <div className="mt-10 -mx-5 sm:-mx-8">
-          <CitiesMarquee locale={locale} label={t("zones.marqueeLabel")} />
-        </div>
-      </Section>
-
-      {/* 10. FAQ */}
-      <Section>
-        <SectionHeading
-          eyebrow={t("faq.eyebrow")}
-          title={t("faq.title")}
-          subtitle={t("faq.subtitle")}
-          className="mb-10"
-        />
-        <div className="mx-auto max-w-3xl">
-          <Accordion items={faqItems} />
-          <Reveal className="mt-8 text-center">
-            <GhostButtonLink href="/faq" withArrow>
-              {t("faq.cta")}
-            </GhostButtonLink>
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald" aria-hidden="true" />
+              {t("zones.addressNote")}
+            </Link>
+          </Reveal>
+          <Reveal delay={0.1} className="lg:col-span-7">
+            <ul className="grid grid-cols-2 gap-3 sm:gap-4">
+              {regions.map((region, i) => (
+                <li
+                  key={region}
+                  className={`flex h-28 flex-col justify-between rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1 sm:h-32 ${
+                    i === 0 ? "bg-ink text-paper" : "bg-paper text-ink"
+                  }`}
+                >
+                  <span
+                    className={`flex h-9 w-9 items-center justify-center rounded-full ${
+                      i === 0 ? "bg-lime text-ink" : "bg-sand text-emerald"
+                    }`}
+                  >
+                    <MapPin className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                  <span className="font-display text-lg font-bold leading-tight sm:text-xl">{region}</span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
-      </Section>
+        <div className="mt-12">
+          <CitiesMarquee locale={locale} label={t("zones.marqueeLabel")} />
+        </div>
+      </section>
+
+      {/* Rien n'est perdu : ramasser, détruire, recycler */}
+      <FlowSection labels={flowLabels} />
+
+      {/* Services */}
+      <section className="relative bg-paper py-16 sm:py-24">
+        <ServicesGrid
+          heading={{
+            eyebrow: t("servicesSection.eyebrow"),
+            title: t("servicesSection.title"),
+            subtitle: t("servicesSection.subtitle")
+          }}
+        />
+      </section>
 
       {/* 11. CTA final plein écran — fond noir */}
-      <section data-theme="dark" className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-ink py-24">
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="circuit-grid absolute inset-0 animate-grid-pan opacity-60 [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,black,transparent)]" />
-          <div className="absolute left-1/4 top-1/4 h-[360px] w-[360px] animate-blob rounded-full bg-emerald/20 blur-[110px]" />
-          <div className="absolute bottom-1/4 right-1/4 h-[320px] w-[320px] animate-blob-slow rounded-full bg-lime/15 blur-[110px]" />
-        </div>
-        <div className="mx-auto w-full max-w-4xl px-5 text-center sm:px-8">
-          <Reveal>
-            <h2 className="font-display text-[clamp(2.2rem,6vw,4rem)] font-bold leading-[1.08] text-mist">
+      <section
+        data-theme="green"
+        className="relative isolate flex min-h-[80vh] items-center overflow-hidden py-20 sm:py-24"
+        style={{ backgroundColor: "var(--color-vivid-deep)" }}
+      >
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-12">
+          <Reveal className="order-2 text-center lg:order-1 lg:col-span-7 lg:text-left">
+            <h2 className="font-display text-[clamp(2.2rem,5.4vw,4rem)] font-bold leading-[1.08] text-mist">
               {t("finalCta.title")}
               <br />
-              <span className="text-gradient">{t("finalCta.subtitle")}</span>
+              <span className="text-paper">{t("finalCta.subtitle")}</span>
             </h2>
-            <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row">
-              <PrimaryButtonLink
-                href="/formulaire-de-ramassage"
-                className="px-10 py-5 text-lg"
-              >
-                {t("finalCta.button")}
-              </PrimaryButtonLink>
+            <div className="mt-10 flex flex-col items-center gap-5 sm:flex-row lg:items-center">
+              <Magnetic strength={0.25}>
+                <PrimaryButtonLink href="/formulaire-de-ramassage" className="px-10 py-5 text-lg sm:whitespace-nowrap">
+                  {t("finalCta.button")}
+                </PrimaryButtonLink>
+              </Magnetic>
               <a
                 href={SITE.phoneHref}
-                className="font-display text-base font-semibold text-mist transition-colors hover:text-emerald"
+                className="font-display text-base font-semibold text-mist transition-colors hover:text-emerald sm:whitespace-nowrap"
               >
                 {tAll("common.orCallUs")} {SITE.phoneDisplay}
               </a>
             </div>
           </Reveal>
+          <div className="order-1 lg:order-2 lg:col-span-5">
+            <ClosingBin />
+          </div>
         </div>
       </section>
     </>

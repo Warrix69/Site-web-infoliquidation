@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, RoundedBox } from "@react-three/drei";
+import { Environment, Float, Lightformer, RoundedBox } from "@react-three/drei";
 import { EffectComposer, Bloom, N8AO, SMAA } from "@react-three/postprocessing";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef } from "react";
@@ -14,53 +14,62 @@ export type DeviceKey = "laptop" | "phone" | "tower" | "switch" | "monitor";
  * Post-processing : N8AO (ambient occlusion), Bloom (émissifs), SMAA.
  * Matériaux PBR physiques, bords arrondis partout, HDRI studio.
  */
-export function HeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) => void }) {
+export type HeroDevicesProps = {
+  onDeviceChange?: (d: DeviceKey) => void;
+  /** high : effets complets (ordinateur) ; low : sans post-traitement, résolution plafonnée (mobile, petites machines) */
+  quality?: "high" | "low";
+  /** false quand le hero n'est pas à l'écran : plus aucun calcul */
+  active?: boolean;
+  onContextLost?: () => void;
+};
+
+export function HeroDevices({ onDeviceChange, quality = "high", active = true, onContextLost }: HeroDevicesProps) {
+  const high = quality === "high";
   return (
     <Canvas
-      camera={{ position: [0, 1.1, 4.6], fov: 34 }}
-      dpr={[1, 2]}
+      camera={{ position: [0, 0.6, 6], fov: 30 }}
+      dpr={high ? [1, 2] : [1, 1.5]}
+      frameloop={active ? "always" : "never"}
       gl={{
         antialias: true,
         alpha: true,
-        powerPreference: "high-performance",
+        powerPreference: high ? "high-performance" : "default",
         preserveDrawingBuffer: false
       }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.1;
+        gl.domElement.addEventListener("webglcontextlost", (e) => {
+          e.preventDefault();
+          onContextLost?.();
+        });
       }}
       className="pointer-events-none"
     >
       {/* Éclairage réaliste à 3 points */}
       <ambientLight intensity={0.25} />
       <directionalLight position={[5, 7, 4]} intensity={2.4} />
-      {/* Fill light vert doux (ambiance éco) */}
       <directionalLight position={[-6, 2, 2]} intensity={0.5} color="#bbf7d0" />
-      {/* Rim light pour détacher du fond */}
       <directionalLight position={[0, 1, -5]} intensity={0.7} color="#ffffff" />
 
-      <Environment preset="warehouse" environmentIntensity={0.35} />
+      {/* Environnement de reflets généré localement (aucun téléchargement externe) */}
+      <Environment resolution={128} frames={1}>
+        <Lightformer form="rect" intensity={2.2} position={[0, 5, -3]} scale={[10, 3, 1]} />
+        <Lightformer form="rect" intensity={1.2} position={[-6, 1, 2]} rotation-y={Math.PI / 2} scale={[6, 4, 1]} />
+        <Lightformer form="rect" intensity={1.2} position={[6, 1, 2]} rotation-y={-Math.PI / 2} scale={[6, 4, 1]} />
+        <Lightformer form="ring" color="#bbf7d0" intensity={0.8} position={[0, -2, 4]} scale={4} />
+      </Environment>
 
       <DeviceCarousel onDeviceChange={onDeviceChange} />
 
-      {/* Post-processing : SSAO + Bloom pour un rendu "studio" */}
-      <EffectComposer multisampling={0} enableNormalPass>
-        <N8AO
-          aoRadius={0.35}
-          intensity={2.2}
-          color="#000000"
-          distanceFalloff={1.0}
-          quality="medium"
-        />
-        <Bloom
-          intensity={0.18}
-          luminanceThreshold={0.9}
-          luminanceSmoothing={0.4}
-          mipmapBlur
-          radius={0.4}
-        />
-        <SMAA />
-      </EffectComposer>
+      {/* Post-traitement studio : ordinateurs seulement */}
+      {high && (
+        <EffectComposer multisampling={0} enableNormalPass>
+          <N8AO aoRadius={0.35} intensity={2.2} color="#000000" distanceFalloff={1.0} quality="medium" />
+          <Bloom intensity={0.18} luminanceThreshold={0.9} luminanceSmoothing={0.4} mipmapBlur radius={0.4} />
+          <SMAA />
+        </EffectComposer>
+      )}
     </Canvas>
   );
 }
@@ -71,6 +80,20 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
   const scrollRef = useRef(0);
   const reduce = useReducedMotion();
   const lastDevice = useRef<DeviceKey>("laptop");
+  const pinnedRef = useRef(false);
+  const pointer = useRef({ x: 0, y: 0, ex: 0, ey: 0 });
+
+  // L'appareil affiché s'oriente vers le pointeur (souris uniquement)
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const onMove = (e: PointerEvent) => {
+      pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -79,6 +102,12 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
         document.querySelector("section");
       if (!section) return;
       const rect = section.getBoundingClientRect();
+      // Section épinglée (hero) : 0 en haut de la piste, 1 à la fin de l'épinglage
+      if (section.dataset.pinned === "1") {
+        pinnedRef.current = true;
+        scrollRef.current = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height - window.innerHeight)));
+        return;
+      }
       // Progress basé sur le passage de la section dans le viewport :
       // 0 = section tout en bas, 1 = section tout en haut (hors du viewport).
       // Marche même quand la section fait exactement 1 viewport.
@@ -108,7 +137,7 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
     const rawP = reduce ? 0 : scrollRef.current;
     // Le laptop reste visible un peu plus longtemps : les 28% premiers du scroll,
     // puis les 4 autres appareils se partagent les 72% restants.
-    const LAPTOP_HOLD = 0.28;
+    const LAPTOP_HOLD = pinnedRef.current ? 0.06 : 0.28;
     const p =
       rawP < LAPTOP_HOLD ? 0 : (rawP - LAPTOP_HOLD) / (1 - LAPTOP_HOLD);
     const stepSize = 1 / DEVICES.length;
@@ -123,6 +152,9 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
     }
 
     const t = state.clock.getElapsedTime();
+    const ptr = pointer.current;
+    ptr.ex += (ptr.x - ptr.ex) * 0.06;
+    ptr.ey += (ptr.y - ptr.ey) * 0.06;
 
     DEVICES.forEach((key, i) => {
       const group = refs.current[key];
@@ -141,7 +173,8 @@ function DeviceCarousel({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =>
       // L'appareil fait face à la caméra quand il est centré (distance = 0).
       // En entrée (distance négative), il arrive tourné vers la gauche ;
       // en sortie (distance positive), il part tourné vers la droite.
-      group.rotation.y = distance * Math.PI * 0.55 + (reduce ? 0 : Math.sin(t * 0.3) * 0.06);
+      group.rotation.y = distance * Math.PI * 0.55 + (reduce ? 0 : Math.sin(t * 0.3) * 0.06) + ptr.ex * 0.45 * opacity;
+      group.rotation.x = ptr.ey * 0.16 * opacity;
 
       group.traverse((obj) => {
         const mesh = obj as THREE.Mesh;

@@ -78,11 +78,7 @@ export default async function PickupFormPage({ params }: Params) {
   return (
     <>
       {/* ─── Hero (centré) ────────────────────────────────────── */}
-      <header className="relative overflow-hidden pb-12 pt-28 sm:pb-16 sm:pt-36">
-        <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="circuit-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_60%_55%_at_50%_0%,black,transparent)]" />
-          <div className="absolute -top-32 left-1/2 h-[460px] w-[720px] -translate-x-1/2 rounded-full bg-emerald/15 blur-[130px]" />
-        </div>
+      <header data-theme="green" className="relative overflow-hidden pb-12 pt-32 sm:pb-16 sm:pt-40">
         <div className="mx-auto w-full max-w-3xl px-5 text-center sm:px-8">
           <Reveal>
             <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald/30 bg-emerald-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald">

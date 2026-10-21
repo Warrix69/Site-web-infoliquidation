@@ -41,12 +41,12 @@ export function CookieBanner({ labels }: { labels: CookieBannerLabels }) {
           animate={{ opacity: 1, y: 0 }}
           exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed inset-x-4 bottom-4 z-[80] sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-md"
+          className="fixed inset-x-4 bottom-4 z-[80] sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-sm"
           role="dialog"
           aria-live="polite"
           aria-label="Cookie consent"
         >
-          <div className="glass rounded-2xl border border-line bg-surface/95 p-5 shadow-2xl backdrop-blur">
+          <div className="rounded-2xl border border-line bg-paper p-4 shadow-[0_20px_50px_-20px_rgba(10,10,10,0.45)] sm:p-5">
             <p className="text-sm leading-relaxed text-mist">{labels.message}</p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <button

@@ -26,7 +26,7 @@ export default async function InformationsPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")}>
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} image={{ kind: "photo", src: "/images/centre/matieres.webp" }}>
         <blockquote className="glass mt-8 max-w-3xl rounded-2xl border-s-4 border-s-emerald px-6 py-5 font-display text-lg font-semibold leading-relaxed text-mist sm:text-xl">
           {t("banner")}
         </blockquote>

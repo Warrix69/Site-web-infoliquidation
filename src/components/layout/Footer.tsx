@@ -28,7 +28,11 @@ export async function Footer() {
   const riveSud = locale === "fr" ? "Rive-Sud" : "South Shore";
 
   return (
-    <footer data-theme="dark" className="relative mt-8 border-t border-line bg-ink text-mist">
+    <footer
+      data-theme="dark"
+      className="relative border-t border-line text-mist"
+      style={{ backgroundColor: "var(--color-forest-deep)" }}
+    >
       {/* Bannière ramassage gratuit */}
       <div className="border-b border-line">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-5 px-5 py-10 text-center sm:flex-row sm:px-8 sm:text-left">

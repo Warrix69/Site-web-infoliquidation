@@ -10,13 +10,19 @@
      Les noms (ink / mist / moss / surface) restent pour compatibilité
      avec le code existant ; leurs valeurs sont désormais claires. */
   --color-paper: #ffffff;         /* fond principal */
-  --color-cream: #fafafa;         /* fond alterné doux */
+  --color-cream: #faf7f1;         /* fond alterné doux (sable très clair) */
+  --color-forest: #0c0f0d;        /* noir profond : sections fortes */
+  --color-forest-deep: #060807;   /* noir le plus profond : pied de page */
+  --color-vivid: #22c55e;         /* vert recyclage flash (marque) : grands aplats, texte noir */
+  --color-vivid-deep: #16a34a;    /* vert vif soutenu : appel final */
+  --color-sand: #f3eee4;          /* sable chaud : sections douces */
+  --color-sand-deep: #e9e1d2;     /* sable soutenu : bordures, cartes */
   --color-ink: #0a0a0a;           /* noir profond pour CTA + sections sombres */
   --color-noir: #0a0a0a;          /* alias */
-  --color-surface: #f4f4f5;       /* carte / surface subtile */
-  --color-surface-2: #e4e4e7;     /* surface élevée */
+  --color-surface: #f3eee4;       /* carte / surface subtile (sable) */
+  --color-surface-2: #e9e1d2;     /* surface élevée (sable soutenu) */
   --color-mist: #0a0a0a;          /* texte principal (anciennement blanc, flip) */
-  --color-moss: #52525b;          /* texte secondaire */
+  --color-moss: #4f5650;          /* texte secondaire */
   --color-emerald: #16a34a;       /* vert accent principal */
   --color-lime: #22c55e;          /* vert accent plus clair */
   --color-emerald-soft: rgba(22, 163, 74, 0.1);
@@ -78,15 +84,15 @@ body {
 /* ------------------------------------------------------------------ */
 
 [data-theme="dark"] {
-  background-color: var(--color-ink);
-  color: #fafafa;
-  --color-mist: #fafafa;
-  --color-moss: #a1a1aa;
-  --color-surface: #171717;
-  --color-surface-2: #262626;
-  --color-line: rgba(255, 255, 255, 0.1);
-  --color-line-strong: rgba(255, 255, 255, 0.18);
-  --color-emerald-soft: rgba(34, 197, 94, 0.15);
+  background-color: var(--color-forest);
+  color: #f5f7f5;
+  --color-mist: #f5f7f5;
+  --color-moss: #a7b1aa;
+  --color-surface: #161b18;
+  --color-surface-2: #1f2622;
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line-strong: rgba(255, 255, 255, 0.2);
+  --color-emerald-soft: rgba(74, 222, 128, 0.14);
 }
 
 /* ------------------------------------------------------------------ */
@@ -108,8 +114,32 @@ body {
   border: 1px solid var(--color-line);
 }
 
+/* Thème vert vif : aplat vert recyclage, texte noir */
+[data-theme="green"] {
+  background-color: var(--color-vivid);
+  color: #0a0a0a;
+  --color-mist: #0a0a0a;
+  --color-moss: rgba(10, 10, 10, 0.74);
+  --color-emerald: #064e24;
+  --color-emerald-soft: rgba(255, 255, 255, 0.3);
+  --color-surface: rgba(255, 255, 255, 0.35);
+  --color-surface-2: rgba(255, 255, 255, 0.5);
+  --color-line: rgba(10, 10, 10, 0.14);
+  --color-line-strong: rgba(10, 10, 10, 0.24);
+}
+
+[data-theme="green"] .bg-gradient-accent {
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+[data-theme="green"] .glass {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(10, 10, 10, 0.08);
+}
+
 [data-theme="dark"] .glass {
-  background: rgba(23, 23, 23, 0.65);
+  background: rgba(22, 27, 24, 0.7);
   border-color: var(--color-line);
   box-shadow: var(--shadow-card-dark);
 }
@@ -119,29 +149,25 @@ body {
   border-color: var(--color-line);
 }
 
+/* Ancien texte en dégradé : désormais une couleur pleine (plus sobre) */
 @utility text-gradient {
-  background: linear-gradient(92deg, #16a34a 0%, #22c55e 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-emerald);
 }
 
+[data-theme="dark"] .text-gradient {
+  color: #4ade80;
+}
+
+/* Fond des boutons principaux : vert plein (texte encre au-dessus) */
 @utility bg-gradient-accent {
-  background: linear-gradient(92deg, #16a34a 0%, #22c55e 100%);
+  background-color: #2fb764;
 }
 
+/* Quadrillé retiré du design (trop « généré ») : la classe ne dessine plus rien */
 @utility circuit-grid {
-  background-image:
-    linear-gradient(rgba(10, 10, 10, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 10, 10, 0.045) 1px, transparent 1px);
-  background-size: 72px 72px;
+  background-image: none;
 }
 
-[data-theme="dark"] .circuit-grid {
-  background-image:
-    linear-gradient(rgba(34, 197, 94, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 197, 94, 0.08) 1px, transparent 1px);
-}
 
 /* Ligne verticale décorative "editorial" */
 @utility rule-x {
@@ -221,6 +247,34 @@ body {
 @keyframes heroFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* Filet de sécurité : si une animation JS ne se lance pas, le texte du hero devient quand même visible */
+.hero-safe {
+  animation: heroSafe 1ms linear 2.6s forwards;
+}
+
+@keyframes heroSafe {
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes underlineIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes stepProgress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes binShake {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(-5deg); }
+  30% { transform: rotate(4deg); }
+  45% { transform: rotate(-3deg); }
+  60% { transform: rotate(2deg); }
+  75% { transform: rotate(-1deg); }
 }
 
 @keyframes heroRiseIn {

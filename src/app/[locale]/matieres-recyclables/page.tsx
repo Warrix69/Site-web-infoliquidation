@@ -31,7 +31,7 @@ export default async function MaterialsPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} image={{ kind: "photo", src: "/images/centre/matieres.webp" }} />
 
       <Section className="pt-0">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

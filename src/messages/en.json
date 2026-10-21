@@ -143,7 +143,61 @@
         "Free destruction certificate",
         "Reply within 24 h"
       ],
-      "scrollHint": "Scroll down"
+      "scrollHint": "Scroll down",
+      "titleLead": "The trusted name in",
+      "titleAccent": "computer recycling",
+      "since": "For over 20 years in Greater Montreal",
+      "promise": "Free pick-up within 72 h. Free certificate of data destruction.",
+      "ctaHow": "How it works",
+      "bin": {
+        "counterLabel": "items in the bin",
+        "minimum": "Minimum 10 items per pick-up",
+        "full": "Bin full: we pick it up, free of charge.",
+        "shake": "Shake the bin",
+        "sceneLabel": "Animation: used devices drop into the recycling bin",
+        "title": "From 10 items, we come to you.",
+        "text": "Computers, monitors, phones, hard drives: pick-up, transport and equipment are 100% free."
+      },
+      "devices": {
+        "eyebrow": "What we recycle",
+        "titleAccent": "Every device",
+        "titleRest": "gets a second life.",
+        "laptop": "Laptops",
+        "phone": "Phones",
+        "tower": "Towers & servers",
+        "switch": "Network equipment",
+        "monitor": "Monitors"
+      },
+      "parts": [
+        {
+          "part": "Screen",
+          "fate": "Dismantled and recycled"
+        },
+        {
+          "part": "Keyboard and chassis",
+          "fate": "Plastics and metals recovered"
+        },
+        {
+          "part": "Motherboard",
+          "fate": "Metals recovered"
+        },
+        {
+          "part": "SSD drive",
+          "fate": "Physically destroyed"
+        },
+        {
+          "part": "Battery and casing",
+          "fate": "Recycled"
+        }
+      ],
+      "partsCaption": "100% of components recovered and recycled",
+      "years": {
+        "prefix": "Over",
+        "number": 20,
+        "unit": "years",
+        "suffix": "in Greater Montreal",
+        "replay": "Replay the animation"
+      }
     },
     "stats": {
       "items": [
@@ -197,7 +251,35 @@
           "title": "Pick-up",
           "desc": "We charge no fees whatsoever, whether for the pick-up or the equipment. A data destruction certificate is available."
         }
-      ]
+      ],
+      "short": [
+        {
+          "title": "Fill in the form",
+          "line": "Tell us how many of each device you have in our online form."
+        },
+        {
+          "title": "We confirm the date",
+          "line": "We reply within 24 h to set the pick-up date."
+        },
+        {
+          "title": "We pick up, for free",
+          "line": "We come within 72 h max. Pick-up, transport and equipment are free."
+        }
+      ],
+      "cta": "Fill in the form",
+      "mock": {
+        "rows": [
+          "Computers",
+          "CRT monitors",
+          "Printers"
+        ],
+        "items": "items in total",
+        "minimum": "10-item minimum reached",
+        "reply": "Reply within 24 h",
+        "date": "Pick-up date",
+        "free": "Free",
+        "within": "Within 72 h max"
+      }
     },
     "servicesSection": {
       "eyebrow": "Our services",
@@ -294,6 +376,37 @@
       "title": "Ready to free up some space?",
       "subtitle": "Free pick-up everywhere in Greater Montreal",
       "button": "Request a free pick-up"
+    },
+    "destruction": {
+      "eyebrow": "Data destruction",
+      "title": "Your data, destroyed. Free of charge.",
+      "text": "Hard drives are physically destroyed, by shredding or crushing, on site too. A certificate of destruction is provided free of charge on request.",
+      "points": [
+        "Physical destruction, on site too",
+        "Free certificate of destruction",
+        "Free pick-up and transport"
+      ],
+      "cta": "Data destruction",
+      "stampTitle": "Certificate of destruction",
+      "stampLine": "Data destroyed, free of charge"
+    },
+    "flow": {
+      "title": "Nothing is wasted.",
+      "text": "From pick-up to recycling, we handle everything, free of charge.",
+      "items": [
+        {
+          "title": "We pick up",
+          "text": "Free, within 72 h max."
+        },
+        {
+          "title": "We destroy the data",
+          "text": "Physical hard drive destruction, free certificate."
+        },
+        {
+          "title": "We recycle",
+          "text": "100% of components recovered and recycled."
+        }
+      ]
     }
   },
   "faqItems": [

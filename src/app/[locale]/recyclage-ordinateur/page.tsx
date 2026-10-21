@@ -27,7 +27,7 @@ export default async function ComputerRecyclingPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} />
+      <PageHero eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")} image={{ kind: "object", src: "/images/bac/portable.webp", width: 86 }} />
 
       <Section className="pt-0">
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">

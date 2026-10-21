@@ -143,7 +143,61 @@
         "Certificat de destruction gratuit",
         "Réponse en 24 h"
       ],
-      "scrollHint": "Faire défiler"
+      "scrollHint": "Faire défiler",
+      "titleLead": "La référence pour votre",
+      "titleAccent": "recyclage informatique",
+      "since": "Depuis plus de 20 ans au Grand Montréal",
+      "promise": "Ramassage gratuit en 72 h. Certificat de destruction des données sans frais.",
+      "ctaHow": "Comment ça marche",
+      "bin": {
+        "counterLabel": "items dans le bac",
+        "minimum": "Minimum 10 items par ramassage",
+        "full": "Bac plein : on passe le ramasser, sans frais.",
+        "shake": "Secouer le bac",
+        "sceneLabel": "Animation : des appareils usagés tombent dans le bac de recyclage",
+        "title": "Dès 10 items, on se déplace.",
+        "text": "Ordinateurs, écrans, téléphones, disques durs : le ramassage, le transport et le matériel sont 100 % gratuits."
+      },
+      "devices": {
+        "eyebrow": "Ce que nous recyclons",
+        "titleAccent": "Chaque appareil",
+        "titleRest": "a une seconde vie.",
+        "laptop": "Portables",
+        "phone": "Téléphones",
+        "tower": "Tours & serveurs",
+        "switch": "Équipements réseau",
+        "monitor": "Écrans"
+      },
+      "parts": [
+        {
+          "part": "Écran",
+          "fate": "Démonté et recyclé"
+        },
+        {
+          "part": "Clavier et châssis",
+          "fate": "Plastiques et métaux valorisés"
+        },
+        {
+          "part": "Carte mère",
+          "fate": "Métaux récupérés"
+        },
+        {
+          "part": "Disque SSD",
+          "fate": "Détruit physiquement"
+        },
+        {
+          "part": "Batterie et boîtier",
+          "fate": "Recyclés"
+        }
+      ],
+      "partsCaption": "100 % des composants valorisés et recyclés",
+      "years": {
+        "prefix": "Plus de",
+        "number": 20,
+        "unit": "ans",
+        "suffix": "au Grand Montréal",
+        "replay": "Rejouer l’animation"
+      }
     },
     "stats": {
       "items": [
@@ -182,7 +236,7 @@
     },
     "steps": {
       "eyebrow": "Simple et rapide",
-      "title": "Comment ça marche ?",
+      "title": "Comment ça marche ?",
       "subtitle": "Trois étapes suffisent pour vous départir de votre matériel informatique de façon écologique et sécuritaire.",
       "items": [
         {
@@ -197,7 +251,35 @@
           "title": "Ramassage",
           "desc": "Nous ne chargeons aucuns frais, que ce soit pour le ramassage ou le matériel. Un certificat de destruction des données est disponible."
         }
-      ]
+      ],
+      "short": [
+        {
+          "title": "Remplissez le formulaire",
+          "line": "Indiquez le nombre de chaque appareil dans notre formulaire en ligne."
+        },
+        {
+          "title": "On confirme la date",
+          "line": "On vous répond en 24 h pour fixer la date du ramassage."
+        },
+        {
+          "title": "On ramasse, gratuitement",
+          "line": "On passe en 72 h maximum. Ramassage, transport et matériel sans frais."
+        }
+      ],
+      "cta": "Remplir le formulaire",
+      "mock": {
+        "rows": [
+          "Ordinateurs",
+          "Écrans CRT",
+          "Imprimantes"
+        ],
+        "items": "items au total",
+        "minimum": "Minimum de 10 items atteint",
+        "reply": "Réponse en 24 h",
+        "date": "Date du ramassage",
+        "free": "Gratuit",
+        "within": "En 72 h maximum"
+      }
     },
     "servicesSection": {
       "eyebrow": "Nos services",
@@ -294,6 +376,37 @@
       "title": "Prêt à libérer de l'espace ?",
       "subtitle": "Ramassage gratuit partout dans le Grand Montréal",
       "button": "Demander un ramassage gratuit"
+    },
+    "destruction": {
+      "eyebrow": "Destruction des données",
+      "title": "Vos données détruites. Sans frais.",
+      "text": "Les disques durs sont détruits physiquement, par déchiquetage ou broyage, aussi directement sur place. Un certificat de destruction vous est remis gratuitement sur demande.",
+      "points": [
+        "Destruction physique, aussi sur place",
+        "Certificat de destruction sans frais",
+        "Ramassage et transport gratuits"
+      ],
+      "cta": "La destruction des données",
+      "stampTitle": "Certificat de destruction",
+      "stampLine": "Données détruites, sans frais"
+    },
+    "flow": {
+      "title": "Rien n’est perdu.",
+      "text": "Du ramassage au recyclage, on s’occupe de tout, sans frais.",
+      "items": [
+        {
+          "title": "On ramasse",
+          "text": "Gratuitement, en 72 h maximum."
+        },
+        {
+          "title": "On détruit les données",
+          "text": "Destruction physique des disques durs, certificat sans frais."
+        },
+        {
+          "title": "On recycle",
+          "text": "100 % des composants valorisés et recyclés."
+        }
+      ]
     }
   },
   "faqItems": [

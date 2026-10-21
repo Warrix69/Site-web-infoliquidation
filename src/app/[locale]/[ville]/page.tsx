@@ -64,7 +64,7 @@ export default async function CityPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={`${t("eyebrow")} · ${regionLabel}`} title={t("title", { city: cityName })}>
+      <PageHero eyebrow={`${t("eyebrow")} · ${regionLabel}`} title={t("title", { city: cityName })} image={{ kind: "photo", src: "/images/centre/allee.webp" }}>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg">
           {t("intro", { city: cityName })}
         </p>

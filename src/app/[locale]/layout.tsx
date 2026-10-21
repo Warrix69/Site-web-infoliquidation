@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Inter, JetBrains_Mono, Poppins, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -18,31 +18,19 @@ const poppins = Poppins({
   display: "swap"
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-tech",
-  weight: ["400", "500", "600", "700"],
-  display: "swap"
-});
-
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  variable: "--font-hero",
-  weight: ["400", "500", "600", "700"],
-  display: "swap"
-});
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap"
 });
 
+// Seulement pour quelques petits libellés (page Merci) : une graisse, sans préchargement
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "500", "700"],
-  display: "swap"
+  weight: ["500"],
+  display: "swap",
+  preload: false
 });
 
 export function generateStaticParams() {
@@ -162,7 +150,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`${poppins.variable} ${spaceGrotesk.variable} ${ibmPlexSans.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang={locale} className={`${poppins.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <a
           href="#main"
