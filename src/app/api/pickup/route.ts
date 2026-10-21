@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { escapeHtml, sendBusinessEmail } from "@/lib/email";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 import {
   makePickupSchema,
   QUANTITY_KEYS,
@@ -23,6 +24,20 @@ const LABELS: Record<(typeof QUANTITY_KEYS)[number], string> = {
 };
 
 export async function POST(request: Request) {
+  // Anti-spam : 5 envois / 10 min par IP
+  const limit = rateLimit(`pickup:${clientIp(request)}`, 5, 10 * 60 * 1000);
+  if (!limit.ok) {
+    return NextResponse.json(
+      { ok: false },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } }
+    );
+  }
+
+  // Refuse les corps démesurés avant de parser
+  if (Number(request.headers.get("content-length") ?? 0) > 64 * 1024) {
+    return NextResponse.json({ ok: false }, { status: 413 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();

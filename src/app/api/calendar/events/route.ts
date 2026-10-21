@@ -1,5 +1,18 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { requireAdmin } from "@/lib/admin-auth";
 import { createEvent, describeGoogleError, listEvents } from "@/lib/google-calendar";
+
+const dateString = z.string().max(64).refine((v) => !Number.isNaN(new Date(v).getTime()), "Invalid date");
+
+const createSchema = z.object({
+  summary: z.string().trim().min(1).max(300),
+  description: z.string().max(8000).optional(),
+  location: z.string().max(500).optional(),
+  start: dateString,
+  end: dateString,
+  attendees: z.array(z.string().trim().email()).max(20).optional()
+});
 
 /**
  * GET /api/calendar/events?from=2026-10-08&to=2026-10-15
@@ -9,6 +22,8 @@ import { createEvent, describeGoogleError, listEvents } from "@/lib/google-calen
  * Si from/to absents, par défaut : aujourd'hui → +30 jours.
  */
 export async function GET(request: Request) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
   try {
     const url = new URL(request.url);
     const fromParam = url.searchParams.get("from");
@@ -20,6 +35,9 @@ export async function GET(request: Request) {
 
     if (Number.isNaN(from.getTime()) || Number.isNaN(to.getTime())) {
       return NextResponse.json({ error: "Invalid from/to date" }, { status: 400 });
+    }
+    if (to.getTime() - from.getTime() > 400 * 24 * 60 * 60 * 1000) {
+      return NextResponse.json({ error: "Date range too large" }, { status: 400 });
     }
 
     const items = await listEvents({ from, to, maxResults: 250 });
@@ -59,11 +77,14 @@ export async function GET(request: Request) {
  * Body JSON : { summary, description?, location?, start, end, attendees? }
  */
 export async function POST(request: Request) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
   try {
-    const body = await request.json();
-    if (!body.summary || !body.start || !body.end) {
-      return NextResponse.json({ error: "Missing summary / start / end" }, { status: 400 });
+    const parsed = createSchema.safeParse(await request.json().catch(() => null));
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Invalid body: summary / start / end required" }, { status: 400 });
     }
+    const body = parsed.data;
     const event = await createEvent({
       summary: body.summary,
       description: body.description,

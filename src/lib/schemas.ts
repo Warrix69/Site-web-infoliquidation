@@ -44,13 +44,13 @@ export function makePickupSchema(m: PickupErrorMessages) {
       required_error: m.titleRequired,
       invalid_type_error: m.titleRequired
     }),
-    firstName: z.string().trim().min(1, m.firstNameRequired),
-    lastName: z.string().trim().min(1, m.lastNameRequired),
-    company: z.string().trim().optional().or(z.literal("")),
-    email: z.string().trim().email(m.emailInvalid),
-    phone: z.string().trim().min(7, m.phoneRequired),
-    address: z.string().trim().min(1, m.addressRequired),
-    city: z.string().trim().min(1, m.cityRequired),
+    firstName: z.string().trim().min(1, m.firstNameRequired).max(100),
+    lastName: z.string().trim().min(1, m.lastNameRequired).max(100),
+    company: z.string().trim().max(200).optional().or(z.literal("")),
+    email: z.string().trim().max(254).email(m.emailInvalid),
+    phone: z.string().trim().min(7, m.phoneRequired).max(30),
+    address: z.string().trim().min(1, m.addressRequired).max(300),
+    city: z.string().trim().min(1, m.cityRequired).max(100),
     postalCode: z.string().trim().regex(CA_POSTAL_CODE, m.postalCodeInvalid),
     quantities: z.object(
       Object.fromEntries(
@@ -92,8 +92,8 @@ export type ContactErrorMessages = {
 
 export function makeContactSchema(m: ContactErrorMessages) {
   return z.object({
-    name: z.string().trim().min(1, m.nameRequired),
-    email: z.string().trim().email(m.emailInvalid),
+    name: z.string().trim().min(1, m.nameRequired).max(200),
+    email: z.string().trim().max(254).email(m.emailInvalid),
     phone: z.string().trim().max(30).optional().or(z.literal("")),
     message: z.string().trim().min(1, m.messageRequired).max(5000)
   });

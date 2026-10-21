@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap">
 <script>try{if(localStorage.getItem('il-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script>/* Session expirée (8 h) : retour à la page de connexion au lieu d'une erreur */(function(){var f=window.fetch;window.fetch=function(){return f.apply(this,arguments).then(function(r){if(r.status===401){try{if(new URL(r.url,location.href).pathname.indexOf('/api/')===0)location.replace('/admin/login')}catch(e){}}return r})}})();</script>
 <style>
 /* ═══════════ TOKENS ═══════════ */
 :root{
@@ -932,6 +933,7 @@ a.sheet-it{text-decoration:none;color:inherit}
       <button class="search-trigger" onclick="openCmdk()" aria-label="Rechercher"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span>Client, prospect, action…</span><kbd>Ctrl K</kbd></button>
       <button class="icon-btn only-m" onclick="openCmdk()" aria-label="Rechercher"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
       <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Changer le thème" title="Mode clair / sombre"><svg viewBox="0 0 24 24" id="theme-icon"></svg></button>
+      <a class="icon-btn" href="/api/admin/logout" aria-label="Se déconnecter" title="Se déconnecter"><svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5a2 2 0 00-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></a>
       <div class="notif-wrap">
         <button id="notif-btn" class="icon-btn" aria-label="Notifications" title="Notifications" onclick="toggleNotifPanel()">
           <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 002 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 00-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
@@ -1803,14 +1805,14 @@ if(slotPickups.length===0){html+=`<div class="cal-day-empty">Disponible</div>`}
 slotPickups.forEach(p=>{const cls=p.status==='pending'?'pd':p.status==='completed'?'cp':'pk';
 const stLabel=p.status==='completed'?'Complété':p.status==='pending'?'En attente':'Confirmé';
 const stCls=p.status==='completed'?'completed':p.status==='pending'?'pending':'confirmed';
-html+=`<div class="cal-day-ev ${cls}" data-pid="${p.id}"><div class="cde-info"><div class="cde-name">${esc(p.clientName)}</div><div class="cde-items">${esc(p.time)} · ${esc(p.items)}</div></div><div class="cde-status"><span class="badge ${stCls}">${stLabel}</span></div></div>`});
+html+=`<div class="cal-day-ev ${cls}" data-pid="${esc(p.id)}"><div class="cde-info"><div class="cde-name">${esc(p.clientName)}</div><div class="cde-items">${esc(p.time)} · ${esc(p.items)}</div></div><div class="cde-status"><span class="badge ${stCls}">${stLabel}</span></div></div>`});
 html+='</div></div>'});
 const otherPickups=dayPickups.filter(p=>{const ph=parseInt(p.time.split(':')[0]);return ph<7||ph>18});
 if(otherPickups.length){html+=`<div class="cal-day-slot"><div class="cal-day-hour" style="color:var(--text3)">Autre</div><div class="cal-day-events">`;
 otherPickups.forEach(p=>{const cls=p.status==='pending'?'pd':p.status==='completed'?'cp':'pk';
 const stLabel=p.status==='completed'?'Complété':p.status==='pending'?'En attente':'Confirmé';
 const stCls=p.status==='completed'?'completed':p.status==='pending'?'pending':'confirmed';
-html+=`<div class="cal-day-ev ${cls}" data-pid="${p.id}"><div class="cde-info"><div class="cde-name">${esc(p.clientName)}</div><div class="cde-items">${esc(p.time)} · ${esc(p.items)}</div></div><div class="cde-status"><span class="badge ${stCls}">${stLabel}</span></div></div>`});
+html+=`<div class="cal-day-ev ${cls}" data-pid="${esc(p.id)}"><div class="cde-info"><div class="cde-name">${esc(p.clientName)}</div><div class="cde-items">${esc(p.time)} · ${esc(p.items)}</div></div><div class="cde-status"><span class="badge ${stCls}">${stLabel}</span></div></div>`});
 html+='</div></div>'}
 html+='</div>';
 g.innerHTML=html;

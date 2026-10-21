@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { google } from "googleapis";
+import { OAUTH_STATE_COOKIE, requireAdmin } from "@/lib/admin-auth";
 
 /**
  * Démarre le flow OAuth Google Calendar.
@@ -8,6 +9,9 @@ import { google } from "googleapis";
  * (ex. http://localhost:3000/api/google/auth-start).
  */
 export async function GET(request: Request) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
+
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
   if (!clientId || !clientSecret) {
@@ -18,7 +22,11 @@ export async function GET(request: Request) {
   const redirectUri = `${origin}/api/google/callback`;
 
   const oauth2 = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+  // Jeton anti-CSRF vérifié par /api/google/callback
+  const state = Array.from(crypto.getRandomValues(new Uint8Array(24)), (b) => b.toString(16).padStart(2, "0")).join("");
+
   const url = oauth2.generateAuthUrl({
+    state,
     access_type: "offline", // obligatoire pour obtenir un refresh_token
     prompt: "consent",       // force Google à redemander le consentement et émettre un nouveau refresh_token
     scope: [
@@ -27,5 +35,13 @@ export async function GET(request: Request) {
     ]
   });
 
-  return NextResponse.redirect(url);
+  const res = NextResponse.redirect(url);
+  res.cookies.set(OAUTH_STATE_COOKIE, state, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/api/google",
+    maxAge: 10 * 60
+  });
+  return res;
 }

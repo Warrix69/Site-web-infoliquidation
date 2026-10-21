@@ -6,6 +6,10 @@ import { google, type calendar_v3 } from "googleapis";
  */
 let cached: calendar_v3.Calendar | null = null;
 
+export function resetCalendarClient() {
+  cached = null;
+}
+
 export function getCalendarClient(): calendar_v3.Calendar {
   if (cached) return cached;
 

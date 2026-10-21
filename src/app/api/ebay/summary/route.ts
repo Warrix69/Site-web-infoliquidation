@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/admin-auth";
 import {
   getActiveListingsCount,
   getActiveReturnsCount,
@@ -13,7 +14,9 @@ import {
  * GET /api/ebay/summary
  * Retourne les KPI consolidés + commandes récentes + ventes journalières + feedback + trafic.
  */
-export async function GET() {
+export async function GET(request: Request) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
   try {
     const [summary, orders, daily, listings, feedback, traffic, returns] = await Promise.all([
       getSummary(),

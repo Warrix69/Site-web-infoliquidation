@@ -9,6 +9,36 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"]
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+          },
+          // CSP minimale sans restriction de scripts (Next, Three.js et le JSON-LD utilisent du inline)
+          {
+            key: "Content-Security-Policy",
+            value: "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'"
+          }
+        ]
+      },
+      {
+        source: "/admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]
+      },
+      {
+        source: "/api/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }]
+      }
+    ];
+  },
   async redirects() {
     return [
       // Anciens slugs de blog (stubs de dev) → vrais articles migrés

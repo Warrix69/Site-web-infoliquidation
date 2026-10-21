@@ -1,5 +1,20 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { requireAdmin } from "@/lib/admin-auth";
 import { getCalendarClient, CALENDAR_ID, describeGoogleError } from "@/lib/google-calendar";
+
+const dateString = z.string().max(64).refine((v) => !Number.isNaN(new Date(v).getTime()), "Invalid date");
+
+const patchSchema = z.object({
+  summary: z.string().trim().min(1).max(300).optional(),
+  description: z.string().max(8000).optional(),
+  location: z.string().max(500).optional(),
+  start: dateString.optional(),
+  end: dateString.optional(),
+  status: z.enum(["confirmed", "tentative", "cancelled"]).optional()
+});
+
+const eventId = z.string().min(1).max(1024);
 
 /**
  * PATCH /api/calendar/events/:id
@@ -8,9 +23,15 @@ import { getCalendarClient, CALENDAR_ID, describeGoogleError } from "@/lib/googl
  *   { summary, description, location, start, end, status }
  */
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
   try {
-    const { id } = await params;
-    const body = await request.json();
+    const id = eventId.safeParse((await params).id);
+    const parsed = patchSchema.safeParse(await request.json().catch(() => null));
+    if (!id.success || !parsed.success) {
+      return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    }
+    const body = parsed.data;
     const cal = getCalendarClient();
 
     const requestBody: Record<string, unknown> = {};
@@ -23,7 +44,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     const res = await cal.events.patch({
       calendarId: CALENDAR_ID,
-      eventId: id,
+      eventId: id.data,
       requestBody
     });
 
@@ -38,11 +59,14 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
  * DELETE /api/calendar/events/:id
  * Supprime un événement Google Calendar.
  */
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
   try {
-    const { id } = await params;
+    const id = eventId.safeParse((await params).id);
+    if (!id.success) return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     const cal = getCalendarClient();
-    await cal.events.delete({ calendarId: CALENDAR_ID, eventId: id });
+    await cal.events.delete({ calendarId: CALENDAR_ID, eventId: id.data });
     return NextResponse.json({ ok: true });
   } catch (err) {
     const message = describeGoogleError(err);

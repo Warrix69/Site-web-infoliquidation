@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { google } from "googleapis";
+import { OAUTH_STATE_COOKIE, readCookie, requireAdmin, safeEqual } from "@/lib/admin-auth";
+import { escapeHtml } from "@/lib/email";
+import { resetCalendarClient } from "@/lib/google-calendar";
 
 /**
  * Callback de l'autorisation Google.
@@ -7,19 +10,31 @@ import { google } from "googleapis";
  * puis affiche une page claire qui montre le token à copier dans .env.local.
  */
 export async function GET(request: Request) {
+  const denied = await requireAdmin(request);
+  if (denied) return denied;
+
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const error = url.searchParams.get("error");
 
   if (error) {
     return htmlPage(
-      `<h1 style="color:#dc2626">Erreur d'autorisation</h1><p>${error}</p>
+      `<h1 style="color:#dc2626">Erreur d'autorisation</h1><p>${escapeHtml(error.slice(0, 200))}</p>
        <p><a href="/api/google/auth-start">Recommencer</a></p>`
     );
   }
 
   if (!code) {
     return htmlPage(`<h1>Code manquant</h1><p><a href="/api/google/auth-start">Démarrer l'autorisation</a></p>`);
+  }
+
+  // Anti-CSRF : le state doit correspondre au cookie posé par /api/google/auth-start
+  const state = url.searchParams.get("state") ?? "";
+  const expected = readCookie(request, OAUTH_STATE_COOKIE) ?? "";
+  if (!expected || !(await safeEqual(state, expected))) {
+    return htmlPage(
+      `<h1 style="color:#dc2626">Requête invalide</h1><p>Le paramètre state ne correspond pas. <a href="/api/google/auth-start">Recommencer</a></p>`
+    );
   }
 
   const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -56,6 +71,8 @@ export async function GET(request: Request) {
         ? env.replace(/^GOOGLE_REFRESH_TOKEN=.*$/m, line)
         : `${env.trimEnd()}\n${line}\n`;
       await writeFile(envPath, next, "utf8");
+      process.env.GOOGLE_REFRESH_TOKEN = refreshToken;
+      resetCalendarClient();
       return htmlPage(`
         <h1 style="color:#16a34a">✅ Nouveau token Google enregistré</h1>
         <p><code>GOOGLE_REFRESH_TOKEN</code> a été mis à jour dans <code>.env.local</code>.</p>
@@ -66,17 +83,12 @@ export async function GET(request: Request) {
     return htmlPage(`
       <h1 style="color:#16a34a">✅ Refresh token obtenu !</h1>
       <p>Copie cette valeur et colle-la dans <code>.env.local</code> à la place de la valeur actuelle de <code>GOOGLE_REFRESH_TOKEN</code> :</p>
-      <pre style="background:#0a0a0a;color:#86efac;padding:16px;border-radius:8px;overflow-x:auto;font-family:monospace;font-size:13px;white-space:pre-wrap;word-break:break-all">GOOGLE_REFRESH_TOKEN=${refreshToken}</pre>
+      <pre style="background:#0a0a0a;color:#86efac;padding:16px;border-radius:8px;overflow-x:auto;font-family:monospace;font-size:13px;white-space:pre-wrap;word-break:break-all">GOOGLE_REFRESH_TOKEN=${escapeHtml(refreshToken)}</pre>
       <p>Puis redémarre le serveur Next.js et retourne sur <a href="/admin">/admin</a>.</p>
-      <hr style="margin:24px 0;border:none;border-top:1px solid #e5e7eb">
-      <details>
-        <summary style="cursor:pointer">Détails techniques (debug)</summary>
-        <pre style="background:#f4f4f5;padding:12px;border-radius:6px;overflow-x:auto;font-size:11px">${JSON.stringify(tokens, null, 2)}</pre>
-      </details>
     `);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown";
-    return htmlPage(`<h1 style="color:#dc2626">Échec de l'échange du code</h1><p>${message}</p><p><a href="/api/google/auth-start">Recommencer</a></p>`);
+    return htmlPage(`<h1 style="color:#dc2626">Échec de l'échange du code</h1><p>${escapeHtml(message)}</p><p><a href="/api/google/auth-start">Recommencer</a></p>`);
   }
 }
 
@@ -89,5 +101,9 @@ function htmlPage(body: string) {
   a { color: #16a34a; }
   h1 { font-size: 24px; margin-bottom: 12px; }
 </style></head><body>${body}</body></html>`;
-  return new NextResponse(html, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+  const res = new NextResponse(html, {
+    headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }
+  });
+  res.cookies.set(OAUTH_STATE_COOKIE, "", { path: "/api/google", maxAge: 0 });
+  return res;
 }
