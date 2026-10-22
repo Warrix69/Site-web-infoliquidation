@@ -20,10 +20,12 @@ export type HeroDevicesProps = {
   quality?: "high" | "low";
   /** false quand le hero n'est pas à l'écran : plus aucun calcul */
   active?: boolean;
+  /** appelé une fois la première image dessinée (shaders compilés) */
+  onReady?: () => void;
   onContextLost?: () => void;
 };
 
-export function HeroDevices({ onDeviceChange, quality = "high", active = true, onContextLost }: HeroDevicesProps) {
+export function HeroDevices({ onDeviceChange, quality = "high", active = true, onReady, onContextLost }: HeroDevicesProps) {
   const high = quality === "high";
   return (
     <Canvas
@@ -44,6 +46,8 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
           e.preventDefault();
           onContextLost?.();
         });
+        // deux images plus tard, la scène est dessinée : on peut la révéler
+        requestAnimationFrame(() => requestAnimationFrame(() => onReady?.()));
       }}
       className="pointer-events-none"
     >

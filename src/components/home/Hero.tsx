@@ -57,6 +57,8 @@ function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =
   const [mode, setMode] = useState<"wait" | "3d" | "fallback">("wait");
   const [quality, setQuality] = useState<"high" | "low">("high");
   const [active, setActive] = useState(true);
+  // La scène apparaît en fondu seulement quand sa première image est dessinée (pas d'apparition sèche)
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (!hasWebGL()) {
@@ -71,16 +73,11 @@ function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =
       (nav.deviceMemory ?? 8) <= 4 ||
       !!nav.connection?.saveData;
     setQuality(light ? "low" : "high");
-    // La 3D se charge une fois la page affichée : le texte du hero n'attend pas Three.js
-    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
-    let idle = 0;
-    let timer = 0;
-    if (w.requestIdleCallback) idle = w.requestIdleCallback(() => setMode("3d"), { timeout: 1200 });
-    else timer = window.setTimeout(() => setMode("3d"), 500);
-    return () => {
-      if (idle) (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(idle);
-      if (timer) window.clearTimeout(timer);
-    };
+    // Le code 3D se télécharge tout de suite ; la scène démarre (compilation des shaders, ~0,5 s de calcul)
+    // une fois toutes les animations CSS du texte lancées, pour qu'elles ne soient jamais figées.
+    import("./HeroDevices").catch(() => setMode("fallback"));
+    const timer = window.setTimeout(() => setMode((m) => (m === "wait" ? "3d" : m)), 600);
+    return () => window.clearTimeout(timer);
   }, []);
 
   // Aucun calcul 3D quand le hero n'est pas à l'écran
@@ -97,12 +94,19 @@ function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =
       {mode === "fallback" && <HeroDevicesFallback />}
       {mode === "3d" && (
         <ThreeErrorBoundary fallback={<HeroDevicesFallback />}>
-          <HeroDevices
-            onDeviceChange={onDeviceChange}
-            quality={quality}
-            active={active}
-            onContextLost={() => setMode("fallback")}
-          />
+          <div
+            className={`absolute inset-0 transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              ready ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"
+            }`}
+          >
+            <HeroDevices
+              onDeviceChange={onDeviceChange}
+              quality={quality}
+              active={active}
+              onReady={() => setReady(true)}
+              onContextLost={() => setMode("fallback")}
+            />
+          </div>
         </ThreeErrorBoundary>
       )}
     </div>

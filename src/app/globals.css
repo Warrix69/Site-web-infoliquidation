@@ -278,13 +278,37 @@ body {
   to   { opacity: 1; }
 }
 
-/* Filet de sécurité : si une animation JS ne se lance pas, le texte du hero devient quand même visible */
-.hero-safe {
-  animation: heroSafe 1ms linear 2.6s forwards;
+/* Entrée du hero en CSS pur : elle démarre dès le premier affichage, sans attendre le JavaScript.
+   Le délai de chaque élément passe par la variable --d ; --to = position finale d'un chiffre du compteur. */
+.hero-word {
+  animation: heroWordIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+}
+.hero-item {
+  animation: heroItemIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s) both;
+}
+.hero-digit {
+  transform: translateY(var(--to, 0));
+  animation: heroDigitRoll 1.15s cubic-bezier(0.3, 1.35, 0.5, 1) var(--d, 0s) both;
 }
 
-@keyframes heroSafe {
-  to { opacity: 1; transform: none; filter: none; }
+@keyframes heroWordIn {
+  from { opacity: 0; transform: translateY(135%); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Opacité + translation seulement : animées par le GPU, elles ne se figent pas pendant le démarrage de la 3D */
+@keyframes heroItemIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes heroDigitRoll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(var(--to, 0)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word, .hero-item, .hero-digit { animation: none !important; }
 }
 
 @keyframes underlineIn {

@@ -1,15 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-  type Variants
-} from "framer-motion";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { StaticAppPathname } from "@/i18n/routing";
@@ -24,56 +16,43 @@ export type HeroCopyLabels = {
   ctaHow: string;
 };
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+/** Délai CSS d'entrée (variable --d lue par .hero-word / .hero-item / .hero-digit). */
+const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
+const WORD_START = 0.05;
+const WORD_STAGGER = 0.06;
 
-/** Bloc de texte du hero : titre révélé mot par mot, « 20+ ans » compté, CTA magnétique. */
+/**
+ * Bloc de texte du hero : titre révélé mot par mot, « 20+ ans » compté, CTA magnétique.
+ * L'entrée est en CSS (globals.css) : le texte apparaît dès le premier affichage, même avant le JavaScript.
+ */
 export function HeroCopy({ labels }: { labels: HeroCopyLabels }) {
   const reduce = useReducedMotion();
-  // Le rendu initial est identique serveur/client ; le mouvement réduit ne change que les durées.
-  const t = (duration: number, delay = 0) => (reduce ? { duration: 0 } : { duration, delay, ease: EASE });
-
-  const container: Variants = {
-    hidden: {},
-    show: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: reduce ? 0 : 0.1 } }
-  };
-  const item: Variants = {
-    hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
-    show: { opacity: 1, y: 0, filter: "blur(0px)", transition: t(0.9) }
-  };
-  const word: Variants = {
-    hidden: { y: "135%", opacity: 0 },
-    show: { y: "0%", opacity: 1, transition: t(0.85) }
-  };
+  const leadCount = labels.titleLead.split(" ").length;
 
   return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="show"
-      // Mobile : « contents » pour que le titre, la 3D, le badge et les boutons s'ordonnent dans la colonne du hero
-      className="contents lg:relative lg:z-10 lg:block lg:max-w-[52%]"
-    >
+    // Mobile : « contents » pour que le titre, la 3D, le badge et les boutons s'ordonnent dans la colonne du hero
+    <div className="contents lg:relative lg:z-10 lg:block lg:max-w-[52%]">
       <h1 className="order-1 font-display font-bold tracking-[-0.035em] text-paper">
         <Line
           text={labels.titleLead}
-          wordVariants={word}
+          start={0}
           className="text-[clamp(1.3rem,2.5vw,2.05rem)] font-semibold leading-tight tracking-[-0.02em] text-lime"
         />
-        <Line text={labels.titleAccent} wordVariants={word} className="mt-1 text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.04]" />
+        <Line text={labels.titleAccent} start={leadCount} className="mt-1 text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.04]" />
       </h1>
 
-      <motion.div variants={item} className="hero-safe order-3 mt-3 lg:mt-7">
+      <div className="hero-item order-3 mt-3 lg:mt-7" style={delay(0.3)}>
         <YearsBadge years={labels.years} sentence={labels.since} reduce={!!reduce} />
-      </motion.div>
+      </div>
 
-      <motion.p
-        variants={item}
-        className="hero-safe order-4 mt-3 max-w-md text-sm leading-relaxed text-paper/85 sm:text-base lg:mt-6 lg:text-lg"
+      <p
+        className="hero-item order-4 mt-3 max-w-md text-sm leading-relaxed text-paper/85 sm:text-base lg:mt-6 lg:text-lg"
+        style={delay(0.4)}
       >
         {labels.promise}
-      </motion.p>
+      </p>
 
-      <motion.div variants={item} className="hero-safe order-5 mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 lg:mt-8">
+      <div className="hero-item order-5 mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 lg:mt-8" style={delay(0.5)}>
         <MagneticCta href="/formulaire-de-ramassage" label={labels.ctaPrimary} reduce={!!reduce} />
         <Link
           href="/informations"
@@ -82,22 +61,22 @@ export function HeroCopy({ labels }: { labels: HeroCopyLabels }) {
           {labels.ctaHow}
           <span className="absolute bottom-1 left-1 right-1 h-px origin-left bg-paper/40 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-110 group-hover:bg-paper" />
         </Link>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
 /** Une ligne du titre : chaque mot glisse depuis un masque (marge prévue pour les jambages). */
-function Line({ text, wordVariants, className = "" }: { text: string; wordVariants: Variants; className?: string }) {
+function Line({ text, start, className = "" }: { text: string; start: number; className?: string }) {
   const words = text.split(" ");
   return (
     <span className={`block ${className}`}>
       {words.map((w, i) => (
         <span key={i} className="-mb-[0.14em] inline-block overflow-hidden pb-[0.14em] align-bottom">
-          <motion.span variants={wordVariants} className="hero-safe inline-block will-change-transform">
+          <span className="hero-word inline-block" style={delay(WORD_START + (start + i) * WORD_STAGGER)}>
             {w}
             {i < words.length - 1 ? " " : ""}
-          </motion.span>
+          </span>
         </span>
       ))}
     </span>
@@ -122,7 +101,7 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
       setSettled(true);
       return;
     }
-    const id = window.setTimeout(() => setSettled(true), 2300);
+    const id = window.setTimeout(() => setSettled(true), 1800);
     return () => window.clearTimeout(id);
   }, [reduce]);
 
@@ -156,7 +135,7 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
             className="relative inline-flex -skew-x-6 font-display text-[clamp(2.7rem,4.4vw,3.8rem)] font-extrabold leading-none tracking-[-0.04em] text-lime"
           >
             {digits.map((d, i) => (
-              <Digit key={`${i}-${spin}`} value={d} index={i} total={digits.length} reduce={reduce} />
+              <Digit key={`${i}-${spin}`} value={d} index={i} total={digits.length} replay={spin > 0} />
             ))}
             {bursts.map((id) => (
               <Burst key={id} />
@@ -183,38 +162,26 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
   );
 }
 
-/** Un chiffre du compteur : une bande 0-9 qui roule jusqu'à la bonne valeur (le dernier fait un tour complet). */
-function Digit({ value, index, total, reduce }: { value: number; index: number; total: number; reduce: boolean }) {
+/**
+ * Un chiffre du compteur : une bande 0-9 qui roule jusqu'à la bonne valeur (le dernier fait un tour complet).
+ * Roulement en CSS (.hero-digit) : il part dès l'affichage, sans saut « 20 → 00 » à l'hydratation.
+ */
+function Digit({ value, index, total, replay }: { value: number; index: number; total: number; replay: boolean }) {
   const last = index === total - 1;
   const target = last ? value + 10 : value;
-  // Rendu serveur = valeur finale (« 20 » même sans JavaScript) ; l'animation repart de 0 au montage
-  const pos = useMotionValue(target);
-  const y = useTransform(pos, (v) => `${-v}em`);
-
-  useEffect(() => {
-    if (reduce) return;
-    pos.set(0);
-    const controls = animate(pos, target, {
-      type: "spring",
-      stiffness: 46,
-      damping: 13,
-      mass: 1,
-      delay: 0.55 + index * 0.12
-    });
-    return () => controls.stop();
-  }, [pos, target, index, reduce]);
+  const style = { ...delay((replay ? 0 : 0.45) + index * 0.12), "--to": `${-target}em` } as CSSProperties;
 
   const strip = Array.from({ length: last ? 20 : 10 }, (_, n) => n % 10);
   return (
     <span className="relative inline-block h-[1em] overflow-hidden tabular-nums">
       <span className="invisible">{value}</span>
-      <motion.span style={{ y }} className="absolute left-0 top-0 flex flex-col">
+      <span style={style} className="hero-digit absolute left-0 top-0 flex flex-col">
         {strip.map((n, k) => (
           <span key={k} className="h-[1em] leading-none">
             {n}
           </span>
         ))}
-      </motion.span>
+      </span>
     </span>
   );
 }
