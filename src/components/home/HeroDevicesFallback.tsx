@@ -3,7 +3,8 @@
 import Image from "next/image";
 
 /**
- * Secours si WebGL est absent ou si la 3D échoue : le portable en studio, qui flotte doucement.
+ * Version allégée du hero (appareil faible, connexion lente, WebGL absent ou 3D en échec) :
+ * le portable en studio, qui flotte doucement.
  */
 export function HeroDevicesFallback() {
   return (
@@ -20,6 +21,7 @@ export function HeroDevicesFallback() {
             width={560}
             height={253}
             sizes="(max-width: 1024px) 80vw, 40vw"
+            priority
             className="h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.35)]"
           />
         </div>

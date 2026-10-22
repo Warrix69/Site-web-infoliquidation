@@ -61,17 +61,25 @@ function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!hasWebGL()) {
+    const nav = navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+      deviceMemory?: number;
+    };
+    // Appareil faible ou connexion lente : image fixe, three.js (~400 Ko) n'est même pas téléchargé
+    const weak =
+      !!nav.connection?.saveData ||
+      ["slow-2g", "2g", "3g"].includes(nav.connection?.effectiveType ?? "") ||
+      (nav.deviceMemory ?? 8) <= 2 ||
+      (nav.hardwareConcurrency ?? 8) <= 2;
+    if (weak || !hasWebGL()) {
       setMode("fallback");
       return;
     }
-    const nav = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
     const light =
       window.matchMedia("(pointer: coarse)").matches ||
       window.innerWidth < 1024 ||
       (nav.hardwareConcurrency ?? 8) <= 4 ||
-      (nav.deviceMemory ?? 8) <= 4 ||
-      !!nav.connection?.saveData;
+      (nav.deviceMemory ?? 8) <= 4;
     setQuality(light ? "low" : "high");
     // Le code 3D se télécharge tout de suite ; la scène démarre (compilation des shaders, ~0,5 s de calcul)
     // une fois toutes les animations CSS du texte lancées, pour qu'elles ne soient jamais figées.
