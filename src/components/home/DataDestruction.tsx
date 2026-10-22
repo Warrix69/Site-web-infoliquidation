@@ -103,7 +103,8 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
         px[k] = imgX + x * cellW;
         py[k] = imgY + y * cellH;
         // la dissolution balaie le disque de gauche à droite, avec du grain
-        th[k] = (x / sw) * 0.72 + Math.random() * 0.28;
+        // (tous les fragments ont fini leur vol avant D = 0.97, quand le certificat apparaît)
+        th[k] = (x / sw) * 0.5 + Math.random() * 0.18;
         vx[k] = 0.4 + Math.random() * 1.2;
         vy[k] = 0.6 + Math.random() * 1.6;
         cr[k] = data[i * 4]; cg[k] = data[i * 4 + 1]; cb[k] = data[i * 4 + 2]; ca[k] = data[i * 4 + 3];
@@ -219,7 +220,10 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
 
             <div className="relative min-h-0 motion-reduce:h-[50svh] lg:col-span-7 lg:h-[min(70svh,620px)]">
               <div ref={boxRef} aria-hidden="true" className="absolute inset-0">
-                <canvas ref={canvasRef} className="absolute left-0 top-0" />
+                <canvas
+                  ref={canvasRef}
+                  className={`absolute left-0 top-0 transition-opacity duration-500 ${done ? "opacity-0" : "opacity-100"}`}
+                />
               </div>
               {/* Certificat qui apparaît une fois le disque détruit */}
               <div
