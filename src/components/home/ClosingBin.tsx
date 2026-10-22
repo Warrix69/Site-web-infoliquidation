@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { BAC_DIMS, BAC_DIR, type BacImage } from "./bacImages";
 
-const IMG = "/images/bac/";
+const IMG = BAC_DIR;
+/** Largeur affichée du bac (≤ 260 px sur mobile, 300 px sur ordinateur). */
+const BIN_W = 300;
+const BIN_SIZES = "(min-width: 1024px) 300px, min(56vw, 260px)";
 
 /** Ce qui dépasse du bac plein (mêmes positions que dans le hero). */
-const TOP_ITEMS = [
+const TOP_ITEMS: { src: BacImage; w: number; x: number; y: number; r: number }[] = [
   { src: "clavier", w: 82, x: 50, y: 4, r: -7 },
   { src: "souris", w: 28, x: 74, y: -5, r: 18 },
   { src: "ecran", w: 46, x: 34, y: -14, r: -6 }
@@ -58,8 +63,7 @@ export function ClosingBin() {
       <div className="animate-float">
         <div ref={tiltRef} className="origin-bottom will-change-transform">
           <div className="relative aspect-[900/1150] w-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}bac.webp`} alt="" loading="lazy" draggable={false} className="absolute inset-0 h-full w-full" />
+            <Image src={`${IMG}bac.webp`} alt="" width={900} height={1150} sizes={BIN_SIZES} draggable={false} className="absolute inset-0 h-full w-full" />
             {TOP_ITEMS.map((d) => (
               <span
                 key={d.src}
@@ -71,12 +75,18 @@ export function ClosingBin() {
                   transform: `translate(-50%, -50%) rotate(${d.r}deg)`
                 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`${IMG}${d.src}.webp`} alt="" loading="lazy" draggable={false} className="block h-auto w-full" />
+                <Image
+                  src={`${IMG}${d.src}.webp`}
+                  alt=""
+                  width={BAC_DIMS[d.src][0]}
+                  height={BAC_DIMS[d.src][1]}
+                  sizes={`${Math.ceil((d.w / 100) * BIN_W)}px`}
+                  draggable={false}
+                  className="block h-auto w-full"
+                />
               </span>
             ))}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}bac-avant.webp`} alt="" loading="lazy" draggable={false} className="absolute inset-0 h-full w-full" />
+            <Image src={`${IMG}bac-avant.webp`} alt="" width={900} height={1150} sizes={BIN_SIZES} draggable={false} className="absolute inset-0 h-full w-full" />
             <span className="absolute inset-0 [filter:drop-shadow(0_0_14px_rgba(0,198,90,0.7))]">
               <span
                 className="absolute inset-0 bg-lime"

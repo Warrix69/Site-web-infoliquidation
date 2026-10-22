@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { BAC_DIMS, BAC_DIR } from "./bacImages";
 
 export type BinLabels = {
   title: string;
@@ -15,7 +17,9 @@ export type BinLabels = {
   sceneLabel: string;
 };
 
-const IMG = "/images/bac/";
+const IMG = BAC_DIR;
+/** Largeur affichée du bac (≤ 210 px sur mobile, ≤ 270 px sur ordinateur) : next/image sert une version à cette taille. */
+const BIN_SIZES = "(min-width: 1024px) 270px, 210px";
 const TOTAL = 10;
 
 /** Chaque chute : image, largeur (% du bac), point d'arrivée (% du bac), rotation finale. */
@@ -243,12 +247,12 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                       shaking ? "animate-[binShake_600ms_ease-in-out]" : ""
                     }`}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={`${IMG}bac.webp`}
                       alt=""
                       width={900}
                       height={1150}
+                      sizes={BIN_SIZES}
                       draggable={false}
                       className="absolute inset-0 z-0 h-full w-full select-none"
                     />
@@ -268,10 +272,12 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                             transform: "translate(-50%, -50%) translate3d(0, -150vh, 0)"
                           }}
                         >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
+                          <Image
                             src={`${IMG}${d.src}.webp`}
                             alt=""
+                            width={BAC_DIMS[d.src][0]}
+                            height={BAC_DIMS[d.src][1]}
+                            sizes={`${Math.ceil((d.w / 100) * 270)}px`}
                             draggable={false}
                             className="block h-auto w-full select-none drop-shadow-[0_10px_12px_rgba(10,10,10,0.3)]"
                           />
@@ -279,12 +285,12 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                       ))}
                     </span>
 
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={`${IMG}bac-avant.webp`}
                       alt=""
                       width={900}
                       height={1150}
+                      sizes={BIN_SIZES}
                       draggable={false}
                       className="absolute inset-0 z-20 h-full w-full select-none"
                     />
