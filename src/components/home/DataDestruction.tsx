@@ -191,8 +191,8 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
   return (
     <section data-theme="dark" className="relative text-mist">
       <div ref={trackRef} className="relative h-[220vh] motion-reduce:h-auto lg:h-[240vh] motion-reduce:lg:h-auto">
-        <div className="sticky top-0 h-[100svh] min-h-[620px] overflow-hidden motion-reduce:static motion-reduce:h-auto">
-          <div className="mx-auto grid h-full w-full max-w-6xl grid-rows-[auto_1fr] gap-6 px-5 pb-8 pt-32 motion-reduce:py-20 sm:px-8 lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-12 lg:pt-32">
+        <div className="sticky top-0 h-[100svh] min-h-[540px] overflow-hidden motion-reduce:static motion-reduce:h-auto lg:min-h-[620px]">
+          <div className="mx-auto grid h-full w-full max-w-6xl grid-rows-[auto_1fr] gap-6 px-5 pb-8 pt-[5.5rem] motion-reduce:py-20 short:gap-4 sm:px-8 lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-12 lg:pt-32">
             <div className="lg:col-span-5">
               <p className="text-sm font-semibold text-lime">{labels.eyebrow}</p>
               <h2 className="mt-3 font-display text-[clamp(1.9rem,4.4vw,3.6rem)] font-bold leading-[1.04] tracking-[-0.03em] text-mist">

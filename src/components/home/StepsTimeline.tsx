@@ -71,17 +71,18 @@ export function StepsTimeline({
 
   return (
     <div ref={trackRef} className="relative h-[280vh] motion-reduce:h-auto lg:h-[300vh] motion-reduce:lg:h-auto">
-      <div className="sticky top-0 flex h-[100svh] items-center pb-4 pt-32 motion-reduce:relative motion-reduce:h-auto motion-reduce:py-16 lg:pb-6">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      {/* Épinglée sous l'en-tête replié ; sur mobile, l'aperçu prend la hauteur qui reste (jamais coupé en bas) */}
+      <div className="sticky top-0 flex h-[100svh] flex-col pb-4 pt-[5.5rem] motion-reduce:relative motion-reduce:h-auto motion-reduce:py-16 lg:pb-8 lg:pt-24">
+        <div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col justify-center px-5 sm:px-8">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-emerald">{heading.eyebrow}</p>
-            <h2 className="mt-2 font-display text-[clamp(1.8rem,3.6vw,2.75rem)] font-bold leading-tight tracking-[-0.02em] text-ink">
+            <p className="text-sm font-semibold text-emerald short:hidden">{heading.eyebrow}</p>
+            <h2 className="mt-1 font-display text-[clamp(1.8rem,3.6vw,2.75rem)] font-bold leading-tight tracking-[-0.02em] text-ink short:mt-0 sm:mt-2">
               {heading.title}
             </h2>
-            <p className="mt-2 hidden text-base leading-relaxed text-moss sm:block">{heading.subtitle}</p>
+            <p className="mt-2 hidden text-base leading-relaxed text-moss sm:block lg-short:hidden">{heading.subtitle}</p>
           </div>
 
-          <div className="mt-6 grid items-center gap-6 lg:mt-10 lg:grid-cols-12 lg:gap-12">
+          <div className="mt-4 grid items-center gap-6 sm:mt-6 lg:mt-8 lg:grid-cols-12 lg:gap-12">
             {/* Étapes + progression */}
             <div className="relative lg:col-span-5">
               {/* La ligne de progression est limitée à la liste (elle ne touche plus le bouton) */}
@@ -89,7 +90,7 @@ export function StepsTimeline({
               <div aria-hidden="true" className="absolute bottom-6 left-[32.5px] top-6 w-[3px] overflow-hidden rounded-full bg-ink/10 motion-reduce:hidden sm:left-[34.5px]">
                 <motion.div className="h-full w-full origin-top rounded-full bg-lime" style={{ scaleY: progress }} />
               </div>
-              <ol className="relative space-y-2.5">
+              <ol className="relative space-y-1.5 sm:space-y-2.5">
                 {items.map((step, i) => {
                   const Icon = ICONS[i] ?? Check;
                   const on = i === active;
@@ -100,7 +101,7 @@ export function StepsTimeline({
                         type="button"
                         onClick={() => select(i)}
                         aria-current={on ? "step" : undefined}
-                        className={`relative flex w-full items-start gap-4 rounded-2xl p-3.5 text-left transition-[background-color,box-shadow,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:p-4 ${
+                        className={`relative flex w-full items-start gap-4 rounded-2xl px-3.5 py-2.5 text-left transition-[background-color,box-shadow,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:p-4 ${
                           on ? "bg-ink text-paper shadow-[0_20px_40px_-24px_rgba(10,10,10,0.6)]" : "text-ink hover:bg-sand"
                         }`}
                       >
@@ -114,7 +115,7 @@ export function StepsTimeline({
                         <span>
                           <span className="block font-display text-base font-bold leading-snug sm:text-lg">{step.title}</span>
                           <span
-                            className={`mt-0.5 text-sm leading-relaxed transition-colors ${
+                            className={`mt-0.5 text-sm leading-snug transition-colors tiny:hidden sm:leading-relaxed ${
                               on ? "block text-paper/75" : "hidden text-moss sm:block"
                             }`}
                           >
@@ -129,7 +130,7 @@ export function StepsTimeline({
               </div>
               <Link
                 href="/formulaire-de-ramassage"
-                className="group mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-accent px-6 py-3.5 font-display text-sm font-semibold text-ink transition-[filter] hover:brightness-95 sm:text-base"
+                className="group mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-accent px-6 py-3 font-display text-sm font-semibold text-ink transition-[filter] hover:brightness-95 sm:mt-5 sm:py-3.5 sm:text-base"
               >
                 {cta}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -138,22 +139,39 @@ export function StepsTimeline({
 
             {/* Aperçu de l'étape active */}
             <div className="hidden lg:col-span-7 lg:block">
-              <StepPreview active={active} mock={mock} reduce={!!reduce} />
+              <StepPreview active={active} mock={mock} reduce={!!reduce} className="h-[min(52svh,440px)]" />
             </div>
           </div>
-          <div className="mt-5 lg:hidden">
-            <StepPreview active={active} mock={mock} reduce={!!reduce} />
-          </div>
+          <StepPreview
+            active={active}
+            mock={mock}
+            reduce={!!reduce}
+            className="mt-4 min-h-[140px] flex-[0_1_230px] tiny:min-h-[120px] sm:mt-5 sm:flex-[0_1_300px] lg:hidden"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function StepPreview({ active, mock, reduce }: { active: number; mock: StepsMock; reduce: boolean }) {
+/** Scène de l'étape active ; conteneur « stage » : son contenu rapetisse quand elle manque de hauteur. */
+function StepPreview({
+  active,
+  mock,
+  reduce,
+  className = ""
+}: {
+  active: number;
+  mock: StepsMock;
+  reduce: boolean;
+  className?: string;
+}) {
   const enter = reduce ? { duration: 0 } : { duration: 0.6, ease: EASE };
   return (
-    <div data-stage className="relative flex h-[min(28svh,230px)] items-center justify-center overflow-hidden rounded-[2rem] bg-sand p-4 sm:h-[300px] sm:p-5 lg:h-[min(52svh,440px)] lg:p-10">
+    <div
+      data-stage
+      className={`relative flex items-center justify-center overflow-hidden rounded-[2rem] bg-sand p-4 [container:stage/size] sm:p-5 lg:p-10 ${className}`}
+    >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={active}
@@ -163,7 +181,7 @@ function StepPreview({ active, mock, reduce }: { active: number; mock: StepsMock
           className="flex h-full w-full items-center justify-center"
         >
           {active === 0 && (
-            <div className="w-full max-w-sm scale-[0.78] rounded-2xl bg-paper p-5 shadow-[0_24px_50px_-28px_rgba(10,10,10,0.4)] sm:scale-100 sm:p-6">
+            <div className="w-full max-w-sm scale-[0.78] rounded-2xl bg-paper p-5 shadow-[0_24px_50px_-28px_rgba(10,10,10,0.4)] stage-md:scale-[0.64] stage-sm:scale-[0.52] stage-xs:scale-[0.42] sm:scale-100 sm:p-6">
               <ul className="space-y-3">
                 {mock.rows.map((row, i) => (
                   <li key={row} className="flex items-center justify-between gap-4 border-b border-line pb-3 text-sm font-medium sm:text-base">
@@ -183,7 +201,7 @@ function StepPreview({ active, mock, reduce }: { active: number; mock: StepsMock
           )}
 
           {active === 1 && (
-            <div className="w-full max-w-sm scale-[0.78] rounded-2xl bg-paper p-5 shadow-[0_24px_50px_-28px_rgba(10,10,10,0.4)] sm:scale-100 sm:p-6">
+            <div className="w-full max-w-sm scale-[0.78] rounded-2xl bg-paper p-5 shadow-[0_24px_50px_-28px_rgba(10,10,10,0.4)] stage-md:scale-[0.64] stage-sm:scale-[0.52] stage-xs:scale-[0.42] sm:scale-100 sm:p-6">
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-moss">{mock.date}</p>
               <div className="mt-4 grid grid-cols-7 gap-1.5" aria-hidden="true">
                 {Array.from({ length: 21 }, (_, d) => (
@@ -389,7 +407,8 @@ function VanArrival({ reduce }: { mock: StepsMock; reduce: boolean }) {
   }, [reduce, filterId]);
 
   return (
-    <div ref={boxRef} className="relative w-full max-w-[560px]">
+    // Largeur bornée par la hauteur de la scène (205cqh ≈ 85 % de sa hauteur utile) : roues jamais coupées
+    <div ref={boxRef} className="relative w-[min(100%,205cqh)] max-w-[560px]">
       {/* Route */}
       <span aria-hidden="true" className="absolute bottom-[1%] left-0 right-0 h-px bg-ink/15" />
       <svg aria-hidden="true" className="absolute h-0 w-0">

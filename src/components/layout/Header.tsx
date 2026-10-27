@@ -96,9 +96,12 @@ export function Header({ locale, labels }: HeaderProps) {
 
   return (
     <div className="fixed inset-x-0 top-0 z-50">
-      {/* Topbar — vert accent */}
+      {/* Topbar : se replie dès qu'on défile (inerte une fois repliée) */}
       <div
-        className="overflow-hidden bg-forest"
+        inert={scrolled}
+        className={`overflow-hidden bg-forest transition-[max-height] duration-300 ease-out motion-reduce:transition-none ${
+          scrolled ? "max-h-0" : "max-h-10"
+        }`}
       >
         <div className="mx-auto flex h-10 w-full max-w-6xl items-center justify-between gap-4 px-5 text-xs sm:px-8">
           <a

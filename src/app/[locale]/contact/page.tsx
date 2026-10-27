@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, Clock, Mail, MapPin, Navigation, Phone } from "lucide-react";
+import { ArrowUpRight, Clock, Mail, MapPin, Navigation, Phone, Users } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactForm, type ContactFormLabels } from "@/components/forms/ContactForm";
 import { Reveal } from "@/components/motion/Reveal";
@@ -51,6 +51,18 @@ export default async function ContactPage({ params }: Params) {
     .slice(0, 2)
     .toUpperCase();
 
+  // Le propriétaire (ligne directe), puis l'équipe de l'atelier (ligne principale)
+  const contacts = [
+    { badge: initials, name: t("ownerName"), role: t("ownerRole"), phone: SITE.ownerPhoneDisplay, href: SITE.ownerPhoneHref },
+    {
+      badge: <Users className="h-7 w-7" />,
+      name: t("teamName"),
+      role: t("teamRole"),
+      phone: SITE.phoneDisplay,
+      href: SITE.phoneHref
+    }
+  ];
+
   const mapSrc =
     "https://www.google.com/maps?q=Info+Liquidation+Recycle+514+Chemin+de+la+Rivi%C3%A8re+Sud+Saint-Eustache&output=embed";
 
@@ -69,33 +81,37 @@ export default async function ContactPage({ params }: Params) {
           <div className="space-y-5 lg:col-span-5">
             <Reveal>
               <div data-theme="dark" className="rounded-3xl p-6 text-mist sm:p-8">
-                <div className="flex items-center gap-4">
-                  <span
-                    aria-hidden="true"
-                    className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-lime font-display text-xl font-extrabold text-ink"
-                  >
-                    {initials}
-                  </span>
-                  <div>
-                    <p className="font-display text-2xl font-bold leading-tight text-mist">{t("ownerName")}</p>
-                    <p className="mt-0.5 text-sm font-semibold text-lime">{t("ownerRole")}</p>
-                  </div>
-                </div>
+                {contacts.map((c, i) => (
+                  <div key={c.href} className={i > 0 ? "mt-7 border-t border-white/10 pt-7" : undefined}>
+                    <div className="flex items-center gap-4">
+                      <span
+                        aria-hidden="true"
+                        className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-lime font-display text-xl font-extrabold text-ink"
+                      >
+                        {c.badge}
+                      </span>
+                      <div>
+                        <p className="font-display text-2xl font-bold leading-tight text-mist">{c.name}</p>
+                        <p className="mt-0.5 text-sm font-semibold text-lime">{c.role}</p>
+                      </div>
+                    </div>
 
-                <a
-                  href={SITE.phoneHref}
-                  className="group mt-7 flex items-center justify-between gap-4 rounded-2xl bg-lime px-5 py-4 text-ink transition-colors hover:bg-paper"
-                >
-                  <span>
-                    <span className="block text-xs font-bold uppercase tracking-[0.12em] text-ink/70">{tc("phoneLabel")}</span>
-                    <span className="mt-0.5 block font-display text-2xl font-bold tracking-[-0.01em] sm:text-3xl">
-                      {SITE.phoneDisplay}
-                    </span>
-                  </span>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper transition-transform group-hover:scale-105">
-                    <Phone className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                </a>
+                    <a
+                      href={c.href}
+                      className="group mt-5 flex items-center justify-between gap-4 rounded-2xl bg-lime px-5 py-4 text-ink transition-colors hover:bg-paper"
+                    >
+                      <span>
+                        <span className="block text-xs font-bold uppercase tracking-[0.12em] text-ink/70">{tc("phoneLabel")}</span>
+                        <span className="mt-0.5 block font-display text-2xl font-bold tracking-[-0.01em] sm:text-3xl">
+                          {c.phone}
+                        </span>
+                      </span>
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper transition-transform group-hover:scale-105">
+                        <Phone className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    </a>
+                  </div>
+                ))}
 
                 <a
                   href={`mailto:${SITE.email}`}

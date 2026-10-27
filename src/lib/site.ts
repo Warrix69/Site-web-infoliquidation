@@ -7,6 +7,9 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://infoliquidationrecycle.com",
   phoneDisplay: "(450) 473-4636",
   phoneHref: "tel:4504734636",
+  // Ligne directe du propriétaire (page Contact) ; la ligne ci-dessus reste celle de l'atelier
+  ownerPhoneDisplay: "(514) 594-4949",
+  ownerPhoneHref: "tel:5145944949",
   email: "info@infoliquidationrecycle.com",
   address: {
     street: "514 Chemin De La Rivière Sud, Local 102",

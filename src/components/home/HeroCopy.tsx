@@ -33,30 +33,35 @@ export function HeroCopy({ labels }: { labels: HeroCopyLabels }) {
     // Mobile : « contents » pour que le titre, la 3D, le badge et les boutons s'ordonnent dans la colonne du hero
     <div className="contents lg:relative lg:z-10 lg:block lg:max-w-[52%]">
       <h1 className="order-1 font-display font-bold tracking-[-0.035em] text-paper">
+        {/* Sur ordinateur, la taille suit aussi la hauteur de l'écran : les 3 lignes tiennent sous l'en-tête */}
         <Line
           text={labels.titleLead}
           start={0}
-          className="text-[clamp(1.3rem,2.5vw,2.05rem)] font-semibold leading-tight tracking-[-0.02em] text-lime"
+          className="text-[clamp(1.3rem,2.5vw,2.05rem)] font-semibold leading-tight tracking-[-0.02em] text-lime lg:text-[clamp(1.2rem,min(2.5vw,4.4svh),2.05rem)]"
         />
-        <Line text={labels.titleAccent} start={leadCount} className="mt-1 text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.04]" />
+        <Line
+          text={labels.titleAccent}
+          start={leadCount}
+          className="mt-1 text-[clamp(2.3rem,5vw,4.6rem)] leading-[1.04] short:text-[2rem] lg:text-[clamp(2.3rem,min(5vw,7.8svh),4.6rem)]"
+        />
       </h1>
 
-      <div className="hero-item order-3 mt-3 lg:mt-7" style={delay(0.3)}>
+      <div className="hero-item order-3 mt-3 short:mt-2 lg:mt-7" style={delay(0.3)}>
         <YearsBadge years={labels.years} sentence={labels.since} reduce={!!reduce} />
       </div>
 
       <p
-        className="hero-item order-4 mt-3 max-w-md text-sm leading-relaxed text-paper/85 sm:text-base lg:mt-6 lg:text-lg"
+        className="hero-item order-4 mt-3 max-w-md text-sm leading-relaxed text-paper/85 short:mt-2 sm:text-base lg:mt-6 lg:text-lg"
         style={delay(0.4)}
       >
         {labels.promise}
       </p>
 
-      <div className="hero-item order-5 mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 lg:mt-8" style={delay(0.5)}>
+      <div className="hero-item order-5 mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 short:mt-3 lg:mt-8" style={delay(0.5)}>
         <MagneticCta href="/formulaire-de-ramassage" label={labels.ctaPrimary} reduce={!!reduce} />
         <Link
           href="/informations"
-          className="group relative px-1 py-2 font-display text-sm font-semibold text-paper sm:text-base"
+          className="group relative px-1 py-2 font-display text-sm font-semibold text-paper tiny:hidden sm:text-base"
         >
           {labels.ctaHow}
           <span className="absolute bottom-1 left-1 right-1 h-px origin-left bg-paper/40 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-110 group-hover:bg-paper" />
@@ -124,7 +129,7 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
       whileHover="hover"
       whileTap="tap"
       variants={{ rest: { scale: 1 }, hover: { scale: 1 }, tap: { scale: reduce ? 1 : 0.97 } }}
-      className="group relative inline-flex items-center gap-4 rounded-[1.4rem] bg-white/[0.07] py-3 pl-4 pr-5 text-left ring-1 ring-white/15 transition-colors duration-300 hover:bg-white/[0.11] sm:gap-5 sm:pl-5 sm:pr-6"
+      className="group relative inline-flex items-center gap-4 rounded-[1.4rem] bg-white/[0.07] py-3 pl-4 pr-5 text-left ring-1 ring-white/15 transition-colors duration-300 hover:bg-white/[0.11] short:py-2 sm:gap-5 sm:pl-5 sm:pr-6"
     >
       <span aria-hidden="true" className="flex flex-col">
         <span className="text-xs font-bold uppercase tracking-[0.16em] text-paper/75 sm:text-sm">{years.prefix}</span>
@@ -132,7 +137,7 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
           <motion.span
             variants={{ rest: { y: 0, rotate: 0 }, hover: reduce ? { y: 0, rotate: 0 } : { y: -4, rotate: -3 } }}
             transition={{ type: "spring", stiffness: 420, damping: 14 }}
-            className="relative inline-flex -skew-x-6 font-display text-[clamp(2.7rem,4.4vw,3.8rem)] font-extrabold leading-none tracking-[-0.04em] text-lime"
+            className="relative inline-flex -skew-x-6 font-display text-[clamp(2.7rem,4.4vw,3.8rem)] font-extrabold leading-none tracking-[-0.04em] text-lime short:text-[2.25rem]"
           >
             {digits.map((d, i) => (
               <Digit key={`${i}-${spin}`} value={d} index={i} total={digits.length} replay={spin > 0} />
@@ -154,7 +159,7 @@ function YearsBadge({ years, sentence, reduce }: { years: YearsLabels; sentence:
           </motion.span>
         </span>
       </span>
-      <span aria-hidden="true" className="h-12 w-px bg-white/15" />
+      <span aria-hidden="true" className="h-12 w-px bg-white/15 short:h-10" />
       <span aria-hidden="true" className="max-w-[9.5rem] font-display text-base font-semibold leading-snug text-paper sm:text-lg">
         {years.suffix}
       </span>

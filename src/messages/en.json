@@ -145,7 +145,7 @@
       ],
       "scrollHint": "Scroll down",
       "titleLead": "The trusted name in",
-      "titleAccent": "computer recycling",
+      "titleAccent": "computer and electronics recycling",
       "since": "For over 20 years in Greater Montreal",
       "promise": "Free pick-up within 72 h. Free certificate of data destruction.",
       "ctaHow": "How it works",
@@ -336,7 +336,7 @@
         "South Shore",
         "Laval"
       ],
-      "addressNote": "New address: 514 Chemin de la Rivière Sud, Suite 102, Saint-Eustache",
+      "addressNote": "Our address: 514 Chemin de la Rivière Sud, Suite 102, Saint-Eustache",
       "marqueeLabel": "Cities served"
     },
     "adapted": {
@@ -879,6 +879,8 @@
     "title": "Let's talk about your equipment",
     "ownerName": "Éric Després",
     "ownerRole": "Owner",
+    "teamName": "The team",
+    "teamRole": "To reach the shop or our staff",
     "formTitle": "Write to us",
     "fields": {
       "name": "Name",

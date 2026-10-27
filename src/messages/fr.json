@@ -145,8 +145,8 @@
       ],
       "scrollHint": "Faire défiler",
       "titleLead": "La référence pour votre",
-      "titleAccent": "recyclage informatique",
-      "since": "Depuis plus de 20 ans au Grand Montréal",
+      "titleAccent": "recyclage informatique et électronique",
+      "since": "Depuis plus de 20 ans dans le Grand Montréal",
       "promise": "Ramassage gratuit en 72 h. Certificat de destruction des données sans frais.",
       "ctaHow": "Comment ça marche",
       "bin": {
@@ -195,7 +195,7 @@
         "prefix": "Plus de",
         "number": 20,
         "unit": "ans",
-        "suffix": "au Grand Montréal",
+        "suffix": "dans le Grand Montréal",
         "replay": "Rejouer l’animation"
       }
     },
@@ -230,7 +230,7 @@
           "prefix": "",
           "text": "Certificat",
           "suffix": "",
-          "label": "des données sans frais"
+          "label": "de destruction des données, sans frais"
         }
       ]
     },
@@ -336,7 +336,7 @@
         "Rive-Sud",
         "Laval"
       ],
-      "addressNote": "Nouvelle adresse : 514 Chemin de la Rivière Sud, local 102, Saint-Eustache",
+      "addressNote": "Notre adresse : 514 Chemin de la Rivière Sud, local 102, Saint-Eustache",
       "marqueeLabel": "Villes desservies"
     },
     "adapted": {
@@ -879,6 +879,8 @@
     "title": "Parlons de votre matériel",
     "ownerName": "Éric Després",
     "ownerRole": "Propriétaire",
+    "teamName": "L'équipe",
+    "teamRole": "Pour joindre l'atelier ou nos employés",
     "formTitle": "Écrivez-nous",
     "fields": {
       "name": "Nom",

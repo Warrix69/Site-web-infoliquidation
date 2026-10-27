@@ -138,20 +138,19 @@ export function Hero({ labels }: { labels: HeroLabels }) {
   return (
     <section aria-label={labels.titleAccent} className="relative bg-vivid text-paper">
       <div data-hero-3d data-pinned="1" className="relative h-[300vh] motion-reduce:h-auto lg:h-[360vh] motion-reduce:lg:h-auto">
-        <div className="sticky top-0 h-[100svh] min-h-[640px] overflow-hidden motion-reduce:relative">
+        <div className="sticky top-0 h-[100svh] min-h-[560px] overflow-hidden motion-reduce:relative lg:min-h-[640px]">
           {/* Fond : studio vert vif, coupé en deux par un dégradé (profond à gauche, lumineux à droite) */}
-          <Image
-            src="/images/hero-studio.webp"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[70%_center] [filter:saturate(1.8)_brightness(1.08)]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,78,37,0.9)_0%,rgba(1,101,46,0.72)_26%,rgba(1,164,71,0.08)_42%,rgba(1,164,71,0.08)_54%,rgba(1,101,46,0.78)_70%,rgba(1,78,37,0.92)_100%)] lg:bg-[linear-gradient(100deg,rgba(1,78,37,0.92)_0%,rgba(1,101,46,0.8)_30%,rgba(1,131,60,0.38)_50%,rgba(1,164,71,0)_66%)]"
-          />
+          <div aria-hidden="true" className="absolute inset-0">
+            <Image
+              src="/images/hero-studio.webp"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[70%_center] [filter:saturate(1.8)_brightness(1.08)]"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,78,37,0.9)_0%,rgba(1,101,46,0.72)_26%,rgba(1,164,71,0.08)_42%,rgba(1,164,71,0.08)_54%,rgba(1,101,46,0.78)_70%,rgba(1,78,37,0.92)_100%)] lg:bg-[linear-gradient(100deg,rgba(1,78,37,0.92)_0%,rgba(1,101,46,0.8)_30%,rgba(1,131,60,0.38)_50%,rgba(1,164,71,0)_66%)]" />
+          </div>
 
           <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col px-5 pb-5 pt-[7.25rem] sm:px-8 lg:justify-center lg:pb-10 lg:pt-28">
             {/* Message (titre, badge, promesse, boutons) */}
@@ -168,8 +167,12 @@ export function Hero({ labels }: { labels: HeroLabels }) {
             />
 
             {/* Scène 3D + appareil affiché : au centre sur mobile, à droite sur ordinateur */}
-            <div className="pointer-events-none relative order-2 my-2 min-h-[150px] flex-1 lg:absolute lg:bottom-0 lg:right-0 lg:top-28 lg:my-0 lg:w-[56%]">
-              <div className="absolute inset-0" style={{ animation: "heroFadeIn 1000ms ease-out 300ms both" }}>
+            <div className="pointer-events-none relative order-2 my-2 min-h-[150px] flex-1 short:my-1 short:min-h-[110px] tiny:min-h-[90px] lg:absolute lg:bottom-0 lg:right-0 lg:top-28 lg:my-0 lg:w-[56%]">
+              {/* Mobile : bords haut et bas fondus, l'appareil qui part ou arrive n'est jamais coupé net */}
+              <div
+                className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_16%,#000_84%,transparent)] lg:[mask-image:none]"
+                style={{ animation: "heroFadeIn 1000ms ease-out 300ms both" }}
+              >
                 {/* Halo lumineux derrière l'appareil */}
                 <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(closest-side,rgba(220,252,231,0.5),rgba(187,247,208,0.18)_55%,transparent)]" />
                 <SafeHeroDevices onDeviceChange={setDevice} />

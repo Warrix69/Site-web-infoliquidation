@@ -31,6 +31,8 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
     <Canvas
       camera={{ position: [0, 0.6, 6], fov: 30 }}
       dpr={high ? [1, 2] : [1, 1.25]}
+      // Taille lue sans les transformations : le fondu d'entrée (scale 0.96) ne doit pas rétrécir le canevas
+      resize={{ offsetSize: true }}
       // Mode léger : on ne redessine que lorsque le scroll change (fluidité mobile)
       frameloop={active ? (high ? "always" : "demand") : "never"}
       gl={{

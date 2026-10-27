@@ -189,17 +189,18 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
   return (
     <section className="relative bg-paper text-ink">
       <div ref={trackRef} className="relative h-[170vh] motion-reduce:h-auto lg:h-[190vh] motion-reduce:lg:h-auto">
-        <div className="sticky top-0 flex h-[100svh] items-center pb-4 pt-28 motion-reduce:static motion-reduce:h-auto motion-reduce:py-16 lg:pt-32">
-          <div className="mx-auto h-[min(76svh,640px)] w-full max-w-6xl px-5 motion-reduce:h-[640px] sm:px-8">
+        {/* Mobile : la carte occupe la hauteur sous l'en-tête replié, le bac rapetisse avec la scène (cqh) */}
+        <div className="sticky top-0 flex h-[100svh] items-center pb-4 pt-[5.5rem] motion-reduce:static motion-reduce:h-auto motion-reduce:py-16 lg:pt-32">
+          <div className="mx-auto h-[min(calc(100svh-6.5rem),640px)] w-full max-w-6xl px-5 motion-reduce:h-[640px] sm:px-8 lg:h-[min(76svh,640px)]">
           <div className="flex h-full flex-col overflow-hidden rounded-[2rem] bg-sand p-6 sm:p-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-10 lg:p-12">
             {/* Texte + compteur */}
             <div className="relative z-30 lg:col-span-5">
               <h2 className="font-display text-[clamp(1.5rem,3.6vw,2.6rem)] font-bold leading-[1.08] tracking-[-0.02em] text-ink">
                 {labels.title}
               </h2>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-moss sm:text-base lg:mt-5">{labels.text}</p>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-moss tiny:hidden sm:text-base lg:mt-5">{labels.text}</p>
 
-              <div className="mt-5 lg:mt-10">
+              <div className="mt-5 short:mt-3 lg:mt-10">
                 <p className="font-display text-sm font-semibold text-ink">
                   <span className="text-2xl tabular-nums text-emerald lg:text-4xl">{count}</span>
                   <span className="text-ink/40"> / {TOTAL}</span> {labels.counterLabel}
@@ -209,7 +210,8 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
                 </span>
               </div>
 
-              <div className="mt-4 min-h-[44px] lg:mt-6">
+              {/* Hauteur réservée au message « bac plein » + bouton : la scène (et le bac) ne sautent pas quand il apparaît */}
+              <div className="mt-4 min-h-[96px] short:mt-3 sm:min-h-[76px] lg:mt-6">
                 {full ? (
                   <div className="flex flex-col gap-3" style={{ animation: "heroRiseIn 500ms ease-out both" }}>
                     <p className="text-sm font-semibold text-ink">{labels.full}</p>
@@ -230,13 +232,14 @@ export function BinSection({ labels, cta }: { labels: BinLabels; cta: string }) 
             </div>
 
             {/* Scène */}
-            <div ref={sceneRef} className="relative min-h-0 flex-1 lg:col-span-7 lg:h-full">
+            <div ref={sceneRef} className="relative min-h-0 flex-1 [container-type:size] lg:col-span-7 lg:h-full">
               <div
                 aria-hidden="true"
-                className="absolute bottom-[2%] left-1/2 h-6 w-[min(48%,220px)] -translate-x-1/2 rounded-[50%] bg-ink/25 blur-xl lg:w-[min(50%,280px)]"
+                className="absolute bottom-[2%] left-1/2 h-6 w-[min(48%,220px,60cqh)] -translate-x-1/2 rounded-[50%] bg-ink/25 blur-xl lg:w-[min(50%,280px,60cqh)]"
               />
 
-              <div className="absolute bottom-[4%] left-1/2 w-[min(50%,210px)] -translate-x-1/2 lg:w-[min(52%,270px)]">
+              {/* 57cqh : bac + écran posé dessus (≈ 1,68 × la largeur) tiennent dans la hauteur de la scène */}
+              <div className="absolute bottom-[4%] left-1/2 w-[min(50%,210px,57cqh)] -translate-x-1/2 lg:w-[min(52%,270px,57cqh)]">
                 <div ref={tiltRef} className="origin-bottom will-change-transform">
                   <button
                     type="button"

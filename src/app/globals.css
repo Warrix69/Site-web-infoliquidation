@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
+/* Téléphones peu hauts (barres du navigateur affichées) : sections épinglées en version compacte */
+@custom-variant short {
+  @media (max-width: 1023.98px) and (max-height: 719.98px) {
+    @slot;
+  }
+}
+@custom-variant tiny {
+  @media (max-width: 1023.98px) and (max-height: 619.98px) {
+    @slot;
+  }
+}
+/* Portables à écran bas (ex. 1366 × 768 avec les barres du navigateur) */
+@custom-variant lg-short {
+  @media (min-width: 1024px) and (max-height: 699.98px) {
+    @slot;
+  }
+}
+/* Scène de « Comment ça marche » : les aperçus rapetissent quand elle manque de hauteur */
+@custom-variant stage-md {
+  @container stage (max-height: 185px) {
+    @slot;
+  }
+}
+@custom-variant stage-sm {
+  @container stage (max-height: 149px) {
+    @slot;
+  }
+}
+@custom-variant stage-xs {
+  @container stage (max-height: 109px) {
+    @slot;
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* Design system « Clean editorial » — Info Liquidation Recycle        */
 /* Palette: blanc dominant, noir pour l'alternance, vert accent        */
