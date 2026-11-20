@@ -1,0 +1,8 @@
+/* Feuille de style de la version PHP : le design system du site Next.js + ajouts PHP. */
+@import "../../src/app/globals.css";
+@import "./php.css";
+
+/* Classes Tailwind à détecter : gabarits PHP + composants React des îlots */
+@source "../app/views";
+@source "../app/lib";
+@source "../../src/components";

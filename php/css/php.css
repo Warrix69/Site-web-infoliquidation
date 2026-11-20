@@ -1,0 +1,51 @@
+/* Ajouts propres à la version PHP (chargés après globals.css). */
+
+/* Polices : mêmes variables que next/font */
+:root {
+  --font-space-grotesk: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Révélation au scroll (remplace <Reveal>) — seulement si le JS tourne */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 28px), 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.21, 0.47, 0.32, 0.98) var(--reveal-delay, 0s),
+    transform 0.65s cubic-bezier(0.21, 0.47, 0.32, 0.98) var(--reveal-delay, 0s);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Titre mot par mot (remplace <WordReveal>) */
+.word-reveal {
+  animation: wordReveal 0.7s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+}
+@keyframes wordReveal {
+  from { transform: translateY(110%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Panneaux de l'en-tête et bannière de témoins */
+.dropdown-panel:not([hidden]) { animation: dropIn 0.22s cubic-bezier(0.21, 0.47, 0.32, 0.98); }
+.mobile-panel:not([hidden]) { animation: mobileIn 0.25s ease-out; }
+.cookie-panel:not([hidden]) { animation: cookieIn 0.25s ease-out; }
+.cookie-panel.is-leaving { opacity: 0; transform: translateY(24px); transition: all 0.25s ease-out; }
+@keyframes dropIn { from { opacity: 0; transform: translate(-50%, 10px) scale(0.98); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+@keyframes mobileIn { from { opacity: 0; transform: translateY(-12px); } }
+@keyframes cookieIn { from { opacity: 0; transform: translateY(24px); } }
+
+[data-cs-header], [data-cs-card] { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .word-reveal, .dropdown-panel, .mobile-panel, .cookie-panel { animation: none !important; }
+  [data-cs-card] { transform: none !important; }
+}
+
+/* Îlot React : l'enveloppe ne doit pas changer la mise en page */
+[data-island] { display: contents; }
+[data-island] > script[data-props] { display: none; }

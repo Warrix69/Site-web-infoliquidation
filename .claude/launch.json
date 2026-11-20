@@ -4,20 +4,57 @@
     {
       "name": "dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000
     },
     {
       "name": "prototype",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["C:/Users/Admin/.claude/skills/scroll-craft/scripts/serve.mjs", "--root", "scrollcraft/builds/ilr-rapport", "--port", "4500"],
+      "runtimeArgs": [
+        "C:/Users/Admin/.claude/skills/scroll-craft/scripts/serve.mjs",
+        "--root",
+        "scrollcraft/builds/ilr-rapport",
+        "--port",
+        "4500"
+      ],
       "port": 4500
     },
     {
       "name": "admin-static",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["C:/Users/Admin/.claude/skills/scroll-craft/scripts/serve.mjs", "--root", "public", "--port", "4510"],
+      "runtimeArgs": [
+        "C:/Users/Admin/.claude/skills/scroll-craft/scripts/serve.mjs",
+        "--root",
+        "public",
+        "--port",
+        "4510"
+      ],
       "port": 4510
+    },
+    {
+      "name": "php",
+      "runtimeExecutable": "C:/Users/Admin/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe/php.exe",
+      "runtimeArgs": [
+        "-d",
+        "extension_dir=C:/Users/Admin/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe/ext",
+        "-d",
+        "extension=curl",
+        "-d",
+        "extension=openssl",
+        "-d",
+        "extension=mbstring",
+        "-d",
+        "display_errors=1",
+        "-S",
+        "localhost:8080",
+        "-t",
+        "php/public",
+        "php/public/index.php"
+      ],
+      "port": 8080
     }
   ]
 }

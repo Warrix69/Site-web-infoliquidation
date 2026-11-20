@@ -26,3 +26,14 @@ next-env.d.ts
 .vercel
 .env*
 .mcp.json
+
+# Version PHP : fichiers générés par `node php/build.mjs`
+!php/.env.example
+/php/public/assets/
+/php/public/images/
+/php/public/models/
+/php/public/admin/
+/php/public/logo.png
+/php/public/favicon-logo.png
+/php/public/icon.png
+/php/app/messages/
