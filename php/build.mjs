@@ -45,7 +45,10 @@ const VARIANTS = [
   // Images des îlots React (bac, camionnette…) : srcSet produit par le shim next/image
   { dir: "bac", widths: WIDTHS, island: true },
   { dir: "objets", widths: WIDTHS, island: true },
-  { dir: "centre", widths: [640, 960, 1280] }
+  { dir: "centre", widths: [640, 960, 1280] },
+  // Affichée sur 176 px CSS (w-44) : une seule version WebP à ~2,8x ; 500 px garde
+  // exactement le rapport 1600×1392 (500×435), donc la même hauteur affichée.
+  { file: "liste-matieres.png", widths: [500] }
 ];
 const imgManifest = {};
 const islandManifest = {};
@@ -105,6 +108,21 @@ await build({
   loader: { ".glb": "file", ".png": "file", ".webp": "file", ".jpg": "file" },
   logLevel: "info"
 });
+
+// Chunks orphelins : esbuild émet hls-* et vision_bundle-* (imports dynamiques de drei
+// éliminés), mais aucun fichier ne les charge. On ne les supprime que si aucun fichier
+// de assets/ ne contient leur nom.
+{
+  const files = walk(out);
+  const orphans = files.filter((f) => /[\\/](hls|vision_bundle)-[A-Z0-9]+\.js$/.test(f));
+  const unused = orphans.filter((f) => {
+    const name = f.split(/[\\/]/).pop();
+    const used = files.some((g) => g !== f && readFileSync(g, "latin1").includes(name));
+    if (used) console.log(`Chunk ${name} référencé : conservé.`);
+    return !used;
+  });
+  for (const f of unused) rmSync(f);
+}
 
 execSync(`npx tailwindcss -i "${resolve(php, "css/app.css")}" -o "${resolve(out, "app.css")}" --minify`, {
   cwd: root,
