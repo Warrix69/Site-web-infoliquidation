@@ -49,3 +49,12 @@
 /* Îlot React : l'enveloppe ne doit pas changer la mise en page */
 [data-island] { display: contents; }
 [data-island] > script[data-props] { display: none; }
+
+/* Champs de formulaire en 16 px sur téléphone : sous 16 px, iOS zoome sur le champ touché.
+   Seulement les champs en text-sm (14 px) ; même interligne qu'avant (20 px), donc mêmes hauteurs. */
+@media (max-width: 639.98px) {
+  form :is(input:not([type]), input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea).text-sm {
+    font-size: 16px;
+    line-height: 1.25rem;
+  }
+}
