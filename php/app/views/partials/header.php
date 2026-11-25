@@ -21,7 +21,7 @@ $logoH = (int) round($logoW * 80 / 338);
   <header data-headbar class="border-b border-line bg-paper/95 backdrop-blur transition-all duration-300">
     <div class="mx-auto flex h-[72px] w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
       <a href="<?= e(path('/')) ?>" aria-label="Info Liquidation Recycle" class="shrink-0">
-        <span class="inline-flex items-center"><img src="/logo.png" alt="Info Liquidation Recycle" width="<?= $logoW ?>" height="<?= $logoH ?>" class="h-auto w-auto" style="max-width:<?= $logoW ?>px"></span>
+        <span class="inline-flex items-center"><img src="/logo.png" alt="Info Liquidation Recycle" width="<?= $logoW ?>" height="<?= $logoH ?>" fetchpriority="high" class="h-auto w-auto" style="max-width:<?= $logoW ?>px"></span>
       </a>
 
       <nav aria-label="<?= te('nav.mainNavLabel') ?>" class="hidden items-center gap-1 lg:flex">
