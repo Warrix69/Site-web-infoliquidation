@@ -48,7 +48,7 @@ function ebay_http_multi(array $requests): array
             CURLOPT_HTTPHEADER => $req['headers'] ?? [],
         ];
         if (isset($req['body'])) $opts[CURLOPT_POSTFIELDS] = $req['body'];
-        curl_setopt_array($ch, $opts);
+        curl_setopt_array($ch, $opts + curl_base_opts());
         curl_multi_add_handle($mh, $ch);
         $handles[$key] = $ch;
     }

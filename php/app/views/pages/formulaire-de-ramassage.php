@@ -68,22 +68,28 @@ $fallback = '<p class="glass rounded-3xl p-7 text-center text-moss">'
     . '</p>';
 
 ob_start(); ?>
-<header data-theme="green" class="relative overflow-hidden pb-12 pt-32 sm:pb-16 sm:pt-40">
-  <div class="mx-auto w-full max-w-3xl px-5 text-center sm:px-8">
-    <div<?= reveal() ?>>
-      <span class="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald/30 bg-emerald-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald">
-        <span class="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald"></span>
-        <?= e($t('eyebrow')) ?>
-      </span>
-      <h1 class="mx-auto font-display text-4xl font-bold leading-[1.05] text-mist sm:text-5xl lg:text-6xl"><?= e($t('title')) ?></h1>
-      <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-moss sm:text-lg">
-        Réponse en <span class="font-semibold text-emerald">24 h</span>, ramassage en <span class="font-semibold text-emerald">72 h max</span>.
-      </p>
-    </div>
+<?php
+// Faits officiels (CLAUDE.md) affichés en pastilles sous le titre
+$facts = locale() === 'en'
+    ? [['Check', '100% free'], ['Clock', 'Reply within 24 h'], ['Truck', 'Pick-up within 72 h max'], ['Package', 'Min. 10 items']]
+    : [['Check', '100 % gratuit'], ['Clock', 'Réponse en 24 h'], ['Truck', 'Ramassage en 72 h max'], ['Package', 'Min. 10 items']];
+?>
+<!-- Héros compact : on voit le formulaire dès l'arrivée -->
+<header data-theme="green" class="relative overflow-hidden pb-8 pt-[8.5rem] sm:pb-10 sm:pt-36">
+  <div class="mx-auto w-full max-w-3xl px-5 sm:px-8"<?= reveal() ?>>
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-paper/80"><?= e($t('eyebrow')) ?></p>
+    <h1 class="mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] text-paper sm:text-4xl lg:text-5xl"><?= e($t('title')) ?></h1>
+    <ul class="mt-5 flex flex-wrap gap-2">
+      <?php foreach ($facts as [$ic, $label]): ?>
+        <li class="inline-flex items-center gap-1.5 rounded-full bg-ink/85 px-3 py-1.5 text-xs font-semibold text-paper sm:text-sm">
+          <?= icon($ic, 'h-3.5 w-3.5 text-lime') ?><?= e($label) ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
   </div>
 </header>
 
-<section class="relative pb-24">
+<section class="relative pb-24 pt-8 sm:pt-10">
   <div class="mx-auto w-full max-w-3xl px-5 sm:px-8">
     <?= island('PickupForm', ['labels' => $labels], $fallback) ?>
   </div>

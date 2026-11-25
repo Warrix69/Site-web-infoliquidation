@@ -2,6 +2,12 @@
 Options -Indexes
 DirectoryIndex index.php
 
+# Sécurité : jamais servir les fichiers cachés (.env, .git…) ni les fichiers sensibles,
+# même si quelqu'un en dépose un par erreur dans le dossier public.
+<FilesMatch "(^\.|\.(env|ini|log|sh|sql|bak|old|swp|md|json\.example)$|^composer\.(json|lock)$)">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.(?!well-known)
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

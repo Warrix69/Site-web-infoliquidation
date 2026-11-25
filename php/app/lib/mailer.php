@@ -30,7 +30,7 @@ function send_business_email(string $subject, string $html, ?string $replyTo = n
     if ($replyTo !== null && $replyTo !== '') $payload['reply_to'] = $replyTo;
 
     $ch = curl_init('https://api.resend.com/emails');
-    curl_setopt_array($ch, [
+    curl_setopt_array($ch, curl_base_opts() + [
         CURLOPT_POST => true,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 10,

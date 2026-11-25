@@ -49,3 +49,15 @@ function e($v): string
 {
     return htmlspecialchars((string) $v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
+
+/**
+ * Options cURL communes. Sous Windows (tests locaux), PHP n'a pas de liste de
+ * certificats : on utilise celle de Windows. Sans effet sur l'hébergeur Linux.
+ */
+function curl_base_opts(): array
+{
+    if (PHP_OS_FAMILY === 'Windows' && defined('CURLSSLOPT_NATIVE_CA')) {
+        return [CURLOPT_SSL_OPTIONS => CURLSSLOPT_NATIVE_CA];
+    }
+    return [];
+}

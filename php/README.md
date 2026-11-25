@@ -18,3 +18,11 @@ Configuration « php » de `.claude/launch.json` (serveur intégré de PHP sur h
 4. `storage/` doit être accessible en écriture par PHP.
 5. Extensions PHP requises : curl, openssl, mbstring, json. Apache avec `mod_rewrite` (le `.htaccess` est fourni).
 6. Google Calendar : ajouter `https://<domaine>/api/google/callback` comme URI de redirection autorisée.
+
+## Sécurité des clés API
+Les clés (Resend, Google, eBay, admin) ne vivent que dans `.env`, lu par PHP sur le serveur. Elles ne sont jamais envoyées au navigateur : le tableau de bord appelle `/api/...`, et c'est le serveur qui parle à Google et eBay.
+- **`.env` hors du dossier public** : il doit être au-dessus de `public_html` (ou de `php/public`), jamais dedans. Le `.htaccess` refuse de toute façon les fichiers cachés (`.env`, `.git`…).
+- **Permissions** : `.env` en 600 (lisible seulement par ton compte) ; `storage/` en 700.
+- **Jamais dans git** : `.env` est ignoré ; seul `.env.example` (vide) est suivi.
+- **`ADMIN_SESSION_SECRET`** : toujours le remplir (64 caractères au hasard), et mettre un mot de passe admin long.
+- **Si une clé fuit** (courriel, capture d'écran, conversation) : la régénérer. Google : supprimer l'accès sur myaccount.google.com/permissions puis refaire `/api/google/auth-start`. eBay : nouveau jeton dans le portail développeur eBay. Admin : changer `ADMIN_PASSWORD` et `ADMIN_SESSION_SECRET` (toutes les sessions sont alors déconnectées).

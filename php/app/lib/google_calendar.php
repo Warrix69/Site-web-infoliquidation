@@ -34,7 +34,7 @@ function google_http(string $method, string $url, array $headers = [], ?string $
         CURLOPT_HTTPHEADER => $headers,
     ];
     if ($body !== null) $opts[CURLOPT_POSTFIELDS] = $body;
-    curl_setopt_array($ch, $opts);
+    curl_setopt_array($ch, $opts + curl_base_opts());
     $res = curl_exec($ch);
     $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
     $err = $res === false ? curl_error($ch) : null;

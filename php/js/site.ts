@@ -38,13 +38,10 @@ function smoothScroll() {
 function header() {
   const root = document.querySelector<HTMLElement>("[data-header]");
   if (!root) return;
-  const topbar = root.querySelector<HTMLElement>("[data-topbar]")!;
+  // La barre du haut (téléphone, message, FR/EN) reste toujours visible
   const bar = root.querySelector<HTMLElement>("[data-headbar]")!;
   const onScroll = () => {
     const scrolled = window.scrollY > 24;
-    topbar.classList.toggle("max-h-0", scrolled);
-    topbar.classList.toggle("max-h-10", !scrolled);
-    topbar.inert = scrolled;
     bar.classList.toggle("shadow-[0_8px_24px_-16px_rgba(10,10,10,0.35)]", scrolled);
   };
   onScroll();
