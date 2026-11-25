@@ -52,6 +52,8 @@ function cal_normalize_event($e): array
     $out['allDay'] = empty($start->dateTime);
     if (isset($e->status)) $out['status'] = $e->status; // confirmed / tentative / cancelled
     if (isset($e->htmlLink)) $out['htmlLink'] = $e->htmlLink;
+    // Date de création : sert aux notifications « nouveau ramassage » de l'admin
+    if (isset($e->created)) $out['created'] = $e->created;
     $attendees = [];
     foreach ((isset($e->attendees) && is_array($e->attendees) ? $e->attendees : []) as $a) {
         $item = [];

@@ -377,7 +377,7 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 
 /* ═══ Certificats de destruction ═══ */
 @font-face{font-family:'ILR Signature';src:url(/assets/fonts/mrs-saint-delafield.woff2) format('woff2');font-display:block}
-.cert-layout{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:20px;align-items:start;margin-bottom:20px}
+.cert-layout{display:grid;grid-template-columns:minmax(0,420px) minmax(0,400px);justify-content:start;gap:20px;align-items:start;margin-bottom:20px}
 .cert-layout>.pane{margin-bottom:0}
 .cert-form{padding:4px 22px 22px}
 .cert-pick-link{background:none;border:0;padding:0;margin-top:8px;font-size:13px;font-weight:600;color:var(--g-text);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
@@ -399,7 +399,7 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 .cert-confirm .fg{margin:10px 0}
 .cert-confirm-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px}
 .cert-danger{color:#dc2626}.cert-danger:hover{background:rgba(220,38,38,.08);color:#b91c1c}
-.cert-preview-pane{padding:18px;background:var(--surface-2);border-radius:var(--r-lg);position:sticky;top:84px}
+.cert-preview-pane{width:100%;max-width:400px;padding:14px;background:var(--surface-2);border-radius:var(--r-lg);position:sticky;top:84px}
 .cert-preview-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;color:var(--ink-3)}
 .cert-preview{position:relative;width:100%;overflow:hidden;border-radius:6px;box-shadow:0 18px 40px -24px rgba(10,10,10,.45)}
 .cert-preview .ilrc{position:absolute;top:0;left:0;transform-origin:0 0}
@@ -408,7 +408,7 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 .cl-cert-card{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--surface-2);margin-bottom:6px;cursor:pointer;font-size:13px}
 .cl-cert-card:hover{background:var(--surface-3)}
 .cl-cert-card strong{font-variant-numeric:tabular-nums}
-@media (max-width:1100px){.cert-layout{grid-template-columns:minmax(0,1fr)}.cert-preview-pane{position:static}}
+@media (max-width:1100px){.cert-layout{grid-template-columns:minmax(0,1fr)}.cert-preview-pane{position:static;margin:0 auto;max-width:360px}}
 
 /* Le certificat lui-même : feuille Lettre 816 × 1056 px, couleurs fixes (le papier remis au client) */
 .ilrc{--ink:#0A0A0A;--texte:#27272A;--muted:#52525B;--faint:#71717A;--ligne:#E4E4E7;--vert:#16A34A;--vif:#22C55E;--pale:#F0FDF4;--encre:#1b2b63;--display:'Poppins',sans-serif;
@@ -613,6 +613,13 @@ td.empty-row{text-align:center;color:var(--ink-3);padding:36px}
 .rl-tpl-icon svg{width:20px;height:20px;fill:#22C55E}
 .rl-tpl.selected .rl-tpl-icon{background:var(--g-2)}
 .rl-tpl.selected .rl-tpl-icon svg{fill:#0A0A0A}
+.rl-tpl{position:relative}
+.rl-tpl-edit{position:absolute;top:12px;right:12px;display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:12px;font-weight:600;border:1px solid var(--line-2);cursor:pointer}
+.rl-tpl-edit:hover{color:var(--ink);border-color:var(--ink-3)}
+.rl-tpl-edit svg{width:13px;height:13px;fill:currentColor}
+.rl-tpl-mine{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:var(--g-softer);color:var(--g-ink);font-size:11px;font-weight:600;vertical-align:middle}
+.tpl-hint{font-size:12.5px;color:var(--ink-3);line-height:1.5;margin:-6px 0 14px}
+.tpl-hint code{background:var(--surface-2);padding:1px 5px;border-radius:5px;font-size:12px}
 .rl-tpl h4{font-family:var(--f-display);font-size:15px;font-weight:600;margin-bottom:6px}
 .rl-tpl p{font-size:13px;color:var(--ink-3);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .rl-tpl .rl-tpl-subj{font-size:12px;color:var(--ink-2);margin-top:12px;padding-top:10px;border-top:1px solid var(--line-2)}
@@ -742,6 +749,21 @@ td.empty-row{text-align:center;color:var(--ink-3);padding:36px}
 .cl-quick-btn:hover{background:var(--ink);color:var(--surface)}
 .cl-quick-btn svg{width:16px;height:16px;fill:currentColor}
 .cl-modal-main{padding:20px 22px;max-height:52vh;overflow-y:auto}
+.cl-tabs{margin-bottom:14px;display:flex;width:100%}
+.cl-tabs .cal-view-btn{flex:1;white-space:nowrap}
+.cl-pk-row{border-radius:12px;background:var(--surface-2);margin-bottom:6px;box-shadow:inset 4px 0 0 var(--line-2);overflow:hidden}
+.cl-pk-row[data-st="completed"]{box-shadow:inset 4px 0 0 var(--g)}
+.cl-pk-row[data-st="pending"]{box-shadow:inset 4px 0 0 var(--ink)}
+.cl-pk-head{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;background:none;border:0;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.cl-pk-head:hover{background:var(--surface-3)}
+.cl-pk-head .d{font-size:14px;font-weight:600;text-transform:capitalize}
+.cl-pk-head .h{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.cl-pk-head .sp{flex:1}
+.cl-pk-head .chev{width:18px;height:18px;fill:var(--ink-3);transition:transform var(--t)}
+.cl-pk-head[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.cl-pk-body{padding:2px 16px 14px 16px;font-size:13px;line-height:1.5;color:var(--ink-2)}
+.cl-pk-body p{margin:0 0 4px;overflow-wrap:anywhere}
+.cl-pk-body .open{margin-top:8px}
 .cl-pk-card{background:var(--surface-2);border-radius:14px;padding:14px 16px;margin-bottom:8px;cursor:pointer;box-shadow:inset 4px 0 0 var(--line-2);transition:transform var(--t) var(--ease)}
 .cl-pk-card:hover{transform:translateX(3px)}
 .cl-pk-card[data-st="completed"]{box-shadow:inset 4px 0 0 var(--g)}
@@ -1034,6 +1056,7 @@ a.sheet-it{text-decoration:none;color:inherit}
         </button>
         <div id="notif-panel" class="notif-panel" style="display:none">
           <div class="np-hd"><b>Notifications</b><span style="display:flex;gap:10px"><button onclick="playMoneySound()" title="Son joué à chaque nouvelle vente eBay">🔊 Tester le son</button><button onclick="markNotifsRead()">Tout marquer lu</button></span></div>
+          <div id="notif-desktop" style="display:none;padding:10px 16px;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.4;background:var(--surface-2)">Être averti même quand l’admin est dans un autre onglet : <button type="button" onclick="enableDesktopNotifs()" style="font-weight:700;color:var(--g-text);text-decoration:underline">activer les notifications sur cet ordinateur</button></div>
           <div id="notif-list"></div>
         </div>
       </div>
@@ -1193,7 +1216,7 @@ a.sheet-it{text-decoration:none;color:inherit}
       </div>
 
       <div class="pane">
-        <div class="pane-hd"><h3>Modèles de courriels</h3><span class="sub" id="rl-tpl-count">5 modèles</span></div>
+        <div class="pane-hd"><div><h3>Modèles de courriels</h3><span class="sub" id="rl-tpl-count">5 modèles</span></div><button type="button" class="btn btn-soft btn-sm" id="tpl-add-btn" hidden><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Ajouter un modèle de courriel</button></div>
         <div class="rl-tpl-grid" id="rl-tpl-grid"></div>
       </div>
 
@@ -1459,6 +1482,20 @@ function showToast(msg,type){const box=document.getElementById('toasts');if(!box
   box.appendChild(t);setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),240)},4200)}
 
 /* ─────────────── Notifications ─────────────── */
+// Ventes et ramassages déjà vus, gardés entre les visites : ce qui arrive pendant que l'admin est fermé
+// est signalé à la prochaine ouverture (avant : seulement pendant que la page était ouverte).
+function seenLoad(k){try{const v=JSON.parse(localStorage.getItem(k)||'null');return v&&Array.isArray(v.ids)?{ids:new Set(v.ids),ts:+v.ts||0}:null}catch(e){return null}}
+function seenSave(k,set){try{localStorage.setItem(k,JSON.stringify({ids:[...set].slice(-800),ts:Date.now()}))}catch(e){}}
+// Son : les navigateurs le bloquent tant qu'on n'a pas cliqué dans la page → on le rejoue au premier clic
+let __pendingSound=null,__soundHintShown=false;
+function playAlert(kind){const play=kind==='money'?playMoneySound:playNotificationSound;
+  try{const ctx=__getAudio();if(ctx.state==='running'){play();return}}catch(e){}
+  __pendingSound=play;if(!__soundHintShown){__soundHintShown=true;showToast('Clique n’importe où dans la page pour activer le son des notifications')}}
+['pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,()=>{if(!__pendingSound)return;const p=__pendingSound;__pendingSound=null;try{__getAudio().resume().then(()=>p())}catch(e){}},{passive:true}));
+// Notification sur l'ordinateur (si autorisée) quand l'onglet de l'admin n'est pas affiché
+function desktopNotify(title,body){try{if(!('Notification' in window)||Notification.permission!=='granted'||!document.hidden)return;const n=new Notification(title,{body,icon:'/favicon-logo.png',tag:title});n.onclick=()=>{window.focus();n.close()}}catch(e){}}
+function enableDesktopNotifs(){if(!('Notification' in window)){showToast('Ce navigateur ne permet pas les notifications','error');return}
+  Notification.requestPermission().then(p=>{renderNotifPanel();showToast(p==='granted'?'Notifications activées sur cet ordinateur':'Notifications refusées (modifiable dans les réglages du navigateur)',p==='granted'?undefined:'error')})}
 let __notifications=[];let __knownOrderIds=null;let __firstEbayFetch=true;
 try{__notifications=JSON.parse(localStorage.getItem('ilr_notifs')||'[]')}catch(e){__notifications=[]}
 function saveNotifs(){try{localStorage.setItem('ilr_notifs',JSON.stringify(__notifications.slice(0,50)))}catch(e){}}
@@ -1482,7 +1519,7 @@ function closeNotifOnOutside(e){
   else{setTimeout(()=>{document.addEventListener('click',closeNotifOnOutside,{once:true})},50)}
 }
 function fmtNotifAgo(ts){const d=Date.now()-ts;if(d<60000)return 'à l’instant';if(d<3600000)return Math.floor(d/60000)+' min';if(d<86400000)return Math.floor(d/3600000)+' h';return Math.floor(d/86400000)+' j'}
-function renderNotifPanel(){
+function renderNotifPanel(){{const dn=document.getElementById('notif-desktop');if(dn)dn.style.display=('Notification' in window&&Notification.permission==='default')?'block':'none'}
   const list=document.getElementById('notif-list');const badge=document.getElementById('notif-badge');
   const unread=__notifications.filter(n=>!n.read).length;
   if(badge){badge.textContent=unread;badge.style.display=unread>0?'inline-block':'none'}
@@ -1508,12 +1545,21 @@ function clientSlug(name){return 'gcal-'+canonicalClientName(name).toLowerCase()
 // Erreurs API (clé manquante, token expiré…) : un seul toast par message, pas de bascule silencieuse
 const __apiErrors=new Map();
 function reportApiError(src,msg){console.warn('['+src+']',msg);if(__apiErrors.get(src)===msg)return;__apiErrors.set(src,msg);showToast(src+' indisponible — '+msg,'error')}
-async function fetchCalendarPickups(){try{const r=await fetch('/api/calendar/events?from='+iso(new Date(new Date().getFullYear(),new Date().getMonth()-1,1))+'&to='+iso(new Date(new Date().getFullYear(),new Date().getMonth()+3,0)));const body=await r.json().catch(()=>({error:'HTTP '+r.status}));if(!r.ok||body.error){reportApiError('Google Calendar',body.error||('HTTP '+r.status));return}__apiErrors.delete('Google Calendar');const{events}=body;
 // Résumé lisible de la description Google : retire les lignes « ==== », le titre RAMASSAGE et les champs vides
 function pickupSummary(desc){if(!desc)return '';const out=[];String(desc).split(/\r?\n/).forEach(l=>{l=l.replace(/<[^>]+>/g,'').trim();if(!l||/^[=\-_*]{3,}$/.test(l)||/^(ramassage|pickup)$/i.test(l))return;const m=l.match(/^([^:]{1,40}?)\s*:\s*(.*)$/);if(m){const k=m[1].trim(),v=m[2].trim();if(!v||(/items/i.test(k)&&/^0+$/.test(v)))return;out.push(k+' : '+v)}else out.push(l)});return out.join(' · ')}
+async function fetchCalendarPickups(){try{const r=await fetch('/api/calendar/events?from='+iso(new Date(new Date().getFullYear(),new Date().getMonth()-1,1))+'&to='+iso(new Date(new Date().getFullYear(),new Date().getMonth()+3,0)));const body=await r.json().catch(()=>({error:'HTTP '+r.status}));if(!r.ok||body.error){reportApiError('Google Calendar',body.error||('HTTP '+r.status));return}__apiErrors.delete('Google Calendar');const{events}=body;
 const mapped=events.map(e=>{const dt=new Date(e.start);const dateStr=iso(dt);const timeStr=e.allDay?'09:00':`${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;const statusMap={confirmed:'confirmed',tentative:'pending',cancelled:'completed'};const rawName=e.title.replace(/^(Ramassage|Pickup)\s*[:—-]?\s*/i,'').trim()||e.title;const canonical=canonicalClientName(rawName);const cid=clientSlug(rawName);return{id:e.id,clientId:cid,clientName:canonical,date:dateStr,time:timeStr,items:pickupSummary(e.description)||(e.location?'📍 '+e.location:'Via Google Calendar'),status:statusMap[e.status]||'pending',notes:(e.location?'📍 '+e.location+'\n':'')+(e.description||'')}});
 // Détection de nouveaux ramassages (ne joue pas au premier chargement)
-const currentIds=new Set(mapped.map(m=>m.id));if(!__firstFetch){const newOnes=mapped.filter(m=>!__knownEventIds.has(m.id));for(const n of newOnes){playNotificationSound();showToast('🔔 Nouveau ramassage : '+n.clientName+' — '+n.date+' à '+n.time);addNotif('pickup','Nouveau ramassage : '+n.clientName,n.date+' à '+n.time)}}
+const currentIds=new Set(mapped.map(m=>m.id));
+{const created=new Map(events.map(e=>[e.id,Date.parse(e.created||'')||0]));
+ if(__firstFetch){const prev=seenLoad('ilr_seen_pickups');
+   // Première visite sur cet appareil : on mémorise sans notifier. Sinon : ramassages créés depuis la dernière visite.
+   if(prev){const newOnes=mapped.filter(m=>!prev.ids.has(m.id)&&created.get(m.id)>prev.ts);
+     newOnes.forEach(n=>addNotif('pickup','Nouveau ramassage : '+n.clientName,n.date+' à '+n.time));
+     if(newOnes.length){playAlert('ding');showToast(newOnes.length===1?'Nouveau ramassage : '+newOnes[0].clientName+' — '+newOnes[0].date+' à '+newOnes[0].time:newOnes.length+' nouveaux ramassages depuis ta dernière visite');desktopNotify(newOnes.length===1?'Nouveau ramassage':newOnes.length+' nouveaux ramassages',newOnes.map(n=>n.clientName).slice(0,3).join(', '))}}}
+ else{const newOnes=mapped.filter(m=>!__knownEventIds.has(m.id)&&created.get(m.id)>Date.now()-2*3600e3);
+   for(const n of newOnes){playAlert('ding');showToast('Nouveau ramassage : '+n.clientName+' — '+n.date+' à '+n.time);addNotif('pickup','Nouveau ramassage : '+n.clientName,n.date+' à '+n.time);desktopNotify('Nouveau ramassage : '+n.clientName,n.date+' à '+n.time)}}
+ const all=seenLoad('ilr_seen_pickups')?.ids||new Set();currentIds.forEach(id=>all.add(id));seenSave('ilr_seen_pickups',all)}
 __knownEventIds=currentIds;__firstFetch=false;
 allPickups=mapped;applyStatusOverrides();
 // Déduplication des clients : un seul par clientId (même si plusieurs ramassages)
@@ -1522,7 +1568,7 @@ const seen=new Set(allClients.map(c=>c.id));const firstAddrByClient={};for(const
 for(const c of allClients){if(!c.address&&firstAddrByClient[c.id])c.address=firstAddrByClient[c.id]}
 applyClientStore();
 const uniqueClients=new Set(mapped.map(m=>m.clientId));console.log('[Calendar] '+mapped.length+' ramassages, '+uniqueClients.size+' clients uniques');}catch(e){console.warn('[Calendar] fetch failed:',e)}}
-async function initDB(){if(typeof window.claude==='undefined'||!window.claude.use){seedDemoData();await loadClientStore();loadCerts();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}try{db=await window.claude.use('db')}catch(e){db=null}if(!db){seedDemoData();await loadClientStore();loadCerts();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}
+async function initDB(){if(typeof window.claude==='undefined'||!window.claude.use){seedDemoData();await loadClientStore();loadCerts();loadTemplates();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}try{db=await window.claude.use('db')}catch(e){db=null}if(!db){seedDemoData();await loadClientStore();loadCerts();loadTemplates();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}
 db.collection('pickups').onSnapshot(s=>{allPickups=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderLanding();renderCalendar();renderUpcoming();renderHistory();updateStats()},()=>{});
 db.collection('clients').onSnapshot(s=>{allClients=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderClients();updateStats()},()=>{});
 db.collection('prospects').onSnapshot(s=>{allProspects=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderProspects();updateStats()},()=>{});
@@ -1544,8 +1590,15 @@ EBAY_STATS={today:d.salesToday||0,week7:d.sales7d||0,month31:d.sales30d||0,month
 EBAY_ACTIONS={toShip:d.awaitingShipCount||0,unreadMessages:EBAY_ACTIONS.unreadMessages,eligibleOffers:d.listings||0,disputes:EBAY_ACTIONS.disputes,returns:d.returns||0};
 EBAY_RECENT_ORDERS=Array.isArray(d.orders)?d.orders:[];
 // Détection de nouvelles ventes eBay (silencieux au premier chargement)
-if(__knownOrderIds===null){__knownOrderIds=new Set(EBAY_RECENT_ORDERS.map(o=>o.id));__firstEbayFetch=false}
-else{for(const o of EBAY_RECENT_ORDERS){if(!__knownOrderIds.has(o.id)){const it=(o.items&&o.items[0])||{};const title=(it.title||'Vente eBay').slice(0,80);const price=(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})+' $';playMoneySound();showToast('💰 Nouvelle vente eBay : '+price);addNotif('ebay','Nouvelle vente eBay · '+price,title+(o.buyer?' · '+o.buyer:''),it.url||null);__knownOrderIds.add(o.id)}}}
+{const saleNotif=o=>{const it=(o.items&&o.items[0])||{};const title=(it.title||'Vente eBay').slice(0,80);const price=(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})+' $';addNotif('ebay','Nouvelle vente eBay · '+price,title+(o.buyer?' · '+o.buyer:''),it.url||null);return{price,title}};
+ if(__knownOrderIds===null){const prev=seenLoad('ilr_seen_orders');__knownOrderIds=new Set(EBAY_RECENT_ORDERS.map(o=>o.id));__firstEbayFetch=false;
+   // Ventes arrivées pendant que l'admin était fermé (première visite sur cet appareil : rien, on mémorise)
+   if(prev){const news=EBAY_RECENT_ORDERS.filter(o=>!prev.ids.has(o.id)&&(Date.parse(o.date||'')||0)>prev.ts-60e3);
+     const info=news.map(saleNotif);
+     if(news.length){playAlert('money');showToast(news.length===1?'Nouvelle vente eBay : '+info[0].price:news.length+' nouvelles ventes eBay depuis ta dernière visite');desktopNotify(news.length===1?'Nouvelle vente eBay · '+info[0].price:news.length+' nouvelles ventes eBay',info.map(i=>i.title).slice(0,3).join(' · '))}}
+   if(prev)prev.ids.forEach(id=>__knownOrderIds.add(id))}
+ else{for(const o of EBAY_RECENT_ORDERS){if(!__knownOrderIds.has(o.id)){const i=saleNotif(o);playAlert('money');showToast('Nouvelle vente eBay : '+i.price);desktopNotify('Nouvelle vente eBay · '+i.price,i.title);__knownOrderIds.add(o.id)}}}
+ seenSave('ilr_seen_orders',__knownOrderIds)}
 // ── Store bar (haut) ──
 const fb=d.feedback||{};const fbEl=document.getElementById('ebay-feedback');
 if(fbEl){const score=esc((fb.score||0).toLocaleString('fr-CA'));const pct=fb.positivePercent?(' <span style="color:var(--emerald)">'+esc(fb.positivePercent)+'%</span>'):'';fbEl.innerHTML=score;const parent=fbEl.parentElement;if(parent){const lbl=parent.querySelector('.esb-ml');if(lbl&&fb.positivePercent)lbl.innerHTML='Feedback <span style="color:var(--emerald)">'+esc(fb.positivePercent)+'%</span>';}}
@@ -1608,7 +1661,15 @@ const ITEM_CATS=[
   {k:'Périphériques',c:'#A1A1AA',f:'#0A0A0A',re:/clavier|souris|onduleur|projecteur|\bups\b/i}
 ];
 function catOf(l){return ITEM_CATS.find(c=>c.re.test(l))||{k:'Divers',c:'#D4D4D8',f:'#18181B'}}
-function parseItems(s){return String(s||'').split(/[,;]+/).map(x=>x.trim()).filter(Boolean).map(x=>{const m=x.match(/^(\d+)\s+(.+)$/);return m?{q:+m[1],l:m[2]}:{q:1,l:x}})}
+function parseItems(s){const t=String(s||'');
+// 1) Nombre total indiqué dans la demande (courriel ou formulaire) : c'est la valeur fiable
+const tot=t.match(/nombre\s+d['’]?\s*items?\s*:\s*(\d{1,5})/i);if(tot){const q=+tot[1];return q>0?[{q,l:'Items'}]:[]}
+// 2) Sinon, lignes « quantité + équipement » (ex. 3 palettes, 6 ordinateurs) ; adresses, codes postaux et champs « Clé : valeur » ignorés
+const STREET=/\b(rue|boul|boulevard|av|ave|avenue|ch|chemin|mont[ée]e|croiss|croissant|rang|route|rte|blvd|street|st|place|local|suite|bureau|app|appartement)\b/i;
+return t.split(/[,;\n·]+/).map(x=>x.replace(/^\u{1F4CD}\s*/u,'').trim()).filter(Boolean).flatMap(x=>{
+if(x.includes(':')||/@|https?:|www\./i.test(x)||/[A-Z]\d[A-Z]\s?\d[A-Z]\d/i.test(x)||isAddress(x))return[];
+const m=x.match(/^(\d{1,3})\s*(?:x\s+)?([A-Za-zÀ-ÿ][^\d]{1,60})$/);if(!m)return[];
+const q=+m[1],l=m[2].trim();if(q<1||q>500||STREET.test(l))return[];return[{q,l}]})}
 
 function histFiltered(){
   let f=allPickups.slice();
@@ -2215,7 +2276,8 @@ const fmt=d=>{const o=certDateObj(d);return o?o.toLocaleDateString('fr-CA',{day:
 tb.innerHTML=list.length?list.map(c=>{const last=c.envois&&c.envois.length?c.envois[c.envois.length-1]:null;return '<tr data-cert="'+esc(c.id)+'" tabindex="0" style="cursor:pointer'+(certCur&&certCur.id===c.id?';background:var(--g-softer)':'')+'"><td class="tnum"><strong>'+esc(c.numero)+'</strong></td><td data-label="Compagnie">'+esc(c.compagnie)+'</td><td data-label="Disques durs" class="num">'+(Number(c.nbDisques)||0)+'</td><td data-label="Destruction" class="tnum">'+fmt(c.dateDestruction)+'</td><td data-label="Émis le" class="tnum">'+fmt(c.dateEmission)+'</td><td data-label="Envoi">'+(last?'<span class="cert-sent" title="'+esc(last.to)+'">✓ Envoyé '+fmt(String(last.at).slice(0,10))+'</span>':'<span class="muted">—</span>')+'</td></tr>'}).join('')
 :'<tr><td colspan="6" class="empty-row">'+(CERTS.length?'Aucun certificat pour cette période ou cette recherche':'Aucun certificat pour le moment. Remplis le formulaire ci-dessus pour créer le premier.')+'</td></tr>';
 tb.querySelectorAll('tr[data-cert]').forEach(tr=>{tr.addEventListener('click',()=>certOpen(tr.dataset.cert));tr.addEventListener('keydown',e=>{if(e.key==='Enter')certOpen(tr.dataset.cert)})})}
-function clientCertsHtml(c){if(!CERTS)return '';const n=certNorm(c.name);const list=CERTS.filter(x=>x.clientId===c.id||certNorm(x.compagnie)===n).sort((a,b)=>String(b.numero).localeCompare(String(a.numero)));
+function clientCertsList(c){if(!CERTS)return[];const n=certNorm(c.name);return CERTS.filter(x=>x.clientId===c.id||certNorm(x.compagnie)===n).sort((a,b)=>String(b.numero).localeCompare(String(a.numero)))}
+function clientCertsHtml(c){if(!CERTS)return '';const list=clientCertsList(c);
 const disks=list.reduce((t,x)=>t+(Number(x.nbDisques)||0),0);
 let h='<h4>Certificats de destruction des données ('+list.length+')</h4>';
 if(list.length)h+='<div style="font-size:13px;color:var(--ink-3);margin:-4px 0 8px">'+disks+' disque'+(disks>1?'s':'')+' dur'+(disks>1?'s':'')+' détruit'+(disks>1?'s':'')+' au total</div>'+list.map(x=>'<div class="cl-cert-card" data-clcert="'+esc(x.id)+'"><span><strong>'+esc(x.numero)+'</strong> · '+esc(certDateLongue(x.dateDestruction))+'</span><span>'+(Number(x.nbDisques)||0)+' disque'+(x.nbDisques>1?'s':'')+'</span></div>').join('');
@@ -2231,7 +2293,8 @@ document.getElementById('cf-search').addEventListener('keydown',e=>{if(e.key==='
 document.getElementById('cert-search').addEventListener('input',renderCertHistory);
 document.getElementById('cert-period').addEventListener('change',renderCertHistory)})();
 
-function selectClient(id){selectedClient=allClients.find(c=>c.id===id);if(!selectedClient)return;
+let clTab='pk';
+function selectClient(id,tab){clTab=tab==='cert'?'cert':'pk';selectedClient=allClients.find(c=>c.id===id);if(!selectedClient)return;
 const c=selectedClient,col=COLORS[c.name.charCodeAt(0)%COLORS.length],ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2);
 const cp=allPickups.filter(p=>p.clientId===id).sort((a,b)=>b.date.localeCompare(a.date));
 const totalItems=cp.reduce((a,p)=>a+parseItems(p.items).reduce((x,i)=>x+i.q,0),0);
@@ -2261,28 +2324,32 @@ if(c.email)actions.push(`<a href="mailto:${esc(c.email)}" class="cl-quick-btn"><
 if(c.address)actions.push(`<a href="https://maps.google.com/?q=${encodeURIComponent(c.address)}" target="_blank" rel="noopener" class="cl-quick-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Carte</a>`);
 if(actions.length){html+=`<div><h4>Actions rapides</h4><div style="display:flex;flex-direction:column;gap:6px">${actions.join('')}</div></div>`}
 
-html+=`</div><div class="cl-modal-main">`+clientCertsHtml(c)+`<h4>Historique des ramassages (${cp.length})</h4>`;
+const nCerts=CERTS?clientCertsList(c).length:0;
+html+='</div><div class="cl-modal-main">';
+if(CERTS)html+='<div class="seg cl-tabs" role="tablist"><button type="button" class="cal-view-btn'+(clTab==='cert'?'':' active')+'" role="tab" data-cltab="pk">Ramassages ('+cp.length+')</button><button type="button" class="cal-view-btn'+(clTab==='cert'?' active':'')+'" role="tab" data-cltab="cert">Certificats de destruction ('+nCerts+')</button></div>';
+html+='<div data-clpanel="pk"'+(CERTS&&clTab==='cert'?' hidden':'')+'>';
+if(!CERTS)html+='<h4>Historique des ramassages ('+cp.length+')</h4>';
 if(cp.length){
   cp.forEach(p=>{
-    const dateStr=new Date(p.date+'T12:00').toLocaleDateString('fr-CA',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
+    const d=new Date(p.date+'T12:00').toLocaleDateString('fr-CA',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
     const stLabel=p.status==='completed'?'Complété':p.status==='pending'?'En attente':'Confirmé';
-    const its=parseItems(p.items).filter(i=>!isAddress(i.l));
-    const addr=parseItems(p.items).filter(i=>isAddress(i.l)).map(i=>i.l);
-    html+=`<div class="cl-pk-card" data-st="${esc(p.status)}" data-clpk="${esc(p.id)}"><div class="cl-pk-top"><div><div class="cl-pk-date">${dateStr}</div><div class="cl-pk-time">${esc(p.time)}</div></div><span class="badge ${esc(p.status)}">${stLabel}</span></div>`;
-    if(addr.length)html+=`<div class="pk-addr-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg><span>${esc(addr[0])}</span></div>`;
-    if(its.length)html+=`<div class="cl-pk-items">${its.map(i=>{const k=catOf(i.l);return`<span class="ichip"><span class="q" style="background:${k.c};color:${k.f}">${i.q}</span><span class="t">${esc(i.l)}</span></span>`}).join('')}</div>`;
-    else if(!addr.length&&p.items)html+=`<div style="font-size:13px;color:var(--text2);margin-bottom:8px">${esc(p.items)}</div>`;
-    if(p.notes)html+=`<div class="cl-pk-notes">${esc(p.notes)}</div>`;
-    html+=`</div>`;
+    const seenL=new Set(),lines=String(pickupSummary(p.notes)||'').split(' · ').filter(l=>{const k=l.replace(/^📍s*/u,'').trim().toLowerCase();if(!k||seenL.has(k))return false;seenL.add(k);return true});
+    html+='<div class="cl-pk-row" data-st="'+esc(p.status)+'"><button type="button" class="cl-pk-head" aria-expanded="false"><span class="d">'+esc(d)+'</span><span class="h">'+esc(p.time)+'</span><span class="sp"></span><span class="badge '+esc(p.status)+'">'+stLabel+'</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></button>'
+      +'<div class="cl-pk-body" hidden>'+(lines.length?lines.map(l=>'<p>'+esc(l)+'</p>').join(''):'<p>Aucun détail.</p>')
+      +'<button type="button" class="btn btn-soft btn-sm open" data-clpk="'+esc(p.id)+'">Ouvrir le ramassage</button></div></div>';
   });
-}else{html+=`<div class="empty"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg><div>Aucun ramassage enregistré</div></div>`}
-html+=`</div></div>`;
+}else{html+='<div class="empty"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg><div>Aucun ramassage enregistré</div></div>'}
+html+='</div>';
+if(CERTS)html+='<div data-clpanel="cert"'+(clTab==='cert'?'':' hidden')+'>'+clientCertsHtml(c)+'</div>';
+html+='</div></div>';
 html+=`<div class="cl-modal-actions">${CLIENT_STORE?`<button class="btn btn-ghost cl-del-btn" data-cl-del="${esc(c.id)}"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>Supprimer</button><span style="flex:1"></span>`:''}<button class="btn btn-ghost" onclick="closeClientModal()">Fermer</button>${CLIENT_STORE?`<button class="btn btn-soft" data-cl-edit="${esc(c.id)}"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Modifier</button>`:''}${c.email?`<button class="btn btn-soft" onclick="closeClientModal();prefillEmail(window.__clEmail)"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Rédiger un courriel</button>`:''}<button class="btn btn-primary" onclick="closeClientModal();openPickupModal(null,window.__clEmail.clientId)"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau ramassage</button></div>`;
 window.__clEmail={tplId:'remerciement',email:c.email||'',name:c.name,clientId:c.id};
 
 document.getElementById('cl-modal-content').innerHTML=html;
 document.getElementById('cl-modal-content').querySelector('[data-cl-del]')?.addEventListener('click',e=>confirmDeleteClient(e.currentTarget.dataset.clDel));
 document.getElementById('cl-modal-content').querySelector('[data-cl-edit]')?.addEventListener('click',e=>editClient(e.currentTarget.dataset.clEdit));
+document.getElementById('cl-modal-content').querySelectorAll('[data-cltab]').forEach(b=>b.addEventListener('click',()=>{clTab=b.dataset.cltab;document.querySelectorAll('#cl-modal-content [data-cltab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('#cl-modal-content [data-clpanel]').forEach(pn=>pn.hidden=pn.dataset.clpanel!==clTab)}));
+document.getElementById('cl-modal-content').querySelectorAll('.cl-pk-head').forEach(h=>h.addEventListener('click',()=>{const open=h.getAttribute('aria-expanded')!=='true';h.setAttribute('aria-expanded',String(open));h.nextElementSibling.hidden=!open}));
 document.getElementById('cl-modal-content').querySelectorAll('[data-clcert]').forEach(el=>el.addEventListener('click',()=>{closeClientModal();goTab('certificats');certOpen(el.dataset.clcert)}));
 document.getElementById('cl-modal-content').querySelector('[data-clcert-new]')?.addEventListener('click',e=>{const id=e.currentTarget.dataset.clcertNew;closeClientModal();goTab('certificats');certNew(id)});
 document.getElementById('cl-modal-content').querySelectorAll('[data-clpk]').forEach(el=>el.addEventListener('click',()=>{closeClientModal();openPickupDetail(el.dataset.clpk)}));
@@ -2386,7 +2453,7 @@ async function saveFollowup(id){const p=allProspects.find(x=>x.id===id);if(!p)re
 
 
 /* ═══ RELANCE — Email Prospection ═══ */
-const EMAIL_TEMPLATES=[
+const BUILTIN_TEMPLATES=[
 {id:'premier-contact',name:'Premier contact',ic:'M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z',
 subject:'Services de liquidation et ramassage gratuit — InfoLiquidation',
 body:`Bonjour {nom},
@@ -2483,6 +2550,7 @@ Merci et à bientôt !
 L'équipe InfoLiquidation Recycle
 info@infoliquidation.com`}
 ];
+let EMAIL_TEMPLATES=BUILTIN_TEMPLATES.slice();
 
 let allSentEmails=[];
 let selectedTemplate=null;
@@ -2496,11 +2564,51 @@ function renderRelance(){
   updateRelanceStats();
 }
 
+
+/* ───── Modèles de courriels de l'équipe (enregistrés sur le serveur : /api/templates) ───── */
+let TPL_STORE=null;
+const TPL_ICON_CUSTOM='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z';
+function rebuildTemplates(){const st=TPL_STORE||{templates:{},hidden:{}};
+  const list=BUILTIN_TEMPLATES.filter(t=>!st.hidden[t.id]).map(t=>st.templates[t.id]?{...t,...st.templates[t.id],id:t.id,ic:t.ic,builtin:true,edited:true}:{...t,builtin:true});
+  Object.keys(st.templates).filter(id=>!BUILTIN_TEMPLATES.some(b=>b.id===id)).forEach(id=>list.push({...st.templates[id],id,ic:TPL_ICON_CUSTOM,custom:true}));
+  EMAIL_TEMPLATES=list;if(selectedTemplate)selectedTemplate=EMAIL_TEMPLATES.find(t=>t.id===selectedTemplate.id)||null;
+  renderTemplateChips();renderTemplateGrid()}
+async function loadTemplates(){try{const r=await fetch('/api/templates',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();
+  TPL_STORE={templates:d.templates&&!Array.isArray(d.templates)?d.templates:{},hidden:d.hidden&&!Array.isArray(d.hidden)?d.hidden:{}}}catch(e){TPL_STORE=null}
+  const b=document.getElementById('tpl-add-btn');if(b)b.hidden=!TPL_STORE;rebuildTemplates()}
+async function tplApi(body){const r=await fetch('/api/templates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(!r.ok||!d.ok)throw new Error(d.error||('Erreur '+r.status));return d}
+function openTemplateEditor(id){const t=id?EMAIL_TEMPLATES.find(x=>x.id===id):null;if(id&&!t)return;const{ov,bd,ft,ti}=modalEls();
+  ti.textContent=t?'Modifier le modèle':'Nouveau modèle de courriel';
+  bd.innerHTML='<div class="fg"><label for="tpl-name">Nom du modèle <small>(obligatoire)</small></label><input id="tpl-name" maxlength="60" placeholder="Ex. Relance après 2 semaines"></div>'
+   +'<div class="fg"><label for="tpl-subject">Objet du courriel <small>(obligatoire)</small></label><input id="tpl-subject" maxlength="200" placeholder="Ex. Votre matériel informatique, {nom}"></div>'
+   +'<div class="fg"><label for="tpl-body">Message <small>(obligatoire)</small></label><textarea id="tpl-body" rows="12" maxlength="10000" placeholder="Bonjour {nom},&#10;&#10;…"></textarea></div>'
+   +'<p class="tpl-hint">Astuce : écris <code>{nom}</code> et il sera remplacé par le nom du destinataire. Pour les rappels de ramassage : <code>{date}</code>, <code>{heure}</code>, <code>{adresse}</code>. Le modèle est partagé avec toute l’équipe.</p>'
+   +'<p class="cert-err" id="tpl-err" role="alert"></p>';
+  document.getElementById('tpl-name').value=t?t.name:'';document.getElementById('tpl-subject').value=t?t.subject:'';document.getElementById('tpl-body').value=t?t.body:'';
+  ft.innerHTML=(t?'<button type="button" class="btn btn-ghost cert-danger" id="tpl-del">Supprimer</button>'+(t.builtin&&t.edited?'<button type="button" class="btn btn-ghost" id="tpl-restore">Remettre l’original</button>':'')+'<span style="flex:1"></span>':'')
+   +'<button type="button" class="btn btn-ghost" id="tpl-cancel">Annuler</button><button type="button" class="btn btn-primary" id="tpl-save">Enregistrer le modèle</button>';
+  document.getElementById('tpl-cancel').addEventListener('click',closeModal);
+  document.getElementById('tpl-save').addEventListener('click',()=>saveTemplate(t?t.id:''));
+  document.getElementById('tpl-del')?.addEventListener('click',()=>confirmDeleteTemplate(t));
+  document.getElementById('tpl-restore')?.addEventListener('click',async()=>{try{await tplApi({action:'restore',id:t.id});delete TPL_STORE.templates[t.id];rebuildTemplates();closeModal();showToast('Modèle d’origine remis')}catch(e){showToast(e.message,'error')}});
+  ov.classList.add('open');setTimeout(()=>document.getElementById('tpl-name')?.focus(),60)}
+async function saveTemplate(id){const v=k=>document.getElementById('tpl-'+k).value;const tpl={name:v('name').trim(),subject:v('subject').trim(),body:v('body').trim()};
+  const err=document.getElementById('tpl-err'),fail=(m,k)=>{err.textContent=m;err.style.display='block';document.getElementById('tpl-'+k)?.focus()};
+  if(!tpl.name)return fail('Donne un nom au modèle.','name');if(!tpl.subject)return fail('L’objet du courriel est obligatoire.','subject');if(!tpl.body)return fail('Le message est obligatoire.','body');
+  const btn=document.getElementById('tpl-save');btn.disabled=true;btn.textContent='Enregistrement…';
+  try{const d=await tplApi({action:'save',id:id||undefined,template:tpl});TPL_STORE.templates[d.id]=d.template;delete TPL_STORE.hidden[d.id];rebuildTemplates();closeModal();showToast(id?'Modèle modifié':'Modèle « '+tpl.name+' » ajouté')}
+  catch(e){fail(e.message||'Enregistrement impossible.','name');btn.disabled=false;btn.textContent='Enregistrer le modèle'}}
+function confirmDeleteTemplate(t){const{ft}=modalEls();
+  ft.innerHTML='<span style="flex:1;font-size:14px;line-height:1.4"><strong>Supprimer « '+esc(t.name)+' » ?</strong><br><span style="color:var(--ink-3)">Il disparaît pour toute l’équipe.</span></span><button type="button" class="btn btn-ghost" id="tpl-del-no">Annuler</button><button type="button" class="btn btn-primary" id="tpl-del-yes" style="background:#dc2626;border-color:#dc2626;color:#fff">Supprimer</button>';
+  document.getElementById('tpl-del-no').addEventListener('click',()=>openTemplateEditor(t.id));
+  document.getElementById('tpl-del-yes').addEventListener('click',async()=>{try{await tplApi({action:'delete',id:t.id});delete TPL_STORE.templates[t.id];TPL_STORE.hidden[t.id]=1;rebuildTemplates();closeModal();showToast('Modèle supprimé')}catch(e){showToast(e.message,'error')}})}
+document.getElementById('tpl-add-btn')?.addEventListener('click',()=>openTemplateEditor());
+
 function renderTemplateChips(){
   const box=document.getElementById('rl-tpl-chips');
   if(!box)return;
   box.innerHTML=EMAIL_TEMPLATES.map(t=>
-    `<button class="chip${selectedTemplate&&selectedTemplate.id===t.id?' active':''}" data-tpl="${t.id}"><svg viewBox="0 0 24 24"><path d="${t.ic}"/></svg>${t.name}</button>`
+    `<button class="chip${selectedTemplate&&selectedTemplate.id===t.id?' active':''}" data-tpl="${esc(t.id)}"><svg viewBox="0 0 24 24"><path d="${esc(t.ic)}"/></svg>${esc(t.name)}</button>`
   ).join('');
   box.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
     const tpl=EMAIL_TEMPLATES.find(t=>t.id===c.dataset.tpl);
@@ -2512,12 +2620,15 @@ function renderTemplateGrid(){
   const grid=document.getElementById('rl-tpl-grid');
   if(!grid)return;
   grid.innerHTML=EMAIL_TEMPLATES.map(t=>`
-    <div class="rl-tpl${selectedTemplate&&selectedTemplate.id===t.id?' selected':''}" data-tpl="${t.id}">
-      <div class="rl-tpl-icon"><svg viewBox="0 0 24 24"><path d="${t.ic}"/></svg></div>
-      <h4>${t.name}</h4>
-      <p>${t.body.split('\n').slice(1,3).join(' ').substring(0,100)}...</p>
-      <div class="rl-tpl-subj">Objet : ${t.subject}</div>
+    <div class="rl-tpl${selectedTemplate&&selectedTemplate.id===t.id?' selected':''}" data-tpl="${esc(t.id)}">
+      ${TPL_STORE?`<button type="button" class="rl-tpl-edit" data-tpl-edit="${esc(t.id)}" aria-label="Modifier le modèle ${esc(t.name)}"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Modifier</button>`:''}
+      <div class="rl-tpl-icon"><svg viewBox="0 0 24 24"><path d="${esc(t.ic)}"/></svg></div>
+      <h4>${esc(t.name)}${t.custom?'<span class="rl-tpl-mine">Équipe</span>':''}</h4>
+      <p>${esc((t.body.split('\n').filter(l=>l.trim()).slice(1,3).join(' ')||t.body).substring(0,100))}…</p>
+      <div class="rl-tpl-subj">Objet : ${esc(t.subject)}</div>
     </div>`).join('');
+  grid.querySelectorAll('[data-tpl-edit]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();openTemplateEditor(b.dataset.tplEdit)}));
+  const cnt=document.getElementById('rl-tpl-count');if(cnt)cnt.textContent=EMAIL_TEMPLATES.length+' modèle'+(EMAIL_TEMPLATES.length>1?'s':'');
   grid.querySelectorAll('.rl-tpl').forEach(el=>el.addEventListener('click',()=>{
     const tpl=EMAIL_TEMPLATES.find(t=>t.id===el.dataset.tpl);
     if(tpl)applyTemplate(tpl);
