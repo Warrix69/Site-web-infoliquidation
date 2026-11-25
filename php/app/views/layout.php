@@ -1,5 +1,5 @@
 <?php
-/** Gabarit HTML commun (port de app/[locale]/layout.tsx). Variables : $content, $meta, $head, $jsonLd. */
+/** Gabarit HTML commun (port de app/[locale]/layout.tsx). Variables : $content, $meta, $head, $jsonLd, $modulepreload (false = pas de modulepreload des îlots). */
 $meta ??= [];
 ?><!doctype html>
 <html lang="<?= e(locale()) ?>" class="no-js" data-route="<?= e(current_route()['route']) ?>" data-params="<?= e(json_encode(current_route()['params'] ?: new stdClass())) ?>">
@@ -14,7 +14,7 @@ $meta ??= [];
 <link rel="preload" href="/fonts/poppins-<?= !empty($GLOBALS['__page_hero']) ? '800' : '700' ?>-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= asset('assets/app.css') ?>">
 <?= ($head ?? '') . "\n" ?>
-<?= islands_modulepreload() . "\n" ?>
+<?= ($modulepreload ?? true) ? islands_modulepreload() . "\n" : '' ?>
 <script type="module" src="<?= asset('assets/site.js') ?>"></script>
 <?php /* Préchargement des pages internes (Chromium ; ignoré ailleurs) : au survol ou au toucher
    d'un lien (« moderate »). Pas de prerender (il lancerait la 3D de l'accueil en arrière-plan). */ ?>

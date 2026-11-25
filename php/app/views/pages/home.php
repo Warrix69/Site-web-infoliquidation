@@ -154,4 +154,7 @@ ob_start(); ?>
     'meta' => page_meta('home', '/'),
     // Image du héros React (Hero.tsx, priority) : téléchargée dès le HTML au lieu d'attendre le JS
     'head' => '<link rel="preload" as="image" href="/images/hero-studio.webp" fetchpriority="high">',
+    // Pas de modulepreload ici : mesuré, il fait monter le héros React avant la police du titre
+    // de secours, et Lighthouse mobile prend alors la bannière de témoins pour LCP (1,68 s -> 5,49 s).
+    'modulepreload' => false,
 ];
