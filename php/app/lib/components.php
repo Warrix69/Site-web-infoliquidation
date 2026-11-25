@@ -38,6 +38,7 @@ function image_srcset(string $src): string
  */
 function page_hero(?string $eyebrow, string $title, ?string $intro = null, ?array $image = null, string $size = 'default', string $childrenHtml = ''): string
 {
+    $GLOBALS['__page_hero'] = true; // layout.php : préchargement de Poppins 800 (titre)
     $compact = $size === 'compact';
     $h = '<header data-theme="green" class="relative isolate overflow-hidden text-mist ' . ($compact ? 'pb-10 pt-32 sm:pb-12 sm:pt-36' : 'pb-16 pt-32 sm:pb-24 sm:pt-40') . '">';
     $h .= '<div class="mx-auto w-full max-w-6xl px-5 sm:px-8 ' . ($image ? 'grid items-center gap-12 lg:grid-cols-12 lg:gap-10' : '') . '">';

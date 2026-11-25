@@ -9,9 +9,9 @@ $meta ??= [];
 <script>document.documentElement.classList.replace('no-js','js')</script>
 <?= render_meta($meta) ?>
 <link rel="icon" href="/favicon-logo.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<?php /* Polices auto-hébergées (php/css/fonts.css, fichiers dans public/fonts) : on précharge
+   celle du titre principal (Poppins 800 pour page_hero, 700 ailleurs) ; le reste arrive par app.css. */ ?>
+<link rel="preload" href="/fonts/poppins-<?= !empty($GLOBALS['__page_hero']) ? '800' : '700' ?>-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= asset('assets/app.css') ?>">
 <?= $head ?? '' ?>
 <script type="module" src="<?= asset('assets/site.js') ?>"></script>
