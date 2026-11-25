@@ -1,15 +1,17 @@
 <?php
 /**
- * Envoi de courriel via l'API REST de Resend (port de src/lib/email.ts).
+ * Préparation des courriels du site (port de src/lib/email.ts).
+ * L'ENVOI lui-même se fait dans app/lib/mail_transport.php : c'est le seul fichier
+ * que l'hébergeur doit adapter à son système de courriel.
  *
- * Destinataire : info@infoliquidationrecycle.com (SITE.email côté Next.js).
- * Sans RESEND_API_KEY (ou sans RESEND_FROM) :
- *  - production : échec (false → l'API répond 502) ; seul le fait est journalisé, jamais le contenu ;
- *  - développement (APP_ENV=development) : la soumission est journalisée et le succès retourné.
+ *  - send_business_email()       : formulaires (ramassage, contact) → info@infoliquidationrecycle.com
+ *  - send_email_with_attachment() : certificat de destruction → le client (PDF joint), copie cachée à info@
  */
 
+require_once __DIR__ . '/mail_transport.php';
+
 const ILR_BUSINESS_EMAIL = 'info@infoliquidationrecycle.com';
-const ILR_DEV_FROM = 'Info Liquidation Recycle <onboarding@resend.dev>';
+const ILR_DEFAULT_FROM = 'Info Liquidation Recycle <info@infoliquidationrecycle.com>';
 
 /** Texte sûr pour un en-tête (sujet, nom d'expéditeur) : sans CR/LF ni caractères de contrôle, tronqué. */
 function mail_header_text(string $value, int $max = 200): string
@@ -19,7 +21,7 @@ function mail_header_text(string $value, int $max = 200): string
     return mb_substr($v, 0, $max, 'UTF-8');
 }
 
-/** Adresse de réponse : validée, sinon ignorée. */
+/** Adresse : validée, sinon ignorée. */
 function mail_safe_address(?string $email): ?string
 {
     if ($email === null) return null;
@@ -28,59 +30,46 @@ function mail_safe_address(?string $email): ?string
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false ? $email : null;
 }
 
+/** Expéditeur : MAIL_FROM (ou l'ancien RESEND_FROM) du .env, sinon info@infoliquidationrecycle.com. */
+function mail_from(): string
+{
+    return mail_header_text(env('MAIL_FROM') ?? env('RESEND_FROM') ?? ILR_DEFAULT_FROM, 320);
+}
+
 function send_business_email(string $subject, string $html, ?string $replyTo = null): bool
 {
-    $apiKey = env('RESEND_API_KEY');
-    $from = env('RESEND_FROM');
-    $subject = mail_header_text($subject);
-    $replyTo = mail_safe_address($replyTo);
-
-    if (!$apiKey || (!$from && !app_is_dev())) {
-        if (app_is_dev()) {
-            error_log(
-                "[infoliquidation] (développement) RESEND_API_KEY absente — courriel non envoyé.\n"
-                . "Sujet : $subject\nRéponse à : " . ($replyTo ?? 'n/d') . "\nContenu :\n$html"
-            );
-            return true;
-        }
-        // Production : aucune donnée personnelle dans les journaux
-        security_log('mail_not_configured', ['outcome' => 'error', 'missing' => !$apiKey ? 'RESEND_API_KEY' : 'RESEND_FROM']);
-        error_log('[infoliquidation] Courriel NON envoyé : RESEND_API_KEY ou RESEND_FROM absente du .env.');
-        return false;
-    }
-
-    $payload = [
-        'from' => mail_header_text($from ?: ILR_DEV_FROM, 320),
+    return mail_transport_send([
+        'from' => mail_from(),
         'to' => [ILR_BUSINESS_EMAIL],
-        'subject' => $subject,
+        'bcc' => [],
+        'reply_to' => mail_safe_address($replyTo),
+        'subject' => mail_header_text($subject),
         'html' => $html,
-    ];
-    if ($replyTo !== null) $payload['reply_to'] = $replyTo;
-
-    $ch = curl_init('https://api.resend.com/emails');
-    curl_setopt_array($ch, curl_base_opts() + [
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CONNECTTIMEOUT => 10,
-        CURLOPT_TIMEOUT => 20,
-        CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer ' . $apiKey,
-            'Content-Type: application/json',
-            'Accept: application/json',
-        ],
-        CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE),
+        'attachments' => [],
     ]);
-    $body = curl_exec($ch);
-    $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-    $err = curl_error($ch);
-    curl_close($ch);
+}
 
-    if ($body === false || $status < 200 || $status >= 300) {
-        error_log('[infoliquidation] Erreur Resend : ' . security_log_scrub($body === false ? $err : "HTTP $status " . (string) $body, 1000));
-        security_log('mail_send_failed', ['outcome' => 'error', 'status' => $status]);
-        return false;
-    }
-    return true;
+/**
+ * Courriel à un client avec une pièce jointe (ex. certificat de destruction en PDF).
+ * Copie cachée à info@ pour garder une trace ; réponses dirigées vers info@.
+ */
+function send_email_with_attachment(string $to, string $subject, string $html, string $filename, string $base64Content, string $type = 'application/pdf'): bool
+{
+    $to = mail_safe_address($to);
+    if ($to === null) return false;
+    return mail_transport_send([
+        'from' => mail_from(),
+        'to' => [$to],
+        'bcc' => [ILR_BUSINESS_EMAIL],
+        'reply_to' => ILR_BUSINESS_EMAIL,
+        'subject' => mail_header_text($subject),
+        'html' => $html,
+        'attachments' => [[
+            'filename' => preg_replace('/[^A-Za-z0-9._-]+/', '-', $filename) ?: 'document.pdf',
+            'content' => $base64Content,
+            'type' => $type,
+        ]],
+    ]);
 }
 
 /** Échappe le HTML des valeurs saisies par l'utilisateur (identique à escapeHtml côté TS). */

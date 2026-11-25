@@ -374,7 +374,98 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 .cal-legend span{display:inline-flex;align-items:center;gap:6px}
 .cal-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
 .lg-pk{border:2px solid var(--g)}.lg-pd{background:var(--ink)}.lg-cp{background:var(--g-soft);border:2px solid var(--g-soft)}
+
+/* ═══ Certificats de destruction ═══ */
+@font-face{font-family:'ILR Signature';src:url(/assets/fonts/mrs-saint-delafield.woff2) format('woff2');font-display:block}
+.cert-layout{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:20px;align-items:start;margin-bottom:20px}
+.cert-layout>.pane{margin-bottom:0}
+.cert-form{padding:4px 22px 22px}
+.cert-pick-link{background:none;border:0;padding:0;margin-top:8px;font-size:13px;font-weight:600;color:var(--g-text);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.cert-pick-link:hover{text-decoration:underline}
+.cert-pick{margin-top:10px;padding:12px;border-radius:12px;background:var(--surface-2)}
+.cert-pick input{width:100%;min-height:42px;padding:9px 12px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+.cert-pick input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px var(--g-soft)}
+.cert-results{list-style:none;margin:8px 0 0;padding:0;max-height:240px;overflow-y:auto}
+.cert-results button{width:100%;text-align:left;padding:9px 10px;border-radius:8px;background:none;border:0;cursor:pointer;color:var(--ink);font:inherit;display:block}
+.cert-results button:hover,.cert-results button:focus-visible{background:var(--surface-3);outline:none}
+.cert-results small{display:block;font-size:12px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cert-results .empty-hint{padding:8px 10px;font-size:13px;color:var(--ink-3)}
+.cert-chip{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:5px 6px 5px 12px;border-radius:999px;background:var(--g-softer);font-size:12.5px;font-weight:600;color:var(--g-ink)}
+.cert-chip button{border:0;background:var(--surface);color:var(--ink-2);border-radius:999px;padding:3px 9px;font:inherit;font-weight:600;cursor:pointer}
+.cert-err{display:none;color:#dc2626;font-size:13px;margin:-4px 0 12px}
+.cert-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.cert-actions .btn{flex:1 1 auto;justify-content:center}
+.cert-confirm{margin-top:14px;padding:14px;border-radius:12px;background:var(--surface-2);font-size:14px;line-height:1.45}
+.cert-confirm .fg{margin:10px 0}
+.cert-confirm-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px}
+.cert-danger{color:#dc2626}.cert-danger:hover{background:rgba(220,38,38,.08);color:#b91c1c}
+.cert-preview-pane{padding:18px;background:var(--surface-2);border-radius:var(--r-lg);position:sticky;top:84px}
+.cert-preview-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;color:var(--ink-3)}
+.cert-preview{position:relative;width:100%;overflow:hidden;border-radius:6px;box-shadow:0 18px 40px -24px rgba(10,10,10,.45)}
+.cert-preview .ilrc{position:absolute;top:0;left:0;transform-origin:0 0}
+.cert-summary{font-size:13px;color:var(--ink-3)}
+.cert-sent{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--g-text)}
+.cl-cert-card{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--surface-2);margin-bottom:6px;cursor:pointer;font-size:13px}
+.cl-cert-card:hover{background:var(--surface-3)}
+.cl-cert-card strong{font-variant-numeric:tabular-nums}
+@media (max-width:1100px){.cert-layout{grid-template-columns:minmax(0,1fr)}.cert-preview-pane{position:static}}
+
+/* Le certificat lui-même : feuille Lettre 816 × 1056 px, couleurs fixes (le papier remis au client) */
+.ilrc{--ink:#0A0A0A;--texte:#27272A;--muted:#52525B;--faint:#71717A;--ligne:#E4E4E7;--vert:#16A34A;--vif:#22C55E;--pale:#F0FDF4;--encre:#1b2b63;--display:'Poppins',sans-serif;
+  position:relative;isolation:isolate;box-sizing:border-box;display:flex;flex-direction:column;width:816px;height:1056px;overflow:hidden;padding:46px 56px 30px;background:#fff;color:var(--texte);
+  font:400 13px/1.55 'Inter',system-ui,sans-serif;text-align:left;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ilrc *{box-sizing:border-box;margin:0;padding:0}
+.ilrc-bande{position:absolute;inset:0 0 auto 0;height:10px;background:linear-gradient(90deg,#0A0A0A 0%,var(--vert) 55%,var(--vif) 100%)}
+.ilrc-guil{position:absolute;z-index:-1;top:-40px;right:-250px;width:640px;height:640px}
+.ilrc-et{font:600 10.5px/1.2 var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--vert)}
+.ilrc sup{font-size:.75em;line-height:0;vertical-align:.4em;text-transform:none}
+.ilrc .vide{color:#c4c4cb}
+.ilrc-entete{display:flex;align-items:flex-start;justify-content:space-between}
+.ilrc-logo{display:block;width:auto;height:52px}
+.ilrc-numero{display:flex;flex-direction:column;gap:3px;padding-top:4px;text-align:right}
+.ilrc-numval{font:700 19px/1.15 var(--display);letter-spacing:.03em;color:var(--ink)}
+.ilrc-titre{margin-top:48px}
+.ilrc-titre h1{font:800 66px/.95 var(--display);letter-spacing:.01em;text-transform:uppercase;color:var(--ink)}
+.ilrc-titre p{margin-top:10px;font:600 21px/1.2 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--vert)}
+.ilrc-barre{display:block;width:56px;height:4px;margin-top:20px;border-radius:2px;background:var(--vif)}
+.ilrc-intro{max-width:640px;margin-top:18px;font-size:14px;line-height:1.6;color:var(--muted)}
+.ilrc-haut{display:grid;grid-template-columns:1fr 240px;gap:20px;align-items:stretch;margin-top:32px}
+.ilrc-client{min-width:0;padding-top:16px;border-top:1px solid var(--ligne)}
+.ilrc-comp{margin-top:8px;font:700 28px/1.12 var(--display);color:var(--ink);overflow-wrap:anywhere}
+.ilrc-adr{margin-top:6px;font-size:13px;color:var(--muted)}
+.ilrc-date{display:flex;flex-direction:column;padding:18px 20px;border-radius:12px;background:var(--pale)}
+.ilrc-jour{margin-top:12px;font:700 34px/1 var(--display);color:var(--ink)}
+.ilrc-jourdate{margin-top:6px;font:600 18px/1.2 var(--display);color:var(--ink)}
+.ilrc-preuve{margin-top:30px;padding:26px 30px 28px;border-radius:14px;background:#0A0A0A;color:#fff}
+.ilrc-ptete{display:flex;align-items:center;justify-content:space-between}
+.ilrc-preuve .ilrc-et{color:var(--vif)}
+.ilrc-ico{width:22px;height:22px;fill:none;stroke:var(--vif);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ilrc-pcorps{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:28px;margin-top:16px}
+.ilrc-compte{display:flex;align-items:center;gap:18px}
+.ilrc-chiffre{font:700 84px/1 var(--display);letter-spacing:-.01em;color:var(--vif)}
+.ilrc-quoi{font-size:15px;font-weight:600;line-height:1.35}
+.ilrc-certif{display:flex;align-items:flex-start;gap:14px;padding-left:28px;border-left:1px solid rgba(255,255,255,.18)}
+.ilrc-coche{display:grid;flex:none;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--vif)}
+.ilrc-coche svg{width:18px;height:18px;fill:none;stroke:#0A0A0A;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ilrc-certif strong{display:block;font:700 17px/1.25 var(--display);color:#fff}
+.ilrc-certif small{display:block;margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.72)}
+.ilrc-bas{margin-top:auto;padding-top:22px;border-top:1px solid var(--ligne)}
+.ilrc-decl{max-width:640px;font-size:12px;line-height:1.55;color:var(--muted)}
+.ilrc-sign{display:grid;grid-template-columns:350px 1fr auto;align-items:end;gap:24px;margin-top:8px}
+.ilrc-script{margin:0 0 -8px 10px;font:400 58px/1.15 'ILR Signature',cursive;color:var(--encre);white-space:nowrap;transform:rotate(-4deg);transform-origin:left bottom}
+.ilrc-trait{display:block;height:1px;background:rgba(10,10,10,.45)}
+.ilrc-nom{margin-top:8px;font-size:13.5px;font-weight:600;color:var(--ink)}
+.ilrc-fct{font-size:12px;color:var(--muted)}
+.ilrc-emis{padding-bottom:6px}
+.ilrc-emisdate{margin-top:6px;font:600 16px var(--display);color:var(--ink)}
+.ilrc-sceau{display:block;width:146px;height:146px;margin:0 -4px -4px 0;transform:rotate(-9deg);font-family:'Poppins',sans-serif;font-weight:700;fill:#F0FDF4}
+.ilrc-micro{height:7px;margin-top:18px;overflow:hidden;white-space:nowrap;font:600 5.6px/7px var(--display);letter-spacing:.14em;color:var(--vert);opacity:.7}
+.ilrc-pied{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:8px;font-size:10.5px;line-height:1.5;color:var(--muted)}
+.ilrc-pied strong{font-weight:600;color:var(--ink)}
+.ilrc-droite{text-align:right;white-space:nowrap}
+
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line)}
+.cal-grid.is-flow{display:block}
 .cal-dn{padding:10px;font-size:12px;font-weight:600;color:var(--ink-3);border-bottom:1px solid var(--line)}
 .cal-c{min-height:108px;min-width:0;padding:6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);cursor:pointer;transition:background var(--t)}
 .cal-c:nth-child(7n){border-right:0}
@@ -420,7 +511,7 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 .cal-day-ev:hover{transform:translateX(3px)}
 .cde-info{flex:1;min-width:0}
 .cde-name{font-weight:600;font-size:14px}
-.cde-items{font-size:13px;opacity:.75;margin-top:2px;overflow:hidden;text-overflow:ellipsis}
+.cde-items{font-size:13px;opacity:.75;margin-top:2px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.45}
 .pd .badge.pending{background:var(--surface);color:var(--ink)}
 .up-list{display:flex;flex-direction:column;padding-bottom:6px}
 .up-item{display:flex;align-items:center;gap:14px;padding:12px 22px;border-top:1px solid var(--line);cursor:pointer;transition:background var(--t)}
@@ -661,6 +752,7 @@ td.empty-row{text-align:center;color:var(--ink-3);padding:36px}
 .cl-pk-items{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
 .cl-pk-items .ichip{background:var(--surface)}
 .cl-pk-notes{font-size:13px;color:var(--ink-3);padding:8px 12px;background:var(--surface);border-radius:10px;line-height:1.5;white-space:pre-wrap}
+.cl-del-btn{color:#dc2626}.cl-del-btn:hover{background:rgba(220,38,38,.08);color:#b91c1c}
 .cl-modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px 20px;border-top:1px solid var(--line)}
 
 /* ═══════════ PALETTE DE COMMANDES ═══════════ */
@@ -906,6 +998,7 @@ a.sheet-it{text-decoration:none;color:inherit}
     <button class="sb-item active" data-tab="accueil" title="Accueil"><svg viewBox="0 0 24 24"><path d="M4 13h6a1 1 0 001-1V4a1 1 0 00-1-1H4a1 1 0 00-1 1v8a1 1 0 001 1zm0 8h6a1 1 0 001-1v-4a1 1 0 00-1-1H4a1 1 0 00-1 1v4a1 1 0 001 1zm10 0h6a1 1 0 001-1v-8a1 1 0 00-1-1h-6a1 1 0 00-1 1v8a1 1 0 001 1zM13 4v4a1 1 0 001 1h6a1 1 0 001-1V4a1 1 0 00-1-1h-6a1 1 0 00-1 1z"/></svg><span>Accueil</span></button>
     <button class="sb-item" data-tab="calendrier" title="Calendrier"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7v-5z"/></svg><span>Calendrier</span><span class="sb-badge" id="pickup-count">0</span></button>
     <button class="sb-item" data-tab="historique" title="Historique"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.96 8.96 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg><span>Historique</span></button>
+    <button class="sb-item" data-tab="certificats" title="Certificats de destruction" id="sb-cert" hidden><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg><span>Certificats</span></button>
     <div class="sb-group">Commercial</div>
     <button class="sb-item" data-tab="prospection" title="Prospection"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg><span>Prospection</span></button>
     <button class="sb-item" data-tab="relance" title="Relance"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg><span>Relance</span></button>
@@ -1178,7 +1271,7 @@ a.sheet-it{text-decoration:none;color:inherit}
         <div class="stat"><div class="stat-row"><div><div class="stat-label">Ramassages au total</div><div class="stat-val" id="stat-total-pickups">0</div></div><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div></div></div>
         <div class="stat"><div class="stat-row"><div><div class="stat-label">Clients réguliers</div><div class="stat-val" id="stat-regulars">0</div></div><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div></div></div>
       </div>
-      <div class="tbl-wrap"><div class="tbl-head"><h3>Répertoire clients</h3><div class="tbl-tools"><div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="search" id="client-search" placeholder="Nom, courriel ou adresse" aria-label="Chercher un client"></div><button class="btn btn-soft btn-sm" onclick="exportClients()"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Exporter CSV</button></div></div><div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th data-sort="name">Client</th><th data-sort="type">Type</th><th>Téléphone</th><th>Adresse</th><th data-sort="pickups">Ramassages</th><th data-sort="last">Dernier</th><th>Statut</th></tr></thead><tbody id="clients-tbody"></tbody></table></div></div>
+      <div class="tbl-wrap"><div class="tbl-head"><h3>Répertoire clients</h3><div class="tbl-tools"><div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="search" id="client-search" placeholder="Nom, courriel ou adresse" aria-label="Chercher un client"></div><button class="btn btn-primary btn-sm" id="btn-new-client" hidden onclick="editClient()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau client</button><button class="btn btn-soft btn-sm" onclick="exportClients()"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Exporter CSV</button></div></div><div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th data-sort="name">Client</th><th data-sort="type">Type</th><th>Téléphone</th><th>Adresse</th><th data-sort="pickups">Ramassages</th><th data-sort="last">Dernier</th><th>Statut</th></tr></thead><tbody id="clients-tbody"></tbody></table></div></div>
     </section>
 
     <!-- ═══ HISTORIQUE ═══ -->
@@ -1215,6 +1308,45 @@ a.sheet-it{text-decoration:none;color:inherit}
         </div>
       </div>
     </section>
+
+    <section class="sec" id="sec-certificats">
+      <div class="cert-layout">
+        <div class="pane">
+          <div class="pane-hd"><div><h3 id="cf-title">Nouveau certificat</h3><span class="sub" id="cf-sub">Le numéro est attribué à l’enregistrement</span></div><button class="btn btn-soft btn-sm" id="cf-new" hidden onclick="certNew()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau</button></div>
+          <form class="cert-form" id="cf-form" novalidate autocomplete="off">
+            <div class="fg"><label for="cf-compagnie">Nom de la compagnie <small>(obligatoire)</small></label><input id="cf-compagnie" maxlength="150" placeholder="Ex. Bureau Solutions inc.">
+              <div id="cf-chip-box"></div>
+              <button type="button" class="cert-pick-link" id="cf-pick-btn"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Choisir un client existant</button>
+              <div class="cert-pick" id="cf-pick" hidden><input id="cf-search" placeholder="Tape le nom du client…" aria-label="Chercher un client"><ul class="cert-results" id="cf-results" role="listbox"></ul></div>
+            </div>
+            <div class="fg"><label for="cf-adresse">Adresse du client</label><input id="cf-adresse" maxlength="250" placeholder="Adresse complète"></div>
+            <div class="fg"><label for="cf-courriel">Courriel du client <small>(pour l’envoi du certificat)</small></label><input id="cf-courriel" type="email" maxlength="160" placeholder="nom@compagnie.com"></div>
+            <div class="fg"><label for="cf-nb">Nombre de disques durs détruits <small>(obligatoire)</small></label><input id="cf-nb" type="number" min="1" max="100000" step="1" inputmode="numeric" placeholder="Ex. 24"></div>
+            <div class="fg-row"><div class="fg"><label for="cf-ddest">Date de la destruction</label><input id="cf-ddest" type="date"></div><div class="fg"><label for="cf-demis">Date d’émission</label><input id="cf-demis" type="date"></div></div>
+            <p class="cert-err" id="cf-err" role="alert"></p>
+            <div class="cert-actions" id="cf-actions"></div>
+            <div id="cf-confirm"></div>
+          </form>
+        </div>
+        <div class="cert-preview-pane"><div class="cert-preview-top"><span>Aperçu du certificat</span><span id="cf-state"></span></div><div class="cert-preview" id="cert-preview"><div class="ilrc" id="ilrc-page">
+  <div class="ilrc-bande" aria-hidden="true"></div>
+  <svg class="ilrc-guil" viewBox="0 0 640 640" aria-hidden="true"><path id="ilrc-guil-path" fill="none" stroke="#16A34A" stroke-width=".5" stroke-opacity=".13"/></svg>
+  <header class="ilrc-entete"><img class="ilrc-logo" src="/logo.png" alt="Info Liquidation Recycle" width="338" height="80"><div class="ilrc-numero"><span class="ilrc-et">Certificat n<sup>o</sup></span><span class="ilrc-numval" data-cf="numero"></span></div></header>
+  <section class="ilrc-titre"><h1>Certificat</h1><p>de destruction des données</p><span class="ilrc-barre" aria-hidden="true"></span></section>
+  <p class="ilrc-intro">Info Liquidation Recycle atteste que les données contenues dans les disques durs reçus du client ci&#8209;dessous ont bien été détruites, et que cette destruction a été certifiée avec le logiciel KillDisk.</p>
+  <section class="ilrc-haut"><div class="ilrc-client"><span class="ilrc-et">Client</span><p class="ilrc-comp" data-cf="compagnie"></p><p class="ilrc-adr" data-cf="adresse"></p></div><div class="ilrc-date"><span class="ilrc-et">Date de la destruction</span><p class="ilrc-jour" data-cf="jour"></p><p class="ilrc-jourdate" data-cf="ddest"></p></div></section>
+  <section class="ilrc-preuve"><div class="ilrc-ptete"><span class="ilrc-et">Destruction des données de</span><svg class="ilrc-ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg></div>
+    <div class="ilrc-pcorps"><div class="ilrc-compte"><p class="ilrc-chiffre" data-cf="nb"></p><p class="ilrc-quoi" data-cf="quoi"></p></div><div class="ilrc-certif"><span class="ilrc-coche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><p><strong>Données détruites et certifiées avec KillDisk</strong><small>Logiciel&nbsp;: Active@ KillDisk</small></p></div></div></section>
+  <div class="ilrc-bas"><p class="ilrc-decl">Je certifie que les renseignements contenus dans ce certificat sont exacts. Conservez ce document dans vos dossiers&nbsp;: il sert de preuve de la destruction sécuritaire des renseignements personnels (Loi&nbsp;25).</p>
+    <section class="ilrc-sign"><div><p class="ilrc-script">Éric Després</p><span class="ilrc-trait"></span><p class="ilrc-nom">Éric Després</p><p class="ilrc-fct">Président, Info Liquidation Recycle</p></div><div class="ilrc-emis"><span class="ilrc-et">Émis le</span><p class="ilrc-emisdate" data-cf="demis"></p></div><svg class="ilrc-sceau" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ilrc-arc-h" d="M38,100 A62,62 0 0,1 162,100"/><path id="ilrc-arc-b" d="M29,100 A71,71 0 0,0 171,100"/></defs><polygon id="ilrc-rosette" fill="#16A34A"/><circle cx="100" cy="100" r="87" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="100" cy="100" r="81" fill="#0A0A0A"/><g text-anchor="middle"><text font-size="12" letter-spacing="1.6"><textPath href="#ilrc-arc-h" startOffset="50%">INFO LIQUIDATION</textPath></text><text font-size="12" letter-spacing="1.5"><textPath href="#ilrc-arc-b" startOffset="50%">DONNÉES DÉTRUITES</textPath></text></g><circle cx="34" cy="100" r="2.6" fill="#22C55E"/><circle cx="166" cy="100" r="2.6" fill="#22C55E"/><circle cx="100" cy="100" r="45" fill="none" stroke="#22C55E" stroke-opacity=".45" stroke-width="1.2"/><path d="M80 101 l14 14 l27 -29" fill="none" stroke="#22C55E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></section>
+    <div class="ilrc-micro" aria-hidden="true" data-cf="micro"></div>
+    <footer class="ilrc-pied"><div><strong>Info Liquidation Recycle</strong> · infoliquidationrecycle.com · info@infoliquidationrecycle.com · (450) 473-4636<br>Adresse&nbsp;: 514, chemin de la Rivière Sud, local 102, Saint-Eustache (Québec)&nbsp; J7R&nbsp;0E2</div><div class="ilrc-droite">Certificat n<sup>o</sup> <span data-cf="numero"></span><br>Page 1 de 1</div></footer>
+  </div>
+</div></div></div>
+      </div>
+      <div class="tbl-wrap"><div class="tbl-head"><div><h3>Historique des certificats</h3><span class="cert-summary" id="cert-summary"></span></div><div class="tbl-tools"><div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="search" id="cert-search" placeholder="Numéro ou compagnie" aria-label="Chercher un certificat"></div><select id="cert-period" class="btn btn-soft btn-sm" aria-label="Période"><option value="30">30 derniers jours</option><option value="mois">Ce mois-ci</option><option value="annee">Cette année</option><option value="tout" selected>Tous</option></select></div></div>
+        <div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th>Numéro</th><th>Compagnie</th><th>Disques durs</th><th>Destruction</th><th>Émis le</th><th>Envoi</th></tr></thead><tbody id="cert-tbody"></tbody></table></div></div>
+    </section>
   </main>
 </div>
 
@@ -1234,6 +1366,7 @@ a.sheet-it{text-decoration:none;color:inherit}
       <button class="sheet-it" data-tab="prospection"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Prospection</button>
       <button class="sheet-it" data-tab="relance"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>Relance</button>
       <button class="sheet-it" data-tab="clients"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Clients</button>
+      <button class="sheet-it" data-tab="certificats" id="sheet-cert" hidden><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Certificats</button>
       <button class="sheet-it" data-tab="historique"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 117 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.96 8.96 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Historique</button>
       <button class="sheet-it" onclick="closeSheet();openModal('prospect')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau prospect</button>
       <a class="sheet-it" href="https://www.ebay.ca/sh/ovw" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>Seller Hub eBay</a>
@@ -1272,8 +1405,8 @@ const DAYS_FR=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const now=new Date();calYear=now.getFullYear();calMonth=now.getMonth();
 document.getElementById('today-date').textContent=now.toLocaleDateString('fr-CA',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-const TITLES={accueil:'Accueil',calendrier:'Calendrier',prospection:'Prospection',relance:'Relance',ventes:'Ventes eBay',clients:'Clients',historique:'Historique'};
-const MORE_TABS=['prospection','relance','clients','historique'];
+const TITLES={accueil:'Accueil',calendrier:'Calendrier',prospection:'Prospection',relance:'Relance',ventes:'Ventes eBay',clients:'Clients',historique:'Historique',certificats:'Certificats'};
+const MORE_TABS=['prospection','relance','clients','historique','certificats'];
 function goTab(t){const sec=document.getElementById('sec-'+t);if(!sec||!TITLES[t])return;
   document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));
   document.querySelector('.bn-item[data-more]')?.classList.toggle('active',MORE_TABS.includes(t));
@@ -1282,7 +1415,7 @@ function goTab(t){const sec=document.getElementById('sec-'+t);if(!sec||!TITLES[t
   document.getElementById('page-title').textContent=TITLES[t];document.title=TITLES[t]+' · Info Liquidation Recycle';
   if(changed)document.getElementById('content').scrollTop=0;
   if(typeof closeSheet==='function')closeSheet();
-  if(t==='ventes')drawCharts();if(t==='accueil')renderLanding();if(t==='historique')renderHistory();if(t==='relance')renderRelance();if(t==='calendrier')renderCalendar();
+  if(t==='ventes')drawCharts();if(t==='accueil')renderLanding();if(t==='historique')renderHistory();if(t==='relance')renderRelance();if(t==='calendrier')renderCalendar();if(t==='certificats'){renderCertHistory();setTimeout(certScale,0)}
   try{history.replaceState(null,'','#'+t)}catch(e){}}
 document.querySelectorAll('[data-tab]').forEach(n=>{n.addEventListener('click',()=>goTab(n.dataset.tab))});
 // Déconnexion : POST uniquement (le serveur refuse le GET)
@@ -1376,7 +1509,9 @@ function clientSlug(name){return 'gcal-'+canonicalClientName(name).toLowerCase()
 const __apiErrors=new Map();
 function reportApiError(src,msg){console.warn('['+src+']',msg);if(__apiErrors.get(src)===msg)return;__apiErrors.set(src,msg);showToast(src+' indisponible — '+msg,'error')}
 async function fetchCalendarPickups(){try{const r=await fetch('/api/calendar/events?from='+iso(new Date(new Date().getFullYear(),new Date().getMonth()-1,1))+'&to='+iso(new Date(new Date().getFullYear(),new Date().getMonth()+3,0)));const body=await r.json().catch(()=>({error:'HTTP '+r.status}));if(!r.ok||body.error){reportApiError('Google Calendar',body.error||('HTTP '+r.status));return}__apiErrors.delete('Google Calendar');const{events}=body;
-const mapped=events.map(e=>{const dt=new Date(e.start);const dateStr=iso(dt);const timeStr=e.allDay?'09:00':`${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;const statusMap={confirmed:'confirmed',tentative:'pending',cancelled:'completed'};const rawName=e.title.replace(/^(Ramassage|Pickup)\s*[:—-]?\s*/i,'').trim()||e.title;const canonical=canonicalClientName(rawName);const cid=clientSlug(rawName);return{id:e.id,clientId:cid,clientName:canonical,date:dateStr,time:timeStr,items:e.description||'Via Google Calendar',status:statusMap[e.status]||'pending',notes:(e.location?'📍 '+e.location+'\n':'')+(e.description||'')}});
+// Résumé lisible de la description Google : retire les lignes « ==== », le titre RAMASSAGE et les champs vides
+function pickupSummary(desc){if(!desc)return '';const out=[];String(desc).split(/\r?\n/).forEach(l=>{l=l.replace(/<[^>]+>/g,'').trim();if(!l||/^[=\-_*]{3,}$/.test(l)||/^(ramassage|pickup)$/i.test(l))return;const m=l.match(/^([^:]{1,40}?)\s*:\s*(.*)$/);if(m){const k=m[1].trim(),v=m[2].trim();if(!v||(/items/i.test(k)&&/^0+$/.test(v)))return;out.push(k+' : '+v)}else out.push(l)});return out.join(' · ')}
+const mapped=events.map(e=>{const dt=new Date(e.start);const dateStr=iso(dt);const timeStr=e.allDay?'09:00':`${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;const statusMap={confirmed:'confirmed',tentative:'pending',cancelled:'completed'};const rawName=e.title.replace(/^(Ramassage|Pickup)\s*[:—-]?\s*/i,'').trim()||e.title;const canonical=canonicalClientName(rawName);const cid=clientSlug(rawName);return{id:e.id,clientId:cid,clientName:canonical,date:dateStr,time:timeStr,items:pickupSummary(e.description)||(e.location?'📍 '+e.location:'Via Google Calendar'),status:statusMap[e.status]||'pending',notes:(e.location?'📍 '+e.location+'\n':'')+(e.description||'')}});
 // Détection de nouveaux ramassages (ne joue pas au premier chargement)
 const currentIds=new Set(mapped.map(m=>m.id));if(!__firstFetch){const newOnes=mapped.filter(m=>!__knownEventIds.has(m.id));for(const n of newOnes){playNotificationSound();showToast('🔔 Nouveau ramassage : '+n.clientName+' — '+n.date+' à '+n.time);addNotif('pickup','Nouveau ramassage : '+n.clientName,n.date+' à '+n.time)}}
 __knownEventIds=currentIds;__firstFetch=false;
@@ -1385,8 +1520,9 @@ allPickups=mapped;applyStatusOverrides();
 const seen=new Set(allClients.map(c=>c.id));const firstAddrByClient={};for(const p of mapped){const addr=p.notes.match(/📍\s*([^\n]+)/)?.[1]?.trim();if(addr&&!firstAddrByClient[p.clientId])firstAddrByClient[p.clientId]=addr;if(!seen.has(p.clientId)){allClients.push({id:p.clientId,name:p.clientName,phone:'',email:'',address:firstAddrByClient[p.clientId]||'',created:p.date,type:'résidentiel'});seen.add(p.clientId)}}
 // Compléter les adresses manquantes des clients déjà créés
 for(const c of allClients){if(!c.address&&firstAddrByClient[c.id])c.address=firstAddrByClient[c.id]}
+applyClientStore();
 const uniqueClients=new Set(mapped.map(m=>m.clientId));console.log('[Calendar] '+mapped.length+' ramassages, '+uniqueClients.size+' clients uniques');}catch(e){console.warn('[Calendar] fetch failed:',e)}}
-async function initDB(){if(typeof window.claude==='undefined'||!window.claude.use){seedDemoData();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}try{db=await window.claude.use('db')}catch(e){db=null}if(!db){seedDemoData();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}
+async function initDB(){if(typeof window.claude==='undefined'||!window.claude.use){seedDemoData();await loadClientStore();loadCerts();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}try{db=await window.claude.use('db')}catch(e){db=null}if(!db){seedDemoData();await loadClientStore();loadCerts();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}
 db.collection('pickups').onSnapshot(s=>{allPickups=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderLanding();renderCalendar();renderUpcoming();renderHistory();updateStats()},()=>{});
 db.collection('clients').onSnapshot(s=>{allClients=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderClients();updateStats()},()=>{});
 db.collection('prospects').onSnapshot(s=>{allProspects=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderProspects();updateStats()},()=>{});
@@ -1750,6 +1886,7 @@ tickClock();setInterval(tickClock,1000);
 
 function renderCalendar(){
 document.querySelectorAll('.cal-view-btn').forEach(b=>b.classList.toggle('active',b.dataset.cv===calView));
+document.getElementById('cal-grid')?.classList.toggle('is-flow',calView!=='month');
 if(calView==='month')renderMonthView();
 else if(calView==='week')renderWeekView();
 else renderDayView();
@@ -1762,7 +1899,7 @@ for(let i=0;i<sd;i++){const c=document.createElement('div');c.className='cal-c o
 for(let d=1;d<=dim;d++){const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,c=document.createElement('div');c.className='cal-c';if(ds===ts)c.classList.add('today');
 const n=document.createElement('div');n.className='dn';n.textContent=d;n.style.cursor='pointer';n.addEventListener('click',ev=>{ev.stopPropagation();calDay=new Date(calYear,calMonth,d);setCalView('day')});c.appendChild(n);
 const dayP=mp.filter(p=>p.date===ds).sort((a,b)=>a.time.localeCompare(b.time));dayP.slice(0,3).forEach(p=>{const e=document.createElement('div');e.className='cal-ev '+(p.status==='pending'?'pd':p.status==='completed'?'cp':'pk');e.textContent=`${p.time} ${p.clientName}`;e.title=`${p.clientName}\n${p.items}`;e.style.cursor='pointer';e.addEventListener('click',ev=>{ev.stopPropagation();openPickupDetail(p.id)});c.appendChild(e)});if(dayP.length>3){const m=document.createElement('div');m.className='cal-more';m.textContent='+'+(dayP.length-3)+' autres';c.appendChild(m)}
-c.addEventListener('click',()=>{if(window.matchMedia('(max-width:767px)').matches){calDay=new Date(calYear,calMonth,d);setCalView('day')}else openPickupModal(ds)});c.title='Ajouter un ramassage le '+d;g.appendChild(c)}
+c.addEventListener('click',()=>{calDay=new Date(calYear,calMonth,d);setCalView('day')});c.title='Voir la journée du '+d;g.appendChild(c)}
 const tc=sd+dim,rem=(7-tc%7)%7;for(let i=1;i<=rem;i++){const c=document.createElement('div');c.className='cal-c om';c.innerHTML=`<div class="dn">${i}</div>`;g.appendChild(c)}}
 
 function getWeekStart(d){const dt=new Date(d);dt.setDate(dt.getDate()-dt.getDay());return dt}
@@ -1792,7 +1929,7 @@ ev.className='cal-week-ev '+(p.status==='pending'?'pd':p.status==='completed'?'c
 ev.innerHTML=`<div class="cwe-time">${esc(p.time)}</div><div class="cwe-name">${esc(p.clientName)}</div><div class="cwe-items">${esc(p.items)}</div>`;
 ev.addEventListener('click',ev2=>{ev2.stopPropagation();openPickupDetail(p.id)});
 body.appendChild(ev)});
-body.addEventListener('click',()=>openPickupModal(ds));
+body.addEventListener('click',()=>{calDay=new Date(dt);setCalView('day')});body.title='Voir la journée';
 col.appendChild(body);wg.appendChild(col)}}
 
 function renderDayView(){const g=document.getElementById('cal-grid');if(!g)return;
@@ -1915,7 +2052,7 @@ function clientRows(){const q=(document.getElementById('client-search')?.value||
   const f=q?allClients.filter(c=>c.name.toLowerCase().includes(q)||(c.email||'').toLowerCase().includes(q)||(c.address||'').toLowerCase().includes(q)||(c.phone||'').includes(q)):allClients.slice();
   return f.map(c=>{const cp=allPickups.filter(p=>p.clientId===c.id).sort((a,b)=>b.date.localeCompare(a.date));return{c,n:cp.length,last:cp[0]?cp[0].date:''}})
     .sort((a,b)=>{const k=clientSort.k,d=clientSort.dir;if(k==='pickups')return(a.n-b.n)*d||a.c.name.localeCompare(b.c.name,'fr');if(k==='last')return a.last.localeCompare(b.last)*d;if(k==='type')return String(a.c.type).localeCompare(String(b.c.type),'fr')*d;return a.c.name.localeCompare(b.c.name,'fr')*d})}
-function renderClients(){const rows=clientRows();
+function renderClients(){applyClientStore();const rows=clientRows();
 const tb=document.getElementById('clients-tbody');
 tb.innerHTML=rows.length?rows.map(({c,n,last})=>{const col=COLORS[c.name.charCodeAt(0)%COLORS.length],ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2),reg=n>=3;
 const typeCls=c.type==='institutionnel'?'institutionnel':c.type==='commercial'?'commercial':'résidentiel';
@@ -1929,6 +2066,170 @@ document.getElementById('client-search')?.addEventListener('input',renderClients
 document.querySelectorAll('#sec-clients th[data-sort]').forEach(th=>th.addEventListener('click',()=>{const k=th.dataset.sort;clientSort=clientSort.k===k?{k,dir:-clientSort.dir}:{k,dir:k==='name'||k==='type'?1:-1};renderClients()}));
 
 function isAddress(s){return /\d+.*(?:rue|boul|av|ch|mont|crois|place|rang|rte|st-|ste-|laval|montréal|québec|qc|saint-|terrebonne|boisbriand|mascouche|st-eustache|saint-laurent)/i.test(s)}
+
+
+/* ───── Fiches clients modifiables (enregistrées sur le serveur : /api/clients) ───── */
+let CLIENT_STORE=null;
+async function loadClientStore(){try{const r=await fetch('/api/clients',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();CLIENT_STORE={clients:d.clients&&!Array.isArray(d.clients)?d.clients:{},deleted:d.deleted&&!Array.isArray(d.deleted)?d.deleted:{}}}catch(e){CLIENT_STORE=null}
+const b=document.getElementById('btn-new-client');if(b)b.hidden=!CLIENT_STORE}
+function applyClientStore(){if(!CLIENT_STORE)return;const ov=CLIENT_STORE.clients,del=CLIENT_STORE.deleted;
+allClients=allClients.filter(c=>!del[c.id]).map(c=>ov[c.id]?{...c,...ov[c.id],id:c.id}:c);
+for(const id in ov){if(!del[id]&&!allClients.some(c=>c.id===id))allClients.push({...ov[id],id})}
+for(const p of allPickups){const o=ov[p.clientId];if(o&&o.name)p.clientName=o.name}}
+async function clientApi(body){const r=await fetch('/api/clients',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(!r.ok||!d.ok)throw new Error(d.error||('Erreur '+r.status));return d}
+function editClient(id){const c=id?allClients.find(x=>x.id===id):{name:'',type:'commercial',phone:'',email:'',address:'',notes:''};if(!c)return;
+const t=c.type||'résidentiel',opt=(v,l)=>'<option value="'+v+'"'+(t===v?' selected':'')+'>'+l+'</option>';
+document.getElementById('cl-modal-content').innerHTML='<div class="cl-modal-hero"><div class="cl-modal-hero-info"><h3>'+(id?'Modifier le client':'Nouveau client')+'</h3><p>'+(id?esc(c.name):'Ajouter un client au répertoire')+'</p></div><button class="cl-modal-x" onclick="closeClientModal()" aria-label="Fermer">&times;</button></div>'
++'<form id="ce-form" style="padding:20px 22px 4px" novalidate><div class="fg"><label for="ce-name">Nom du client <small>(obligatoire)</small></label><input id="ce-name" maxlength="120" autocomplete="off" value="'+esc(c.name)+'"></div>'
++'<div class="fg-row"><div class="fg"><label for="ce-type">Type</label><select id="ce-type">'+opt('résidentiel','Résidentiel')+opt('commercial','Commercial')+opt('institutionnel','Institutionnel')+'</select></div><div class="fg"><label for="ce-phone">Téléphone</label><input id="ce-phone" type="tel" maxlength="40" autocomplete="off" value="'+esc(c.phone||'')+'"></div></div>'
++'<div class="fg"><label for="ce-email">Courriel</label><input id="ce-email" type="email" maxlength="160" autocomplete="off" value="'+esc(c.email||'')+'"></div>'
++'<div class="fg"><label for="ce-address">Adresse</label><input id="ce-address" maxlength="250" autocomplete="off" value="'+esc(c.address||'')+'"></div>'
++'<div class="fg"><label for="ce-notes">Notes</label><textarea id="ce-notes" rows="3" maxlength="2000" placeholder="Personne à joindre, accès, préférences">'+esc(c.notes||'')+'</textarea></div>'
++'<p id="ce-err" role="alert" style="display:none;color:#dc2626;font-size:13px;margin:-6px 0 10px"></p></form>'
++'<div class="cl-modal-actions"><button class="btn btn-ghost" id="ce-cancel">Annuler</button><button class="btn btn-primary" id="ce-save">Enregistrer</button></div>';
+document.getElementById('ce-cancel').addEventListener('click',()=>{if(id)selectClient(id);else closeClientModal()});
+document.getElementById('ce-save').addEventListener('click',()=>saveClientForm(id||''));
+document.getElementById('ce-form').addEventListener('submit',e=>{e.preventDefault();saveClientForm(id||'')});
+document.getElementById('cl-modal-overlay').classList.add('open');
+document.getElementById('cl-modal-overlay').onclick=e=>{if(e.target.id==='cl-modal-overlay')closeClientModal()};
+setTimeout(()=>document.getElementById('ce-name')?.focus(),50)}
+async function saveClientForm(id){const v=k=>(document.getElementById('ce-'+k)?.value||'').trim();const err=document.getElementById('ce-err'),btn=document.getElementById('ce-save');
+const client={name:v('name'),type:v('type'),phone:v('phone'),email:v('email'),address:v('address'),notes:(document.getElementById('ce-notes')?.value||'').trim()};
+const fail=m=>{err.textContent=m;err.style.display='block'};
+if(!client.name){fail('Le nom du client est obligatoire.');document.getElementById('ce-name').focus();return}
+if(client.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(client.email)){fail('Le courriel n’est pas valide.');document.getElementById('ce-email').focus();return}
+const prev=id?allClients.find(x=>x.id===id):null;if(prev&&prev.created)client.created=prev.created;
+btn.disabled=true;btn.textContent='Enregistrement…';
+try{const d=await clientApi({action:'save',id:id||undefined,client});CLIENT_STORE.clients[d.id]={...d.client,created:client.created||iso(now)};delete CLIENT_STORE.deleted[d.id];applyClientStore();renderAll();selectClient(d.id);showToast(id?'Client modifié':'Client ajouté')}
+catch(e){fail(e.message||'Enregistrement impossible.');btn.disabled=false;btn.textContent='Enregistrer'}}
+function confirmDeleteClient(id){const c=allClients.find(x=>x.id===id);if(!c)return;const box=document.querySelector('#cl-modal-content .cl-modal-actions');if(!box)return;
+const n=allPickups.filter(p=>p.clientId===id).length;
+box.innerHTML='<div style="flex:1;min-width:220px;font-size:14px;line-height:1.45"><strong>Supprimer '+esc(c.name)+' ?</strong><br><span style="color:var(--ink-3)">Le client disparaît du répertoire.'+(n?(n>1?' Ses '+n+' ramassages restent':' Son ramassage reste')+' dans Google Calendar.':'')+'</span></div><button class="btn btn-ghost" id="cl-del-cancel">Annuler</button><button class="btn btn-primary cl-del-confirm" style="background:#dc2626;border-color:#dc2626;color:#fff">Supprimer</button>';
+box.querySelector('#cl-del-cancel').addEventListener('click',()=>selectClient(id));
+box.querySelector('.cl-del-confirm').addEventListener('click',()=>doDeleteClient(id));
+box.querySelector('.cl-del-confirm')?.focus()}
+async function doDeleteClient(id){const btn=document.querySelector('.cl-del-confirm');if(btn){btn.disabled=true;btn.textContent='Suppression…'}
+try{await clientApi({action:'delete',id});CLIENT_STORE.deleted[id]=new Date().toISOString();delete CLIENT_STORE.clients[id];applyClientStore();closeClientModal();renderAll();showToast('Client supprimé')}
+catch(e){showToast(e.message||'Suppression impossible','error');if(btn){btn.disabled=false;btn.textContent='Supprimer'}}}
+
+
+/* ───── Certificats de destruction (enregistrés sur le serveur : /api/certificates) ───── */
+let CERTS=null,CERT_NEXT='',certCur=null,certClientId=null,certDirty=false,certBusy=false;
+const CERT_MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const CERT_JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+function certDateObj(iso){return /^\d{4}-\d{2}-\d{2}$/.test(iso||'')?new Date(iso+'T12:00'):null}
+function certDateLongue(iso){const d=certDateObj(iso);return d?d.getDate()+(d.getDate()===1?'er':'')+' '+CERT_MOIS[d.getMonth()]+' '+d.getFullYear():''}
+function certNorm(t){return String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()}
+async function loadCerts(){try{const r=await fetch('/api/certificates',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();CERTS=Array.isArray(d.certificates)?d.certificates:[];CERT_NEXT=d.nextNumero||''}catch(e){CERTS=null}
+['sb-cert','sheet-cert'].forEach(id=>{const el=document.getElementById(id);if(el)el.hidden=!CERTS});
+if(CERTS){if(!certCur&&!document.getElementById('cf-ddest').value)certNew(null,true);renderCertHistory();renderCertPreview();if(location.hash==='#certificats'&&currentTab!=='certificats')goTab('certificats')}}
+function certVals(){const v=id=>(document.getElementById(id)?.value||'').trim();return{compagnie:v('cf-compagnie'),adresse:v('cf-adresse'),courriel:v('cf-courriel'),nbDisques:v('cf-nb'),dateDestruction:v('cf-ddest'),dateEmission:v('cf-demis'),clientId:certClientId||''}}
+/* Rosace guillochée (papier de sécurité) : calculée une fois, dans le navigateur */
+let certGuilDone=false;
+function certGuilloche(){if(certGuilDone)return;certGuilDone=true;const cx=320,cy=320,pas=720,parts=[];
+[[284,9,54,10],[236,11,44,10],[184,12,34,9],[130,12,24,8],[78,10,14,7]].forEach(([R,A,n,copies])=>{for(let k=0;k<copies;k++){const ph=k/copies*2*Math.PI;for(let i=0;i<=pas;i++){const t=i/pas*2*Math.PI,r=R+A*Math.sin(n*t+ph);parts.push((i?'L':'M')+(cx+r*Math.cos(t)).toFixed(1)+' '+(cy+r*Math.sin(t)).toFixed(1))}parts.push('Z')}});
+document.getElementById('ilrc-guil-path')?.setAttribute('d',parts.join(''));
+document.getElementById('ilrc-rosette')?.setAttribute('points',Array.from({length:64},(_,i)=>{const a=i/64*Math.PI*2,r=i%2?93:99;return(100+Math.cos(a)*r).toFixed(2)+','+(100+Math.sin(a)*r).toFixed(2)}).join(' '))}
+function certScale(){const box=document.getElementById('cert-preview'),pg=document.getElementById('ilrc-page');if(!box||!pg||!box.clientWidth)return;const k=box.clientWidth/816;pg.style.transform='scale('+k+')';box.style.height=Math.round(1056*k)+'px'}
+window.addEventListener('resize',()=>{if(currentTab==='certificats')certScale()});
+function renderCertPreview(){certGuilloche();const v=certVals(),pg=document.getElementById('ilrc-page');if(!pg)return;
+const set=(k,txt,ph)=>pg.querySelectorAll('[data-cf="'+k+'"]').forEach(el=>{el.textContent=txt||ph||'';el.classList.toggle('vide',!txt)});
+const num=certCur?certCur.numero:'';set('numero',num,CERT_NEXT||'ILR-…');
+set('compagnie',v.compagnie,'Nom de la compagnie');set('adresse',v.adresse,'');
+const d=certDateObj(v.dateDestruction);set('jour',d?CERT_JOURS[d.getDay()]:'','Jour');set('ddest',certDateLongue(v.dateDestruction),'Date');
+const nb=parseInt(v.nbDisques,10),ok=Number.isInteger(nb)&&nb>0;set('nb',ok?String(nb):'','—');
+const q=pg.querySelector('[data-cf="quoi"]');if(q){q.textContent=(ok&&nb===1)?'disque dur':'disques durs';q.classList.remove('vide')}
+set('demis',certDateLongue(v.dateEmission),'—');
+const m=pg.querySelector('[data-cf="micro"]');if(m)m.textContent=('INFO LIQUIDATION RECYCLE · CERTIFICAT DE DESTRUCTION DES DONNÉES · '+(num||'ILR')+' · ').repeat(12);
+document.getElementById('cf-state').textContent=certCur?(certDirty?'Modifications non enregistrées':'Enregistré · '+certCur.numero):'Brouillon : rien n’est enregistré';
+certScale()}
+function certRenderActions(){const a=document.getElementById('cf-actions');if(!a)return;
+const dl='<button type="button" class="btn btn-soft" onclick="certPdfDownload()"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Télécharger le PDF</button>';
+const send='<button type="button" class="btn btn-soft" onclick="certSendOpen()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>Envoyer par courriel</button>';
+a.innerHTML=certCur?('<button type="submit" class="btn btn-primary" id="cf-save">'+(certDirty?'Enregistrer les modifications':'Enregistré ✓')+'</button>'+dl+send+'<button type="button" class="btn btn-ghost cert-danger" onclick="certDeleteOpen()">Supprimer</button>')
+:('<button type="submit" class="btn btn-primary" id="cf-save">Enregistrer le certificat</button>'+dl);
+document.getElementById('cf-title').textContent=certCur?'Certificat '+certCur.numero:'Nouveau certificat';
+document.getElementById('cf-sub').textContent=certCur?('Créé le '+certDateLongue(String(certCur.createdAt||'').slice(0,10))+(certCur.envois&&certCur.envois.length?' · envoyé à '+certCur.envois[certCur.envois.length-1].to:'')):'Le numéro est attribué à l’enregistrement';
+document.getElementById('cf-new').hidden=!certCur}
+function certSetChip(){const box=document.getElementById('cf-chip-box');if(!box)return;const c=certClientId?allClients.find(x=>x.id===certClientId):null;
+box.innerHTML=c?'<span class="cert-chip">Client existant : '+esc(c.name)+' <button type="button" onclick="certUnlinkClient()">Retirer</button></span>':'';
+document.getElementById('cf-pick-btn').hidden=!!c}
+function certUnlinkClient(){certClientId=null;certSetChip();certChanged()}
+function certFill(rec,clientId){const set=(id,v)=>{const el=document.getElementById(id);if(el)el.value=v==null?'':v};
+const today=iso(now);set('cf-compagnie',rec?rec.compagnie:'');set('cf-adresse',rec?rec.adresse:'');set('cf-courriel',rec?rec.courriel:'');set('cf-nb',rec?rec.nbDisques:'');set('cf-ddest',rec?rec.dateDestruction:today);set('cf-demis',rec?rec.dateEmission:today);
+certClientId=rec?rec.clientId||null:null;if(!rec&&clientId)certPickClient(clientId,true);
+document.getElementById('cf-pick').hidden=true;document.getElementById('cf-err').style.display='none';document.getElementById('cf-confirm').innerHTML='';certDirty=false;certSetChip();certRenderActions();renderCertPreview()}
+function certNew(clientId,silent){certCur=null;certFill(null,clientId);if(!silent)document.getElementById('cf-compagnie')?.focus()}
+function certOpen(id){const rec=(CERTS||[]).find(c=>c.id===id);if(!rec)return;certCur=rec;certFill(rec);renderCertHistory();document.getElementById('sec-certificats')?.scrollIntoView({block:'start',behavior:'smooth'})}
+function certChanged(){if(certCur)certDirty=true;document.getElementById('cf-err').style.display='none';certRenderActions();renderCertPreview()}
+function certPickClient(id,silent){const c=allClients.find(x=>x.id===id);if(!c)return;certClientId=c.id;
+document.getElementById('cf-compagnie').value=c.name||'';
+if(c.address)document.getElementById('cf-adresse').value=c.address;
+if(c.email)document.getElementById('cf-courriel').value=c.email;
+document.getElementById('cf-pick').hidden=true;certSetChip();if(!silent)certChanged();else renderCertPreview();
+if(!silent&&!c.address)document.getElementById('cf-adresse').focus();else if(!silent)document.getElementById('cf-nb').focus()}
+function certSearch(){const q=certNorm(document.getElementById('cf-search').value),ul=document.getElementById('cf-results');
+const list=allClients.filter(c=>!q||certNorm(c.name).includes(q)).sort((a,b)=>a.name.localeCompare(b.name,'fr')).slice(0,8);
+ul.innerHTML=list.length?list.map(c=>'<li><button type="button" role="option" data-pick="'+esc(c.id)+'">'+esc(c.name)+'<small>'+esc(c.address||'Pas d’adresse dans la fiche')+'</small></button></li>').join(''):'<li class="empty-hint">Aucun client trouvé. Tape le nom directement dans le champ ci-dessus.</li>';
+ul.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>certPickClient(b.dataset.pick)))}
+function certCheck(v){const fail=(m,id)=>{const e=document.getElementById('cf-err');e.textContent=m;e.style.display='block';if(id)document.getElementById(id)?.focus();return false};
+if(!v.compagnie)return fail('Le nom de la compagnie est obligatoire.','cf-compagnie');
+const nb=Number(v.nbDisques);if(!Number.isInteger(nb)||nb<1||nb>100000)return fail('Indique le nombre de disques durs détruits (au moins 1).','cf-nb');
+if(!certDateObj(v.dateDestruction))return fail('Indique la date de la destruction.','cf-ddest');
+if(!certDateObj(v.dateEmission))return fail('Indique la date d’émission.','cf-demis');
+if(v.dateEmission<v.dateDestruction)return fail('La date d’émission ne peut pas être avant la date de destruction.','cf-demis');
+if(v.courriel&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.courriel))return fail('Le courriel du client n’est pas valide.','cf-courriel');
+return true}
+async function certApi(body){const r=await fetch('/api/certificates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(!r.ok||!d.ok)throw new Error(d.error||('Erreur '+r.status));return d}
+async function certSave(){if(certBusy)return false;const v=certVals();if(!certCheck(v))return false;if(certCur&&!certDirty)return true;
+const btn=document.getElementById('cf-save');certBusy=true;if(btn){btn.disabled=true;btn.textContent='Enregistrement…'}
+try{const d=await certApi({action:'save',id:certCur?certCur.id:undefined,certificate:{...v,nbDisques:Number(v.nbDisques)}});const wasNew=!certCur;certCur=d.certificate;
+const i=CERTS.findIndex(c=>c.id===certCur.id);if(i>=0)CERTS[i]=certCur;else CERTS.unshift(certCur);certDirty=false;
+if(wasNew){try{const r=await fetch('/api/certificates',{cache:'no-store'});const g=await r.json();CERT_NEXT=g.nextNumero||CERT_NEXT}catch(e){}}
+certRenderActions();renderCertPreview();renderCertHistory();showToast(wasNew?'Certificat '+certCur.numero+' enregistré':'Certificat modifié');return true}
+catch(e){const el=document.getElementById('cf-err');el.textContent=e.message||'Enregistrement impossible.';el.style.display='block';certRenderActions();return false}
+finally{certBusy=false}}
+async function certMakePdf(){if(!(await certSave()))return null;renderCertPreview();await new Promise(r=>requestAnimationFrame(()=>r()));
+const mod=await import('/assets/cert-pdf.js');return mod.certificatPdf(document.getElementById('ilrc-page'),'Certificat de destruction '+certCur.numero)}
+function certFileName(){const slug=certNorm(certCur.compagnie).replace(/ /g,'-').slice(0,50);return 'certificat-destruction-'+certCur.numero.toLowerCase()+(slug?'-'+slug:'')+'.pdf'}
+async function certPdfDownload(){try{showToast('Préparation du PDF…');const p=await certMakePdf();if(!p)return;const url=URL.createObjectURL(p.blob);const a=document.createElement('a');a.href=url;a.download=certFileName();document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+catch(e){console.warn('[certificat] PDF',e);showToast('PDF impossible : '+(e.message||e),'error')}}
+function certSendOpen(){if(!certCur)return;const box=document.getElementById('cf-confirm');const to=document.getElementById('cf-courriel').value.trim();
+box.innerHTML='<div class="cert-confirm"><strong>Envoyer le certificat '+esc(certCur.numero)+' par courriel</strong><div class="fg"><label for="cf-to">Destinataire</label><input id="cf-to" type="email" value="'+esc(to)+'" placeholder="nom@compagnie.com"></div><span style="color:var(--ink-3)">Le PDF est joint au courriel, signé Éric Després. Une copie est envoyée à info@infoliquidationrecycle.com.</span><div class="cert-confirm-actions"><button type="button" class="btn btn-ghost" onclick="document.getElementById(\'cf-confirm\').innerHTML=\'\'">Annuler</button><button type="button" class="btn btn-primary" id="cf-send-go" onclick="certSendGo()">Envoyer</button></div></div>';
+document.getElementById(to?'cf-send-go':'cf-to').focus()}
+async function certSendGo(){const to=(document.getElementById('cf-to')?.value||'').trim(),btn=document.getElementById('cf-send-go');
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)){showToast('Entre un courriel valide','error');document.getElementById('cf-to')?.focus();return}
+btn.disabled=true;btn.textContent='Envoi…';
+try{const p=await certMakePdf();if(!p){btn.disabled=false;btn.textContent='Envoyer';return}const d=await certApi({action:'send',id:certCur.id,to,pdf:p.base64});
+if(d.certificate){certCur=d.certificate;const i=CERTS.findIndex(c=>c.id===certCur.id);if(i>=0)CERTS[i]=certCur}
+document.getElementById('cf-confirm').innerHTML='';certRenderActions();renderCertHistory();showToast('Certificat envoyé à '+to)}
+catch(e){btn.disabled=false;btn.textContent='Envoyer';showToast(e.message||'Envoi impossible','error')}}
+function certDeleteOpen(){if(!certCur)return;document.getElementById('cf-confirm').innerHTML='<div class="cert-confirm"><strong>Supprimer le certificat '+esc(certCur.numero)+' ?</strong><br><span style="color:var(--ink-3)">Il disparaît de l’historique. Son numéro ne sera jamais réutilisé.</span><div class="cert-confirm-actions"><button type="button" class="btn btn-ghost" onclick="document.getElementById(\'cf-confirm\').innerHTML=\'\'">Annuler</button><button type="button" class="btn btn-primary" style="background:#dc2626;border-color:#dc2626;color:#fff" id="cf-del-go" onclick="certDeleteGo()">Supprimer</button></div></div>';document.getElementById('cf-del-go').focus()}
+async function certDeleteGo(){const btn=document.getElementById('cf-del-go');btn.disabled=true;try{await certApi({action:'delete',id:certCur.id});const n=certCur.numero;CERTS=CERTS.filter(c=>c.id!==certCur.id);certNew(null,true);renderCertHistory();showToast('Certificat '+n+' supprimé')}catch(e){btn.disabled=false;showToast(e.message||'Suppression impossible','error')}}
+function renderCertHistory(){const tb=document.getElementById('cert-tbody');if(!tb||!CERTS)return;const per=document.getElementById('cert-period').value,q=certNorm(document.getElementById('cert-search').value);
+const today=iso(now),since30=iso(new Date(now.getFullYear(),now.getMonth(),now.getDate()-30));
+const list=CERTS.filter(c=>{const d=c.dateEmission||'';if(per==='30'&&d<since30)return false;if(per==='mois'&&d.slice(0,7)!==today.slice(0,7))return false;if(per==='annee'&&d.slice(0,4)!==today.slice(0,4))return false;return!q||certNorm(c.numero+' '+c.compagnie).includes(q)}).sort((a,b)=>String(b.numero).localeCompare(String(a.numero)));
+const disks=list.reduce((t,c)=>t+(Number(c.nbDisques)||0),0);
+document.getElementById('cert-summary').textContent=list.length+' certificat'+(list.length>1?'s':'')+' · '+disks+' disque'+(disks>1?'s':'')+' dur'+(disks>1?'s':'');
+const fmt=d=>{const o=certDateObj(d);return o?o.toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'}):'—'};
+tb.innerHTML=list.length?list.map(c=>{const last=c.envois&&c.envois.length?c.envois[c.envois.length-1]:null;return '<tr data-cert="'+esc(c.id)+'" tabindex="0" style="cursor:pointer'+(certCur&&certCur.id===c.id?';background:var(--g-softer)':'')+'"><td class="tnum"><strong>'+esc(c.numero)+'</strong></td><td data-label="Compagnie">'+esc(c.compagnie)+'</td><td data-label="Disques durs" class="num">'+(Number(c.nbDisques)||0)+'</td><td data-label="Destruction" class="tnum">'+fmt(c.dateDestruction)+'</td><td data-label="Émis le" class="tnum">'+fmt(c.dateEmission)+'</td><td data-label="Envoi">'+(last?'<span class="cert-sent" title="'+esc(last.to)+'">✓ Envoyé '+fmt(String(last.at).slice(0,10))+'</span>':'<span class="muted">—</span>')+'</td></tr>'}).join('')
+:'<tr><td colspan="6" class="empty-row">'+(CERTS.length?'Aucun certificat pour cette période ou cette recherche':'Aucun certificat pour le moment. Remplis le formulaire ci-dessus pour créer le premier.')+'</td></tr>';
+tb.querySelectorAll('tr[data-cert]').forEach(tr=>{tr.addEventListener('click',()=>certOpen(tr.dataset.cert));tr.addEventListener('keydown',e=>{if(e.key==='Enter')certOpen(tr.dataset.cert)})})}
+function clientCertsHtml(c){if(!CERTS)return '';const n=certNorm(c.name);const list=CERTS.filter(x=>x.clientId===c.id||certNorm(x.compagnie)===n).sort((a,b)=>String(b.numero).localeCompare(String(a.numero)));
+const disks=list.reduce((t,x)=>t+(Number(x.nbDisques)||0),0);
+let h='<h4>Certificats de destruction des données ('+list.length+')</h4>';
+if(list.length)h+='<div style="font-size:13px;color:var(--ink-3);margin:-4px 0 8px">'+disks+' disque'+(disks>1?'s':'')+' dur'+(disks>1?'s':'')+' détruit'+(disks>1?'s':'')+' au total</div>'+list.map(x=>'<div class="cl-cert-card" data-clcert="'+esc(x.id)+'"><span><strong>'+esc(x.numero)+'</strong> · '+esc(certDateLongue(x.dateDestruction))+'</span><span>'+(Number(x.nbDisques)||0)+' disque'+(x.nbDisques>1?'s':'')+'</span></div>').join('');
+else h+='<div style="font-size:13px;color:var(--ink-3);margin-bottom:8px">Aucun certificat pour ce client.</div>';
+return h+'<button type="button" class="btn btn-soft btn-sm" style="margin:2px 0 20px" data-clcert-new="'+esc(c.id)+'"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau certificat pour ce client</button>'}
+(function certBind(){const form=document.getElementById('cf-form');if(!form)return;
+form.addEventListener('submit',e=>{e.preventDefault();certSave()});
+['cf-adresse','cf-courriel','cf-nb','cf-ddest','cf-demis'].forEach(id=>document.getElementById(id).addEventListener('input',certChanged));
+document.getElementById('cf-compagnie').addEventListener('input',()=>{const c=certClientId?allClients.find(x=>x.id===certClientId):null;if(c&&c.name!==document.getElementById('cf-compagnie').value.trim()){certClientId=null;certSetChip()}certChanged()});
+document.getElementById('cf-pick-btn').addEventListener('click',()=>{const p=document.getElementById('cf-pick');p.hidden=!p.hidden;if(!p.hidden){document.getElementById('cf-search').value=document.getElementById('cf-compagnie').value;certSearch();document.getElementById('cf-search').focus()}});
+document.getElementById('cf-search').addEventListener('input',certSearch);
+document.getElementById('cf-search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.querySelector('#cf-results [data-pick]')?.click()}if(e.key==='Escape'){e.stopPropagation();document.getElementById('cf-pick').hidden=true}});
+document.getElementById('cert-search').addEventListener('input',renderCertHistory);
+document.getElementById('cert-period').addEventListener('change',renderCertHistory)})();
 
 function selectClient(id){selectedClient=allClients.find(c=>c.id===id);if(!selectedClient)return;
 const c=selectedClient,col=COLORS[c.name.charCodeAt(0)%COLORS.length],ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2);
@@ -1948,6 +2249,7 @@ html+=`<div class="cl-info-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.
 html+=`<div class="cl-info-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span class="cl-ir-val">${esc(c.email||'—')}</span></div>`;
 html+=`<div class="cl-info-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span class="cl-ir-val">${esc(c.address||'—')}</span></div>`;
 html+=`</div>`;
+if(c.notes)html+=`<div><h4>Notes</h4><div style="font-size:13px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere">${esc(c.notes)}</div></div>`;
 
 const stockMap={};cp.forEach(p=>{parseItems(p.items).forEach(i=>{if(!isAddress(i.l)){stockMap[i.l]=(stockMap[i.l]||0)+i.q}})});
 if(Object.keys(stockMap).length){
@@ -1959,7 +2261,7 @@ if(c.email)actions.push(`<a href="mailto:${esc(c.email)}" class="cl-quick-btn"><
 if(c.address)actions.push(`<a href="https://maps.google.com/?q=${encodeURIComponent(c.address)}" target="_blank" rel="noopener" class="cl-quick-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Carte</a>`);
 if(actions.length){html+=`<div><h4>Actions rapides</h4><div style="display:flex;flex-direction:column;gap:6px">${actions.join('')}</div></div>`}
 
-html+=`</div><div class="cl-modal-main"><h4>Historique des ramassages (${cp.length})</h4>`;
+html+=`</div><div class="cl-modal-main">`+clientCertsHtml(c)+`<h4>Historique des ramassages (${cp.length})</h4>`;
 if(cp.length){
   cp.forEach(p=>{
     const dateStr=new Date(p.date+'T12:00').toLocaleDateString('fr-CA',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
@@ -1975,10 +2277,14 @@ if(cp.length){
   });
 }else{html+=`<div class="empty"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg><div>Aucun ramassage enregistré</div></div>`}
 html+=`</div></div>`;
-html+=`<div class="cl-modal-actions"><button class="btn btn-ghost" onclick="closeClientModal()">Fermer</button>${c.email?`<button class="btn btn-soft" onclick="closeClientModal();prefillEmail(window.__clEmail)"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Rédiger un courriel</button>`:''}<button class="btn btn-primary" onclick="closeClientModal();openPickupModal(null,window.__clEmail.clientId)"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau ramassage</button></div>`;
+html+=`<div class="cl-modal-actions">${CLIENT_STORE?`<button class="btn btn-ghost cl-del-btn" data-cl-del="${esc(c.id)}"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 002 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>Supprimer</button><span style="flex:1"></span>`:''}<button class="btn btn-ghost" onclick="closeClientModal()">Fermer</button>${CLIENT_STORE?`<button class="btn btn-soft" data-cl-edit="${esc(c.id)}"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Modifier</button>`:''}${c.email?`<button class="btn btn-soft" onclick="closeClientModal();prefillEmail(window.__clEmail)"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Rédiger un courriel</button>`:''}<button class="btn btn-primary" onclick="closeClientModal();openPickupModal(null,window.__clEmail.clientId)"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau ramassage</button></div>`;
 window.__clEmail={tplId:'remerciement',email:c.email||'',name:c.name,clientId:c.id};
 
 document.getElementById('cl-modal-content').innerHTML=html;
+document.getElementById('cl-modal-content').querySelector('[data-cl-del]')?.addEventListener('click',e=>confirmDeleteClient(e.currentTarget.dataset.clDel));
+document.getElementById('cl-modal-content').querySelector('[data-cl-edit]')?.addEventListener('click',e=>editClient(e.currentTarget.dataset.clEdit));
+document.getElementById('cl-modal-content').querySelectorAll('[data-clcert]').forEach(el=>el.addEventListener('click',()=>{closeClientModal();goTab('certificats');certOpen(el.dataset.clcert)}));
+document.getElementById('cl-modal-content').querySelector('[data-clcert-new]')?.addEventListener('click',e=>{const id=e.currentTarget.dataset.clcertNew;closeClientModal();goTab('certificats');certNew(id)});
 document.getElementById('cl-modal-content').querySelectorAll('[data-clpk]').forEach(el=>el.addEventListener('click',()=>{closeClientModal();openPickupDetail(el.dataset.clpk)}));
 document.getElementById('cl-modal-overlay').classList.add('open');
 document.getElementById("cl-modal-overlay").onclick=e=>{if(e.target.id==="cl-modal-overlay")closeClientModal()}}

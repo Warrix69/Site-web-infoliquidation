@@ -59,8 +59,7 @@ function config_missing(): array
     $missing = [];
     if (env('SITE_URL') === null && env('NEXT_PUBLIC_SITE_URL') === null) $missing[] = 'SITE_URL';
     if (strlen((string) env('ADMIN_SESSION_SECRET', '')) < 32) $missing[] = 'ADMIN_SESSION_SECRET (32+ caractères)';
-    if (env('RESEND_API_KEY') === null) $missing[] = 'RESEND_API_KEY';
-    if (env('RESEND_FROM') === null) $missing[] = 'RESEND_FROM';
+    // Courriel : plus de clé obligatoire (envoi par le serveur de l'hébergeur, voir app/lib/mail_transport.php)
     return $missing;
 }
 

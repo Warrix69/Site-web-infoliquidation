@@ -63,6 +63,23 @@ async function vendorFonts() {
   cpSync(dir, resolve(out, "fonts"), { recursive: true });
 }
 
+/** Police manuscrite de la signature du certificat de destruction (admin), téléchargée une fois. */
+const SIGNATURE_FONT_URL = "https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=block";
+async function vendorSignatureFont() {
+  const dir = resolve(vendor, "fonts-signature");
+  const file = resolve(dir, "mrs-saint-delafield.woff2");
+  if (!existsSync(file)) {
+    mkdirSync(dir, { recursive: true });
+    const css = (await download(SIGNATURE_FONT_URL, { "User-Agent": BROWSER_UA })).toString("utf8");
+    // Dernier bloc = sous-ensemble « latin » (lettres accentuées comprises)
+    const urls = css.match(/https:\/\/fonts\.gstatic\.com\/[^)'"\s]+\.woff2/g) ?? [];
+    if (!urls.length) throw new Error("Police de signature introuvable sur Google Fonts");
+    writeFileSync(file, await download(urls[urls.length - 1]));
+    console.log("Police de signature téléchargée.");
+  }
+  cpSync(file, resolve(out, "fonts", "mrs-saint-delafield.woff2"));
+}
+
 async function vendorHdr() {
   const dir = resolve(vendor, "hdr");
   mkdirSync(dir, { recursive: true });
@@ -95,7 +112,7 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
 await build({
-  entryPoints: { site: resolve(php, "js/site.ts"), islands: resolve(php, "js/islands.tsx") },
+  entryPoints: { site: resolve(php, "js/site.ts"), islands: resolve(php, "js/islands.tsx"), "cert-pdf": resolve(php, "js/cert-pdf.ts") },
   outdir: out,
   bundle: true,
   splitting: true,
@@ -132,6 +149,7 @@ execSync(`npx tailwindcss -i "${resolve(php, "css/app.css")}" -o "${resolve(out,
 });
 
 await vendorFonts();
+await vendorSignatureFont();
 await vendorHdr();
 
 // Fichiers statiques et textes
