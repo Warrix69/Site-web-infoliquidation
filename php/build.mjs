@@ -86,8 +86,9 @@ for (const f of walk(varDir)) if (!keep.has(f)) rmSync(f);
 writeFileSync(resolve(out, "images.json"), JSON.stringify(imgManifest));
 console.log(`Variantes d'images : ${keep.size} fichiers (${relative(root, varDir)})`);
 
-await build({
+const result = await build({
   entryPoints: { site: resolve(php, "js/site.ts"), islands: resolve(php, "js/islands.tsx") },
+  metafile: true,
   outdir: out,
   bundle: true,
   splitting: true,
@@ -122,6 +123,37 @@ await build({
     return !used;
   });
   for (const f of unused) rmSync(f);
+}
+
+/**
+ * Manifeste de préchargement (assets/modules.json) pour <link rel="modulepreload"> :
+ *  - islands : chunks importés statiquement par islands.js (React DOM…) ;
+ *  - <Îlot>  : chunk du composant (import dynamique dans islands.tsx) + ses imports statiques.
+ * Les imports dynamiques internes (ex. HeroDevices, la 3D) ne sont pas suivis.
+ */
+{
+  const outputs = result.metafile.outputs;
+  // Chemins du metafile : relatifs au dossier de travail d'esbuild (process.cwd())
+  const rel = (p) => relative(out, resolve(process.cwd(), p)).replace(/\\/g, "/");
+  const key = Object.fromEntries(Object.keys(outputs).map((k) => [rel(k), k]));
+  const staticDeps = (file, seen = new Set()) => {
+    for (const imp of outputs[key[file]]?.imports ?? []) {
+      if (imp.kind !== "import-statement" || imp.external) continue;
+      const f = rel(imp.path);
+      if (!seen.has(f)) { seen.add(f); staticDeps(f, seen); }
+    }
+    return seen;
+  };
+  const modules = { islands: [...staticDeps("islands.js")] };
+  for (const imp of outputs[key["islands.js"]].imports) {
+    if (imp.kind !== "dynamic-import") continue;
+    const f = rel(imp.path);
+    const entry = outputs[key[f]]?.entryPoint;
+    if (!entry) continue;
+    const name = entry.split("/").pop().replace(/\.[jt]sx?$/, "");
+    modules[name] = [f, ...staticDeps(f)].filter((d) => !modules.islands.includes(d));
+  }
+  writeFileSync(resolve(out, "modules.json"), JSON.stringify(modules));
 }
 
 execSync(`npx tailwindcss -i "${resolve(php, "css/app.css")}" -o "${resolve(out, "app.css")}" --minify`, {

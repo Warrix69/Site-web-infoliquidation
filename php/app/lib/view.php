@@ -87,10 +87,27 @@ function section_heading(?string $eyebrow, string $title, ?string $subtitle = nu
  */
 function island(string $name, array $props = [], string $fallback = '', string $class = '', string $tag = 'div'): string
 {
-    $GLOBALS['__islands_used'] = true;
+    $GLOBALS['__islands_used'][$name] = true;
     $json = json_encode($props, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP);
     return '<' . $tag . ' data-island="' . e($name) . '"' . ($class ? ' class="' . e($class) . '"' : '')
         . '><script type="application/json" data-props>' . $json . '</script>' . $fallback . '</' . $tag . '>';
+}
+
+/**
+ * <link rel="modulepreload"> pour islands.js, ses imports statiques et les chunks des îlots
+ * présents sur la page (assets/modules.json, écrit par php/build.mjs). Les imports
+ * dynamiques internes (la 3D du héros) ne sont pas préchargés.
+ */
+function islands_modulepreload(): string
+{
+    if (empty($GLOBALS['__islands_used'])) return '';
+    $file = PUBLIC_DIR . '/assets/modules.json';
+    $m = is_file($file) ? (json_decode((string) file_get_contents($file), true) ?: []) : [];
+    $files = $m['islands'] ?? [];
+    foreach (array_keys($GLOBALS['__islands_used']) as $name) array_push($files, ...($m[$name] ?? []));
+    $h = '<link rel="modulepreload" href="' . e(asset('assets/islands.js')) . '">';
+    foreach (array_unique($files) as $f) $h .= "\n" . '<link rel="modulepreload" fetchpriority="low" href="/assets/' . e($f) . '">';
+    return $h;
 }
 
 /* ---------- Équivalents PHP des petits composants client ---------- */

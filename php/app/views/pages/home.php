@@ -152,4 +152,6 @@ ob_start(); ?>
 <?php return [
     'content' => ob_get_clean(),
     'meta' => page_meta('home', '/'),
+    // Image du héros React (Hero.tsx, priority) : téléchargée dès le HTML au lieu d'attendre le JS
+    'head' => '<link rel="preload" as="image" href="/images/hero-studio.webp" fetchpriority="high">',
 ];

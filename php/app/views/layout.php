@@ -13,7 +13,8 @@ $meta ??= [];
    celle du titre principal (Poppins 800 pour page_hero, 700 ailleurs) ; le reste arrive par app.css. */ ?>
 <link rel="preload" href="/fonts/poppins-<?= !empty($GLOBALS['__page_hero']) ? '800' : '700' ?>-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= asset('assets/app.css') ?>">
-<?= $head ?? '' ?>
+<?= ($head ?? '') . "\n" ?>
+<?= islands_modulepreload() . "\n" ?>
 <script type="module" src="<?= asset('assets/site.js') ?>"></script>
 </head>
 <body>
