@@ -20,7 +20,21 @@ admin_require_api();
 try {
     $payload = ebay_dashboard_summary();
 } catch (Throwable $err) {
-    json_response(['error' => mb_scrub($err->getMessage() !== '' ? $err->getMessage() : 'Unknown', 'UTF-8')], 500);
+    // Détail brut d'eBay : journal de sécurité seulement (masqué) ; message générique + référence au client
+    $message = $err->getMessage();
+    security_log('upstream_error', ['outcome' => 'error', 'service' => 'ebay', 'message' => $message]);
+    if (str_starts_with($message, 'eBay token expired')) {
+        json_response([
+            'error' => 'Connexion eBay expirée : clique sur « Renouveler eBay ».',
+            'ebayToken' => ['expired' => true, 'renewUrl' => '/api/ebay/auth-start'],
+        ], 500);
+    }
+    $public = str_starts_with($message, 'eBay not configured')
+        ? 'eBay non configuré (EBAY_APP_ID / EBAY_CERT_ID / EBAY_REFRESH_TOKEN manquants).'
+        : 'eBay indisponible pour le moment (réf. ' . request_id() . ').';
+    json_response(['error' => $public], 500);
 }
 
+// État du jeton longue durée (date d'expiration seulement, jamais le jeton) pour le rappel de l'admin
+$payload['ebayToken'] = ebay_token_status();
 json_response($payload, 200, ['Cache-Control' => 'no-store, max-age=0, must-revalidate']);

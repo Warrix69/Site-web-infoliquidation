@@ -6,6 +6,9 @@
 
 require_once __DIR__ . '/icons.php';
 
+/** Seul script en ligne du gabarit : son empreinte SHA-256 est autorisée par la CSP (public/index.php). */
+const NO_JS_INLINE_SCRIPT = "document.documentElement.classList.replace('no-js','js')";
+
 /** Rendu d'un fichier de vue avec des variables locales ; retourne le HTML. */
 function render(string $view, array $vars = []): string
 {

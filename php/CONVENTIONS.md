@@ -44,3 +44,11 @@ ob_start(); ?>
 | lucide `<MapPin className/>` | `icon('MapPin', 'classes')` (liste dans lib/icons.php ; régénérer avec `node php/tools/gen-icons.mjs` après ajout du nom) |
 | `next/image` | `<img … loading="lazy" decoding="async">` (`fetchpriority="high"` si `priority`; `fill` → `class="absolute inset-0 h-full w-full …"`) |
 | Composant client lourd (Hero, StepsTimeline, BinSection, DataDestruction, ClosingBin, PickupForm, ContactForm) | `island('Nom', $props, $fallbackHtml)` — monté par React dans le navigateur ; props = mêmes que dans page.tsx (JSON). Ajouter le nom dans `js/islands.tsx` s'il manque. |
+
+## Sécurité (règles à suivre pour tout nouveau code)
+- Toute API admin appelle `admin_require_api()` en tête (session, Origin, Content-Type JSON) ; toute API publique qui modifie quelque chose appelle `require_same_origin()`.
+- Valider côté serveur chaque entrée (type, longueur max, liste fermée) ; ne copier que les champs attendus ; lire le corps avec `read_json_input()` (plafonné à 64 Ko).
+- Échapper toute valeur affichée avec `e()` / `te()` (ou `escape_html()` dans les courriels) ; jamais de HTML brut venant de l'utilisateur, de Google ou d'eBay.
+- Aucun secret côté client : clés et jetons restent dans `.env` / `storage/`, jamais dans le HTML, le JS ou une réponse JSON ; erreurs externes → message générique + `request_id()`.
+- Journaliser les événements de sécurité avec `security_log('evenement', ['outcome' => …])` — jamais de mot de passe, jeton, cookie ni donnée personnelle de formulaire.
+- Pas de nouvelle ressource tierce chargée par le navigateur (polices, CDN) sans l'ajouter à la CSP (`public/index.php`) et à la politique de confidentialité.

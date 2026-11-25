@@ -6,9 +6,13 @@
  * `error.flatten()` renvoyée par l'API : { formErrors: [...], fieldErrors: { champ: [...] } }.
  *
  * Le corps JSON est décodé en objets (stdClass) pour distinguer {} de [] comme en JS.
- * NB : comme la version Next.js, le minimum de 10 items n'est PAS validé côté
- * serveur (le schéma Zod ne le contient pas ; seul le formulaire l'affiche).
+ * Seuls les champs connus sont copiés (les autres sont ignorés), chaque chaîne a une
+ * longueur maximale, les choix sont des listes fermées et les courriels sont mis en minuscules.
+ * Le minimum de 10 items est aussi vérifié côté serveur (message SERVER_PICKUP_MESSAGES['minItems']).
  */
+
+/** Taille maximale d'un corps JSON (formulaires et API admin). */
+const JSON_BODY_MAX_BYTES = 64 * 1024;
 
 // define() gardé : les pages du formulaire peuvent déjà avoir défini ces constantes (mêmes valeurs).
 if (!defined('QUANTITY_KEYS')) {
@@ -42,11 +46,15 @@ const SERVER_CONTACT_MESSAGES = [
 
 /**
  * Corps JSON brut de la requête, objets décodés en stdClass.
- * @return array{ok: bool, value: mixed} ok=false si le JSON est absent ou invalide.
+ * Lecture plafonnée à $max octets, quel que soit Content-Length (corps « chunked » compris).
+ * @return array{ok: bool, value: mixed, tooLarge?: bool} ok=false si le JSON est absent, invalide ou trop gros.
  */
-function read_json_input(): array
+function read_json_input(int $max = JSON_BODY_MAX_BYTES): array
 {
-    $raw = file_get_contents('php://input');
+    $h = fopen('php://input', 'rb');
+    $raw = $h === false ? false : stream_get_contents($h, $max + 1);
+    if ($h !== false) fclose($h);
+    if (is_string($raw) && strlen($raw) > $max) return ['ok' => false, 'value' => null, 'tooLarge' => true];
     if ($raw === false || trim($raw) === '') return ['ok' => false, 'value' => null];
     try {
         $value = json_decode($raw, false, 512, JSON_THROW_ON_ERROR);
@@ -310,6 +318,14 @@ function validate_pickup($input): array
     [$p, $v] = $f('certificate');
     $d['certificate'] = zv_enum($issues, ['certificate'], $p, $v, ['yes', 'no'], $m['certificateRequired']);
 
+    // Minimum de 10 items par ramassage (règle d'affaires, aussi affichée par le formulaire)
+    $quantitiesValid = count($d['quantities']) === count(QUANTITY_KEYS) && !in_array(null, $d['quantities'], true);
+    if ($quantitiesValid && total_items($d['quantities'], $d['extras']) < MIN_ITEMS) {
+        zv_issue($issues, [], $m['minItems']);
+    }
+
+    if ($d['email'] !== null) $d['email'] = mb_strtolower($d['email'], 'UTF-8');
+
     if ($issues) return ['ok' => false, 'issues' => zv_flatten($issues)];
     return ['ok' => true, 'data' => $d];
 }
@@ -340,6 +356,7 @@ function validate_contact($input): array
     $d['email'] = zv_string($issues, ['email'], zv_has($input, 'email'), zv_get($input, 'email'), ['trim' => true, 'checks' => [['max', 254], ['email', null, $m['emailInvalid']]]]);
     [, $d['phone']] = zv_optional_string($issues, ['phone'], zv_has($input, 'phone'), zv_get($input, 'phone'), [['max', 30]]);
     $d['message'] = zv_string($issues, ['message'], zv_has($input, 'message'), zv_get($input, 'message'), ['trim' => true, 'checks' => [['min', 1, $m['messageRequired']], ['max', 5000]]]);
+    if ($d['email'] !== null) $d['email'] = mb_strtolower($d['email'], 'UTF-8');
 
     if ($issues) return ['ok' => false, 'issues' => zv_flatten($issues)];
     return ['ok' => true, 'data' => $d];

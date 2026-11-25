@@ -69,12 +69,49 @@ function google_token_request(array $params): array
     return $data;
 }
 
+/** Fichier du refresh token obtenu par /api/google/callback (prioritaire sur GOOGLE_REFRESH_TOKEN). */
+function google_refresh_token_file(): string
+{
+    $base = defined('STORAGE_DIR') ? STORAGE_DIR : dirname(__DIR__, 2) . '/storage';
+    return $base . '/google_refresh_token.json';
+}
+
+/** Refresh token : storage/google_refresh_token.json s'il existe, sinon GOOGLE_REFRESH_TOKEN (.env). */
+function google_refresh_token(): ?string
+{
+    $file = google_refresh_token_file();
+    if (is_file($file)) {
+        $data = json_decode((string) @file_get_contents($file), true);
+        if (is_array($data) && is_string($data['refresh_token'] ?? null) && $data['refresh_token'] !== '') {
+            return $data['refresh_token'];
+        }
+    }
+    return env('GOOGLE_REFRESH_TOKEN');
+}
+
+/** Enregistre le refresh token (fichier 0600, écriture atomique). */
+function google_store_refresh_token(string $token): bool
+{
+    $file = google_refresh_token_file();
+    $dir = dirname($file);
+    if (!is_dir($dir) && !@mkdir($dir, 0700, true) && !is_dir($dir)) return false;
+    $tmp = $file . '.' . bin2hex(random_bytes(4)) . '.tmp';
+    $json = json_encode(['refresh_token' => $token, 'created_at' => gmdate('Y-m-d\TH:i:s\Z')]);
+    if (@file_put_contents($tmp, $json, LOCK_EX) === false) return false;
+    @chmod($tmp, 0600);
+    if (!@rename($tmp, $file)) {
+        @unlink($tmp);
+        return false;
+    }
+    return true;
+}
+
 /** @return array{clientId: string, clientSecret: string, refreshToken: string} */
 function google_credentials(): array
 {
     $clientId = env('GOOGLE_CLIENT_ID');
     $clientSecret = env('GOOGLE_CLIENT_SECRET');
-    $refreshToken = env('GOOGLE_REFRESH_TOKEN');
+    $refreshToken = google_refresh_token();
     if ($clientId === null || $clientSecret === null || $refreshToken === null) {
         throw new RuntimeException(
             'Google Calendar not configured. Missing GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / GOOGLE_REFRESH_TOKEN in php/.env.'
@@ -186,17 +223,25 @@ function google_create_event(array $input)
     return google_calendar_request('POST', google_calendar_path(), null, $body);
 }
 
-/** Message d'erreur lisible pour le dashboard (clé manquante, token expiré, etc.). */
+/**
+ * Message d'erreur pour le dashboard : les cas à corriger par l'admin (clé manquante, token expiré)
+ * gardent un message utile ; le reste est générique avec un numéro de référence, et le détail
+ * brut de Google ne va que dans le journal de sécurité (masqué).
+ */
 function google_describe_error(Throwable $err): string
 {
     $message = $err->getMessage();
+    security_log('upstream_error', ['outcome' => 'error', 'service' => 'google', 'message' => $message]);
     if (preg_match('/invalid_grant/i', $message)) {
-        return "Google Calendar : GOOGLE_REFRESH_TOKEN expiré ou révoqué. Refaire l'autorisation via /api/google/auth-start puis mettre à jour la variable dans php/.env.";
+        return "Google Calendar : autorisation expirée ou révoquée. Refaire la connexion via /api/google/auth-start.";
     }
     if (preg_match('/invalid_client/i', $message)) {
         return 'Google Calendar : GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET invalides.';
     }
-    return mb_scrub($message, 'UTF-8');
+    if (str_starts_with($message, 'Google Calendar not configured')) {
+        return 'Google Calendar non configuré (GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET / jeton manquants).';
+    }
+    return 'Google Calendar indisponible pour le moment (réf. ' . request_id() . ').';
 }
 
 /* ───────────── Dates façon JavaScript ───────────── */

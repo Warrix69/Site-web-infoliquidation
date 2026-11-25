@@ -2,10 +2,13 @@
 /**
  * GET /api/google/callback — callback de l'autorisation Google
  * (port de src/app/api/google/callback/route.ts).
- * Échange le code contre un refresh token et affiche une page HTML avec le
- * token à copier dans php/.env (GOOGLE_REFRESH_TOKEN).
- * Chaque page HTML efface le cookie anti-CSRF.
+ * Échange le code contre un refresh token et l'enregistre dans storage/google_refresh_token.json
+ * (0600, prioritaire sur GOOGLE_REFRESH_TOKEN du .env). Le jeton n'est jamais affiché.
+ * Chaque page HTML efface le cookie anti-CSRF ; Referrer-Policy: no-referrer (l'URL contient le code).
  */
+
+// L'URL de cette page contient le code d'autorisation : ne jamais l'envoyer en Referer
+header('Referrer-Policy: no-referrer');
 
 require_once dirname(__DIR__, 2) . '/lib/admin_auth.php';
 require_once dirname(__DIR__, 2) . '/lib/mailer.php';
@@ -66,7 +69,8 @@ if ($clientId === null || $clientSecret === null) {
     google_callback_page('<h1 style="color:#dc2626">Config manquante</h1><p>GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET non définis dans php/.env</p>');
 }
 
-$redirectUri = request_origin() . '/api/google/callback';
+// Toujours depuis SITE_URL (jamais depuis l'en-tête Host envoyé par le client)
+$redirectUri = google_redirect_uri();
 
 try {
     $tokens = google_token_request([
@@ -77,9 +81,10 @@ try {
         'grant_type' => 'authorization_code',
     ]);
 } catch (Throwable $err) {
+    security_log('google_oauth_connect', ['outcome' => 'failure', 'message' => $err->getMessage()]);
     google_callback_page(
-        '<h1 style="color:#dc2626">Échec de l\'échange du code</h1><p>' . escape_html(mb_scrub($err->getMessage(), 'UTF-8'))
-        . '</p><p><a href="/api/google/auth-start">Recommencer</a></p>'
+        '<h1 style="color:#dc2626">Échec de l\'échange du code</h1><p>Google a refusé l\'échange (réf. ' . escape_html(request_id())
+        . ', détail dans storage/logs/security.log).</p><p><a href="/api/google/auth-start">Recommencer</a></p>'
     );
 }
 
@@ -94,9 +99,17 @@ if ($refreshToken === '') {
       ');
 }
 
+if (!google_store_refresh_token($refreshToken)) {
+    security_log('google_oauth_connect', ['outcome' => 'storage_error']);
+    google_callback_page(
+        '<h1 style="color:#dc2626">Jeton non enregistré</h1><p>Le dossier <code>storage/</code> n\'est pas inscriptible par PHP (réf. '
+        . escape_html(request_id()) . '). Corrige les permissions puis <a href="/api/google/auth-start">recommence</a>.</p>'
+    );
+}
+
+security_log('google_oauth_connect', ['outcome' => 'success']);
 google_callback_page('
-      <h1 style="color:#16a34a">✅ Refresh token obtenu !</h1>
-      <p>Copie cette valeur et colle-la dans <code>php/.env</code> à la place de la valeur actuelle de <code>GOOGLE_REFRESH_TOKEN</code> :</p>
-      <pre style="background:#0a0a0a;color:#86efac;padding:16px;border-radius:8px;overflow-x:auto;font-family:monospace;font-size:13px;white-space:pre-wrap;word-break:break-all">GOOGLE_REFRESH_TOKEN=' . escape_html($refreshToken) . '</pre>
-      <p>Puis retourne sur <a href="/admin">/admin</a> (aucun redémarrage nécessaire).</p>
+      <h1 style="color:#16a34a">✅ Google Calendar connecté</h1>
+      <p>Le jeton d\'accès a été enregistré sur le serveur dans <code>storage/google_refresh_token.json</code> (lisible seulement par PHP). Il remplace <code>GOOGLE_REFRESH_TOKEN</code> du <code>.env</code> ; rien à copier.</p>
+      <p>Retourne sur <a href="/admin">/admin</a> (aucun redémarrage nécessaire).</p>
     ');

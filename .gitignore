@@ -33,7 +33,11 @@ next-env.d.ts
 /php/public/images/
 /php/public/models/
 /php/public/admin/
+/php/app/views/admin/
 /php/public/logo.png
 /php/public/favicon-logo.png
 /php/public/icon.png
 /php/app/messages/
+
+# Audit des secrets : indices sur les clés, ne jamais publier
+/php/SECRETS_AUDIT.md

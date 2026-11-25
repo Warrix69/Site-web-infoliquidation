@@ -23,11 +23,14 @@ if ($method !== 'PATCH' && $method !== 'DELETE') {
 admin_require_api();
 
 $eventId = $ROUTE_PARAMS['id'] ?? null;
-$idValid = is_string($eventId) && ($idLen = js_strlen($eventId)) >= 1 && $idLen <= 1024;
+// Alphabet des identifiants Google (base32hex, plus _ des occurrences récurrentes « abc_20261125T150000Z ») ;
+// aucun point : « . » / « .. » ne doivent jamais remonter jusqu'au calendrier lui-même
+$idValid = is_string($eventId) && preg_match('/^[A-Za-z0-9_@\-]{1,1024}$/D', $eventId) === 1;
 
 if ($method === 'PATCH') {
     try {
         $input = read_json_input();
+        if (!empty($input['tooLarge'])) json_response(['error' => 'Payload too large'], 413);
         $b = $input['ok'] ? $input['value'] : null;
         $valid = is_object($b);
         $requestBody = [];
@@ -61,6 +64,7 @@ if ($method === 'PATCH') {
         }
 
         $event = google_calendar_request('PATCH', google_calendar_path($eventId), null, (object) $requestBody);
+        security_log('calendar_update', ['outcome' => 'success', 'who' => 'admin', 'event_id' => $eventId]);
         json_response(['event' => $event]);
     } catch (Throwable $err) {
         json_response(['error' => google_describe_error($err)], 500);
@@ -71,6 +75,7 @@ if ($method === 'PATCH') {
 try {
     if (!$idValid) json_response(['error' => 'Invalid id'], 400);
     google_calendar_request('DELETE', google_calendar_path($eventId));
+    security_log('calendar_delete', ['outcome' => 'success', 'who' => 'admin', 'event_id' => $eventId]);
     json_response(['ok' => true]);
 } catch (Throwable $err) {
     json_response(['error' => google_describe_error($err)], 500);

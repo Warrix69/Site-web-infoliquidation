@@ -6,12 +6,11 @@ $meta ??= [];
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.replace('no-js','js')</script>
+<script><?= NO_JS_INLINE_SCRIPT ?></script>
 <?= render_meta($meta) ?>
 <link rel="icon" href="/favicon-logo.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<?php /* Polices Google auto-hébergées (Loi 25 : aucune IP de visiteur envoyée à Google) — copiées par build.mjs */ ?>
+<link rel="stylesheet" href="<?= asset('assets/fonts/fonts.css') ?>">
 <link rel="stylesheet" href="<?= asset('assets/app.css') ?>">
 <?= $head ?? '' ?>
 <script type="module" src="<?= asset('assets/site.js') ?>"></script>

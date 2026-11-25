@@ -1,0 +1,41 @@
+#!/bin/sh
+# Bloque un commit qui contiendrait un secret (clé API, jeton, clé privée) ou un fichier sensible.
+# Activation (une fois par clone) : git config core.hooksPath .githooks
+# Contournement exceptionnel (faux positif vérifié) : git commit --no-verify
+
+status=0
+
+# 1. Fichiers interdits : .env* (sauf .env.example) et données de php/storage/
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+for f in $files; do
+  base=$(basename "$f")
+  case "$base" in
+    .env.example) ;;
+    .env|.env.*)
+      echo "pre-commit : fichier interdit dans git : $f" >&2
+      status=1 ;;
+  esac
+  case "$f" in
+    php/storage/*.json|php/storage/*/*.json|php/storage/logs/*|php/storage/ratelimit/*|php/storage/admin_sessions_valid_after)
+      echo "pre-commit : donnée locale de storage/ interdite dans git : $f" >&2
+      status=1 ;;
+  esac
+done
+
+# 2. Motifs de secrets dans les lignes ajoutées (ce crochet lui-même est exclu)
+pattern='(^|[^A-Za-z0-9_])re_[A-Za-z0-9_]{20,}|GOCSPX-[A-Za-z0-9_-]{10,}|1//0[A-Za-z0-9_-]{20,}|v\^1\.1#[A-Za-z0-9#^_.=-]{20,}|sk_live_[A-Za-z0-9]{10,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+hits=$(git diff --cached -U0 --no-color -- . ':(exclude).githooks/pre-commit' \
+  | grep -E '^\+' | grep -vE '^\+\+\+ ' | grep -nE "$pattern")
+if [ -n "$hits" ]; then
+  echo "pre-commit : secret probable dans les modifications (valeurs masquées) :" >&2
+  echo "$hits" | sed -E -e 's/(re_|GOCSPX-|1\/\/0|v\^1\.1#|sk_live_|AKIA|ghp_)[A-Za-z0-9#^_.=\/-]*/\1[…]/g' \
+    -e 's/(PRIVATE KEY-----).*/\1[…]/' | cut -c1-160 >&2
+  status=1
+fi
+
+if [ "$status" -ne 0 ]; then
+  echo "" >&2
+  echo "Commit bloqué. Retirer le secret (git restore --staged <fichier>), le garder dans .env," >&2
+  echo "et le régénérer s'il a déjà quitté ce poste." >&2
+fi
+exit $status

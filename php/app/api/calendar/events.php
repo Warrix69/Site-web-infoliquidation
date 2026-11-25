@@ -95,6 +95,7 @@ if ($method === 'GET') {
 // POST : création d'un événement
 try {
     $input = read_json_input();
+    if (!empty($input['tooLarge'])) json_response(['error' => 'Payload too large'], 413);
     $b = $input['ok'] ? $input['value'] : null;
     $valid = is_object($b);
     $data = [];
@@ -133,6 +134,7 @@ try {
     }
 
     $event = google_create_event($data);
+    security_log('calendar_create', ['outcome' => 'success', 'who' => 'admin', 'event_id' => is_object($event) && isset($event->id) ? (string) $event->id : null]);
     json_response(['event' => $event]);
 } catch (Throwable $err) {
     json_response(['error' => google_describe_error($err)], 500);

@@ -1,0 +1,8 @@
+# Dossier privé de la version PHP : rien ici n'est servi par le web.
+# Seul public/ est public (son propre .htaccess rétablit l'accès avec « Require all granted »).
+# Protège .env, app/, storage/, la documentation… si php/ est déposé par erreur dans public_html/.
+Require all denied
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

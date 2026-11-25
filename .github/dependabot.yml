@@ -1,0 +1,13 @@
+# Mises à jour automatiques des dépendances npm (une demande groupée par semaine)
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      production:
+        dependency-type: "production"
+      development:
+        dependency-type: "development"

@@ -1,0 +1,38 @@
+# Tests de sécurité de la version PHP (php/tests/security_test.php) à chaque envoi.
+# Les pages admin et les textes FR/EN de php/app/ sont générés (ignorés par git) :
+# on lance donc le build avant les tests.
+name: Sécurité (PHP)
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  security-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Dépendances du build
+        run: npm ci
+
+      - name: Build de la version PHP
+        run: node php/build.mjs
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: curl, openssl, mbstring
+          coverage: none
+
+      - name: Tests de sécurité
+        run: php php/tests/security_test.php

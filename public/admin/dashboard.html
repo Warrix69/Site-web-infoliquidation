@@ -933,7 +933,7 @@ a.sheet-it{text-decoration:none;color:inherit}
       <button class="search-trigger" onclick="openCmdk()" aria-label="Rechercher"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span>Client, prospect, action…</span><kbd>Ctrl K</kbd></button>
       <button class="icon-btn only-m" onclick="openCmdk()" aria-label="Rechercher"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
       <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Changer le thème" title="Mode clair / sombre"><svg viewBox="0 0 24 24" id="theme-icon"></svg></button>
-      <a class="icon-btn" href="/api/admin/logout" aria-label="Se déconnecter" title="Se déconnecter"><svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5a2 2 0 00-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></a>
+      <a class="icon-btn" href="#" id="logout-btn" aria-label="Se déconnecter" title="Se déconnecter"><svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5a2 2 0 00-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></a>
       <div class="notif-wrap">
         <button id="notif-btn" class="icon-btn" aria-label="Notifications" title="Notifications" onclick="toggleNotifPanel()">
           <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 002 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 00-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
@@ -1285,6 +1285,8 @@ function goTab(t){const sec=document.getElementById('sec-'+t);if(!sec||!TITLES[t
   if(t==='ventes')drawCharts();if(t==='accueil')renderLanding();if(t==='historique')renderHistory();if(t==='relance')renderRelance();if(t==='calendrier')renderCalendar();
   try{history.replaceState(null,'','#'+t)}catch(e){}}
 document.querySelectorAll('[data-tab]').forEach(n=>{n.addEventListener('click',()=>goTab(n.dataset.tab))});
+// Déconnexion : POST uniquement (le serveur refuse le GET)
+document.getElementById('logout-btn')?.addEventListener('click',async e=>{e.preventDefault();try{await fetch('/api/admin/logout',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:'{}'})}catch(err){console.warn('[logout]',err)}location.href='/admin/login'});
 
 // Son de notification : court « ding » généré par Web Audio API (aucun asset externe)
 let __audioCtx=null;let __knownEventIds=new Set();let __firstFetch=true;
@@ -1355,9 +1357,9 @@ function renderNotifPanel(){
   if(!__notifications.length){list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 002 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 00-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>Aucune notification pour l’instant</div>';return}
   list.innerHTML=__notifications.map(n=>{
     const icon=n.type==='pickup'?'<span class="np-ic g"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg></span>':(n.type==='ebay'?'<span class="np-ic g"><svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></span>':'<span class="np-ic"><svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 002 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 00-3 0v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></span>');
-    const safeTitle=(n.title||'').replace(/</g,'&lt;');const safeSub=(n.subtitle||'').replace(/</g,'&lt;');
+    const safeTitle=esc(n.title||'');const safeSub=esc(n.subtitle||'');
     const bg=n.read?'transparent':'var(--g-softer)';
-    const tag=n.url?`<a href="${n.url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">`:'<div>';
+    const tag=n.url?`<a href="${safeUrl(n.url)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">`:'<div>';
     const closeTag=n.url?'</a>':'</div>';
     return `${tag}<div style="padding:12px 16px;border-bottom:1px solid var(--card-border);background:${bg};display:flex;gap:10px;cursor:${n.url?'pointer':'default'}">${icon}<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;color:var(--text);line-height:1.35">${safeTitle}</div>${safeSub?`<div style="font-size:12px;color:var(--text3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${safeSub}</div>`:''}<div style="font-size:11px;color:var(--text4);margin-top:3px">${fmtNotifAgo(n.ts)}</div></div>${!n.read?'<span style="width:7px;height:7px;border-radius:50%;background:var(--emerald);align-self:center;flex-shrink:0"></span>':''}</div>${closeTag}`
   }).join('');
@@ -1396,7 +1398,12 @@ let EBAY_STATS={today:0,week7:0,month31:0,month90:0,changePct31:0};
 let EBAY_ACTIONS={toShip:0,unreadMessages:0,eligibleOffers:0,disputes:0,returns:0};
 let EBAY_RECENT_ORDERS=[]; // vraies commandes eBay (depuis l'API)
 // Fetch des vraies données eBay depuis l'API — refresh auto toutes les 60s
-async function fetchEbayData(){try{const r=await fetch('/api/ebay/summary');const d=await r.json().catch(()=>({error:'HTTP '+r.status}));if(!r.ok||d.error){reportApiError('eBay',d.error||('HTTP '+r.status));return}__apiErrors.delete('eBay');
+// Rappel de renouvellement de la connexion eBay (jeton valide 18 mois)
+function ebayTokenNotice(t){let el=document.getElementById('ebay-renew');const show=t&&(t.expired||t.renewSoon);if(!show){if(el)el.remove();return}
+if(!el){el=document.createElement('div');el.id='ebay-renew';el.setAttribute('role','status');el.style.cssText='position:fixed;left:16px;bottom:16px;z-index:9999;max-width:360px;background:#0A0A0A;color:#fff;border-radius:14px;padding:14px 16px;font:14px/1.45 system-ui,sans-serif;box-shadow:0 12px 32px rgba(0,0,0,.35)';document.body.appendChild(el)}
+const msg=t.expired?'La connexion eBay a expiré : les ventes ne se mettent plus à jour.':('La connexion eBay expire dans '+Math.max(0,t.daysLeft)+' jour'+(t.daysLeft>1?'s':'')+'.');
+el.innerHTML='<strong style="display:block;margin-bottom:4px">eBay</strong><span></span><a style="display:inline-block;margin-top:10px;background:#22C55E;color:#0A0A0A;font-weight:700;border-radius:999px;padding:7px 14px;text-decoration:none" href="'+(t.renewUrl||'/api/ebay/auth-start')+'">Renouveler eBay</a>';el.querySelector('span').textContent=msg+' Un clic pour la renouveler (1 minute).'}
+async function fetchEbayData(){try{const r=await fetch('/api/ebay/summary');const d=await r.json().catch(()=>({error:'HTTP '+r.status}));ebayTokenNotice(d.ebayToken);if(!r.ok||d.error){reportApiError('eBay',d.error||('HTTP '+r.status));return}__apiErrors.delete('eBay');
 EBAY_STATS={today:d.salesToday||0,week7:d.sales7d||0,month31:d.sales30d||0,month90:d.sales90d||d.sales30d||0,changePct31:0};
 EBAY_ACTIONS={toShip:d.awaitingShipCount||0,unreadMessages:EBAY_ACTIONS.unreadMessages,eligibleOffers:d.listings||0,disputes:EBAY_ACTIONS.disputes,returns:d.returns||0};
 EBAY_RECENT_ORDERS=Array.isArray(d.orders)?d.orders:[];
@@ -1405,7 +1412,7 @@ if(__knownOrderIds===null){__knownOrderIds=new Set(EBAY_RECENT_ORDERS.map(o=>o.i
 else{for(const o of EBAY_RECENT_ORDERS){if(!__knownOrderIds.has(o.id)){const it=(o.items&&o.items[0])||{};const title=(it.title||'Vente eBay').slice(0,80);const price=(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})+' $';playMoneySound();showToast('💰 Nouvelle vente eBay : '+price);addNotif('ebay','Nouvelle vente eBay · '+price,title+(o.buyer?' · '+o.buyer:''),it.url||null);__knownOrderIds.add(o.id)}}}
 // ── Store bar (haut) ──
 const fb=d.feedback||{};const fbEl=document.getElementById('ebay-feedback');
-if(fbEl){const score=(fb.score||0).toLocaleString('fr-CA');const pct=fb.positivePercent?(' <span style="color:var(--emerald)">'+fb.positivePercent+'%</span>'):'';fbEl.innerHTML=score;const parent=fbEl.parentElement;if(parent){const lbl=parent.querySelector('.esb-ml');if(lbl&&fb.positivePercent)lbl.innerHTML='Feedback <span style="color:var(--emerald)">'+fb.positivePercent+'%</span>';}}
+if(fbEl){const score=esc((fb.score||0).toLocaleString('fr-CA'));const pct=fb.positivePercent?(' <span style="color:var(--emerald)">'+esc(fb.positivePercent)+'%</span>'):'';fbEl.innerHTML=score;const parent=fbEl.parentElement;if(parent){const lbl=parent.querySelector('.esb-ml');if(lbl&&fb.positivePercent)lbl.innerHTML='Feedback <span style="color:var(--emerald)">'+esc(fb.positivePercent)+'%</span>';}}
 const ls=document.getElementById('ebay-listings');if(ls)ls.textContent=(d.listings||0).toLocaleString('fr-CA');
 const or=document.getElementById('ebay-orders');if(or)or.textContent=(d.ordersCount90d||0).toLocaleString('fr-CA');
 const vw=document.getElementById('ebay-views');if(vw)vw.textContent=((d.traffic&&d.traffic.views)||0).toLocaleString('fr-CA');
@@ -1504,12 +1511,12 @@ function renderHistory(){
           ini=(p.clientName||'?').split(' ').map(w=>w[0]).join('').slice(0,2),
           lab=p.status==='completed'?'Complété':p.status==='pending'?'En attente':'Confirmé',
           its=parseItems(p.items);
-        return `<div class="hx" data-st="${p.status}">
-          <div class="hx-dt"><div class="d">${d.getDate()}</div><div class="m">${MONTHS_FR[d.getMonth()].slice(0,4)}</div><div class="h">${p.time}</div></div>
+        return `<div class="hx" data-st="${esc(p.status)}">
+          <div class="hx-dt"><div class="d">${d.getDate()}</div><div class="m">${MONTHS_FR[d.getMonth()].slice(0,4)}</div><div class="h">${esc(p.time)}</div></div>
           <div class="hx-bd">
             <div class="hx-hd">
-              <div class="hx-cl"><div class="av" style="background:${col}">${ini}</div><div><div class="nm">${esc(p.clientName)}</div><div class="ty">${esc(c?.type||'—')}${c?.address?' · '+esc(c.address):''}</div></div></div>
-              <div class="hx-ac"><span class="badge ${p.status}">${lab}</span>${c?`<button class="hx-lk" data-cl="${c.id}">Fiche client</button>`:''}</div>
+              <div class="hx-cl"><div class="av" style="background:${col}">${esc(ini)}</div><div><div class="nm">${esc(p.clientName)}</div><div class="ty">${esc(c?.type||'—')}${c?.address?' · '+esc(c.address):''}</div></div></div>
+              <div class="hx-ac"><span class="badge ${esc(p.status)}">${lab}</span>${c?`<button class="hx-lk" data-cl="${esc(c.id)}">Fiche client</button>`:''}</div>
             </div>
             <div class="hx-it">${its.map(i=>{const k=catOf(i.l);return `<span class="ichip" title="${esc(k.k)}"><span class="q" style="background:${k.c};color:${k.f}">${i.q}</span><span class="t">${esc(i.l)}</span></span>`}).join('')}</div>
             ${p.notes?`<div class="hx-nt"><svg viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg><span>${esc(p.notes)}</span></div>`:''}
@@ -1521,7 +1528,7 @@ function renderHistory(){
   const cat={};f.forEach(p=>parseItems(p.items).forEach(i=>{const k=catOf(i.l);cat[k.k]=cat[k.k]||{n:0,c:k.c};cat[k.k].n+=i.q}));
   const ents=Object.entries(cat).sort((a,b)=>b[1].n-a[1].n),mx=ents.length?ents[0][1].n:1;
   document.getElementById('hist-break').innerHTML=ents.length?ents.map(([k,v])=>
-    `<div class="brk-r"><div class="tp"><span class="nm">${k}</span><span class="vl" style="color:${v.c}">${v.n}</span></div><div class="tk"><i style="background:${v.c}" data-w="${Math.round(v.n/mx*100)}"></i></div></div>`).join('')
+    `<div class="brk-r"><div class="tp"><span class="nm">${esc(k)}</span><span class="vl" style="color:${v.c}">${v.n}</span></div><div class="tk"><i style="background:${v.c}" data-w="${Math.round(v.n/mx*100)}"></i></div></div>`).join('')
     :'<div class="empty" style="padding:20px">Aucune donnée</div>';
   requestAnimationFrame(()=>document.querySelectorAll('#hist-break .tk i').forEach(b=>b.style.width=b.dataset.w+'%'));
 
@@ -1532,7 +1539,7 @@ function renderHistory(){
   }).sort((a,b)=>b.n-a.n).slice(0,6);
   document.getElementById('hist-top').innerHTML=tops.length?tops.map(t=>{
     const col=COLORS[t.name.charCodeAt(0)%COLORS.length],ini=t.name.split(' ').map(w=>w[0]).join('').slice(0,2);
-    return `<div class="al"><div class="avatar" style="background:${col};width:32px;height:32px;font-size:12px">${ini}</div><div class="al-c"><div class="t">${esc(t.name)}</div><div class="s">${t.n} ramassage${t.n>1?'s':''} · ${t.q} items${t.last?' · dernier '+new Date(t.last+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short'}):''}</div></div><button class="hx-lk" data-cl2="${t.id}">Voir</button></div>`}).join('')
+    return `<div class="al"><div class="avatar" style="background:${col};width:32px;height:32px;font-size:12px">${esc(ini)}</div><div class="al-c"><div class="t">${esc(t.name)}</div><div class="s">${t.n} ramassage${t.n>1?'s':''} · ${t.q} items${t.last?' · dernier '+new Date(t.last+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short'}):''}</div></div><button class="hx-lk" data-cl2="${esc(t.id)}">Voir</button></div>`}).join('')
     :'<div class="empty" style="padding:20px">Aucun client</div>';
   document.querySelectorAll('#hist-top [data-cl2]').forEach(b=>b.addEventListener('click',()=>{goTab('clients');selectClient(b.dataset.cl2)}));
 }
@@ -1638,8 +1645,8 @@ function renderLanding(){
   // ── Activité récente ──
   const acts=[];
   allPickups.filter(p=>p.status==='completed'&&p.date<=ts).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,4).forEach(p=>acts.push({k:'pickup',d:p.date,h:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z',t:`Ramassage complété chez <b>${esc(p.clientName)}</b>`}));
-  if(hasApi)EBAY_RECENT_ORDERS.slice(0,4).forEach(o=>{const it=(o.items&&o.items[0])||{};acts.push({k:'sale',d:iso(new Date(o.date||Date.now())),h:'M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z',t:`<b>${esc((it.title||'Article').slice(0,60))}</b> vendu · ${(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})} $`})});
-  else allSales.filter(s=>s.status==='sold').sort((a,b)=>b.date.localeCompare(a.date)).slice(0,4).forEach(s=>acts.push({k:'sale',d:s.date,h:'M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z',t:`<b>${esc(s.name)}</b> vendu · ${s.price.toLocaleString('fr-CA',{minimumFractionDigits:2})} $`}));
+  if(hasApi)EBAY_RECENT_ORDERS.slice(0,4).forEach(o=>{const it=(o.items&&o.items[0])||{};acts.push({k:'sale',d:iso(new Date(o.date||Date.now())),h:'M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z',t:`<b>${esc((it.title||'Article').slice(0,60))}</b> vendu · ${esc((o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2}))} $`})});
+  else allSales.filter(s=>s.status==='sold').sort((a,b)=>b.date.localeCompare(a.date)).slice(0,4).forEach(s=>acts.push({k:'sale',d:s.date,h:'M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z',t:`<b>${esc(s.name)}</b> vendu · ${esc(s.price.toLocaleString('fr-CA',{minimumFractionDigits:2}))} $`}));
   acts.sort((a,b)=>b.d.localeCompare(a.d));
   document.getElementById('activity').innerHTML=acts.length?acts.slice(0,6).map(a=>{
     const dd=Math.round((new Date(ts+'T12:00')-new Date(a.d+'T12:00'))/86400000),w=dd<=0?'Aujourd’hui':dd===1?'Hier':`Il y a ${dd} jours`;
@@ -1653,19 +1660,19 @@ function renderLanding(){
   const realOrders=(EBAY_RECENT_ORDERS||[]).slice(0,10);
   if(realOrders.length){
     if(rcEl)rcEl.textContent=realOrders.length+' plus récentes';
-    if(rsEl)rsEl.innerHTML=realOrders.map(o=>{const it=(o.items&&o.items[0])||{};const title=it.title||('Commande '+(o.id||''));const dt=new Date(o.date||Date.now());const url=safeUrl(it.url);return`<a class="rv-row" href="${url}" target="_blank" rel="noopener"><div class="rv-name">${esc(title)}</div><div class="rv-cat"><span class="rv-dot"></span>eBay</div><div class="rv-price">${(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2})} $</div><div class="rv-date">${dt.getDate()} ${mfr[dt.getMonth()]} ${dt.getFullYear()}</div></a>`}).join('');
+    if(rsEl)rsEl.innerHTML=realOrders.map(o=>{const it=(o.items&&o.items[0])||{};const title=it.title||('Commande '+(o.id||''));const dt=new Date(o.date||Date.now());const url=safeUrl(it.url);return`<a class="rv-row" href="${url}" target="_blank" rel="noopener"><div class="rv-name">${esc(title)}</div><div class="rv-cat"><span class="rv-dot"></span>eBay</div><div class="rv-price">${esc((o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2}))} $</div><div class="rv-date">${dt.getDate()} ${mfr[dt.getMonth()]} ${dt.getFullYear()}</div></a>`}).join('');
   } else {
     const rs=allSales.filter(s=>s.status==='sold').sort((a,b)=>b.date.localeCompare(a.date)||b.price-a.price).slice(0,10);
     if(rcEl)rcEl.textContent=rs.length+' plus récentes';
     if(rsEl)rsEl.innerHTML=rs.length?rs.map(s=>{const dt=new Date(s.date+'T12:00');
-      return`<div class="rv-row"><div class="rv-name">${esc(s.name)}</div><div class="rv-cat"><span class="rv-dot"></span>${esc(s.category)}</div><div class="rv-price">${s.price.toLocaleString('fr-CA',{minimumFractionDigits:2})} $</div><div class="rv-date">${dt.getDate()} ${mfr[dt.getMonth()]} ${dt.getFullYear()}</div></div>`}).join(''):'<div class="empty">Aucune vente récente</div>';
+      return`<div class="rv-row"><div class="rv-name">${esc(s.name)}</div><div class="rv-cat"><span class="rv-dot"></span>${esc(s.category)}</div><div class="rv-price">${esc(s.price.toLocaleString('fr-CA',{minimumFractionDigits:2}))} $</div><div class="rv-date">${dt.getDate()} ${mfr[dt.getMonth()]} ${dt.getFullYear()}</div></div>`}).join(''):'<div class="empty">Aucune vente récente</div>';
   }
 
   drawHomeChart()}
 
 /* ── Helpers d'affichage ── */
 function statusLabel(s){return s==='completed'?'Complété':s==='pending'?'En attente':'Confirmé'}
-function safeUrl(u){return /^https?:\/\//i.test(String(u||''))?esc(u):'#'}
+function safeUrl(u){const s=String(u||'');return /^(https?:\/\/|mailto:)/i.test(s)?esc(s):'#'}
 function pickupAddress(p){const m=String(p.notes||'').match(/📍\s*([^\n]+)/);if(m)return m[1].trim();const c=allClients.find(x=>x.id===p.clientId);return c&&c.address?c.address:null}
 function renderRoute(todays,nowMin,toMin){const box=document.getElementById('route');if(!box)return;
   const done=todays.filter(p=>p.status==='completed');
@@ -1839,12 +1846,13 @@ if(!f.length){g.innerHTML=`<div class="pr-empty empty"><svg viewBox="0 0 24 24">
 const ord={followup:0,new:1,contacted:2,converted:3};
 g.innerHTML=f.slice().sort((a,b)=>(ord[a.status]??9)-(ord[b.status]??9)||String(a.nextFollowup||'9').localeCompare(String(b.nextFollowup||'9'))).map(p=>{const col=COLORS[p.name.charCodeAt(0)%COLORS.length],ini=p.name.split(' ').map(w=>w[0]).join('').slice(0,2),sl={new:'Nouveau',contacted:'Contacté',followup:'Relance',converted:'Converti'}[p.status]||p.status,nd=p.nextFollowup?new Date(p.nextFollowup+'T12:00'):null,ov=nd&&nd<now&&p.status!=='converted';
 const pid=esc(p.id),tel=String(p.phone||'').replace(/[^\d+]/g,'');
-return`<div class="pr-card" data-s="${esc(p.status)}"><div class="pr-top"><div class="cl-name"><div class="avatar" style="background:${col}">${esc(ini)}</div><div class="cl-info"><div class="name">${esc(p.name)}</div><div class="email">${esc(p.contact||'')}${p.source?' · '+esc(p.source):''}</div></div></div><span class="badge ${esc(p.status)}">${sl}</span></div>
+return`<div class="pr-card" data-s="${esc(p.status)}"><div class="pr-top"><div class="cl-name"><div class="avatar" style="background:${col}">${esc(ini)}</div><div class="cl-info"><div class="name">${esc(p.name)}</div><div class="email">${esc(p.contact||'')}${p.source?' · '+esc(p.source):''}</div></div></div><span class="badge ${esc(p.status)}">${esc(sl)}</span></div>
 <div class="pr-meta">${p.email?`<div class="pr-meta-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></div>`:''}
 ${p.phone?`<div class="pr-meta-row"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span class="tnum">${esc(p.phone)}</span></div>`:''}
 <div class="pr-meta-row${ov?' overdue':''}"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>Prochain suivi : ${nd?nd.toLocaleDateString('fr-CA',{weekday:'short',day:'numeric',month:'short'}):'non planifié'}${ov?'<span class="al-tag">En retard</span>':''}</div>
 ${p.notes?`<div class="pr-note">${esc(p.notes)}</div>`:''}</div>
-<div class="pr-actions">${tel?`<a class="btn btn-soft" href="tel:${esc(tel)}" onclick="markProspectContacted('${pid}')" title="Appeler et marquer comme contacté"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Appeler</a>`:`<button class="btn btn-soft" onclick="markProspectContacted('${pid}')">Contacté</button>`}<button class="btn btn-soft" onclick="emailProspect('${pid}')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Courriel</button>${p.status==='converted'?`<button class="btn btn-ghost" onclick="openPickupModal()">Planifier un ramassage</button>`:`<button class="btn btn-primary" onclick="scheduleFollowup('${pid}')">Planifier un suivi</button>`}</div></div>`}).join('')}
+<div class="pr-actions">${tel?`<a class="btn btn-soft" href="tel:${esc(tel)}" data-pract="contacted" data-prid="${pid}" title="Appeler et marquer comme contacté"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Appeler</a>`:`<button class="btn btn-soft" data-pract="contacted" data-prid="${pid}">Contacté</button>`}<button class="btn btn-soft" data-pract="email" data-prid="${pid}"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Courriel</button>${p.status==='converted'?`<button class="btn btn-ghost" onclick="openPickupModal()">Planifier un ramassage</button>`:`<button class="btn btn-primary" data-pract="followup" data-prid="${pid}">Planifier un suivi</button>`}</div></div>`}).join('');
+g.querySelectorAll('[data-pract]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.prid,a=b.dataset.pract;if(a==='contacted')markProspectContacted(id);else if(a==='email')emailProspect(id);else if(a==='followup')scheduleFollowup(id)}))}
 function emailProspect(id){const p=allProspects.find(x=>x.id===id);if(!p)return;prefillEmail({tplId:p.status==='new'?'premier-contact':'relance',email:p.email||'',name:p.contact||p.name,company:p.name})}
 
 document.querySelectorAll('[data-pf]').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll('[data-pf]').forEach(x=>x.classList.remove('active'));c.classList.add('active');prospectFilter=c.dataset.pf;renderProspects()})});
@@ -1854,9 +1862,9 @@ function scheduleFollowup(id){const p=allProspects.find(x=>x.id===id);if(!p)retu
 function renderSales(){const co=new Date(now);co.setDate(co.getDate()-salesPeriod);const cs=iso(co),f=allSales.filter(s=>s.date>=cs).sort((a,b)=>b.date.localeCompare(a.date)),tb=document.getElementById('sales-tbody');
 if(EBAY_RECENT_ORDERS&&EBAY_RECENT_ORDERS.length){
   const rows=EBAY_RECENT_ORDERS.slice(0,20);
-  tb.innerHTML=rows.map(o=>{const it=(o.items&&o.items[0])||{};const title=it.title||('Commande '+(o.id||''));const url=safeUrl(it.url);const dt=new Date(o.date||Date.now());const dateFmt=dt.toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'});const sold=(o.status||'').toUpperCase()!=='CANCELLED';const price=(o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2});return`<tr><td style="font-weight:500"><a href="${url}" target="_blank" rel="noopener" style="text-decoration:none">${esc(title)}</a></td><td data-label="Canal"><span style="display:inline-flex;align-items:center;gap:7px"><span class="rv-dot"></span>eBay</span></td><td data-label="Prix" class="num">${price} $</td><td data-label="Date" class="tnum">${dateFmt}</td><td data-label="Acheteur" class="muted">${esc(o.buyer||'—')}</td><td data-label="Statut"><span class="badge ${sold?'completed':'pending'}">${sold?'Vendu':'Annulé'}</span></td></tr>`}).join('');
+  tb.innerHTML=rows.map(o=>{const it=(o.items&&o.items[0])||{};const title=it.title||('Commande '+(o.id||''));const url=safeUrl(it.url);const dt=new Date(o.date||Date.now());const dateFmt=dt.toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'});const sold=(o.status||'').toUpperCase()!=='CANCELLED';const price=esc((o.total||0).toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2}));return`<tr><td style="font-weight:500"><a href="${url}" target="_blank" rel="noopener" style="text-decoration:none">${esc(title)}</a></td><td data-label="Canal"><span style="display:inline-flex;align-items:center;gap:7px"><span class="rv-dot"></span>eBay</span></td><td data-label="Prix" class="num">${price} $</td><td data-label="Date" class="tnum">${dateFmt}</td><td data-label="Acheteur" class="muted">${esc(o.buyer||'—')}</td><td data-label="Statut"><span class="badge ${sold?'completed':'pending'}">${sold?'Vendu':'Annulé'}</span></td></tr>`}).join('');
 } else {
-  tb.innerHTML=f.length?f.slice(0,20).map(s=>`<tr><td style="font-weight:500">${esc(s.name)}</td><td data-label="Canal"><span style="display:inline-flex;align-items:center;gap:7px"><span class="rv-dot"></span>${esc(s.source)}</span></td><td data-label="Prix" class="num">${s.price.toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2})} $</td><td data-label="Date" class="tnum">${new Date(s.date+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'})}</td><td data-label="Catégorie" class="muted">${esc(s.category)}</td><td data-label="Statut"><span class="badge ${s.status==='sold'?'completed':'pending'}">${s.status==='sold'?'Vendu':'En vente'}</span></td></tr>`).join(''):'<tr><td colspan="6" class="empty-row">Aucune vente sur cette période</td></tr>';
+  tb.innerHTML=f.length?f.slice(0,20).map(s=>`<tr><td style="font-weight:500">${esc(s.name)}</td><td data-label="Canal"><span style="display:inline-flex;align-items:center;gap:7px"><span class="rv-dot"></span>${esc(s.source)}</span></td><td data-label="Prix" class="num">${esc(s.price.toLocaleString('fr-CA',{minimumFractionDigits:2,maximumFractionDigits:2}))} $</td><td data-label="Date" class="tnum">${new Date(s.date+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'})}</td><td data-label="Catégorie" class="muted">${esc(s.category)}</td><td data-label="Statut"><span class="badge ${s.status==='sold'?'completed':'pending'}">${s.status==='sold'?'Vendu':'En vente'}</span></td></tr>`).join(''):'<tr><td colspan="6" class="empty-row">Aucune vente sur cette période</td></tr>';
 }
 const sold=f.filter(s=>s.status==='sold'),tr=sold.reduce((a,s)=>a+s.price,0),sc=sold.length;
 const eSt2=computeSalesStats();document.getElementById('stat-revenue').textContent=fmtCAD(eSt2.today);document.getElementById('stat-sold').textContent=fmtCAD(eSt2.week7);document.getElementById('stat-avg').textContent=fmtCAD(eSt2.month31);document.getElementById('stat-items-recovered').textContent=fmtCAD(eSt2.month90);
@@ -1872,10 +1880,10 @@ const fmtPct=p=>p<0?`<small style="color:var(--ink)">↓ ${Math.abs(p).toFixed(1
 const adsC=document.getElementById('ads-clicks');if(adsC)adsC.innerHTML=EBAY_ADS.clicks.toLocaleString('fr-CA')+' '+fmtPct(EBAY_ADS.clicksPct);
 const adsS=document.getElementById('ads-sales');if(adsS)adsS.innerHTML=fmtCAD(EBAY_ADS.sales)+' '+fmtPct(EBAY_ADS.salesPct);
 const adsR=document.getElementById('ads-roas');if(adsR)adsR.innerHTML=EBAY_ADS.roas.toFixed(2)+' '+fmtPct(EBAY_ADS.roasPct);
-const trI=document.getElementById('traffic-impressions');if(trI)trI.innerHTML=EBAY_TRAFFIC.impressions.toLocaleString('fr-CA')+' '+fmtPct(EBAY_TRAFFIC.impressionsPct);
-const trV=document.getElementById('traffic-views');if(trV)trV.innerHTML=EBAY_TRAFFIC.pageViews.toLocaleString('fr-CA')+' '+fmtPct(EBAY_TRAFFIC.pageViewsPct);
+const trI=document.getElementById('traffic-impressions');if(trI)trI.innerHTML=esc(EBAY_TRAFFIC.impressions.toLocaleString('fr-CA'))+' '+fmtPct(EBAY_TRAFFIC.impressionsPct);
+const trV=document.getElementById('traffic-views');if(trV)trV.innerHTML=esc(EBAY_TRAFFIC.pageViews.toLocaleString('fr-CA'))+' '+fmtPct(EBAY_TRAFFIC.pageViewsPct);
 const trC=document.getElementById('traffic-conversion');if(trC)trC.textContent=EBAY_TRAFFIC.conversionRate.toFixed(1)+'%';
-const fbT=document.getElementById('fb-total');if(fbT)fbT.innerHTML=(EBAY_FEEDBACK.total||0).toLocaleString('fr-CA')+(EBAY_FEEDBACK.pct?' <small style="color:var(--text3)">('+EBAY_FEEDBACK.pct+'% ✓)</small>':'');
+const fbT=document.getElementById('fb-total');if(fbT)fbT.innerHTML=esc((EBAY_FEEDBACK.total||0).toLocaleString('fr-CA'))+(EBAY_FEEDBACK.pct?' <small style="color:var(--text3)">('+esc(EBAY_FEEDBACK.pct)+'% ✓)</small>':'');
 const fbTb=document.getElementById('fb-total-badge');if(fbTb)fbTb.textContent='au total';
 const fbP=document.getElementById('fb-positive');if(fbP)fbP.textContent=(EBAY_FEEDBACK.positive||0).toLocaleString('fr-CA');
 const fbN2=document.getElementById('fb-neutral');if(fbN2)fbN2.textContent=(EBAY_FEEDBACK.neutral||0).toLocaleString('fr-CA');
@@ -1912,7 +1920,7 @@ const tb=document.getElementById('clients-tbody');
 tb.innerHTML=rows.length?rows.map(({c,n,last})=>{const col=COLORS[c.name.charCodeAt(0)%COLORS.length],ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2),reg=n>=3;
 const typeCls=c.type==='institutionnel'?'institutionnel':c.type==='commercial'?'commercial':'résidentiel';
 const typeLabel=c.type==='institutionnel'?'Institutionnel':c.type==='commercial'?'Commercial':'Résidentiel';
-return`<tr data-cid="${esc(c.id)}" style="cursor:pointer" tabindex="0"><td><div class="cl-name"><div class="avatar" style="background:${col}">${esc(ini)}</div><div class="cl-info"><div class="name">${esc(c.name)}</div><div class="email">${esc(c.email||'')}</div></div></div></td><td data-label="Type"><span class="cl-type-badge ${typeCls}">${typeLabel}</span></td><td data-label="Téléphone" class="tnum">${c.phone?`<a href="tel:${esc(c.phone.replace(/[^\d+]/g,''))}" onclick="event.stopPropagation()" style="text-decoration:none">${esc(c.phone)}</a>`:'—'}</td><td data-label="Adresse" class="muted" style="max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.address||'—')}</td><td data-label="Ramassages" class="num">${n}</td><td data-label="Dernier" class="tnum">${last?new Date(last+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'}):'—'}</td><td data-label="Statut"><span class="badge ${reg?'new':'contacted'}">${reg?'Régulier':'Occasionnel'}</span></td></tr>`}).join('')
+return`<tr data-cid="${esc(c.id)}" style="cursor:pointer" tabindex="0"><td><div class="cl-name"><div class="avatar" style="background:${col}">${esc(ini)}</div><div class="cl-info"><div class="name">${esc(c.name)}</div><div class="email">${esc(c.email||'')}</div></div></div></td><td data-label="Type"><span class="cl-type-badge ${esc(typeCls)}">${typeLabel}</span></td><td data-label="Téléphone" class="tnum">${c.phone?`<a href="tel:${esc(c.phone.replace(/[^\d+]/g,''))}" onclick="event.stopPropagation()" style="text-decoration:none">${esc(c.phone)}</a>`:'—'}</td><td data-label="Adresse" class="muted" style="max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.address||'—')}</td><td data-label="Ramassages" class="num">${n}</td><td data-label="Dernier" class="tnum">${last?new Date(last+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'}):'—'}</td><td data-label="Statut"><span class="badge ${reg?'new':'contacted'}">${reg?'Régulier':'Occasionnel'}</span></td></tr>`}).join('')
   :`<tr><td colspan="7" class="empty-row">Aucun client ne correspond à cette recherche</td></tr>`;
 tb.querySelectorAll('tr[data-cid]').forEach(tr=>{tr.addEventListener('click',()=>selectClient(tr.dataset.cid));tr.addEventListener('keydown',e=>{if(e.key==='Enter')selectClient(tr.dataset.cid)})});
 document.querySelectorAll('#sec-clients th[data-sort]').forEach(th=>th.setAttribute('aria-sort',th.dataset.sort===clientSort.k?(clientSort.dir>0?'ascending':'descending'):'none'));
@@ -1931,7 +1939,7 @@ const typeCls=c.type||'résidentiel';
 const typeLabel=typeCls==='institutionnel'?'Institutionnel':typeCls==='commercial'?'Commercial':'Résidentiel';
 const reg=cp.length>=3;
 
-let html=`<div class="cl-modal-hero"><div class="big-av" style="background:${col}">${esc(ini)}</div><div class="cl-modal-hero-info"><h3>${esc(c.name)}</h3><p>${esc(c.email||c.phone||c.address||'Aucune info de contact')}</p><div class="cl-hero-badges"><span class="cl-type-badge ${typeCls}">${typeLabel}</span>${reg?'<span class="badge new">Client régulier</span>':'<span class="badge contacted">Occasionnel</span>'}</div></div><button class="cl-modal-x" onclick="closeClientModal()">&times;</button></div>`;
+let html=`<div class="cl-modal-hero"><div class="big-av" style="background:${col}">${esc(ini)}</div><div class="cl-modal-hero-info"><h3>${esc(c.name)}</h3><p>${esc(c.email||c.phone||c.address||'Aucune info de contact')}</p><div class="cl-hero-badges"><span class="cl-type-badge ${esc(typeCls)}">${typeLabel}</span>${reg?'<span class="badge new">Client régulier</span>':'<span class="badge contacted">Occasionnel</span>'}</div></div><button class="cl-modal-x" onclick="closeClientModal()">&times;</button></div>`;
 
 html+=`<div class="cl-modal-stats"><div class="cl-modal-stat"><div class="v">${cp.length}</div><div class="l">Ramassages</div></div><div class="cl-modal-stat"><div class="v">${totalItems}</div><div class="l">Items récupérés</div></div><div class="cl-modal-stat"><div class="v">${completed}</div><div class="l">Complétés</div></div><div class="cl-modal-stat"><div class="v">${c.created?new Date(c.created+'T12:00').toLocaleDateString('fr-CA',{month:'short',year:'numeric'}):'—'}</div><div class="l">Client depuis</div></div></div>`;
 
@@ -1946,7 +1954,7 @@ if(Object.keys(stockMap).length){
 html+=`<div><h4>Inventaire cumulé</h4><div class="cl-stock-summary">${Object.entries(stockMap).sort((a,b)=>b[1]-a[1]).map(([name,qty])=>`<div class="cl-stock-row"><span>${esc(name)}</span><span class="cl-sq">${qty}</span></div>`).join('')}</div></div>`}
 
 const actions=[];
-if(c.phone)actions.push(`<a href="tel:${c.phone}" class="cl-quick-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Appeler</a>`);
+if(c.phone)actions.push(`<a href="tel:${esc(c.phone)}" class="cl-quick-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Appeler</a>`);
 if(c.email)actions.push(`<a href="mailto:${esc(c.email)}" class="cl-quick-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Courriel</a>`);
 if(c.address)actions.push(`<a href="https://maps.google.com/?q=${encodeURIComponent(c.address)}" target="_blank" rel="noopener" class="cl-quick-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Carte</a>`);
 if(actions.length){html+=`<div><h4>Actions rapides</h4><div style="display:flex;flex-direction:column;gap:6px">${actions.join('')}</div></div>`}
@@ -1958,7 +1966,7 @@ if(cp.length){
     const stLabel=p.status==='completed'?'Complété':p.status==='pending'?'En attente':'Confirmé';
     const its=parseItems(p.items).filter(i=>!isAddress(i.l));
     const addr=parseItems(p.items).filter(i=>isAddress(i.l)).map(i=>i.l);
-    html+=`<div class="cl-pk-card" data-st="${p.status}" onclick="closeClientModal();openPickupDetail('${p.id}')"><div class="cl-pk-top"><div><div class="cl-pk-date">${dateStr}</div><div class="cl-pk-time">${p.time}</div></div><span class="badge ${p.status}">${stLabel}</span></div>`;
+    html+=`<div class="cl-pk-card" data-st="${esc(p.status)}" data-clpk="${esc(p.id)}"><div class="cl-pk-top"><div><div class="cl-pk-date">${dateStr}</div><div class="cl-pk-time">${esc(p.time)}</div></div><span class="badge ${esc(p.status)}">${stLabel}</span></div>`;
     if(addr.length)html+=`<div class="pk-addr-row"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg><span>${esc(addr[0])}</span></div>`;
     if(its.length)html+=`<div class="cl-pk-items">${its.map(i=>{const k=catOf(i.l);return`<span class="ichip"><span class="q" style="background:${k.c};color:${k.f}">${i.q}</span><span class="t">${esc(i.l)}</span></span>`}).join('')}</div>`;
     else if(!addr.length&&p.items)html+=`<div style="font-size:13px;color:var(--text2);margin-bottom:8px">${esc(p.items)}</div>`;
@@ -1971,6 +1979,7 @@ html+=`<div class="cl-modal-actions"><button class="btn btn-ghost" onclick="clos
 window.__clEmail={tplId:'remerciement',email:c.email||'',name:c.name,clientId:c.id};
 
 document.getElementById('cl-modal-content').innerHTML=html;
+document.getElementById('cl-modal-content').querySelectorAll('[data-clpk]').forEach(el=>el.addEventListener('click',()=>{closeClientModal();openPickupDetail(el.dataset.clpk)}));
 document.getElementById('cl-modal-overlay').classList.add('open');
 document.getElementById("cl-modal-overlay").onclick=e=>{if(e.target.id==="cl-modal-overlay")closeClientModal()}}
 function closeClientModal(){document.getElementById('cl-modal-overlay').classList.remove('open')}
@@ -1985,7 +1994,7 @@ document.getElementById('stat-prospects').textContent=allProspects.filter(p=>p.s
 
 function modalEls(){return{ov:document.getElementById('modal-overlay'),bd:document.getElementById('modal-body'),ft:document.getElementById('modal-footer'),ti:document.getElementById('modal-title')}}
 function openModal(type,data){const{ov,bd,ft,ti}=modalEls();
-if(type==='followup'){ti.textContent='Planifier un suivi';bd.innerHTML=`<div class="fg"><label>Prospect</label><input type="text" value="${esc(data.name)}" readonly></div><div class="fg-row"><div class="fg"><label for="f-followup-date">Date du suivi</label><input type="date" id="f-followup-date" value="${iso(new Date(now.getTime()+7*86400000))}"></div><div class="fg"><label for="f-followup-method">Méthode</label><select id="f-followup-method"><option>Appel</option><option>Courriel</option><option>Visite</option></select></div></div><div class="fg"><label for="f-followup-notes">Notes</label><textarea id="f-followup-notes" rows="3" placeholder="Ce qu’il faut aborder au prochain contact">${esc(data.notes||'')}</textarea></div>`;ft.innerHTML=`<button class="btn btn-ghost" onclick="closeModal()">Annuler</button><button class="btn btn-primary" onclick="saveFollowup('${esc(data.id)}')">Planifier le suivi</button>`}
+if(type==='followup'){ti.textContent='Planifier un suivi';bd.innerHTML=`<div class="fg"><label>Prospect</label><input type="text" value="${esc(data.name)}" readonly></div><div class="fg-row"><div class="fg"><label for="f-followup-date">Date du suivi</label><input type="date" id="f-followup-date" value="${iso(new Date(now.getTime()+7*86400000))}"></div><div class="fg"><label for="f-followup-method">Méthode</label><select id="f-followup-method"><option>Appel</option><option>Courriel</option><option>Visite</option></select></div></div><div class="fg"><label for="f-followup-notes">Notes</label><textarea id="f-followup-notes" rows="3" placeholder="Ce qu’il faut aborder au prochain contact">${esc(data.notes||'')}</textarea></div>`;ft.innerHTML=`<button class="btn btn-ghost" onclick="closeModal()">Annuler</button><button class="btn btn-primary" data-fuid="${esc(data.id)}">Planifier le suivi</button>`;ft.querySelector('[data-fuid]').addEventListener('click',e=>saveFollowup(e.currentTarget.dataset.fuid))}
 else if(type==='prospect'){ti.textContent='Nouveau prospect';bd.innerHTML=`<div class="fg"><label for="f-pr-name">Entreprise ou organisation <small>(obligatoire)</small></label><input type="text" id="f-pr-name" placeholder="Ex. Collège de Maisonneuve" autocomplete="organization"></div><div class="fg-row"><div class="fg"><label for="f-pr-contact">Personne-ressource</label><input type="text" id="f-pr-contact" placeholder="Nom complet" autocomplete="name"></div><div class="fg"><label for="f-pr-phone">Téléphone</label><input type="tel" id="f-pr-phone" placeholder="450-000-0000" autocomplete="tel"></div></div><div class="fg"><label for="f-pr-email">Courriel</label><input type="email" id="f-pr-email" placeholder="nom@entreprise.ca" autocomplete="email"></div><div class="fg-row"><div class="fg"><label for="f-pr-source">Source</label><select id="f-pr-source"><option>Site web</option><option>Appel entrant</option><option>Référence</option><option>LinkedIn</option><option>Appel froid</option><option>Autre</option></select></div><div class="fg"><label for="f-pr-next">Premier suivi</label><input type="date" id="f-pr-next" value="${iso(new Date(now.getTime()+2*86400000))}"></div></div><div class="fg"><label for="f-pr-notes">Notes</label><textarea id="f-pr-notes" rows="3" placeholder="Volume estimé, type d’équipement, échéance"></textarea></div>`;ft.innerHTML=`<button class="btn btn-ghost" onclick="closeModal()">Annuler</button><button class="btn btn-primary" onclick="saveProspect()">Ajouter le prospect</button>`}
 else{openPickupModal(data);return}
 ov.classList.add('open');setTimeout(()=>bd.querySelector('input:not([readonly]),select,textarea')?.focus({preventScroll:true}),60)}
@@ -2037,11 +2046,12 @@ html+=p.notes?`<div class="pk-notes-box">${esc(p.notes)}</div>`:`<div class="pk-
 html+=`</div></div>`;
 bd.innerHTML=html;
 const pid=esc(p.id);
-let foot=`<button class="btn btn-ghost" onclick="closeModal();goTab('clients');selectClient('${esc(p.clientId)}')">Fiche client</button>`;
-if(p.status==='pending')foot+=`<button class="btn btn-dark" onclick="setPickupStatus('${pid}','confirmed')">Confirmer</button>`;
-if(p.status!=='completed')foot+=`<button class="btn btn-primary" onclick="setPickupStatus('${pid}','completed')"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Marquer complété</button>`;
+let foot=`<button class="btn btn-ghost" data-pkact="client" data-pkcid="${esc(p.clientId)}">Fiche client</button>`;
+if(p.status==='pending')foot+=`<button class="btn btn-dark" data-pkact="confirmed" data-pkid="${pid}">Confirmer</button>`;
+if(p.status!=='completed')foot+=`<button class="btn btn-primary" data-pkact="completed" data-pkid="${pid}"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Marquer complété</button>`;
 else foot+=`<button class="btn btn-primary" onclick="closeModal()">Fermer</button>`;
 ft.innerHTML=foot;
+ft.querySelectorAll('[data-pkact]').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.pkact;if(a==='client'){closeModal();goTab('clients');selectClient(b.dataset.pkcid)}else setPickupStatus(b.dataset.pkid,a)}));
 ov.classList.add('open')}
 
 const PICKUP_TIMES=['07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00'];
@@ -2063,7 +2073,7 @@ const cl=allClients.find(x=>x.id===cid);
 const pk={clientId:cid,clientName:cn,date:dt.value,time:document.getElementById('f-time').value,items:document.getElementById('f-items').value.trim()||'Items non spécifiés',status:'pending',notes:document.getElementById('f-notes').value.trim()};
 const btn=document.getElementById('save-pickup-btn');if(btn){btn.disabled=true;btn.textContent='Enregistrement…'}
 // Pousse l'événement dans Google Calendar
-try{const[h,m]=pk.time.split(':').map(Number);const start=new Date(pk.date+'T00:00:00');start.setHours(h||9,m||0,0,0);const end=new Date(start.getTime()+60*60*1000);const r=await fetch('/api/calendar/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({summary:'RAMASSAGE - '+cn,description:pk.items+(pk.notes?'\n\nNotes : '+pk.notes:''),location:(cl&&cl.address)||'',start:start.toISOString(),end:end.toISOString()})});if(r.ok){showToast('Ramassage ajouté à Google Calendar : '+cn,'success');await fetchCalendarPickups()}else{showToast('Google Calendar indisponible : ramassage enregistré sur cet appareil','error');allPickups.push({id:'p'+Date.now(),...pk})}}catch(e){console.warn(e);showToast('Google Calendar indisponible : ramassage enregistré sur cet appareil','error');allPickups.push({id:'p'+Date.now(),...pk})}
+try{const[h,m]=pk.time.split(':').map(Number);const start=new Date(pk.date+'T00:00:00');start.setHours(h||9,m||0,0,0);const end=new Date(start.getTime()+60*60*1000);const r=await fetch('/api/calendar/events',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({summary:'RAMASSAGE - '+cn,description:pk.items+(pk.notes?'\n\nNotes : '+pk.notes:''),location:(cl&&cl.address)||'',start:start.toISOString(),end:end.toISOString()})});if(r.ok){showToast('Ramassage ajouté à Google Calendar : '+cn,'success');await fetchCalendarPickups()}else{showToast('Google Calendar indisponible : ramassage enregistré sur cet appareil','error');allPickups.push({id:'p'+Date.now(),...pk})}}catch(e){console.warn(e);showToast('Google Calendar indisponible : ramassage enregistré sur cet appareil','error');allPickups.push({id:'p'+Date.now(),...pk})}
 closeModal();renderAll()}
 
 async function saveFollowup(id){const p=allProspects.find(x=>x.id===id);if(!p)return;p.nextFollowup=document.getElementById('f-followup-date').value;p.notes=document.getElementById('f-followup-notes').value.trim();p.status='followup';if(db)await db.doc('prospects/'+id).update({nextFollowup:p.nextFollowup,notes:p.notes,status:'followup'});closeModal();renderProspects();updateStats();renderLanding();showToast('Suivi planifié : '+p.name,'success')}

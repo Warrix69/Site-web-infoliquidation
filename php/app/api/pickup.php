@@ -1,7 +1,7 @@
 <?php
 /**
  * POST /api/pickup — demande de ramassage (port de src/app/api/pickup/route.ts).
- * Réponses : 200 {ok:true} | 400 {ok:false[, issues]} | 413 | 429 (Retry-After) | 502 (envoi échoué).
+ * Réponses : 200 {ok:true} | 400 {ok:false[, issues]} | 403 (Origin) | 413 | 429 (Retry-After) | 502 (envoi échoué).
  */
 
 require_once dirname(__DIR__) . '/lib/rate_limit.php';
@@ -29,19 +29,25 @@ const PICKUP_LABELS = [
     'ups' => 'UPS',
 ];
 
-// Refuse les corps démesurés avant de parser
-if (request_content_length() > 64 * 1024) {
+// Anti-CSRF : envoi depuis le site seulement (403 si l'Origin est étrangère)
+if (!request_origin_allowed()) security_log('form_submission', ['outcome' => 'rejected_origin', 'form' => 'pickup']);
+require_same_origin();
+
+// Refuse les corps démesurés : Content-Length annoncé, puis lecture plafonnée (corps « chunked »)
+$input = request_content_length() > JSON_BODY_MAX_BYTES ? ['ok' => false, 'tooLarge' => true] : read_json_input();
+if (!empty($input['tooLarge'])) {
+    security_log('form_submission', ['outcome' => 'too_large', 'form' => 'pickup', 'status' => 413]);
     json_response(['ok' => false], 413);
 }
-
-$input = read_json_input();
 if (!$input['ok']) {
+    security_log('form_submission', ['outcome' => 'invalid_json', 'form' => 'pickup']);
     json_response(['ok' => false], 400);
 }
 $suspect = form_honeypot($input['value']);
 
 $parsed = validate_pickup($input['value']);
 if (!$parsed['ok']) {
+    security_log('form_submission', ['outcome' => 'rejected_validation', 'form' => 'pickup']);
     json_response(['ok' => false, 'issues' => $parsed['issues']], 400);
 }
 
@@ -86,6 +92,8 @@ $sent = send_business_email(
 );
 
 if (!$sent) {
+    security_log('form_submission', ['outcome' => 'mail_failed', 'form' => 'pickup', 'status' => 502]);
     json_response(['ok' => false], 502);
 }
+security_log('form_submission', ['outcome' => 'accepted', 'form' => 'pickup', 'suspect' => $suspect]);
 json_response(['ok' => true]);

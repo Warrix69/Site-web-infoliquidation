@@ -23,7 +23,8 @@ if ($clientId === null || $clientSecret === null) {
     json_response(['error' => 'Missing GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET'], 500);
 }
 
-$redirectUri = request_origin() . '/api/google/callback';
+// Toujours depuis SITE_URL (jamais depuis l'en-tête Host envoyé par le client)
+$redirectUri = google_redirect_uri();
 
 // Jeton anti-CSRF vérifié par /api/google/callback
 $state = bin2hex(random_bytes(24));
@@ -44,7 +45,7 @@ $url = GOOGLE_AUTH_URL . '?' . http_build_query([
 setcookie(OAUTH_STATE_COOKIE, $state, [
     'expires' => time() + 10 * 60,
     'path' => '/api/google',
-    'secure' => admin_is_https(),
+    'secure' => request_is_https(),
     'httponly' => true,
     'samesite' => 'Lax',
 ]);

@@ -105,13 +105,103 @@ function ebay_stringify(string $text): string
     return (string) json_encode($decoded, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE);
 }
 
+/* ───────────── Jeton longue durée (refresh token, 18 mois) ───────────── */
+
+/** Portées demandées à eBay (autorisation et renouvellement du jeton d'accès). */
+const EBAY_SCOPES = [
+    'https://api.ebay.com/oauth/api_scope/sell.inventory.readonly',
+    'https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly',
+    'https://api.ebay.com/oauth/api_scope/sell.analytics.readonly',
+    'https://api.ebay.com/oauth/api_scope/sell.finances',
+    'https://api.ebay.com/oauth/api_scope/commerce.identity.readonly',
+];
+const EBAY_OAUTH_STATE_COOKIE = 'ilr_ebay_oauth_state';
+/** Rappel affiché dans l'admin quand il reste moins de jours que ceci. */
+const EBAY_RENEW_WARNING_DAYS = 30;
+
+/** Fichier du jeton obtenu par /api/ebay/callback (prioritaire sur EBAY_REFRESH_TOKEN du .env). */
+function ebay_refresh_token_file(): string
+{
+    $base = defined('STORAGE_DIR') ? STORAGE_DIR : dirname(__DIR__, 2) . '/storage';
+    return $base . '/ebay_refresh_token.json';
+}
+
+/** @return array{refresh_token: string, expires_at: ?string, source: string}|null */
+function ebay_refresh_token_entry(): ?array
+{
+    $file = ebay_refresh_token_file();
+    if (is_file($file)) {
+        $data = json_decode((string) @file_get_contents($file), true);
+        if (is_array($data) && is_string($data['refresh_token'] ?? null) && $data['refresh_token'] !== '') {
+            return [
+                'refresh_token' => $data['refresh_token'],
+                'expires_at' => is_string($data['expires_at'] ?? null) ? $data['expires_at'] : null,
+                'source' => 'storage',
+            ];
+        }
+    }
+    $env = env('EBAY_REFRESH_TOKEN');
+    if ($env === null) return null;
+    // Date d'expiration facultative pour le jeton du .env (AAAA-MM-JJ), sinon inconnue
+    $exp = env('EBAY_REFRESH_TOKEN_EXPIRES');
+    return ['refresh_token' => $env, 'expires_at' => $exp, 'source' => 'env'];
+}
+
+function ebay_refresh_token(): ?string
+{
+    return ebay_refresh_token_entry()['refresh_token'] ?? null;
+}
+
+/** Enregistre le jeton longue durée et sa date d'expiration (fichier 0600, écriture atomique). */
+function ebay_store_refresh_token(string $token, int $expiresInSeconds): bool
+{
+    $file = ebay_refresh_token_file();
+    $dir = dirname($file);
+    if (!is_dir($dir) && !@mkdir($dir, 0700, true) && !is_dir($dir)) return false;
+    $tmp = $file . '.' . bin2hex(random_bytes(4)) . '.tmp';
+    $json = json_encode([
+        'refresh_token' => $token,
+        'created_at' => gmdate('Y-m-dTH:i:sZ'),
+        'expires_at' => gmdate('Y-m-dTH:i:sZ', time() + max(0, $expiresInSeconds)),
+    ]);
+    if (@file_put_contents($tmp, $json, LOCK_EX) === false) return false;
+    @chmod($tmp, 0600);
+    if (!@rename($tmp, $file)) {
+        @unlink($tmp);
+        return false;
+    }
+    // Le jeton d'accès en cache venait de l'ancien jeton : on le jette
+    @unlink(ebay_storage_file());
+    return true;
+}
+
+/**
+ * État du jeton longue durée pour l'admin (jamais le jeton lui-même).
+ * @return array{expiresAt: ?string, daysLeft: ?int, renewSoon: bool, renewUrl: string}
+ */
+function ebay_token_status(): array
+{
+    $entry = ebay_refresh_token_entry();
+    $expiresAt = $entry['expires_at'] ?? null;
+    $days = null;
+    if ($expiresAt !== null && ($ts = strtotime($expiresAt)) !== false) {
+        $days = (int) floor(($ts - time()) / 86400);
+    }
+    return [
+        'expiresAt' => $expiresAt,
+        'daysLeft' => $days,
+        'renewSoon' => $days !== null && $days <= EBAY_RENEW_WARNING_DAYS,
+        'renewUrl' => '/api/ebay/auth-start',
+    ];
+}
+
 /* ───────────── Jeton d'accès ───────────── */
 
 function ebay_access_token(): string
 {
     $appId = env('EBAY_APP_ID');
     $certId = env('EBAY_CERT_ID');
-    $refreshToken = env('EBAY_REFRESH_TOKEN');
+    $refreshToken = ebay_refresh_token();
     if ($appId === null || $certId === null || $refreshToken === null) {
         throw new RuntimeException('eBay not configured. Set EBAY_APP_ID / EBAY_CERT_ID / EBAY_REFRESH_TOKEN in php/.env.');
     }
@@ -127,13 +217,7 @@ function ebay_access_token(): string
         }
     }
 
-    $scopes = implode(' ', [
-        'https://api.ebay.com/oauth/api_scope/sell.inventory.readonly',
-        'https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly',
-        'https://api.ebay.com/oauth/api_scope/sell.analytics.readonly',
-        'https://api.ebay.com/oauth/api_scope/sell.finances',
-        'https://api.ebay.com/oauth/api_scope/commerce.identity.readonly',
-    ]);
+    $scopes = implode(' ', EBAY_SCOPES);
 
     $res = ebay_http('POST', 'https://api.ebay.com/identity/v1/oauth2/token', [
         'Authorization: Basic ' . base64_encode("$appId:$certId"),
@@ -148,6 +232,9 @@ function ebay_access_token(): string
     $data = json_decode($res['body'], true);
     $ok = $res['status'] >= 200 && $res['status'] < 300;
     if (!$ok || !is_array($data) || empty($data['access_token'])) {
+        if (is_array($data) && ($data['error'] ?? '') === 'invalid_grant') {
+            throw new RuntimeException('eBay token expired: ' . ebay_stringify($res['body']));
+        }
         throw new RuntimeException('eBay token refresh failed: ' . ebay_stringify($res['body']));
     }
 

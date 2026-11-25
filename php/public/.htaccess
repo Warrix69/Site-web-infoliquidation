@@ -1,10 +1,14 @@
 # Info Liquidation Recycle — Apache (hébergement mutualisé / cPanel)
+
+# Racine publique : accès permis ici, même si un .htaccess parent (php/.htaccess) refuse tout.
+Require all granted
 Options -Indexes
 DirectoryIndex index.php
 
-# Sécurité : jamais servir les fichiers cachés (.env, .git…) ni les fichiers sensibles,
+# Sécurité : jamais servir les fichiers cachés (.env, .git…), journaux (error_log de cPanel),
+# archives, bases de données, sauvegardes, configurations ni cartes de sources,
 # même si quelqu'un en dépose un par erreur dans le dossier public.
-<FilesMatch "(^\.|\.(env|ini|log|sh|sql|bak|old|swp|md|json\.example)$|^composer\.(json|lock)$)">
+<FilesMatch "(^\.|^error_log$|~$|\.(env|ini|log|sh|sql|bak|old|orig|save|swp|dist|md|json\.example|zip|tar|gz|tgz|7z|rar|sqlite|db|phar|inc|conf|yml|yaml|toml|lock|map)$|^composer\.(json|lock)$)">
   Require all denied
 </FilesMatch>
 RedirectMatch 404 /\.(?!well-known)
@@ -17,7 +21,8 @@ RedirectMatch 404 /\.(?!well-known)
   RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Le dashboard et la page de connexion passent toujours par PHP (protection)
+  # Le dashboard et la page de connexion passent toujours par PHP (défense en profondeur :
+  # depuis la version actuelle, ils ne sont plus dans le dossier public mais dans app/views/admin/)
   RewriteRule ^admin/(dashboard|login)\.html$ index.php [L]
 
   # Fichiers et dossiers existants servis tels quels
@@ -29,8 +34,20 @@ RedirectMatch 404 /\.(?!well-known)
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(css|js|webp|png|jpg|jpeg|svg|glb|gltf|woff2|avif)$">
+  <FilesMatch "\.(css|js|webp|png|jpg|jpeg|svg|glb|gltf|woff2|avif|hdr)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # En-têtes de sécurité des fichiers servis directement par Apache (images, CSS, JS, polices…).
+  # index.php est exclu : PHP envoie déjà les siens (évite les en-têtes en double).
+  <FilesMatch "^(?!index\.php$)">
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Content-Security-Policy "base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+    Header always unset X-Powered-By
   </FilesMatch>
 </IfModule>
 
@@ -41,3 +58,5 @@ RedirectMatch 404 /\.(?!well-known)
 AddType model/gltf-binary .glb
 AddType image/webp .webp
 AddType image/avif .avif
+AddType font/woff2 .woff2
+AddType image/vnd.radiance .hdr

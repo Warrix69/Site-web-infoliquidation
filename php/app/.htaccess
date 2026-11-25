@@ -1,0 +1,6 @@
+# Code, gabarits, textes et pages admin : jamais servis directement par le web (seulement par PHP).
+Require all denied
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>
