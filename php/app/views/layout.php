@@ -16,6 +16,9 @@ $meta ??= [];
 <?= ($head ?? '') . "\n" ?>
 <?= islands_modulepreload() . "\n" ?>
 <script type="module" src="<?= asset('assets/site.js') ?>"></script>
+<?php /* Préchargement des pages internes (Chromium ; ignoré ailleurs) : au survol ou au toucher
+   d'un lien (« moderate »). Pas de prerender (il lancerait la 3D de l'accueil en arrière-plan). */ ?>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/api/*"}},{"not":{"href_matches":"/admin"}},{"not":{"href_matches":"/admin/*"}},{"not":{"selector_matches":"a[href*=\"?\"]"}}]},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gradient-accent focus:px-5 focus:py-2.5 focus:font-semibold focus:text-ink"><?= te('common.skipToContent') ?></a>
