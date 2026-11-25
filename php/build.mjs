@@ -42,6 +42,9 @@ const imgDir = resolve(php, "public/images");
 const varDir = resolve(imgDir, "_w");
 const WIDTHS = [160, 320, 480, 640, 960, 1280];
 const VARIANTS = [
+  // Images des îlots React (bac, camionnette…) : srcSet produit par le shim next/image
+  { dir: "bac", widths: WIDTHS, island: true },
+  { dir: "objets", widths: WIDTHS, island: true },
   { dir: "centre", widths: [640, 960, 1280] }
 ];
 const imgManifest = {};
@@ -90,7 +93,7 @@ await build({
   target: ["es2020"],
   jsx: "automatic",
   chunkNames: "chunks/[name]-[hash]",
-  define: { "process.env.NODE_ENV": '"production"' },
+  define: { "process.env.NODE_ENV": '"production"', __IMG_VARIANTS__: JSON.stringify(islandManifest) },
   alias: {
     "next/image": shim("next-image.tsx"),
     "next/dynamic": shim("next-dynamic.tsx"),
