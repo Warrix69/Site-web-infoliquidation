@@ -19,10 +19,11 @@ if (request_method() !== 'POST') {
 }
 
 const LOGIN_MIN_MS = 60 * 1000;
+// 5 mauvais mots de passe en 15 min → bloqué 15 min ; 20 en 24 h → bloqué jusqu'à 24 h
 const LOGIN_LIMITS = [
     'requests' => ['max' => 30, 'windowMs' => 15 * LOGIN_MIN_MS],
-    'burst' => ['max' => 10, 'windowMs' => 15 * LOGIN_MIN_MS],
-    'daily' => ['max' => 30, 'windowMs' => 24 * 60 * LOGIN_MIN_MS],
+    'burst' => ['max' => 5, 'windowMs' => 15 * LOGIN_MIN_MS],
+    'daily' => ['max' => 20, 'windowMs' => 24 * 60 * LOGIN_MIN_MS],
 ];
 
 if (!admin_is_configured()) redirect('/admin/login?e=config', 303);
@@ -45,7 +46,7 @@ if (!$requests['ok']) {
 }
 if ($blocked) {
     header('Retry-After: ' . $blocked);
-    redirect('/admin/login?e=rate', 303);
+    redirect('/admin/login?e=rate&m=' . max(1, (int) ceil($blocked / 60)), 303);
 }
 
 // Équivalent de request.formData() : seuls les corps de formulaire sont acceptés
@@ -59,6 +60,10 @@ $password = is_string($_POST['password'] ?? null) ? mb_substr($_POST['password']
 if (!admin_verify_credentials($username, $password)) {
     rate_record($burstKey, LOGIN_LIMITS['burst']['windowMs']);
     rate_record($dailyKey, LOGIN_LIMITS['daily']['windowMs']);
+    $after = rate_peek($burstKey);
+    if ($after['count'] >= LOGIN_LIMITS['burst']['max']) {
+        redirect('/admin/login?e=rate&m=' . max(1, (int) ceil($after['retryAfter'] / 60)), 303);
+    }
     redirect('/admin/login?e=1', 303);
 }
 

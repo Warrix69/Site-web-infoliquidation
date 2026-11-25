@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle, CheckCircle2, Loader2, RotateCcw, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   makeContactSchema,
   type ContactErrorMessages,
@@ -20,12 +20,18 @@ export type ContactFormLabels = {
   successText: string;
   errorTitle: string;
   errorText: string;
+  /** Optionnel : titre et texte quand l'anti-spam bloque (« {minutes} » remplacé). */
+  rateLimitedTitle?: string;
+  rateLimitedText?: string;
   newRequest: string;
 };
 
 export function ContactForm({ labels }: { labels: ContactFormLabels }) {
   const reduce = useReducedMotion();
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "limited">("idle");
+  const [limitMinutes, setLimitMinutes] = useState(0);
+  // Piège à robots : champ invisible pour les humains
+  const honeypotRef = useRef<HTMLInputElement | null>(null);
 
   const {
     register,
@@ -42,8 +48,14 @@ export function ContactForm({ labels }: { labels: ContactFormLabels }) {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ ...data, website: honeypotRef.current?.value ?? "" })
       });
+      if (res.status === 429 && labels.rateLimitedText) {
+        const retry = Number(res.headers.get("Retry-After")) || 3600;
+        setLimitMinutes(Math.max(1, Math.ceil(retry / 60)));
+        setStatus("limited");
+        return;
+      }
       if (!res.ok) throw new Error("request failed");
       setStatus("success");
     } catch {
@@ -87,6 +99,10 @@ export function ContactForm({ labels }: { labels: ContactFormLabels }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="glass space-y-5 rounded-3xl p-6 sm:p-8">
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="contact-ilr-hp">Ne pas remplir ce champ</label>
+        <input id="contact-ilr-hp" ref={honeypotRef} type="text" name="ilr_hp_field" tabIndex={-1} autoComplete="off" data-1p-ignore data-lpignore="true" data-form-type="other" defaultValue="" />
+      </div>
       <div>
         <label htmlFor="c-name" className={labelCls}>
           {labels.fields.name} *
@@ -133,6 +149,21 @@ export function ContactForm({ labels }: { labels: ContactFormLabels }) {
       </div>
 
       <AnimatePresence>
+        {status === "limited" && (
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            role="alert"
+            className="flex items-center gap-2 rounded-xl border border-ink/15 bg-sand px-4 py-3 text-sm text-ink"
+          >
+            <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+            <span>
+              <strong>{labels.rateLimitedTitle}.</strong>{" "}
+              {(labels.rateLimitedText ?? "").replace("{minutes}", String(limitMinutes))}
+            </span>
+          </motion.p>
+        )}
         {status === "error" && (
           <motion.p
             initial={reduce ? false : { opacity: 0, y: -8 }}

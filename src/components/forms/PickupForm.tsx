@@ -53,6 +53,9 @@ export type PickupFormLabels = {
   successText: string;
   errorTitle: string;
   errorText: string;
+  /** Optionnel : titre et texte quand l'anti-spam bloque (« {minutes} » remplacé). */
+  rateLimitedTitle?: string;
+  rateLimitedText?: string;
   newRequest: string;
   errors: PickupErrorMessages;
   /** Gabarit contenant « {count} » (remplacé côté client). */
@@ -65,7 +68,10 @@ const DEFAULT_QUANTITIES = Object.fromEntries(
 
 export function PickupForm({ labels }: { labels: PickupFormLabels }) {
   const reduce = useReducedMotion();
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "limited">("idle");
+  const [limitMinutes, setLimitMinutes] = useState(0);
+  // Piège à robots : champ invisible pour les humains
+  const honeypotRef = useRef<HTMLInputElement | null>(null);
   const [minError, setMinError] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
@@ -121,8 +127,14 @@ export function PickupForm({ labels }: { labels: PickupFormLabels }) {
       const res = await fetch("/api/pickup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ ...data, website: honeypotRef.current?.value ?? "" })
       });
+      if (res.status === 429 && labels.rateLimitedText) {
+        const retry = Number(res.headers.get("Retry-After")) || 3600;
+        setLimitMinutes(Math.max(1, Math.ceil(retry / 60)));
+        setStatus("limited");
+        return;
+      }
       if (!res.ok) throw new Error("request failed");
       setStatus("success");
     } catch {
@@ -183,6 +195,10 @@ export function PickupForm({ labels }: { labels: PickupFormLabels }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6 pb-24 lg:pb-0">
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="pickup-ilr-hp">Ne pas remplir ce champ</label>
+        <input id="pickup-ilr-hp" ref={honeypotRef} type="text" name="ilr_hp_field" tabIndex={-1} autoComplete="off" data-1p-ignore data-lpignore="true" data-form-type="other" defaultValue="" />
+      </div>
       <p className="glass-light flex items-start gap-2.5 rounded-2xl p-4 text-sm text-moss">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-emerald" aria-hidden="true" />
         {labels.requiredNote}
@@ -527,6 +543,21 @@ export function PickupForm({ labels }: { labels: PickupFormLabels }) {
       </p>
 
       <AnimatePresence>
+        {status === "limited" && (
+          <motion.p
+            initial={reduce ? false : { opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            role="alert"
+            className="flex items-center gap-2 rounded-xl border border-ink/15 bg-sand px-4 py-3 text-sm text-ink"
+          >
+            <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+            <span>
+              <strong>{labels.rateLimitedTitle}.</strong>{" "}
+              {(labels.rateLimitedText ?? "").replace("{minutes}", String(limitMinutes))}
+            </span>
+          </motion.p>
+        )}
         {status === "error" && (
           <motion.p
             initial={reduce ? false : { opacity: 0, y: -8 }}

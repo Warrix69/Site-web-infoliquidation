@@ -122,3 +122,60 @@ function rate_clear(string $key): void
     $file = rl_file($key);
     if (is_file($file)) @unlink($file);
 }
+
+/* ---------- Anti-spam des formulaires publics ---------- */
+
+const FORM_MAX_SENDS = 5;                 // envois permis…
+const FORM_WINDOW_MS = 15 * 60 * 1000;    // …par tranche de 15 min, par adresse IP
+const FORM_BLOCK_MS = 60 * 60 * 1000;     // au-delà : bloqué 1 h
+
+function form_rate_reject(int $seconds): never
+{
+    json_response(['ok' => false, 'error' => 'rate_limited', 'retryAfter' => $seconds], 429, ['Retry-After' => (string) $seconds]);
+}
+
+/**
+ * Bloque une même adresse IP après 5 envois VALIDES en 15 min, pendant 1 h.
+ * Appelé après la validation : un client qui corrige des erreurs n'est jamais compté.
+ * $form : 'pickup' ou 'contact' (compteurs séparés).
+ */
+function form_rate_guard(string $form): void
+{
+    $ip = client_ip();
+    $blockKey = "$form-block:$ip";
+    $block = rate_peek($blockKey);
+    if ($block['count'] > 0) form_rate_reject(max(1, $block['retryAfter']));
+
+    $limit = rate_limit("$form:$ip", FORM_MAX_SENDS, FORM_WINDOW_MS);
+    if (!$limit['ok']) {
+        rate_record($blockKey, FORM_BLOCK_MS);
+        error_log("[infoliquidation] anti-spam : $form bloqué 1 h pour $ip");
+        form_rate_reject((int) (FORM_BLOCK_MS / 1000));
+    }
+}
+
+/**
+ * Piège à robots : le champ caché « website » est invisible pour les humains.
+ * On ne jette JAMAIS une demande (un remplissage automatique du navigateur
+ * pourrait le remplir chez un vrai client) : on la marque « à vérifier ».
+ * @return bool true si le champ piège est rempli (probablement un robot)
+ */
+function form_honeypot(&$value): bool
+{
+    // Le corps JSON est décodé en objet (stdClass) ; on accepte aussi un tableau
+    if (is_object($value)) {
+        $trap = $value->website ?? '';
+        unset($value->website);
+    } elseif (is_array($value)) {
+        $trap = $value['website'] ?? '';
+        unset($value['website']);
+    } else {
+        return false;
+    }
+    $suspect = is_string($trap) && trim($trap) !== '';
+    if ($suspect) error_log('[infoliquidation] anti-spam : champ piège rempli, demande marquée à vérifier');
+    return $suspect;
+}
+
+/** Préfixe du sujet du courriel quand la demande ressemble à un robot. */
+const FORM_SUSPECT_PREFIX = '[À vérifier : possible robot] ';

@@ -25,4 +25,9 @@ Les clés (Resend, Google, eBay, admin) ne vivent que dans `.env`, lu par PHP su
 - **Permissions** : `.env` en 600 (lisible seulement par ton compte) ; `storage/` en 700.
 - **Jamais dans git** : `.env` est ignoré ; seul `.env.example` (vide) est suivi.
 - **`ADMIN_SESSION_SECRET`** : toujours le remplir (64 caractères au hasard), et mettre un mot de passe admin long.
+- **Anti-spam et anti-piratage** (`app/lib/rate_limit.php`, compteurs dans `storage/ratelimit/`) :
+  - Formulaires ramassage et contact : 5 envois **valides** en 15 min par adresse IP, puis bloqué 1 h avec un message clair et le numéro de téléphone. Les erreurs de saisie ne comptent pas, donc un client qui corrige son formulaire n'est jamais bloqué.
+  - Un champ invisible piège les robots. Une demande qui le remplit n'est **jamais jetée** (pour ne pas perdre un vrai client) : le courriel arrive avec le sujet « [À vérifier : possible robot] ».
+  - Connexion admin : 5 mauvais mots de passe en 15 min → bloqué 15 min ; 20 en 24 h → bloqué jusqu'à 24 h. Le bon mot de passe ne passe pas pendant le blocage.
+  - Débloquer tout le monde : vider `storage/ratelimit/`.
 - **Si une clé fuit** (courriel, capture d'écran, conversation) : la régénérer. Google : supprimer l'accès sur myaccount.google.com/permissions puis refaire `/api/google/auth-start`. eBay : nouveau jeton dans le portail développeur eBay. Admin : changer `ADMIN_PASSWORD` et `ADMIN_SESSION_SECRET` (toutes les sessions sont alors déconnectées).

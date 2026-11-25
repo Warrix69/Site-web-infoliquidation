@@ -21,6 +21,11 @@ $labels = [
     'successText' => $t('successText'),
     'errorTitle' => $t('errorTitle'),
     'errorText' => $t('errorText'),
+    // Anti-spam : message quand la même personne envoie trop de fois
+    'rateLimitedTitle' => locale() === 'en' ? 'Too many submissions' : "Trop d'envois",
+    'rateLimitedText' => locale() === 'en'
+        ? 'To protect the site against spam, new submissions are blocked for {minutes} min. You can also call us at ' . SITE['phoneDisplay'] . '.'
+        : 'Pour protéger le site contre le pourriel, les envois sont bloqués pendant {minutes} min. Vous pouvez aussi nous appeler au ' . SITE['phoneDisplay'] . '.',
     'newRequest' => $tc('contactUs'),
 ];
 

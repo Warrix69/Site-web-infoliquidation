@@ -185,7 +185,12 @@
 
     // Messages volontairement génériques
     var messages = { "1": "Identifiants invalides.", "rate": "Trop de tentatives. Réessaie plus tard.", "config": "Connexion indisponible." };
-    var code = new URLSearchParams(location.search).get("e");
+    var params = new URLSearchParams(location.search);
+    var code = params.get("e");
+    var mins = parseInt(params.get("m") || "", 10);
+    if (code === "rate" && mins > 0) {
+      messages.rate = "Trop de tentatives. Connexion bloquée pendant " + mins + " min.";
+    }
     if (code && Object.prototype.hasOwnProperty.call(messages, code)) {
       var err = document.getElementById("err");
       err.textContent = messages[code];

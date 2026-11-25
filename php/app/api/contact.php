@@ -14,12 +14,6 @@ if (request_method() !== 'POST') {
     exit;
 }
 
-// Anti-spam : 5 envois / 10 min par IP
-$limit = rate_limit('contact:' . client_ip(), 5, 10 * 60 * 1000);
-if (!$limit['ok']) {
-    json_response(['ok' => false], 429, ['Retry-After' => (string) $limit['retryAfter']]);
-}
-
 // Refuse les corps démesurés avant de parser
 if (request_content_length() > 64 * 1024) {
     json_response(['ok' => false], 413);
@@ -29,11 +23,15 @@ $input = read_json_input();
 if (!$input['ok']) {
     json_response(['ok' => false], 400);
 }
+$suspect = form_honeypot($input['value']);
 
 $parsed = validate_contact($input['value']);
 if (!$parsed['ok']) {
     json_response(['ok' => false, 'issues' => $parsed['issues']], 400);
 }
+
+// Anti-spam : 5 envois valides / 15 min par IP, puis bloqué 1 h (les erreurs de saisie ne comptent pas)
+form_rate_guard('contact');
 
 $data = $parsed['data'];
 $html = "\n    <h2>Nouveau message du formulaire de contact</h2>"
@@ -46,7 +44,7 @@ $html = "\n    <h2>Nouveau message du formulaire de contact</h2>"
     . "\n  ";
 
 $sent = send_business_email(
-    "Message de contact — {$data['name']}",
+    ($suspect ? FORM_SUSPECT_PREFIX : '') . "Message de contact — {$data['name']}",
     $html,
     $data['email']
 );

@@ -29,12 +29,6 @@ const PICKUP_LABELS = [
     'ups' => 'UPS',
 ];
 
-// Anti-spam : 5 envois / 10 min par IP
-$limit = rate_limit('pickup:' . client_ip(), 5, 10 * 60 * 1000);
-if (!$limit['ok']) {
-    json_response(['ok' => false], 429, ['Retry-After' => (string) $limit['retryAfter']]);
-}
-
 // Refuse les corps démesurés avant de parser
 if (request_content_length() > 64 * 1024) {
     json_response(['ok' => false], 413);
@@ -44,11 +38,15 @@ $input = read_json_input();
 if (!$input['ok']) {
     json_response(['ok' => false], 400);
 }
+$suspect = form_honeypot($input['value']);
 
 $parsed = validate_pickup($input['value']);
 if (!$parsed['ok']) {
     json_response(['ok' => false, 'issues' => $parsed['issues']], 400);
 }
+
+// Anti-spam : 5 envois valides / 15 min par IP, puis bloqué 1 h (les erreurs de saisie ne comptent pas)
+form_rate_guard('pickup');
 
 $data = $parsed['data'];
 $total = total_items($data['quantities'], $data['extras']);
@@ -82,7 +80,7 @@ $html = "\n    <h2>Nouvelle demande de ramassage</h2>"
     . "\n  ";
 
 $sent = send_business_email(
-    "Demande de ramassage — {$data['firstName']} {$data['lastName']} ($total items)",
+    ($suspect ? FORM_SUSPECT_PREFIX : '') . "Demande de ramassage — {$data['firstName']} {$data['lastName']} ($total items)",
     $html,
     $data['email']
 );
