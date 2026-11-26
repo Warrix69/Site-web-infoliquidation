@@ -3,11 +3,8 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, RoundedBox } from "@react-three/drei";
 import { useReducedMotion } from "framer-motion";
-import { lazy, Suspense, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, type ComponentType } from "react";
 import * as THREE from "three";
-
-// Post-traitement (N8AO, Bloom, SMAA) dans un chunk à part : jamais téléchargé en mode « low »
-const HeroEffects = lazy(() => import("./HeroEffects").then((m) => ({ default: m.HeroEffects })));
 
 export type DeviceKey = "laptop" | "phone" | "tower" | "switch" | "monitor";
 
@@ -25,9 +22,14 @@ export type HeroDevicesProps = {
   /** appelé une fois la première image dessinée (shaders compilés) */
   onReady?: () => void;
   onContextLost?: () => void;
+  /**
+   * Post-traitement (N8AO, Bloom, SMAA) : HeroEffects, chargé à part par Hero.tsx en mode high
+   * seulement (le mobile ne le télécharge jamais). Déjà chargé quand la scène se monte.
+   */
+  Effects?: ComponentType<{ onMounted?: () => void }> | null;
 };
 
-export function HeroDevices({ onDeviceChange, quality = "high", active = true, onReady, onContextLost }: HeroDevicesProps) {
+export function HeroDevices({ onDeviceChange, quality = "high", active = true, onReady, onContextLost, Effects }: HeroDevicesProps) {
   const high = quality === "high";
   // La scène n'est révélée qu'une fois sa première image dessinée ET, en mode high, le
   // post-traitement en place : elle n'est jamais affichée sans ses effets.
@@ -83,15 +85,13 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
       <DeviceCarousel onDeviceChange={onDeviceChange} demand={!high} active={active} />
 
       {/* Post-traitement studio : ordinateurs seulement */}
-      {high && (
-        <Suspense fallback={null}>
-          <HeroEffects
-            onMounted={() => {
-              fxReady.current = true;
-              tryReady();
-            }}
-          />
-        </Suspense>
+      {high && Effects && (
+        <Effects
+          onMounted={() => {
+            fxReady.current = true;
+            tryReady();
+          }}
+        />
       )}
     </Canvas>
   );

@@ -3,7 +3,7 @@
 import { Component, memo, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import type { DeviceKey } from "./HeroDevices";
+import type { DeviceKey, HeroDevicesProps } from "./HeroDevices";
 import { HeroCopy, type YearsLabels } from "./HeroCopy";
 import { HeroDevicesFallback } from "./HeroDevicesFallback";
 
@@ -20,10 +20,26 @@ export type HeroLabels = {
 
 /* ───────────────────── Scène 3D (chargée à la demande, protégée) ───────────────────── */
 
-const HeroDevices = dynamic(() => import("./HeroDevices").then((m) => m.HeroDevices), {
-  ssr: false,
-  loading: () => null
-});
+// Mode high : le post-traitement est un chunk à part (HeroEffects), téléchargé en parallèle ;
+// la scène ne se monte qu'une fois les deux chargés, comme avant (un seul chunk).
+let effectsLoad: Promise<unknown> | null = null;
+let HeroEffectsComp: HeroDevicesProps["Effects"] = null;
+const loadEffects = () =>
+  (effectsLoad ??= import("./HeroEffects").then((m) => {
+    HeroEffectsComp = m.HeroEffects;
+  }));
+
+const HeroDevices = dynamic(
+  () =>
+    Promise.all([import("./HeroDevices"), effectsLoad]).then(([m]) => {
+      const Scene = m.HeroDevices;
+      const Fx = HeroEffectsComp;
+      return function HeroDevicesWithEffects(props: HeroDevicesProps) {
+        return <Scene {...props} Effects={props.quality === "high" ? Fx : null} />;
+      };
+    }),
+  { ssr: false, loading: () => null }
+);
 
 function hasWebGL(): boolean {
   if (typeof window === "undefined") return true;
@@ -88,7 +104,7 @@ const SafeHeroDevices = memo(function SafeHeroDevices({ onDeviceChange }: { onDe
     // une fois toutes les animations CSS du texte lancées, pour qu'elles ne soient jamais figées.
     import("./HeroDevices").catch(() => setMode("fallback"));
     // Mode high : le post-traitement (chunk à part) se télécharge en même temps que la 3D
-    if (!light) import("./HeroEffects").catch(() => undefined);
+    if (!light) loadEffects().catch(() => setMode("fallback"));
     const timer = window.setTimeout(() => setMode((m) => (m === "wait" ? "3d" : m)), 600);
     return () => window.clearTimeout(timer);
   }, []);
