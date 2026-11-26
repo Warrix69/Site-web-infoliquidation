@@ -72,6 +72,27 @@ function send_email_with_attachment(string $to, string $subject, string $html, s
     ]);
 }
 
+/**
+ * Courriel rédigé dans l'admin (onglet Relance) : texte simple converti en HTML échappé.
+ * Copie cachée à info@ pour garder une trace ; réponses dirigées vers info@.
+ */
+function send_client_message(string $to, string $subject, string $text): bool
+{
+    $to = mail_safe_address($to);
+    if ($to === null) return false;
+    $html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#0A0A0A;max-width:600px">'
+        . nl2br(escape_html($text), false) . '</div>';
+    return mail_transport_send([
+        'from' => mail_from(),
+        'to' => [$to],
+        'bcc' => [ILR_BUSINESS_EMAIL],
+        'reply_to' => ILR_BUSINESS_EMAIL,
+        'subject' => mail_header_text($subject),
+        'html' => $html,
+        'attachments' => [],
+    ]);
+}
+
 /** Échappe le HTML des valeurs saisies par l'utilisateur (identique à escapeHtml côté TS). */
 function escape_html(string $value): string
 {

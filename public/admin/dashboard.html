@@ -464,6 +464,17 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 .ilrc-pied strong{font-weight:600;color:var(--ink)}
 .ilrc-droite{text-align:right;white-space:nowrap}
 
+/* Pages des longues listes */
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 22px 16px;font-size:13px;color:var(--ink-3)}
+.pager:empty{display:none}
+.pager-nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.pg-btn{min-width:34px;height:34px;padding:0 10px;border-radius:999px;border:0;background:var(--surface-2);color:var(--ink-2);font:inherit;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer;transition:background var(--t),color var(--t)}
+.pg-btn:hover:not(:disabled){background:var(--surface-3);color:var(--ink)}
+.pg-btn.is-on{background:var(--ink);color:var(--surface)}
+.pg-btn:disabled{opacity:.4;cursor:default}
+.pg-gap{padding:0 4px;color:var(--ink-4)}
+.pager select{height:34px;padding:0 10px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit}
+.pager-hx{padding:4px 0 20px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line)}
 .cal-grid.is-flow{display:block}
 .cal-dn{padding:10px;font-size:12px;font-weight:600;color:var(--ink-3);border-bottom:1px solid var(--line)}
@@ -527,20 +538,23 @@ a.rv-row:hover,.rv-row:hover{background:var(--surface-2)}
 
 /* ═══════════ PROSPECTS ═══════════ */
 .pr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
-.pr-card{background:var(--surface);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;transition:transform var(--t) var(--ease)}
-.pr-card:hover{transform:translateY(-2px)}
+.pr-card{background:var(--surface);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;min-width:0;overflow:hidden;transition:box-shadow var(--t) var(--ease)}
+.pr-card:hover{box-shadow:0 10px 28px -18px rgba(10,10,10,.35)}
 .pr-card[data-s="new"]{box-shadow:inset 0 4px 0 var(--g-2)}
-.pr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:16px}
-.pr-meta{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--ink-2);margin-bottom:18px;flex:1}
+.pr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px;min-width:0}
+.pr-top .cl-name{min-width:0}
+.pr-top .cl-info .name,.pr-top .cl-info .email{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr-meta{display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--ink-2);margin-bottom:16px;flex:1;min-width:0}
 .pr-meta-row{display:flex;align-items:flex-start;gap:10px;min-width:0;overflow-wrap:anywhere}
 .pr-meta-row a{text-decoration:none}
 .pr-meta-row a:hover{color:var(--g-text);text-decoration:underline}
 .pr-meta-row svg{width:15px;height:15px;fill:var(--ink-4);flex-shrink:0;margin-top:2px}
 .pr-meta-row.overdue{color:var(--ink);font-weight:600}
 .pr-meta-row.overdue svg{fill:var(--ink)}
-.pr-note{background:var(--surface-2);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--ink-2);line-height:1.45}
-.pr-actions{display:grid;grid-template-columns:auto auto 1fr;gap:8px}
-.pr-actions .btn{padding:0 14px}
+.pr-note{background:var(--surface-2);border-radius:12px;padding:9px 12px;margin-top:4px;font-size:13px;color:var(--ink-2);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pr-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:14px;border-top:1px solid var(--line)}
+.pr-actions .btn{padding:0 12px;min-width:0;justify-content:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-actions .btn:last-child{grid-column:1/-1}
 .pr-empty{grid-column:1/-1;background:var(--surface);border-radius:var(--r-lg)}
 
 /* ═══════════ CLIENTS / HISTORIQUE ═══════════ */
@@ -1031,7 +1045,7 @@ a.sheet-it{text-decoration:none;color:inherit}
   <div class="sb-foot">
     <button class="sb-link" onclick="openCmdk()" title="Rechercher (Ctrl K)"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span>Rechercher</span><kbd>Ctrl K</kbd></button>
     <a class="sb-link" href="https://www.ebay.ca/sh/ovw" target="_blank" rel="noopener" title="Seller Hub eBay"><svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg><span>Seller Hub eBay</span></a>
-    <a class="sb-link" href="/" target="_blank" rel="noopener" title="Voir le site"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg><span>Voir le site</span></a>
+    <a class="sb-link" href="/" title="Retour au site"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg><span>Retour au site</span></a>
     <div class="sb-copy">Info Liquidation Recycle © 2026</div>
   </div>
 </aside>
@@ -1175,6 +1189,7 @@ a.sheet-it{text-decoration:none;color:inherit}
         <div class="filters"><button class="chip active" data-pf="all">Tous</button><button class="chip" data-pf="new">Nouveaux</button><button class="chip" data-pf="contacted">Contactés</button><button class="chip" data-pf="followup">Relance</button><button class="chip" data-pf="converted">Convertis</button><button class="btn btn-dark btn-sm" onclick="openModal('prospect')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau prospect</button></div>
       </div>
       <div class="pr-grid" id="prospect-grid"></div>
+      <div class="pager" id="pg-prospects"></div>
     </section>
 
     <!-- ═══ RELANCE ═══ -->
@@ -1225,6 +1240,7 @@ a.sheet-it{text-decoration:none;color:inherit}
         <div class="tbl-scroll">
           <table class="tbl-cards"><thead><tr><th>Destinataire</th><th>Objet</th><th>Modèle</th><th>Date</th><th>Statut</th></tr></thead><tbody id="rl-hist-tbody"></tbody></table>
         </div>
+        <div class="pager" id="pg-sent"></div>
       </div>
     </section>
 
@@ -1294,7 +1310,7 @@ a.sheet-it{text-decoration:none;color:inherit}
         <div class="stat"><div class="stat-row"><div><div class="stat-label">Ramassages au total</div><div class="stat-val" id="stat-total-pickups">0</div></div><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div></div></div>
         <div class="stat"><div class="stat-row"><div><div class="stat-label">Clients réguliers</div><div class="stat-val" id="stat-regulars">0</div></div><div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div></div></div>
       </div>
-      <div class="tbl-wrap"><div class="tbl-head"><h3>Répertoire clients</h3><div class="tbl-tools"><div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="search" id="client-search" placeholder="Nom, courriel ou adresse" aria-label="Chercher un client"></div><button class="btn btn-primary btn-sm" id="btn-new-client" hidden onclick="editClient()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau client</button><button class="btn btn-soft btn-sm" onclick="exportClients()"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Exporter CSV</button></div></div><div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th data-sort="name">Client</th><th data-sort="type">Type</th><th>Téléphone</th><th>Adresse</th><th data-sort="pickups">Ramassages</th><th data-sort="last">Dernier</th><th>Statut</th></tr></thead><tbody id="clients-tbody"></tbody></table></div></div>
+      <div class="tbl-wrap"><div class="tbl-head"><h3>Répertoire clients</h3><div class="tbl-tools"><div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="search" id="client-search" placeholder="Nom, courriel ou adresse" aria-label="Chercher un client"></div><button class="btn btn-primary btn-sm" id="btn-new-client" hidden onclick="editClient()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Nouveau client</button><button class="btn btn-soft btn-sm" onclick="exportClients()"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Exporter CSV</button></div></div><div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th data-sort="name">Client</th><th data-sort="type">Type</th><th>Téléphone</th><th>Adresse</th><th data-sort="pickups">Ramassages</th><th data-sort="last">Dernier</th><th>Statut</th></tr></thead><tbody id="clients-tbody"></tbody></table></div><div class="pager" id="pg-clients"></div></div>
     </section>
 
     <!-- ═══ HISTORIQUE ═══ -->
@@ -1325,6 +1341,7 @@ a.sheet-it{text-decoration:none;color:inherit}
 
       <div class="sec-grid">
         <div id="hist-list"></div>
+        <div class="pager pager-hx" id="pg-hist"></div>
         <div>
           <div class="pane"><div class="pane-hd"><h3>Répartition des items</h3></div><div class="brk" id="hist-break"></div></div>
           <div class="pane"><div class="pane-hd"><h3>Meilleurs clients</h3></div><div id="hist-top"></div></div>
@@ -1368,7 +1385,7 @@ a.sheet-it{text-decoration:none;color:inherit}
 </div></div></div>
       </div>
       <div class="tbl-wrap"><div class="tbl-head"><div><h3>Historique des certificats</h3><span class="cert-summary" id="cert-summary"></span></div><div class="tbl-tools"><div class="search"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input type="search" id="cert-search" placeholder="Numéro ou compagnie" aria-label="Chercher un certificat"></div><select id="cert-period" class="btn btn-soft btn-sm" aria-label="Période"><option value="30">30 derniers jours</option><option value="mois">Ce mois-ci</option><option value="annee">Cette année</option><option value="tout" selected>Tous</option></select></div></div>
-        <div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th>Numéro</th><th>Compagnie</th><th>Disques durs</th><th>Destruction</th><th>Émis le</th><th>Envoi</th></tr></thead><tbody id="cert-tbody"></tbody></table></div></div>
+        <div class="tbl-scroll"><table class="tbl-cards"><thead><tr><th>Numéro</th><th>Compagnie</th><th>Disques durs</th><th>Destruction</th><th>Émis le</th><th>Envoi</th></tr></thead><tbody id="cert-tbody"></tbody></table></div><div class="pager" id="pg-certs"></div></div>
     </section>
   </main>
 </div>
@@ -1439,7 +1456,7 @@ function goTab(t){const sec=document.getElementById('sec-'+t);if(!sec||!TITLES[t
   if(changed)document.getElementById('content').scrollTop=0;
   if(typeof closeSheet==='function')closeSheet();
   if(t==='ventes')drawCharts();if(t==='accueil')renderLanding();if(t==='historique')renderHistory();if(t==='relance')renderRelance();if(t==='calendrier')renderCalendar();if(t==='certificats'){renderCertHistory();setTimeout(certScale,0)}
-  try{history.replaceState(null,'','#'+t)}catch(e){}}
+  navPush()}
 document.querySelectorAll('[data-tab]').forEach(n=>{n.addEventListener('click',()=>goTab(n.dataset.tab))});
 // Déconnexion : POST uniquement (le serveur refuse le GET)
 document.getElementById('logout-btn')?.addEventListener('click',async e=>{e.preventDefault();try{await fetch('/api/admin/logout',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:'{}'})}catch(err){console.warn('[logout]',err)}location.href='/admin/login'});
@@ -1568,7 +1585,7 @@ const seen=new Set(allClients.map(c=>c.id));const firstAddrByClient={};for(const
 for(const c of allClients){if(!c.address&&firstAddrByClient[c.id])c.address=firstAddrByClient[c.id]}
 applyClientStore();
 const uniqueClients=new Set(mapped.map(m=>m.clientId));console.log('[Calendar] '+mapped.length+' ramassages, '+uniqueClients.size+' clients uniques');}catch(e){console.warn('[Calendar] fetch failed:',e)}}
-async function initDB(){if(typeof window.claude==='undefined'||!window.claude.use){seedDemoData();await loadClientStore();loadCerts();loadTemplates();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}try{db=await window.claude.use('db')}catch(e){db=null}if(!db){seedDemoData();await loadClientStore();loadCerts();loadTemplates();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}
+async function initDB(){if(typeof window.claude==='undefined'||!window.claude.use){seedDemoData();await loadClientStore();loadCerts();loadTemplates();loadProspects();loadOutreach();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}try{db=await window.claude.use('db')}catch(e){db=null}if(!db){seedDemoData();await loadClientStore();loadCerts();loadTemplates();loadProspects();loadOutreach();await fetchCalendarPickups();renderAll();setInterval(async()=>{await fetchCalendarPickups();renderAll()},30*1000);window.__refreshDashboard=async()=>{await fetchCalendarPickups();renderAll()};return}
 db.collection('pickups').onSnapshot(s=>{allPickups=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderLanding();renderCalendar();renderUpcoming();renderHistory();updateStats()},()=>{});
 db.collection('clients').onSnapshot(s=>{allClients=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderClients();updateStats()},()=>{});
 db.collection('prospects').onSnapshot(s=>{allProspects=s.docs.filter(d=>d.exists).map(d=>({id:d.id,...d.data()}));renderProspects();updateStats()},()=>{});
@@ -1639,6 +1656,9 @@ allProspects=[
 {id:'pr4',name:'PME Digital Plus',contact:'Marc-André Dubois',phone:'450-555-6543',email:'mad@digitalplus.ca',status:'new',lastContact:'2026-09-12',nextFollowup:'2026-09-19',notes:'5 serveurs et équipement réseau à recycler',source:'Appel entrant'},
 {id:'pr5',name:'Hydro-Québec Bureau Régional',contact:'Isabelle Fortin',phone:'514-555-0987',email:'i.fortin@hydroquebec.com',status:'contacted',lastContact:'2026-09-07',nextFollowup:'2026-09-17',notes:'Inventaire en cours, gros potentiel',source:'Appel froid'},
 {id:'pr6',name:'Startup LaunchPad MTL',contact:'Alex Chen',phone:'514-555-3698',email:'alex@launchpadmtl.com',status:'followup',lastContact:'2026-09-11',nextFollowup:'2026-09-15',notes:'Petite quantité mais récurrent chaque trimestre',source:'Site web'}];
+// Données d'exemple de l'ancien prototype retirées : clients, ramassages et prospects viennent des vraies sources
+// (Google Calendar, fiches enregistrées sur le serveur, prospects ajoutés par l'équipe).
+allClients=[];allPickups=[];allProspects=[];
 const si=[{name:'Dell OptiPlex 7080',category:'Ordinateurs',price:385},{name:'HP EliteDesk 800 G6',category:'Ordinateurs',price:420},{name:'Lenovo ThinkPad T480',category:'Ordinateurs',price:345},{name:'Dell Latitude 5520',category:'Ordinateurs',price:295},{name:'HP ProBook 450 G8',category:'Ordinateurs',price:265},{name:'Moniteur Dell U2422H 24"',category:'Moniteurs',price:195},{name:'LG 27UK850 4K',category:'Moniteurs',price:275},{name:'Moniteur ViewSonic 22"',category:'Moniteurs',price:125},{name:'HP LaserJet Pro M404',category:'Imprimantes',price:165},{name:'Brother MFC-L8900CDW',category:'Imprimantes',price:310},{name:'Dell PowerEdge R740',category:'Serveurs',price:1250},{name:'HP ProLiant DL380 G10',category:'Serveurs',price:890},{name:'Switch Cisco SG350',category:'Composants',price:230},{name:'RAM DDR4 32GB Kit',category:'Composants',price:78},{name:'SSD Samsung 970 EVO 1TB',category:'Composants',price:95},{name:'Carte mère Supermicro X11',category:'Composants',price:89},{name:'iPhone 12 Pro',category:'Téléphones',price:485},{name:'Samsung Galaxy S21',category:'Téléphones',price:320},{name:'Lot 50 câbles Cat6',category:'Câblage',price:45}];
 allSales=[];let sid=1;
 const todayDate=new Date(now.getFullYear(),now.getMonth(),now.getDate());
@@ -1679,6 +1699,27 @@ function histFiltered(){
   return f.sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time))
 }
 
+/* ───── Pages : un état par liste (page en cours, nombre par page) ───── */
+const PAGERS={};
+// Retourne la tranche de la page en cours. Quand les filtres (sig) changent, on revient à la page 1.
+function pageOf(key,list,size,sig){let st=PAGERS[key];if(!st)st=PAGERS[key]={page:1,size};
+  if(sig!==undefined&&st.sig!==sig){st.sig=sig;st.page=1}
+  const pages=Math.max(1,Math.ceil(list.length/st.size));if(st.page>pages)st.page=pages;if(st.page<1)st.page=1;
+  const start=(st.page-1)*st.size;return{items:list.slice(start,start+st.size),page:st.page,pages,total:list.length,start,size:st.size}}
+// Dessine la barre de pages sous la liste (rien si tout tient sur une page de 10)
+function renderPager(elId,key,info,rerender){const el=document.getElementById(elId);if(!el)return;
+  if(info.total<=10){el.innerHTML='';return}
+  const nums=[];for(let p=1;p<=info.pages;p++){if(p===1||p===info.pages||Math.abs(p-info.page)<=1)nums.push(p);else if(nums[nums.length-1]!=='…')nums.push('…')}
+  el.innerHTML='<span>'+(info.start+1)+'–'+Math.min(info.start+info.size,info.total)+' sur '+info.total+'</span>'
+   +'<div class="pager-nav"><button type="button" class="pg-btn" data-pg="prev"'+(info.page<=1?' disabled':'')+' aria-label="Page précédente">‹ Préc.</button>'
+   +nums.map(n=>n==='…'?'<span class="pg-gap">…</span>':'<button type="button" class="pg-btn'+(n===info.page?' is-on':'')+'" data-pg="'+n+'"'+(n===info.page?' aria-current="page"':'')+'>'+n+'</button>').join('')
+   +'<button type="button" class="pg-btn" data-pg="next"'+(info.page>=info.pages?' disabled':'')+' aria-label="Page suivante">Suiv. ›</button></div>'
+   +'<label style="display:flex;align-items:center;gap:6px">Par page <select data-pg-size aria-label="Nombre par page">'+[10,15,20,30,50,100].map(n=>'<option value="'+n+'"'+(n===info.size?' selected':'')+'>'+n+'</option>').join('')+'</select></label>';
+  // Après un changement de page : retour au début de la liste (dans l'admin, c'est la zone de contenu qui défile, pas la fenêtre)
+  const go=p=>{const st=PAGERS[key];st.page=p;rerender();const anchor=el.closest('.tbl-wrap,.pane')||el.previousElementSibling||el;anchor.style.scrollMarginTop='16px';anchor.scrollIntoView({block:'start',behavior:'instant'})};
+  el.querySelectorAll('[data-pg]').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.pg,p=PAGERS[key].page;go(v==='prev'?p-1:v==='next'?p+1:+v)}));
+  el.querySelector('[data-pg-size]').addEventListener('change',e=>{PAGERS[key].size=+e.target.value;go(1)})}
+
 function renderHistory(){
   const f=histFiltered();
   const totQ=f.reduce((a,p)=>a+parseItems(p.items).reduce((x,i)=>x+i.q,0),0);
@@ -1696,9 +1737,10 @@ function renderHistory(){
 
   // ── Liste groupée par mois ──
   const box=document.getElementById('hist-list');
-  if(!f.length){box.innerHTML='<div class="pane"><div class="empty"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/></svg><div>Aucun ramassage pour ces filtres</div></div></div>';}
+  if(!f.length){const pe=document.getElementById('pg-hist');if(pe)pe.innerHTML='';box.innerHTML='<div class="pane"><div class="empty"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5z"/></svg><div>Aucun ramassage pour ces filtres</div></div></div>';}
   else{
-    const grp={};f.forEach(p=>{const d=new Date(p.date+'T12:00'),k=`${d.getFullYear()}-${d.getMonth()}`;(grp[k]=grp[k]||{lab:MONTHS_FR[d.getMonth()]+' '+d.getFullYear(),rows:[]}).rows.push(p)});
+    const pgH=pageOf('hist',f,20,histPeriod+'|'+histStatus+'|'+histQuery);renderPager('pg-hist','hist',pgH,renderHistory);
+    const grp={};pgH.items.forEach(p=>{const d=new Date(p.date+'T12:00'),k=`${d.getFullYear()}-${d.getMonth()}`;(grp[k]=grp[k]||{lab:MONTHS_FR[d.getMonth()]+' '+d.getFullYear(),rows:[]}).rows.push(p)});
     box.innerHTML=Object.values(grp).map(g=>{
       const gq=g.rows.reduce((a,p)=>a+parseItems(p.items).reduce((x,i)=>x+i.q,0),0);
       return `<div class="hx-mo"><h4>${g.lab}</h4><div class="ln"></div><span class="ct">${g.rows.length} ramassage${g.rows.length>1?'s':''} · ${gq} items</span></div>`+
@@ -1945,7 +1987,7 @@ function countUp(id,to,suf){const el=document.getElementById(id);if(!el)return;c
 (function step(t){const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3),v=Math.round(num*e);el.textContent=v.toLocaleString('fr-CA')+(suf||'');if(k<1)requestAnimationFrame(step)})(t0)}
 tickClock();setInterval(tickClock,1000);
 
-function renderCalendar(){
+function renderCalendar(){queueMicrotask(navPush);
 document.querySelectorAll('.cal-view-btn').forEach(b=>b.classList.toggle('active',b.dataset.cv===calView));
 document.getElementById('cal-grid')?.classList.toggle('is-flow',calView!=='month');
 if(calView==='month')renderMonthView();
@@ -2040,9 +2082,9 @@ c.innerHTML=up.map(p=>{const d=new Date(p.date+'T12:00');return`<div class="up-i
 c.querySelectorAll('[data-pid]').forEach(el=>el.addEventListener('click',()=>openPickupDetail(el.dataset.pid)))}
 
 function renderProspects(){const f=prospectFilter==='all'?allProspects:allProspects.filter(p=>p.status===prospectFilter),g=document.getElementById('prospect-grid');
-if(!f.length){g.innerHTML=`<div class="pr-empty empty"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Aucun prospect dans cette catégorie<div style="margin-top:12px"><button class="btn btn-dark btn-sm" onclick="openModal('prospect')">Ajouter un prospect</button></div></div>`;return}
+if(!f.length){const pe=document.getElementById('pg-prospects');if(pe)pe.innerHTML='';g.innerHTML=`<div class="pr-empty empty"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Aucun prospect dans cette catégorie<div style="margin-top:12px"><button class="btn btn-dark btn-sm" onclick="openModal('prospect')">Ajouter un prospect</button></div></div>`;return}
 const ord={followup:0,new:1,contacted:2,converted:3};
-g.innerHTML=f.slice().sort((a,b)=>(ord[a.status]??9)-(ord[b.status]??9)||String(a.nextFollowup||'9').localeCompare(String(b.nextFollowup||'9'))).map(p=>{const col=COLORS[p.name.charCodeAt(0)%COLORS.length],ini=p.name.split(' ').map(w=>w[0]).join('').slice(0,2),sl={new:'Nouveau',contacted:'Contacté',followup:'Relance',converted:'Converti'}[p.status]||p.status,nd=p.nextFollowup?new Date(p.nextFollowup+'T12:00'):null,ov=nd&&nd<now&&p.status!=='converted';
+const pgP=pageOf('prospects',f.slice().sort((a,b)=>(ord[a.status]??9)-(ord[b.status]??9)||String(a.nextFollowup||'9').localeCompare(String(b.nextFollowup||'9'))),12,prospectFilter);renderPager('pg-prospects','prospects',pgP,renderProspects);g.innerHTML=pgP.items.map(p=>{const col=COLORS[p.name.charCodeAt(0)%COLORS.length],ini=p.name.split(' ').map(w=>w[0]).join('').slice(0,2),sl={new:'Nouveau',contacted:'Contacté',followup:'Relance',converted:'Converti'}[p.status]||p.status,nd=p.nextFollowup?new Date(p.nextFollowup+'T12:00'):null,ov=nd&&nd<now&&p.status!=='converted';
 const pid=esc(p.id),tel=String(p.phone||'').replace(/[^\d+]/g,'');
 return`<div class="pr-card" data-s="${esc(p.status)}"><div class="pr-top"><div class="cl-name"><div class="avatar" style="background:${col}">${esc(ini)}</div><div class="cl-info"><div class="name">${esc(p.name)}</div><div class="email">${esc(p.contact||'')}${p.source?' · '+esc(p.source):''}</div></div></div><span class="badge ${esc(p.status)}">${esc(sl)}</span></div>
 <div class="pr-meta">${p.email?`<div class="pr-meta-row"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></div>`:''}
@@ -2054,7 +2096,12 @@ g.querySelectorAll('[data-pract]').forEach(b=>b.addEventListener('click',()=>{co
 function emailProspect(id){const p=allProspects.find(x=>x.id===id);if(!p)return;prefillEmail({tplId:p.status==='new'?'premier-contact':'relance',email:p.email||'',name:p.contact||p.name,company:p.name})}
 
 document.querySelectorAll('[data-pf]').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll('[data-pf]').forEach(x=>x.classList.remove('active'));c.classList.add('active');prospectFilter=c.dataset.pf;renderProspects()})});
-async function markProspectContacted(id){const p=allProspects.find(x=>x.id===id);if(!p)return;p.lastContact=iso(now);if(p.status==='new')p.status='contacted';if(db)await db.doc('prospects/'+id).update({status:p.status,lastContact:p.lastContact});renderProspects();updateStats();showToast('Contact noté : '+p.name,'success')}
+/* ───── Prospects enregistrés sur le serveur (/api/prospects), partagés par l'équipe ───── */
+let PR_SERVER=false;
+async function loadProspects(){try{const r=await fetch('/api/prospects',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();
+  if(Array.isArray(d.prospects)){allProspects=d.prospects;PR_SERVER=true;renderProspects();updateStats();renderLanding()}}catch(e){PR_SERVER=false}}
+async function prospectApi(body){const r=await fetch('/api/prospects',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(!r.ok||!d.ok)throw new Error(d.error||('Erreur '+r.status));return d}
+async function markProspectContacted(id){const p=allProspects.find(x=>x.id===id);if(!p)return;p.lastContact=iso(now);if(p.status==='new')p.status='contacted';if(PR_SERVER){try{await prospectApi({action:'save',id,prospect:{status:p.status,lastContact:p.lastContact}})}catch(e){showToast('Non enregistré : '+e.message,'error')}}else if(db)await db.doc('prospects/'+id).update({status:p.status,lastContact:p.lastContact});renderProspects();updateStats();showToast('Contact noté : '+p.name,'success')}
 function scheduleFollowup(id){const p=allProspects.find(x=>x.id===id);if(!p)return;openModal('followup',p)}
 
 function renderSales(){const co=new Date(now);co.setDate(co.getDate()-salesPeriod);const cs=iso(co),f=allSales.filter(s=>s.date>=cs).sort((a,b)=>b.date.localeCompare(a.date)),tb=document.getElementById('sales-tbody');
@@ -2113,9 +2160,9 @@ function clientRows(){const q=(document.getElementById('client-search')?.value||
   const f=q?allClients.filter(c=>c.name.toLowerCase().includes(q)||(c.email||'').toLowerCase().includes(q)||(c.address||'').toLowerCase().includes(q)||(c.phone||'').includes(q)):allClients.slice();
   return f.map(c=>{const cp=allPickups.filter(p=>p.clientId===c.id).sort((a,b)=>b.date.localeCompare(a.date));return{c,n:cp.length,last:cp[0]?cp[0].date:''}})
     .sort((a,b)=>{const k=clientSort.k,d=clientSort.dir;if(k==='pickups')return(a.n-b.n)*d||a.c.name.localeCompare(b.c.name,'fr');if(k==='last')return a.last.localeCompare(b.last)*d;if(k==='type')return String(a.c.type).localeCompare(String(b.c.type),'fr')*d;return a.c.name.localeCompare(b.c.name,'fr')*d})}
-function renderClients(){applyClientStore();const rows=clientRows();
+function renderClients(){applyClientStore();const rows=clientRows();const pgC=pageOf('clients',rows,20,(document.getElementById('client-search')?.value||'')+'|'+clientSort.k+'|'+clientSort.dir);renderPager('pg-clients','clients',pgC,renderClients);
 const tb=document.getElementById('clients-tbody');
-tb.innerHTML=rows.length?rows.map(({c,n,last})=>{const col=COLORS[c.name.charCodeAt(0)%COLORS.length],ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2),reg=n>=3;
+tb.innerHTML=rows.length?pgC.items.map(({c,n,last})=>{const col=COLORS[c.name.charCodeAt(0)%COLORS.length],ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2),reg=n>=3;
 const typeCls=c.type==='institutionnel'?'institutionnel':c.type==='commercial'?'commercial':'résidentiel';
 const typeLabel=c.type==='institutionnel'?'Institutionnel':c.type==='commercial'?'Commercial':'Résidentiel';
 return`<tr data-cid="${esc(c.id)}" style="cursor:pointer" tabindex="0"><td><div class="cl-name"><div class="avatar" style="background:${col}">${esc(ini)}</div><div class="cl-info"><div class="name">${esc(c.name)}</div><div class="email">${esc(c.email||'')}</div></div></div></td><td data-label="Type"><span class="cl-type-badge ${esc(typeCls)}">${typeLabel}</span></td><td data-label="Téléphone" class="tnum">${c.phone?`<a href="tel:${esc(c.phone.replace(/[^\d+]/g,''))}" onclick="event.stopPropagation()" style="text-decoration:none">${esc(c.phone)}</a>`:'—'}</td><td data-label="Adresse" class="muted" style="max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.address||'—')}</td><td data-label="Ramassages" class="num">${n}</td><td data-label="Dernier" class="tnum">${last?new Date(last+'T12:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'}):'—'}</td><td data-label="Statut"><span class="badge ${reg?'new':'contacted'}">${reg?'Régulier':'Occasionnel'}</span></td></tr>`}).join('')
@@ -2273,7 +2320,7 @@ const list=CERTS.filter(c=>{const d=c.dateEmission||'';if(per==='30'&&d<since30)
 const disks=list.reduce((t,c)=>t+(Number(c.nbDisques)||0),0);
 document.getElementById('cert-summary').textContent=list.length+' certificat'+(list.length>1?'s':'')+' · '+disks+' disque'+(disks>1?'s':'')+' dur'+(disks>1?'s':'');
 const fmt=d=>{const o=certDateObj(d);return o?o.toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'}):'—'};
-tb.innerHTML=list.length?list.map(c=>{const last=c.envois&&c.envois.length?c.envois[c.envois.length-1]:null;return '<tr data-cert="'+esc(c.id)+'" tabindex="0" style="cursor:pointer'+(certCur&&certCur.id===c.id?';background:var(--g-softer)':'')+'"><td class="tnum"><strong>'+esc(c.numero)+'</strong></td><td data-label="Compagnie">'+esc(c.compagnie)+'</td><td data-label="Disques durs" class="num">'+(Number(c.nbDisques)||0)+'</td><td data-label="Destruction" class="tnum">'+fmt(c.dateDestruction)+'</td><td data-label="Émis le" class="tnum">'+fmt(c.dateEmission)+'</td><td data-label="Envoi">'+(last?'<span class="cert-sent" title="'+esc(last.to)+'">✓ Envoyé '+fmt(String(last.at).slice(0,10))+'</span>':'<span class="muted">—</span>')+'</td></tr>'}).join('')
+const pgK=pageOf('certs',list,15,per+'|'+q);renderPager('pg-certs','certs',pgK,renderCertHistory);tb.innerHTML=list.length?pgK.items.map(c=>{const last=c.envois&&c.envois.length?c.envois[c.envois.length-1]:null;return '<tr data-cert="'+esc(c.id)+'" tabindex="0" style="cursor:pointer'+(certCur&&certCur.id===c.id?';background:var(--g-softer)':'')+'"><td class="tnum"><strong>'+esc(c.numero)+'</strong></td><td data-label="Compagnie">'+esc(c.compagnie)+'</td><td data-label="Disques durs" class="num">'+(Number(c.nbDisques)||0)+'</td><td data-label="Destruction" class="tnum">'+fmt(c.dateDestruction)+'</td><td data-label="Émis le" class="tnum">'+fmt(c.dateEmission)+'</td><td data-label="Envoi">'+(last?'<span class="cert-sent" title="'+esc(last.to)+'">✓ Envoyé '+fmt(String(last.at).slice(0,10))+'</span>':'<span class="muted">—</span>')+'</td></tr>'}).join('')
 :'<tr><td colspan="6" class="empty-row">'+(CERTS.length?'Aucun certificat pour cette période ou cette recherche':'Aucun certificat pour le moment. Remplis le formulaire ci-dessus pour créer le premier.')+'</td></tr>';
 tb.querySelectorAll('tr[data-cert]').forEach(tr=>{tr.addEventListener('click',()=>certOpen(tr.dataset.cert));tr.addEventListener('keydown',e=>{if(e.key==='Enter')certOpen(tr.dataset.cert)})})}
 function clientCertsList(c){if(!CERTS)return[];const n=certNorm(c.name);return CERTS.filter(x=>x.clientId===c.id||certNorm(x.compagnie)===n).sort((a,b)=>String(b.numero).localeCompare(String(a.numero)))}
@@ -2375,7 +2422,7 @@ ov.classList.add('open');setTimeout(()=>bd.querySelector('input:not([readonly]),
 async function saveProspect(){const nm=document.getElementById('f-pr-name');const name=nm.value.trim();if(!name){nm.classList.add('fg-err');nm.focus();showToast('Indiquez le nom de l’entreprise','error');return}
 const em=document.getElementById('f-pr-email').value.trim();if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){const f=document.getElementById('f-pr-email');f.classList.add('fg-err');f.focus();showToast('Adresse courriel invalide','error');return}
 const id='pr'+Date.now();const pr={name,contact:document.getElementById('f-pr-contact').value.trim(),phone:document.getElementById('f-pr-phone').value.trim(),email:em,status:'new',lastContact:iso(now),nextFollowup:document.getElementById('f-pr-next').value,notes:document.getElementById('f-pr-notes').value.trim(),source:document.getElementById('f-pr-source').value};
-allProspects.unshift({id,...pr});if(db){try{await db.collection('prospects').doc(id).set(pr)}catch(e){console.warn(e)}}
+if(PR_SERVER){try{const d=await prospectApi({action:'save',prospect:pr});allProspects.unshift(d.prospect)}catch(e){showToast(e.message||'Enregistrement impossible','error');return}}else{allProspects.unshift({id,...pr});if(db){try{await db.collection('prospects').doc(id).set(pr)}catch(e){console.warn(e)}}}
 closeModal();renderProspects();updateStats();renderLanding();showToast('Prospect ajouté : '+name,'success');if(currentTab!=='prospection')goTab('prospection')}
 
 function parseStockItems(itemsStr){const parts=String(itemsStr||'').split(',').map(s=>s.trim()).filter(Boolean);return parts.map(p=>{const m=p.match(/^(\d+)\s+(.+)$/);return m?{qty:parseInt(m[1],10),name:m[2]}:{qty:1,name:p}})}
@@ -2449,7 +2496,7 @@ const btn=document.getElementById('save-pickup-btn');if(btn){btn.disabled=true;b
 try{const[h,m]=pk.time.split(':').map(Number);const start=new Date(pk.date+'T00:00:00');start.setHours(h||9,m||0,0,0);const end=new Date(start.getTime()+60*60*1000);const r=await fetch('/api/calendar/events',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({summary:'RAMASSAGE - '+cn,description:pk.items+(pk.notes?'\n\nNotes : '+pk.notes:''),location:(cl&&cl.address)||'',start:start.toISOString(),end:end.toISOString()})});if(r.ok){showToast('Ramassage ajouté à Google Calendar : '+cn,'success');await fetchCalendarPickups()}else{showToast('Google Calendar indisponible : ramassage enregistré sur cet appareil','error');allPickups.push({id:'p'+Date.now(),...pk})}}catch(e){console.warn(e);showToast('Google Calendar indisponible : ramassage enregistré sur cet appareil','error');allPickups.push({id:'p'+Date.now(),...pk})}
 closeModal();renderAll()}
 
-async function saveFollowup(id){const p=allProspects.find(x=>x.id===id);if(!p)return;p.nextFollowup=document.getElementById('f-followup-date').value;p.notes=document.getElementById('f-followup-notes').value.trim();p.status='followup';if(db)await db.doc('prospects/'+id).update({nextFollowup:p.nextFollowup,notes:p.notes,status:'followup'});closeModal();renderProspects();updateStats();renderLanding();showToast('Suivi planifié : '+p.name,'success')}
+async function saveFollowup(id){const p=allProspects.find(x=>x.id===id);if(!p)return;p.nextFollowup=document.getElementById('f-followup-date').value;p.notes=document.getElementById('f-followup-notes').value.trim();p.status='followup';if(PR_SERVER){try{await prospectApi({action:'save',id,prospect:{nextFollowup:p.nextFollowup,notes:p.notes,status:'followup'}})}catch(e){showToast('Non enregistré : '+e.message,'error');return}}else if(db)await db.doc('prospects/'+id).update({nextFollowup:p.nextFollowup,notes:p.notes,status:'followup'});closeModal();renderProspects();updateStats();renderLanding();showToast('Suivi planifié : '+p.name,'success')}
 
 
 /* ═══ RELANCE — Email Prospection ═══ */
@@ -2729,6 +2776,17 @@ async function sendEmail(){
   };
 
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('Adresse courriel invalide : '+email,'error');document.getElementById('rl-custom-email').focus();return}
+  if(OUTREACH_SERVER){
+    // Envoi par le site (app/lib/mail_transport.php) ; l'historique est gardé sur le serveur
+    const btn=document.querySelector('.rl-actions .btn-primary');if(btn){btn.disabled=true;btn.dataset.lbl=btn.innerHTML;btn.textContent='Envoi…'}
+    try{const r=await fetch('/api/outreach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'send',to:email,toName:name,subject,body,template:record.template,templateName:record.templateName})});
+      const d=await r.json().catch(()=>({}));if(d.email)allSentEmails.unshift(d.email);
+      if(r.ok&&d.ok){showToast('Courriel envoyé à '+email,'success');clearComposer()}
+      else showToast(d.error||'L’envoi a échoué. Réessaie plus tard.','error')}
+    catch(e){showToast('L’envoi a échoué (connexion). Réessaie.','error')}
+    finally{if(btn){btn.disabled=false;btn.innerHTML=btn.dataset.lbl||'Envoyer'}}
+    renderRelance();return
+  }
   if(typeof window.claude==='undefined'||!window.claude.use){
     // Envoi automatique indisponible hors de l'environnement Claude : on ouvre le brouillon dans la messagerie de l'utilisateur
     record.status='mailto';
@@ -2762,7 +2820,7 @@ async function sendEmail(){
 function renderSentHistory(){
   const tbody=document.getElementById('rl-hist-tbody');
   if(!tbody)return;
-  tbody.innerHTML=allSentEmails.slice(0,30).map(e=>{
+  const pgS=pageOf('sent',allSentEmails,15);renderPager('pg-sent','sent',pgS,renderSentHistory);tbody.innerHTML=pgS.items.map(e=>{
     const d=new Date(e.date);
     const ds=d.toLocaleDateString('fr-CA',{day:'numeric',month:'short',year:'numeric'});
     const ts=d.toLocaleTimeString('fr-CA',{hour:'2-digit',minute:'2-digit'});
@@ -2788,6 +2846,9 @@ function updateRelanceStats(){
   const e4=document.getElementById('rl-prospects-reached');if(e4)e4.textContent=uniqueRecip;
 }
 
+let OUTREACH_SERVER=false;
+async function loadOutreach(){try{const r=await fetch('/api/outreach',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();
+  if(Array.isArray(d.emails)){allSentEmails=d.emails;OUTREACH_SERVER=true;renderSentHistory();updateRelanceStats()}}catch(e){OUTREACH_SERVER=false}}
 async function loadSentEmails(){
   if(!db)return;
   try{
@@ -2891,8 +2952,32 @@ document.getElementById('modal-body').addEventListener('input',e=>e.target.class
 let __rsz;window.addEventListener('resize',()=>{clearTimeout(__rsz);__rsz=setTimeout(()=>{if(currentTab==='accueil')drawHomeChart();if(currentTab==='ventes')drawCharts()},160)});
 
 /* ═══ Lien direct vers une section (#calendrier, #ventes…) ═══ */
-(function(){const h=(location.hash||'').slice(1);if(h&&TITLES[h]&&h!=='accueil')goTab(h)})();
-window.addEventListener('hashchange',()=>{const h=(location.hash||'').slice(1);if(h&&TITLES[h]&&h!==currentTab)goTab(h)});
+/* ───── Historique du navigateur : la flèche « retour » revient à l'écran précédent de l'admin ───── */
+// Adresse lisible : #clients, #calendrier/jour/2026-11-26, #calendrier/semaine/…, #calendrier/mois/2026-11
+let NAV_RESTORING=false,NAV_LAST=null;
+function navState(){const st={tab:currentTab};if(currentTab==='calendrier'){st.view=calView;st.y=calYear;st.m=calMonth;st.day=calDay?iso(calDay):null}return st}
+function navHash(st){if(st.tab!=='calendrier')return '#'+st.tab;if(st.view==='day'&&st.day)return '#calendrier/jour/'+st.day;if(st.view==='week'&&st.day)return '#calendrier/semaine/'+st.day;return '#calendrier/mois/'+st.y+'-'+String(st.m+1).padStart(2,'0')}
+function navPush(){if(NAV_RESTORING)return;const st=navState(),h=navHash(st);NAV_LAST=st;const cur=history.state;
+  if(cur&&cur.ilr&&navHash(cur.s)===h)return;
+  try{if(cur&&cur.ilr)history.pushState({ilr:1,s:st},'',h);else history.replaceState({ilr:1,s:st},'',h)}catch(e){}}
+function navApply(st){NAV_RESTORING=true;try{
+  if(st.tab==='calendrier'){if(st.view)calView=st.view;if(Number.isInteger(st.y))calYear=st.y;if(Number.isInteger(st.m))calMonth=st.m;if(st.day)calDay=new Date(st.day+'T12:00')}
+  if(st.tab!==currentTab)goTab(st.tab);else if(st.tab==='calendrier')renderCalendar()}finally{NAV_RESTORING=false}NAV_LAST=st}
+function navFromHash(){const h=(location.hash||'').slice(1).split('/'),tab=h[0];if(!tab||!TITLES[tab])return null;const st={tab};
+  if(tab==='calendrier'&&h[1]){st.view={jour:'day',semaine:'week',mois:'month'}[h[1]]||'month';
+    if(st.view==='month'&&/^\d{4}-\d{2}$/.test(h[2]||'')){st.y=+h[2].slice(0,4);st.m=+h[2].slice(5)-1}
+    else if(/^\d{4}-\d{2}-\d{2}$/.test(h[2]||'')){st.day=h[2];const d=new Date(h[2]+'T12:00');st.y=d.getFullYear();st.m=d.getMonth()}}
+  return st}
+function closeAllOverlays(){try{closeModal()}catch(e){}try{closeClientModal()}catch(e){}try{closePreview()}catch(e){}try{if(typeof closeCmdk==='function')closeCmdk()}catch(e){}}
+window.addEventListener('popstate',e=>{
+  // Une fenêtre est ouverte (fiche client, ramassage, formulaire…) : la flèche la ferme et on reste sur le même écran
+  if(document.querySelector('.modal-bg.open,.cl-modal-bg.open,.rl-preview-bg.open,.cmdk-bg.open')&&NAV_LAST){
+    closeAllOverlays();try{history.pushState({ilr:1,s:NAV_LAST},'',navHash(NAV_LAST))}catch(_){}return}
+  const st=(e.state&&e.state.ilr)?e.state.s:navFromHash();if(st)navApply(st)});
+// Adresse tapée ou collée à la main (#clients, #calendrier/jour/…)
+window.addEventListener('hashchange',()=>{const st=navFromHash();if(st&&navHash(st)!==navHash(navState()))navApply(st)});
+// Premier affichage : l'adresse ouvre le bon écran, et devient la première étape de l'historique
+(function(){const st=navFromHash();if(st&&!(st.tab==='accueil'))navApply(st);const cur=navState();NAV_LAST=cur;try{history.replaceState({ilr:1,s:cur},'',navHash(cur))}catch(e){}})();
 
 initDB();
 </script>

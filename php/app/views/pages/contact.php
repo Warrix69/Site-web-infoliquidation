@@ -52,8 +52,9 @@ ob_start(); ?>
 <?= page_hero($t('eyebrow'), $t('title'), null, ['kind' => 'object', 'src' => '/images/bac/bac-plein.webp', 'width' => 52], 'compact') ?>
 
 <?= section_open('pt-12 sm:pt-16') ?>
-  <div class="grid gap-8 lg:grid-cols-12 lg:gap-10">
-    <div class="space-y-5 lg:col-span-5">
+  <!-- Grille 2 × 2 : téléphones | formulaire, puis adresse et heures | carte (même cadre que le formulaire) -->
+  <div class="grid gap-8 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-8">
+    <div class="lg:col-span-5">
       <div<?= reveal() ?>>
         <div data-theme="dark" class="rounded-3xl p-6 text-mist sm:p-8">
           <?php foreach ($contacts as $i => $c): ?>
@@ -85,9 +86,16 @@ ob_start(); ?>
           </a>
         </div>
       </div>
+    </div>
 
-      <div<?= reveal(0.08) ?>>
-        <div class="rounded-3xl bg-sand p-6 sm:p-8">
+    <div class="lg:col-span-7"<?= reveal(0.12) ?>>
+      <h2 class="mb-4 font-display text-2xl font-bold text-mist"><?= e($t('formTitle')) ?></h2>
+      <?= island('ContactForm', ['labels' => $labels], $fallback) ?>
+    </div>
+
+    <div class="lg:col-span-5">
+      <div class="h-full"<?= reveal(0.08) ?>>
+        <div class="h-full rounded-3xl bg-sand p-6 sm:p-8">
           <a href="<?= e(SITE['address']['mapsUrl']) ?>" target="_blank" rel="noopener noreferrer" class="group flex items-start gap-4">
             <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-paper text-emerald"><?= icon('MapPin', 'h-5 w-5') ?></span>
             <span class="min-w-0 flex-1">
@@ -119,15 +127,12 @@ ob_start(); ?>
       </div>
     </div>
 
-    <div class="lg:col-span-7"<?= reveal(0.12) ?>>
-      <h2 class="mb-4 font-display text-2xl font-bold text-mist"><?= e($t('formTitle')) ?></h2>
-      <?= island('ContactForm', ['labels' => $labels], $fallback) ?>
-    </div>
-  </div>
-
-  <div class="mt-10"<?= reveal() ?>>
-    <div class="glass overflow-hidden rounded-3xl p-2">
-      <iframe title="<?= e($t('mapTitle')) ?>" src="<?= e($mapSrc) ?>" width="100%" height="420" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full rounded-2xl border-0"></iframe>
+    <!-- Carte : à droite de l'adresse et des heures, dans le même cadre que le formulaire -->
+    <div class="flex flex-col lg:col-span-7"<?= reveal(0.12) ?>>
+      <h2 class="mb-4 font-display text-2xl font-bold text-mist"><?= e(locale() === 'en' ? 'Find us' : 'Nous trouver') ?></h2>
+      <div class="glass flex flex-1 overflow-hidden rounded-3xl p-2">
+        <iframe title="<?= e($t('mapTitle')) ?>" src="<?= e($mapSrc) ?>" width="100%" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="min-h-[320px] w-full flex-1 rounded-2xl border-0"></iframe>
+      </div>
     </div>
   </div>
 <?= section_close() ?>

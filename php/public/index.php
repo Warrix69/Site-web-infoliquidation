@@ -87,7 +87,7 @@ if (str_starts_with($uri, '/api/')) {
     $isEvent = (bool) preg_match('#^calendar/events/[A-Za-z0-9_@\-]+$#', $apiPath);
     if (!$isEvent && !preg_match('#^[a-z0-9\-/]+$#', $apiPath)) json_response(['error' => 'Not found'], 404);
 
-    if (preg_match('#^(ebay|calendar|google|clients|certificates|templates)(/|$)#', $apiPath)) {
+    if (preg_match('#^(ebay|calendar|google|clients|certificates|templates|prospects|outreach)(/|$)#', $apiPath)) {
         require_once APP_DIR . '/lib/admin_auth.php';
         admin_require_api();
     }
