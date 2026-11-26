@@ -1,0 +1,177 @@
+{
+  "base": "http://localhost:8090",
+  "date": "2026-11-26T03:08:17.495Z",
+  "chrome": "157.0.8103.80",
+  "nav": {
+    "desktop-cpu4": [
+      {
+        "href": "/a-propos",
+        "clickToNavStart": 9,
+        "clickToTTFB": 21,
+        "clickToFCP": 273,
+        "clickToLCP": 1073,
+        "clickToLoad": 378
+      },
+      {
+        "href": "/recyclage-ordinateur",
+        "clickToNavStart": 4,
+        "clickToTTFB": 17,
+        "clickToFCP": 380,
+        "clickToLCP": 1264,
+        "clickToLoad": 383
+      },
+      {
+        "href": "/formulaire-de-ramassage",
+        "clickToNavStart": 9,
+        "clickToTTFB": 22,
+        "clickToFCP": 269,
+        "clickToLCP": 869,
+        "clickToLoad": 438
+      },
+      {
+        "href": "/contact",
+        "clickToNavStart": 3,
+        "clickToTTFB": 17,
+        "clickToFCP": 331,
+        "clickToLCP": 1399,
+        "clickToLoad": 980
+      }
+    ],
+    "mobile-cpu4": [
+      {
+        "href": "/a-propos",
+        "clickToNavStart": 4,
+        "clickToTTFB": 16,
+        "clickToFCP": 324,
+        "clickToLCP": 1108,
+        "clickToLoad": 411
+      },
+      {
+        "href": "/recyclage-ordinateur",
+        "clickToNavStart": 4,
+        "clickToTTFB": 17,
+        "clickToFCP": 324,
+        "clickToLCP": 1140,
+        "clickToLoad": 467
+      },
+      {
+        "href": "/formulaire-de-ramassage",
+        "clickToNavStart": 10,
+        "clickToTTFB": 23,
+        "clickToFCP": 214,
+        "clickToLCP": 846,
+        "clickToLoad": 400
+      },
+      {
+        "href": "/contact",
+        "clickToNavStart": 4,
+        "clickToTTFB": 16,
+        "clickToFCP": 196,
+        "clickToLCP": 1280,
+        "clickToLoad": 1025
+      }
+    ],
+    "mobile-cpu4-4g": [
+      {
+        "href": "/a-propos",
+        "clickToNavStart": 4,
+        "clickToTTFB": 160,
+        "clickToFCP": 1800,
+        "clickToLCP": 3084,
+        "clickToLoad": 3064
+      },
+      {
+        "href": "/recyclage-ordinateur",
+        "clickToNavStart": 4,
+        "clickToTTFB": 159,
+        "clickToFCP": 1656,
+        "clickToLCP": 2072,
+        "clickToLoad": 2468
+      },
+      {
+        "href": "/formulaire-de-ramassage",
+        "clickToNavStart": 7,
+        "clickToTTFB": 163,
+        "clickToFCP": 2595,
+        "clickToLCP": 2995,
+        "clickToLoad": 4103
+      },
+      {
+        "href": "/contact",
+        "clickToNavStart": 4,
+        "clickToTTFB": 160,
+        "clickToFCP": 3056,
+        "clickToLCP": 4072,
+        "clickToLoad": 4776
+      }
+    ]
+  },
+  "interactions": {
+    "desktop-cpu4": {
+      "sousMenuServices": {
+        "page": "/",
+        "selector": "[data-services-btn]",
+        "samples": [
+          104,
+          40,
+          48
+        ],
+        "max": 104,
+        "median": 48,
+        "missing": 0
+      },
+      "accordeonFaq": {
+        "page": "/faq",
+        "selector": "#acc1-btn-N",
+        "samples": [
+          48,
+          40,
+          40
+        ],
+        "max": 48,
+        "median": 40,
+        "missing": 0
+      },
+      "formulaire": {
+        "page": "/formulaire-de-ramassage",
+        "focusMax": 32,
+        "typingMax": 40,
+        "typingInteractions": 15,
+        "typingEntries": 59
+      }
+    },
+    "mobile-cpu4": {
+      "menuMobile": {
+        "page": "/",
+        "selector": "[data-menu-btn]",
+        "samples": [
+          128,
+          56,
+          40
+        ],
+        "max": 128,
+        "median": 56,
+        "missing": 0
+      },
+      "accordeonFaq": {
+        "page": "/faq",
+        "selector": "#acc1-btn-N",
+        "samples": [
+          56,
+          40,
+          40
+        ],
+        "max": 56,
+        "median": 40,
+        "missing": 0
+      },
+      "formulaire": {
+        "page": "/formulaire-de-ramassage",
+        "focusMax": 56,
+        "typingMax": 40,
+        "typingInteractions": 15,
+        "typingEntries": 57
+      }
+    }
+  }
+}

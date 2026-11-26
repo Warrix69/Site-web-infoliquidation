@@ -1,0 +1,528 @@
+{
+  "base": "http://localhost:8090",
+  "date": "2026-11-26T02:50:20.554Z",
+  "pages": {
+    "home|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "a-propos|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "recyclage-ordinateur|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "destruction-disques|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "destruction-donnees|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "formulaire|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "contact|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "blog|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "blog-article|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "ville-laval|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "faq|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "en-home|desktop": {
+      "errors": [],
+      "bad": []
+    },
+    "home|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "a-propos|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "recyclage-ordinateur|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "destruction-disques|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "destruction-donnees|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "formulaire|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "contact|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "blog|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "blog-article|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "ville-laval|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "faq|mobile": {
+      "errors": [],
+      "bad": []
+    },
+    "en-home|mobile": {
+      "errors": [],
+      "bad": []
+    }
+  },
+  "overflow": [
+    {
+      "page": "/",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/a-propos",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/recyclage-ordinateur",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/destruction-des-disques-durs",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/destruction-des-donnees",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/formulaire-de-ramassage",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/contact",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/blog",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/laval",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/faq",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/en",
+      "size": "360x780",
+      "sw": 360,
+      "cw": 360,
+      "ok": true
+    },
+    {
+      "page": "/",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/a-propos",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/recyclage-ordinateur",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/destruction-des-disques-durs",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/destruction-des-donnees",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/formulaire-de-ramassage",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/contact",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/blog",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/laval",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/faq",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/en",
+      "size": "390x844",
+      "sw": 390,
+      "cw": 390,
+      "ok": true
+    },
+    {
+      "page": "/",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/a-propos",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/recyclage-ordinateur",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/destruction-des-disques-durs",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/destruction-des-donnees",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/formulaire-de-ramassage",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/contact",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/blog",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/laval",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/faq",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    },
+    {
+      "page": "/en",
+      "size": "844x390",
+      "sw": 844,
+      "cw": 844,
+      "ok": true
+    }
+  ],
+  "lenis": {
+    "/": {
+      "hasLenis": true,
+      "anchor": "reg-target",
+      "anchorResult": {
+        "scrollY": 11974,
+        "max": 11978,
+        "targetTop": 0,
+        "reached": true
+      },
+      "keys": {
+        "PageDown": {
+          "before": 1374,
+          "after": 2046,
+          "ok": true
+        },
+        "Space": {
+          "before": 2046,
+          "after": 2718,
+          "ok": true
+        },
+        "ArrowDown": {
+          "before": 2718,
+          "after": 2758,
+          "ok": true
+        },
+        "End": {
+          "before": 2758,
+          "after": 11978,
+          "ok": true
+        },
+        "Home": {
+          "before": 11978,
+          "after": 0,
+          "ok": true
+        }
+      },
+      "idle": "false",
+      "wheelAfterIdle": {
+        "before": 0,
+        "after": 900,
+        "ok": true
+      },
+      "scrollToAfterIdle": {
+        "after": 0,
+        "ok": true
+      },
+      "errors": []
+    },
+    "/recyclage-ordinateur": {
+      "hasLenis": true,
+      "anchor": "reg-target",
+      "anchorResult": {
+        "scrollY": 3908,
+        "max": 3912,
+        "targetTop": 0,
+        "reached": true
+      },
+      "keys": {
+        "PageDown": {
+          "before": 98,
+          "after": 770,
+          "ok": true
+        },
+        "Space": {
+          "before": 770,
+          "after": 1442,
+          "ok": true
+        },
+        "ArrowDown": {
+          "before": 1442,
+          "after": 1482,
+          "ok": true
+        },
+        "End": {
+          "before": 1482,
+          "after": 3912,
+          "ok": true
+        },
+        "Home": {
+          "before": 3912,
+          "after": 0,
+          "ok": true
+        }
+      },
+      "idle": "false",
+      "wheelAfterIdle": {
+        "before": 0,
+        "after": 900,
+        "ok": true
+      },
+      "scrollToAfterIdle": {
+        "after": 0,
+        "ok": true
+      },
+      "errors": []
+    }
+  },
+  "menu": {
+    "/": {
+      "initial": {
+        "expanded": "false",
+        "hidden": true
+      },
+      "afterOpen": {
+        "expanded": "true",
+        "hidden": false
+      },
+      "afterClose": {
+        "expanded": "false",
+        "hidden": true
+      },
+      "ok": true,
+      "scrollAfterClose": 800
+    },
+    "/recyclage-ordinateur": {
+      "initial": {
+        "expanded": "false",
+        "hidden": true
+      },
+      "afterOpen": {
+        "expanded": "true",
+        "hidden": false
+      },
+      "afterClose": {
+        "expanded": "false",
+        "hidden": true
+      },
+      "ok": true,
+      "scrollAfterClose": 800
+    }
+  },
+  "hero": {
+    "desktop": {
+      "canvases": [
+        {
+          "w": 717,
+          "h": 656,
+          "top": 112,
+          "opacity": 1
+        },
+        {
+          "w": 615,
+          "h": 538,
+          "top": 6964,
+          "opacity": 1
+        }
+      ],
+      "visible3d": true,
+      "shot": "C:\\Users\\Admin\\Documents\\ilr-perf\\php\\perf-audit\\raw\\regression-shots\\hero-desktop.png",
+      "errors": []
+    },
+    "mobile": {
+      "canvases": [
+        {
+          "w": 350,
+          "h": 281,
+          "top": 269,
+          "opacity": 1
+        },
+        {
+          "w": 350,
+          "h": 430,
+          "top": 7215,
+          "opacity": 1
+        }
+      ],
+      "visible3d": true,
+      "shot": "C:\\Users\\Admin\\Documents\\ilr-perf\\php\\perf-audit\\raw\\regression-shots\\hero-mobile.png",
+      "errors": []
+    }
+  }
+}

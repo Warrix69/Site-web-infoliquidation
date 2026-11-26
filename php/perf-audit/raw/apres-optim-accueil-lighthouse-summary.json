@@ -1,0 +1,326 @@
+{
+  "home|mobile": {
+    "page": "/",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 67,
+        "fcp": 1683.2135142579687,
+        "lcp": 1683.2135142579687,
+        "tbt": 4296.5,
+        "cls": 0,
+        "si": 3925.690661231778,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 1679.9876327601744,
+        "lcp": 1679.9876327601744,
+        "tbt": 4301,
+        "cls": 0,
+        "si": 4160.1251729720325,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 1680.8351932490223,
+        "lcp": 1680.8351932490223,
+        "tbt": 3901.999999999998,
+        "cls": 0,
+        "si": 3981.02688944106,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        67,
+        67
+      ],
+      "fcp": 1680.8351932490223,
+      "fcpRange": [
+        1679.9876327601744,
+        1683.2135142579687
+      ],
+      "lcp": 1680.8351932490223,
+      "lcpRange": [
+        1679.9876327601744,
+        1683.2135142579687
+      ],
+      "tbt": 4296.5,
+      "tbtRange": [
+        3901.999999999998,
+        4301
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 3981.02688944106,
+      "siRange": [
+        3925.690661231778,
+        4160.1251729720325
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "home|desktop": {
+    "page": "/",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 70,
+        "fcp": 350.41964424978335,
+        "lcp": 350.41964424978335,
+        "tbt": 1084,
+        "cls": 0.0014594989886834618,
+        "si": 1332.5653627538713,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 70,
+        "fcp": 352.6534290108077,
+        "lcp": 352.6534290108077,
+        "tbt": 1079.0000000000002,
+        "cls": 0.0002024043278438409,
+        "si": 1273.0686803422045,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 352.11518762757055,
+        "lcp": 1320.2303752551413,
+        "tbt": 1065.9999999999998,
+        "cls": 0.0014594989886834618,
+        "si": 1295.3099726070595,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 70,
+      "scoreRange": [
+        67,
+        70
+      ],
+      "fcp": 352.11518762757055,
+      "fcpRange": [
+        350.41964424978335,
+        352.6534290108077
+      ],
+      "lcp": 352.6534290108077,
+      "lcpRange": [
+        350.41964424978335,
+        1320.2303752551413
+      ],
+      "tbt": 1079.0000000000002,
+      "tbtRange": [
+        1065.9999999999998,
+        1084
+      ],
+      "cls": 0.0014594989886834618,
+      "clsRange": [
+        0.0002024043278438409,
+        0.0014594989886834618
+      ],
+      "si": 1295.3099726070595,
+      "siRange": [
+        1273.0686803422045,
+        1332.5653627538713
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "en-home|mobile": {
+    "page": "/en",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 67,
+        "fcp": 1676.46439512157,
+        "lcp": 1676.46439512157,
+        "tbt": 4370,
+        "cls": 0,
+        "si": 4136.584339454192,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 1684.016873878743,
+        "lcp": 1684.016873878743,
+        "tbt": 3696,
+        "cls": 0,
+        "si": 4242.151345966898,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 1678.7856939844196,
+        "lcp": 1678.7856939844196,
+        "tbt": 4360,
+        "cls": 0,
+        "si": 3997.9673594979977,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        67,
+        67
+      ],
+      "fcp": 1678.7856939844196,
+      "fcpRange": [
+        1676.46439512157,
+        1684.016873878743
+      ],
+      "lcp": 1678.7856939844196,
+      "lcpRange": [
+        1676.46439512157,
+        1684.016873878743
+      ],
+      "tbt": 4360,
+      "tbtRange": [
+        3696,
+        4370
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 4136.584339454192,
+      "siRange": [
+        3997.9673594979977,
+        4242.151345966898
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "en-home|desktop": {
+    "page": "/en",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 67,
+        "fcp": 350.5694309739408,
+        "lcp": 1265.6388619478817,
+        "tbt": 1220,
+        "cls": 0.0013368120562899056,
+        "si": 1260.3969953954336,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 348.0785886523345,
+        "lcp": 1302.657177304669,
+        "tbt": 1171,
+        "cls": 0.0001396711408134047,
+        "si": 1277.1244735569956,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 352.0209215901418,
+        "lcp": 1262.0418431802836,
+        "tbt": 1199,
+        "cls": 0.0013368120562899056,
+        "si": 1337.4761471887653,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        67,
+        67
+      ],
+      "fcp": 350.5694309739408,
+      "fcpRange": [
+        348.0785886523345,
+        352.0209215901418
+      ],
+      "lcp": 1265.6388619478817,
+      "lcpRange": [
+        1262.0418431802836,
+        1302.657177304669
+      ],
+      "tbt": 1199,
+      "tbtRange": [
+        1171,
+        1220
+      ],
+      "cls": 0.0013368120562899056,
+      "clsRange": [
+        0.0001396711408134047,
+        0.0013368120562899056
+      ],
+      "si": 1277.1244735569956,
+      "siRange": [
+        1260.3969953954336,
+        1337.4761471887653
+      ],
+      "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+      "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  }
+}

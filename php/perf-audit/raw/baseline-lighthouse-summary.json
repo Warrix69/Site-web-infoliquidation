@@ -1,0 +1,1478 @@
+{
+  "home|mobile": {
+    "page": "/",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 64,
+        "fcp": 2129.057744631882,
+        "lcp": 2129.057744631882,
+        "tbt": 4262.79025536812,
+        "cls": 0.0013031336617265643,
+        "si": 4741.721316761227,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 64,
+        "fcp": 2135.3739364197327,
+        "lcp": 2135.3739364197327,
+        "tbt": 4244.175460401256,
+        "cls": 0.0013031336617265643,
+        "si": 4615.382097014567,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 62,
+        "fcp": 2137.8497727840167,
+        "lcp": 2137.8497727840167,
+        "tbt": 3795.2577044943864,
+        "cls": 0,
+        "si": 5530.389266260861,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 64,
+      "scoreRange": [
+        62,
+        64
+      ],
+      "fcp": 2135.3739364197327,
+      "fcpRange": [
+        2129.057744631882,
+        2137.8497727840167
+      ],
+      "lcp": 2135.3739364197327,
+      "lcpRange": [
+        2129.057744631882,
+        2137.8497727840167
+      ],
+      "tbt": 4244.175460401256,
+      "tbtRange": [
+        3795.2577044943864,
+        4262.79025536812
+      ],
+      "cls": 0.0013031336617265643,
+      "clsRange": [
+        0,
+        0.0013031336617265643
+      ],
+      "si": 4741.721316761227,
+      "siRange": [
+        4615.382097014567,
+        5530.389266260861
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "home|desktop": {
+    "page": "/",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 57,
+        "fcp": 551.23265,
+        "lcp": 2358.84285,
+        "tbt": 1453.338275,
+        "cls": 0.0007821741395452672,
+        "si": 1398.8357973238071,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 538.7815841963996,
+        "lcp": 1234.145381472998,
+        "tbt": 1301.6275693005998,
+        "cls": 0.0007821741395452672,
+        "si": 1300.9584349279526,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 522.6182837289908,
+        "lcp": 1263.9902698319265,
+        "tbt": 1253.4000720903364,
+        "cls": 0.0007821741395452672,
+        "si": 1316.8354492122992,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        57,
+        67
+      ],
+      "fcp": 538.7815841963996,
+      "fcpRange": [
+        522.6182837289908,
+        551.23265
+      ],
+      "lcp": 1263.9902698319265,
+      "lcpRange": [
+        1234.145381472998,
+        2358.84285
+      ],
+      "tbt": 1301.6275693005998,
+      "tbtRange": [
+        1253.4000720903364,
+        1453.338275
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 1316.8354492122992,
+      "siRange": [
+        1300.9584349279526,
+        1398.8357973238071
+      ],
+      "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+      "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "a-propos|mobile": {
+    "page": "/a-propos",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 85,
+        "fcp": 1811.9024000000002,
+        "lcp": 4213.0232000000005,
+        "tbt": 0,
+        "cls": 0.02743811242036413,
+        "si": 1811.9024000000002,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 85,
+      "scoreRange": [
+        85,
+        85
+      ],
+      "fcp": 1811.9024000000002,
+      "fcpRange": [
+        1811.9024000000002,
+        1811.9024000000002
+      ],
+      "lcp": 4213.0232000000005,
+      "lcpRange": [
+        4213.0232000000005,
+        4213.0232000000005
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.02743811242036413,
+      "clsRange": [
+        0.02743811242036413,
+        0.02743811242036413
+      ],
+      "si": 1811.9024000000002,
+      "siRange": [
+        1811.9024000000002,
+        1811.9024000000002
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "a-propos|desktop": {
+    "page": "/a-propos",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 99,
+        "fcp": 483.78419999999994,
+        "lcp": 937.9129,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 607.6281380304125,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 99,
+      "scoreRange": [
+        99,
+        99
+      ],
+      "fcp": 483.78419999999994,
+      "fcpRange": [
+        483.78419999999994,
+        483.78419999999994
+      ],
+      "lcp": 937.9129,
+      "lcpRange": [
+        937.9129,
+        937.9129
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 607.6281380304125,
+      "siRange": [
+        607.6281380304125,
+        607.6281380304125
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "recyclage-ordinateur|mobile": {
+    "page": "/recyclage-ordinateur",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 91,
+        "fcp": 1963.5418032315656,
+        "lcp": 3283.048434410522,
+        "tbt": 0,
+        "cls": 0.01295946519629567,
+        "si": 1963.5418032315656,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 92,
+        "fcp": 1962.1322399245744,
+        "lcp": 3189.420079974858,
+        "tbt": 0,
+        "cls": 0.01295946519629567,
+        "si": 1962.1322399245744,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 90,
+        "fcp": 1967.9815356918145,
+        "lcp": 3274.349178563938,
+        "tbt": 103,
+        "cls": 0,
+        "si": 2332.6839868832058,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 91,
+      "scoreRange": [
+        90,
+        92
+      ],
+      "fcp": 1963.5418032315656,
+      "fcpRange": [
+        1962.1322399245744,
+        1967.9815356918145
+      ],
+      "lcp": 3274.349178563938,
+      "lcpRange": [
+        3189.420079974858,
+        3283.048434410522
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        103
+      ],
+      "cls": 0.01295946519629567,
+      "clsRange": [
+        0,
+        0.01295946519629567
+      ],
+      "si": 1963.5418032315656,
+      "siRange": [
+        1962.1322399245744,
+        2332.6839868832058
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+      "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "recyclage-ordinateur|desktop": {
+    "page": "/recyclage-ordinateur",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 96,
+        "fcp": 558.2033289233386,
+        "lcp": 869.8248289233385,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 1893.5309852939283,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 99,
+        "fcp": 548.4389602890715,
+        "lcp": 870.6194602890714,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 572.431758470558,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 99,
+        "fcp": 538.1736433405968,
+        "lcp": 858.0726433405968,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 560.0909359763349,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 99,
+      "scoreRange": [
+        96,
+        99
+      ],
+      "fcp": 548.4389602890715,
+      "fcpRange": [
+        538.1736433405968,
+        558.2033289233386
+      ],
+      "lcp": 869.8248289233385,
+      "lcpRange": [
+        858.0726433405968,
+        870.6194602890714
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 572.431758470558,
+      "siRange": [
+        560.0909359763349,
+        1893.5309852939283
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-disques|mobile": {
+    "page": "/destruction-des-disques-durs",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 90,
+        "fcp": 1962.780773561938,
+        "lcp": 3347.8029245206462,
+        "tbt": 0,
+        "cls": 0.02262781651893165,
+        "si": 1962.780773561938,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 90,
+      "scoreRange": [
+        90,
+        90
+      ],
+      "fcp": 1962.780773561938,
+      "fcpRange": [
+        1962.780773561938,
+        1962.780773561938
+      ],
+      "lcp": 3347.8029245206462,
+      "lcpRange": [
+        3347.8029245206462,
+        3347.8029245206462
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.02262781651893165,
+      "clsRange": [
+        0.02262781651893165,
+        0.02262781651893165
+      ],
+      "si": 1962.780773561938,
+      "siRange": [
+        1962.780773561938,
+        1962.780773561938
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-disques|desktop": {
+    "page": "/destruction-des-disques-durs",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 99,
+        "fcp": 553.0029,
+        "lcp": 863.0239,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 568.6541344831869,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 99,
+      "scoreRange": [
+        99,
+        99
+      ],
+      "fcp": 553.0029,
+      "fcpRange": [
+        553.0029,
+        553.0029
+      ],
+      "lcp": 863.0239,
+      "lcpRange": [
+        863.0239,
+        863.0239
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 568.6541344831869,
+      "siRange": [
+        568.6541344831869,
+        568.6541344831869
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-donnees|mobile": {
+    "page": "/destruction-des-donnees",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 91,
+        "fcp": 1812.937396822137,
+        "lcp": 3360.3293492055345,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1812.937396822137,
+        "lcpSelector": "div.relative > div.absolute > div.animate-float > img.h-auto",
+        "lcpSnippet": "<img src=\"/images/bac/ecran.webp\" alt=\"\" width=\"560\" height=\"560\" fetchpriority=\"high\" class=\"h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 91,
+      "scoreRange": [
+        91,
+        91
+      ],
+      "fcp": 1812.937396822137,
+      "fcpRange": [
+        1812.937396822137,
+        1812.937396822137
+      ],
+      "lcp": 3360.3293492055345,
+      "lcpRange": [
+        3360.3293492055345,
+        3360.3293492055345
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1812.937396822137,
+      "siRange": [
+        1812.937396822137,
+        1812.937396822137
+      ],
+      "lcpSelector": "div.relative > div.absolute > div.animate-float > img.h-auto",
+      "lcpSnippet": "<img src=\"/images/bac/ecran.webp\" alt=\"\" width=\"560\" height=\"560\" fetchpriority=\"high\" class=\"h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-donnees|desktop": {
+    "page": "/destruction-des-donnees",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 485.096859817305,
+        "lcp": 794.4038598173051,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 539.7031747541837,
+        "lcpSelector": "div.mx-auto > div.grid > div.is-visible > p.leading-relaxed",
+        "lcpSnippet": "<p class=\"leading-relaxed text-moss\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 485.096859817305,
+      "fcpRange": [
+        485.096859817305,
+        485.096859817305
+      ],
+      "lcp": 794.4038598173051,
+      "lcpRange": [
+        794.4038598173051,
+        794.4038598173051
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 539.7031747541837,
+      "siRange": [
+        539.7031747541837,
+        539.7031747541837
+      ],
+      "lcpSelector": "div.mx-auto > div.grid > div.is-visible > p.leading-relaxed",
+      "lcpSnippet": "<p class=\"leading-relaxed text-moss\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "formulaire|mobile": {
+    "page": "/formulaire-de-ramassage",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 62,
+        "fcp": 1821.0747999999999,
+        "lcp": 5818.3472,
+        "tbt": 69.99999999999955,
+        "cls": 0.3013365735115431,
+        "si": 1897.2435854316218,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 69,
+        "fcp": 3752.8007000000002,
+        "lcp": 5854.692800000001,
+        "tbt": 98,
+        "cls": 0,
+        "si": 3752.8007000000002,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 74,
+        "fcp": 1827.7248,
+        "lcp": 5804.7192000000005,
+        "tbt": 121.99999999999955,
+        "cls": 0,
+        "si": 4379.847199502795,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 69,
+      "scoreRange": [
+        62,
+        74
+      ],
+      "fcp": 1827.7248,
+      "fcpRange": [
+        1821.0747999999999,
+        3752.8007000000002
+      ],
+      "lcp": 5818.3472,
+      "lcpRange": [
+        5804.7192000000005,
+        5854.692800000001
+      ],
+      "tbt": 98,
+      "tbtRange": [
+        69.99999999999955,
+        121.99999999999955
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0.3013365735115431
+      ],
+      "si": 3752.8007000000002,
+      "siRange": [
+        1897.2435854316218,
+        4379.847199502795
+      ],
+      "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+      "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "formulaire|desktop": {
+    "page": "/formulaire-de-ramassage",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 78,
+        "fcp": 507.7093002843459,
+        "lcp": 1144.8652280567183,
+        "tbt": 0,
+        "cls": 0.4301713283927006,
+        "si": 517.5183322959745,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 78,
+        "fcp": 507.8871,
+        "lcp": 1212.2208999999998,
+        "tbt": 0,
+        "cls": 0.4301713283927006,
+        "si": 586.7928812354558,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 78,
+        "fcp": 483.9024093454151,
+        "lcp": 1178.701502799566,
+        "tbt": 0,
+        "cls": 0.4301713283927006,
+        "si": 552.1491658848427,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 78,
+      "scoreRange": [
+        78,
+        78
+      ],
+      "fcp": 507.7093002843459,
+      "fcpRange": [
+        483.9024093454151,
+        507.8871
+      ],
+      "lcp": 1178.701502799566,
+      "lcpRange": [
+        1144.8652280567183,
+        1212.2208999999998
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.4301713283927006,
+      "clsRange": [
+        0.4301713283927006,
+        0.4301713283927006
+      ],
+      "si": 552.1491658848427,
+      "siRange": [
+        517.5183322959745,
+        586.7928812354558
+      ],
+      "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+      "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "contact|mobile": {
+    "page": "/contact",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 75,
+        "fcp": 1976.9147499999997,
+        "lcp": 6333.677625,
+        "tbt": 113,
+        "cls": 0,
+        "si": 1976.9147499999997,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 75,
+      "scoreRange": [
+        75,
+        75
+      ],
+      "fcp": 1976.9147499999997,
+      "fcpRange": [
+        1976.9147499999997,
+        1976.9147499999997
+      ],
+      "lcp": 6333.677625,
+      "lcpRange": [
+        6333.677625,
+        6333.677625
+      ],
+      "tbt": 113,
+      "tbtRange": [
+        113,
+        113
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1976.9147499999997,
+      "siRange": [
+        1976.9147499999997,
+        1976.9147499999997
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "contact|desktop": {
+    "page": "/contact",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 97,
+        "fcp": 508.98635725803217,
+        "lcp": 1301.7424657254023,
+        "tbt": 0,
+        "cls": 0.000895054588261207,
+        "si": 686.2978930652021,
+        "lcpSelector": "div.relative > div.absolute > div.animate-float > img.h-auto",
+        "lcpSnippet": "<img src=\"/images/bac/bac-plein.webp\" alt=\"\" width=\"560\" height=\"560\" fetchpriority=\"high\" class=\"h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 97,
+      "scoreRange": [
+        97,
+        97
+      ],
+      "fcp": 508.98635725803217,
+      "fcpRange": [
+        508.98635725803217,
+        508.98635725803217
+      ],
+      "lcp": 1301.7424657254023,
+      "lcpRange": [
+        1301.7424657254023,
+        1301.7424657254023
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.000895054588261207,
+      "clsRange": [
+        0.000895054588261207,
+        0.000895054588261207
+      ],
+      "si": 686.2978930652021,
+      "siRange": [
+        686.2978930652021,
+        686.2978930652021
+      ],
+      "lcpSelector": "div.relative > div.absolute > div.animate-float > img.h-auto",
+      "lcpSnippet": "<img src=\"/images/bac/bac-plein.webp\" alt=\"\" width=\"560\" height=\"560\" fetchpriority=\"high\" class=\"h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog|mobile": {
+    "page": "/blog",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 88,
+        "fcp": 1963.556005894532,
+        "lcp": 3614.7464575434046,
+        "tbt": 114.99999999999977,
+        "cls": 0.02180034259211228,
+        "si": 1963.556005894532,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 88,
+      "scoreRange": [
+        88,
+        88
+      ],
+      "fcp": 1963.556005894532,
+      "fcpRange": [
+        1963.556005894532,
+        1963.556005894532
+      ],
+      "lcp": 3614.7464575434046,
+      "lcpRange": [
+        3614.7464575434046,
+        3614.7464575434046
+      ],
+      "tbt": 114.99999999999977,
+      "tbtRange": [
+        114.99999999999977,
+        114.99999999999977
+      ],
+      "cls": 0.02180034259211228,
+      "clsRange": [
+        0.02180034259211228,
+        0.02180034259211228
+      ],
+      "si": 1963.556005894532,
+      "siRange": [
+        1963.556005894532,
+        1963.556005894532
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog|desktop": {
+    "page": "/blog",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 99,
+        "fcp": 530.0071951857776,
+        "lcp": 834.5241951857776,
+        "tbt": 0,
+        "cls": 0.0007838198419498935,
+        "si": 549.3186474738972,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 99,
+      "scoreRange": [
+        99,
+        99
+      ],
+      "fcp": 530.0071951857776,
+      "fcpRange": [
+        530.0071951857776,
+        530.0071951857776
+      ],
+      "lcp": 834.5241951857776,
+      "lcpRange": [
+        834.5241951857776,
+        834.5241951857776
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007838198419498935,
+      "clsRange": [
+        0.0007838198419498935,
+        0.0007838198419498935
+      ],
+      "si": 549.3186474738972,
+      "siRange": [
+        549.3186474738972,
+        549.3186474738972
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog-article|mobile": {
+    "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 93,
+        "fcp": 1969.2221924645728,
+        "lcp": 3012.4973974881914,
+        "tbt": 0,
+        "cls": 0.00006430935889353624,
+        "si": 1969.2221924645728,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > p.mt-5",
+        "lcpSnippet": "<p class=\"mt-5 text-lg leading-relaxed text-moss\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 93,
+      "scoreRange": [
+        93,
+        93
+      ],
+      "fcp": 1969.2221924645728,
+      "fcpRange": [
+        1969.2221924645728,
+        1969.2221924645728
+      ],
+      "lcp": 3012.4973974881914,
+      "lcpRange": [
+        3012.4973974881914,
+        3012.4973974881914
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.00006430935889353624,
+      "clsRange": [
+        0.00006430935889353624,
+        0.00006430935889353624
+      ],
+      "si": 1969.2221924645728,
+      "siRange": [
+        1969.2221924645728,
+        1969.2221924645728
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > p.mt-5",
+      "lcpSnippet": "<p class=\"mt-5 text-lg leading-relaxed text-moss\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog-article|desktop": {
+    "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 98,
+        "fcp": 541.107090944731,
+        "lcp": 843.7350909447309,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 1344.5944804287617,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.mt-3",
+        "lcpSnippet": "<h1 class=\"mt-3 font-display text-3xl font-bold leading-[1.12] text-mist sm:text-4xl …\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 98,
+      "scoreRange": [
+        98,
+        98
+      ],
+      "fcp": 541.107090944731,
+      "fcpRange": [
+        541.107090944731,
+        541.107090944731
+      ],
+      "lcp": 843.7350909447309,
+      "lcpRange": [
+        843.7350909447309,
+        843.7350909447309
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 1344.5944804287617,
+      "siRange": [
+        1344.5944804287617,
+        1344.5944804287617
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.mt-3",
+      "lcpSnippet": "<h1 class=\"mt-3 font-display text-3xl font-bold leading-[1.12] text-mist sm:text-4xl …\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "ville-laval|mobile": {
+    "page": "/laval",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 83,
+        "fcp": 1965.0711170637285,
+        "lcp": 4366.552214065912,
+        "tbt": 107.99999999999977,
+        "cls": 0.00006430935889353624,
+        "si": 1965.0711170637285,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 83,
+      "scoreRange": [
+        83,
+        83
+      ],
+      "fcp": 1965.0711170637285,
+      "fcpRange": [
+        1965.0711170637285,
+        1965.0711170637285
+      ],
+      "lcp": 4366.552214065912,
+      "lcpRange": [
+        4366.552214065912,
+        4366.552214065912
+      ],
+      "tbt": 107.99999999999977,
+      "tbtRange": [
+        107.99999999999977,
+        107.99999999999977
+      ],
+      "cls": 0.00006430935889353624,
+      "clsRange": [
+        0.00006430935889353624,
+        0.00006430935889353624
+      ],
+      "si": 1965.0711170637285,
+      "siRange": [
+        1965.0711170637285,
+        1965.0711170637285
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+      "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "ville-laval|desktop": {
+    "page": "/laval",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 99,
+        "fcp": 549.3090012948254,
+        "lcp": 976.4880086321691,
+        "tbt": 0,
+        "cls": 0.0007838198419498935,
+        "si": 551.1098431638213,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 99,
+      "scoreRange": [
+        99,
+        99
+      ],
+      "fcp": 549.3090012948254,
+      "fcpRange": [
+        549.3090012948254,
+        549.3090012948254
+      ],
+      "lcp": 976.4880086321691,
+      "lcpRange": [
+        976.4880086321691,
+        976.4880086321691
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007838198419498935,
+      "clsRange": [
+        0.0007838198419498935,
+        0.0007838198419498935
+      ],
+      "si": 551.1098431638213,
+      "siRange": [
+        551.1098431638213,
+        551.1098431638213
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "faq|mobile": {
+    "page": "/faq",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 94,
+        "fcp": 1813.0307999999998,
+        "lcp": 2844.4931999999994,
+        "tbt": 0,
+        "cls": 0.01653627705295358,
+        "si": 1813.0307999999998,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 94,
+      "scoreRange": [
+        94,
+        94
+      ],
+      "fcp": 1813.0307999999998,
+      "fcpRange": [
+        1813.0307999999998,
+        1813.0307999999998
+      ],
+      "lcp": 2844.4931999999994,
+      "lcpRange": [
+        2844.4931999999994,
+        2844.4931999999994
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.01653627705295358,
+      "clsRange": [
+        0.01653627705295358,
+        0.01653627705295358
+      ],
+      "si": 1813.0307999999998,
+      "siRange": [
+        1813.0307999999998,
+        1813.0307999999998
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "faq|desktop": {
+    "page": "/faq",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 99,
+        "fcp": 528.3386,
+        "lcp": 832.9881,
+        "tbt": 0,
+        "cls": 0.0007838198419498935,
+        "si": 529.1567613208088,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 99,
+      "scoreRange": [
+        99,
+        99
+      ],
+      "fcp": 528.3386,
+      "fcpRange": [
+        528.3386,
+        528.3386
+      ],
+      "lcp": 832.9881,
+      "lcpRange": [
+        832.9881,
+        832.9881
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007838198419498935,
+      "clsRange": [
+        0.0007838198419498935,
+        0.0007838198419498935
+      ],
+      "si": 529.1567613208088,
+      "siRange": [
+        529.1567613208088,
+        529.1567613208088
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "en-home|mobile": {
+    "page": "/en",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 43,
+        "fcp": 2121.909034272192,
+        "lcp": 6096.361213098234,
+        "tbt": 4923.82194485917,
+        "cls": 0,
+        "si": 4716.53677634678,
+        "lcpSelector": "body > div.cookie-panel > div.rounded-2xl > p.text-sm",
+        "lcpSnippet": "<p class=\"text-sm leading-relaxed text-mist\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 43,
+      "scoreRange": [
+        43,
+        43
+      ],
+      "fcp": 2121.909034272192,
+      "fcpRange": [
+        2121.909034272192,
+        2121.909034272192
+      ],
+      "lcp": 6096.361213098234,
+      "lcpRange": [
+        6096.361213098234,
+        6096.361213098234
+      ],
+      "tbt": 4923.82194485917,
+      "tbtRange": [
+        4923.82194485917,
+        4923.82194485917
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 4716.53677634678,
+      "siRange": [
+        4716.53677634678,
+        4716.53677634678
+      ],
+      "lcpSelector": "body > div.cookie-panel > div.rounded-2xl > p.text-sm",
+      "lcpSnippet": "<p class=\"text-sm leading-relaxed text-mist\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "en-home|desktop": {
+    "page": "/en",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 56,
+        "fcp": 544.2480289858828,
+        "lcp": 2419.1679782670662,
+        "tbt": 1232.4524951690198,
+        "cls": 0.0004721129128871006,
+        "si": 1466.0815930417114,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 56,
+      "scoreRange": [
+        56,
+        56
+      ],
+      "fcp": 544.2480289858828,
+      "fcpRange": [
+        544.2480289858828,
+        544.2480289858828
+      ],
+      "lcp": 2419.1679782670662,
+      "lcpRange": [
+        2419.1679782670662,
+        2419.1679782670662
+      ],
+      "tbt": 1232.4524951690198,
+      "tbtRange": [
+        1232.4524951690198,
+        1232.4524951690198
+      ],
+      "cls": 0.0004721129128871006,
+      "clsRange": [
+        0.0004721129128871006,
+        0.0004721129128871006
+      ],
+      "si": 1466.0815930417114,
+      "siRange": [
+        1466.0815930417114,
+        1466.0815930417114
+      ],
+      "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+      "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  }
+}
