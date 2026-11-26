@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, useEffect, useRef, useState, type ReactNode } from "react";
+import { Component, memo, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { DeviceKey } from "./HeroDevices";
@@ -52,7 +52,10 @@ class ThreeErrorBoundary extends Component<
   }
 }
 
-function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) => void }) {
+// memo : le changement d'appareil au scroll (setDevice dans Hero) ne re-rend ni la scène 3D ni le texte
+const MemoHeroCopy = memo(HeroCopy);
+
+const SafeHeroDevices = memo(function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) => void }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<"wait" | "3d" | "fallback">("wait");
   const [quality, setQuality] = useState<"high" | "low">("high");
@@ -121,7 +124,7 @@ function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =
       )}
     </div>
   );
-}
+});
 
 const DEVICE_KEYS: DeviceKey[] = ["laptop", "phone", "tower", "switch", "monitor"];
 
@@ -136,6 +139,18 @@ export function Hero({ labels }: { labels: HeroLabels }) {
   const [device, setDevice] = useState<DeviceKey>("laptop");
   const index = DEVICE_KEYS.indexOf(device);
   const deviceName = labels.devices[device];
+  const copyLabels = useMemo(
+    () => ({
+      titleLead: labels.titleLead,
+      titleAccent: labels.titleAccent,
+      since: labels.since,
+      years: labels.years,
+      promise: labels.promise,
+      ctaPrimary: labels.ctaPrimary,
+      ctaHow: labels.ctaHow
+    }),
+    [labels]
+  );
 
   return (
     <section aria-label={labels.titleAccent} className="relative bg-vivid text-paper">
@@ -156,17 +171,7 @@ export function Hero({ labels }: { labels: HeroLabels }) {
 
           <div className="relative mx-auto flex h-full w-full max-w-7xl flex-col px-5 pb-5 pt-[7.25rem] sm:px-8 lg:justify-center lg:pb-10 lg:pt-28">
             {/* Message (titre, badge, promesse, boutons) */}
-            <HeroCopy
-              labels={{
-                titleLead: labels.titleLead,
-                titleAccent: labels.titleAccent,
-                since: labels.since,
-                years: labels.years,
-                promise: labels.promise,
-                ctaPrimary: labels.ctaPrimary,
-                ctaHow: labels.ctaHow
-              }}
-            />
+            <MemoHeroCopy labels={copyLabels} />
 
             {/* Scène 3D + appareil affiché : au centre sur mobile, à droite sur ordinateur */}
             <div className="pointer-events-none relative order-2 my-2 min-h-[150px] flex-1 short:my-1 short:min-h-[110px] tiny:min-h-[90px] lg:absolute lg:bottom-0 lg:right-0 lg:top-28 lg:my-0 lg:w-[56%]">
