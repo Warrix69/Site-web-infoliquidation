@@ -4,8 +4,8 @@ import { Component, memo, useEffect, useMemo, useRef, useState, type ReactNode }
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { DeviceKey, HeroDevicesProps } from "./HeroDevices";
-import { HeroCopy, type YearsLabels } from "./HeroCopy";
-import { HeroDevicesFallback } from "./HeroDevicesFallback";
+import { HeroCopy, type YearsLabels } from "@/components/home/HeroCopy";
+import { HeroDevicesFallback } from "@/components/home/HeroDevicesFallback";
 
 export type HeroLabels = {
   titleLead: string;

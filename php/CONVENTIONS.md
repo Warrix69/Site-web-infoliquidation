@@ -47,5 +47,6 @@ ob_start(); ?>
 
 ## Surcharges PHP (`js/overrides/`)
 - `Hero.tsx`, `HeroDevices.tsx`, `DataDestruction.tsx` sont des copies de `src/components/home/` optimisées pour la version PHP seulement (performance, rendu identique) ; `src/` reste celui du site Next.js et n'est pas modifié.
-- `build.mjs` (plugin `php-overrides`) redirige tout import de l'original vers la copie ; les autres imports des copies (`./HeroCopy`, `@/…`) résolvent toujours dans `src/`.
+- `HeroEffects.tsx` (post-traitement de la 3D, extrait de `HeroDevices.tsx`) n'existe que côté PHP : chargé en mode high seulement.
+- `build.mjs` (plugin `php-overrides`) redirige tout import de l'original vers la copie ; les autres imports des copies s'écrivent en `@/…` (résolus dans `src/`, et `tsc` les trouve).
 - Toute modification de l'original dans `src/components/home/` doit être reportée à la main dans la copie (sinon la version PHP garde l'ancien comportement).
