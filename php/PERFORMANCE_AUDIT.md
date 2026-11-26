@@ -300,12 +300,13 @@ Défilement de l'accueil, navigation et clics : médiane de 3 passes APRÈS. AVA
 
 ### Résumé
 
-- **Mobile : l'accueil passe de 44 à 67.** Le premier affichage arrive plus tôt (FCP 2,13 s → 1,68 s). Mais le téléphone reste occupé plus de 4 s (TBT 3 520 → 4 416 ms).
+- **Mobile : l'accueil passe de 44 à 67.** Le premier affichage arrive plus tôt (FCP 2,13 s → 1,68 s). Mais le téléphone reste occupé plus de 4 s (TBT 3 520 → 4 416 ms). Le travail du processeur, lui, ne change pas : le TBT monte parce que la même tâche 3D tombe maintenant dans sa fenêtre de calcul (voir « Enquête sur les reculs »).
 - **Pages intérieures : 91 à 96 sur mobile** (sauf formulaire 65 et contact 75), **100 sur ordinateur** (sauf contact 98 et formulaire 80). Le FCP mobile gagne environ 0,4 s partout.
 - **Le LCP mobile des pages intérieures reste au-dessus de 2,5 s** (2,7 à 3,4 s ; contact 7,8 s ; formulaire 5,3 s).
 - **Le formulaire de ramassage saute toujours** (CLS 0,40 ordinateur, 0,30 mobile).
-- **Défilement de l'accueil avec processeur 6x plus lent : pas mieux, un peu pire** (33,1 → 27,6 i/s à 1366 px).
-- **Changement de page depuis l'accueil : plus lent qu'avant** (+70 à +160 ms jusqu'au premier affichage sans limite réseau).
+- **Défilement de l'accueil avec processeur 6x plus lent : inchangé.** La mesure ci-dessous donnait 33,1 → 27,6 i/s à 1366 px. En passes alternées dans la même période : 29,0 → 29,8 i/s. L'écart venait de la charge de la machine.
+- **Changement de page depuis l'accueil : plus lent qu'avant** (+70 à +160 ms jusqu'au premier affichage sans limite réseau). Cause : les polices auto-hébergées (`3504ac4`), qui donnent aussi le 44 → 67 de l'accueil. Gardées.
+- **WebKit (pas Safari iOS) : défilement de l'accueil 20,9 → 10,4 i/s.** Cause : les speculation rules (`b6ffe8a`), qui accélèrent le changement de page dans Chrome. Gardées.
 - **JS de l'accueil sur mobile : −152 Ko compressés** (le post-traitement 3D n'est plus chargé sur téléphone).
 
 ### Lighthouse — ordinateur (AVANT → APRÈS)
@@ -369,7 +370,7 @@ Pages intérieures : 8,2 → 8,9 Ko gzip de JS (site.js). Formulaire : 159,5 →
 | `/laval` | 1366 px | 54,3 → 55,8 | 3,3 → 4,3 | 294 → 117 |
 
 Accueil, processeur 4x plus lent (pour info) : 1366 px 47,8 → 48,4 i/s ; 1920 px 50,4 → 51,0 i/s.
-Accueil 1366 px, 6x : la section du héros a 37 longues tâches (2 659 ms) dans la passe 1 APRÈS, contre 13 (926 ms) AVANT. La cause n'a pas été isolée dans cette mesure.
+Accueil 1366 px, 6x : la section du héros a 37 longues tâches (2 659 ms) dans la passe 1 APRÈS, contre 13 (926 ms) AVANT. En passes alternées (voir « Enquête sur les reculs »), il n'y a pas de recul : c'était du bruit.
 
 ### Défilement — mobile, processeur 4x plus lent, 4G
 
@@ -381,7 +382,7 @@ Accueil 1366 px, 6x : la section du héros a 37 longues tâches (2 659 ms) dans 
 | `/destruction-des-disques-durs` | 390 px | 60 → 60 | 0 → 0 |
 | `/laval` | 390 px | 58,8 → 58,8 | 0,5 → 0,5 |
 
-WebKit (Playwright sur Windows, profil iPhone 13, **pas Safari iOS**) : accueil 20,7 → 10,3–11,0 i/s (3 passes) ; `/recyclage-ordinateur` 24,8 → 20,2–22,4 i/s. Recul net sur l'accueil dans ce moteur, cause non isolée.
+WebKit (Playwright sur Windows, profil iPhone 13, **pas Safari iOS**) : accueil 20,7 → 10,3–11,0 i/s (3 passes) ; `/recyclage-ordinateur` 24,8 → 20,2–22,4 i/s. Recul net sur l'accueil dans ce moteur. Cause : `b6ffe8a` (voir « Enquête sur les reculs »).
 
 ### Changement de page depuis l'accueil (clic → premier affichage, ms ; médiane 3 passes APRÈS)
 
@@ -400,7 +401,7 @@ WebKit (Playwright sur Windows, profil iPhone 13, **pas Safari iOS**) : accueil 
 | mobile, CPU 4x, 4G | `/formulaire-de-ramassage` | 1 512 → 2 622 | 2 212 → 3 006 |
 | mobile, CPU 4x, 4G | `/contact` | 2 652 → 3 049 | 3 152 → 4 101 |
 
-Le temps de réponse du serveur ne change pas (TTFB ≈ 16–24 ms sans 4G). C'est l'affichage de la page d'arrivée qui prend plus de temps. AVANT n'a qu'une passe. La cause n'a pas été isolée dans cette mesure.
+Le temps de réponse du serveur ne change pas (TTFB ≈ 16–24 ms sans 4G). C'est l'affichage de la page d'arrivée qui prend plus de temps. AVANT n'a qu'une passe. Causes : `3504ac4` et, en 4G vers le formulaire et contact, `fa23faa`. Les chiffres 4G de ce tableau sont sans compression : avec gzip, l'écart est bien plus petit (voir « Enquête sur les reculs »).
 
 ### Réactivité aux clics (latence maximale, ms ; seuil de mesure 16 ms)
 
@@ -414,6 +415,41 @@ Le temps de réponse du serveur ne change pas (TTFB ≈ 16–24 ms sans 4G). C'e
 | mobile, CPU 4x | formulaire (focus / frappe) | 48 / 32 | 40 / 40 ; 48 / 32 ; 56 / 40 |
 
 Toutes les valeurs restent sous 200 ms. C'est une mesure en laboratoire, pas l'INP de vrais visiteurs.
+
+### Enquête sur les reculs (passes alternées)
+
+Date : 2026-11-25. But : vérifier si les reculs ci-dessus sont réels, trouver le commit responsable et l'annuler s'il n'apporte rien d'autre.
+
+**Méthode.** Deux serveurs en même temps : HEAD (`2bb307c`, port 8090) et un worktree temporaire (AVANT `6d5495d` ou un commit intermédiaire, port 8091). Les passes alternent A, B, B, A… dans la même période ; on compare les médianes. Mêmes scripts que plus haut, limités à la page concernée (`run-scroll`, `run-lighthouse`, `run-webkit`, navigation de `run-interactions`). Pour la 4G, un mandataire gzip (niveau 6) est placé devant chaque serveur, car le serveur PHP intégré ne compresse pas. Bissection sur `365327d`, `3504ac4`, `6d1c267`, `fa23faa`, `b6ffe8a` et `61ea127`.
+
+**Résultat : aucun commit annulé.** Deux reculs sont du bruit. Le TBT monte sans travail en plus. Les trois autres viennent de commits qui ont aussi un gain mesuré : ce sont des compromis.
+
+| Recul signalé | Passes alternées, AVANT → APRÈS | Verdict | Commit | Décision |
+| --- | --- | --- | --- | --- |
+| Défilement accueil 1366 px, CPU 6x | 29,0 → 29,8 i/s ; longues tâches 4 427 → 4 559 ms ; dont héros 1 979 → 1 777 ms (6 passes chacun) | bruit | — | rien à annuler |
+| TBT Lighthouse mobile, accueil | 3 459 → 4 437 ms (5 passes chacun) | réel dans la note, pas plus de travail | aucun seul commit | rien à annuler |
+| WebKit, défilement accueil | 20,9 → 10,4 i/s (5 passes chacun) | réel | `b6ffe8a` | gardé (compromis) |
+| Clic depuis l'accueil → FCP, sans limite réseau, CPU 4x | ordinateur 245 → 321 ms ; mobile 227 → 321 ms (5 passes × 4 liens) | réel | `3504ac4` | gardé (compromis) |
+| Clic depuis l'accueil, 4G lent + CPU 4x, gzip | FCP +60 à +130 ms ; LCP `/a-propos` 2 210 → 2 581, `/contact` 1 858 → 2 540, `/recyclage-ordinateur` 1 540 → 1 322, formulaire 1 472 → 1 312 ms (3 passes) | réel, plus petit que sans gzip | `3504ac4`, `fa23faa` | gardés (compromis) |
+| LCP Lighthouse mobile, `/contact` | médiane 6 403 → 7 033 ms, moyenne 7 129 → 7 169 ms ; score 74 → 76 (13 passes chacun) | bruit | — | rien à annuler |
+
+**TBT de l'accueil.** Avant et après, Lighthouse voit les mêmes longues tâches : environ 2,7 s et 0,5 s (le gros chunk JS de l'accueil), 1,5 s (scène 3D) et 0,2 s. Le temps bloquant de toutes les longues tâches ne change pas (4 978 → 4 963 ms, médianes de 5). Le travail total non plus (9,83 → 9,88 s). Le TTI arrive plus tôt (18,4 → 16,0 s). Mais le TBT ne compte que la fenêtre entre FCP et TTI. Tout arrive plus tôt, et la tâche de 1,5 s de la scène 3D tombe maintenant dans cette fenêtre ; avant, elle tombait surtout après le TTI. Pas de commit unique : TBT 4 132 ms à `6d1c267` (avant les polices), 3 886 ms à `3504ac4`, 4 315 ms à `365327d` (3 passes chacun).
+
+**WebKit : `b6ffe8a` (speculation rules).** Bissection : 20,2 i/s à `fa23faa`, 10,5 i/s à `b6ffe8a` et 10,4 i/s à `61ea127`. À HEAD, la même page sans la balise donne 20,4 i/s, contre 10,35 avec (4 passes chacun). Le WebKit de Playwright (version 27.2) reconnaît `speculationrules`. Aucune page n'est préchargée pendant le test. Ce n'est donc pas un téléchargement : chaque image est lente (100 % des images au-delà de 18 ms). Sans la seule clause `selector_matches`, rien ne change (10,5 i/s).
+Gain mesuré à HEAD, avec et sans la balise (Chrome ordinateur, CPU 4x, 4G lent, gzip, survol 300 ms puis clic depuis `/faq`, 3 passes × 4 liens) : clic → TTFB environ 205 → 50 ms, clic → FCP 875 → 749 ms, clic → LCP 1 323 → 1 161 ms. Les pages arrivent en `navigational-prefetch`.
+Compromis : gain réel dans Chrome et Edge, perte dans ce WebKit, qui n'est pas Safari iOS. On ne sait pas si Safari iOS applique ces règles. Gardé.
+
+**Changement de page : `3504ac4` (polices auto-hébergées).** Bissection (sans limite réseau, CPU 4x, 2 passes alternées avec HEAD, 4 liens, ordinateur / mobile) : à `6d1c267`, 246 / 232 ms (HEAD 290 / 313) ; à `3504ac4`, 318 / 339 ms (HEAD 304 / 335). Le serveur répond aussi vite qu'avant (début de navigation ≈ 5 ms, TTFB ≈ 16 ms) : c'est le premier affichage de la page d'arrivée qui attend environ 80 ms de plus.
+Gain du même commit (Lighthouse mobile, 3 passes à `6d1c267` puis à `3504ac4`) : accueil 44 → 67, LCP 5,89 → 1,68 s, FCP 2,13 → 1,68 s. Gardé.
+
+**4G : `3504ac4` et `fa23faa`.** Sans gzip, la bissection donne : `/a-propos` FCP 1 564 ms (`6d1c267`) → 1 768 ms (`3504ac4`) ; formulaire 1 656 ms (`3504ac4`) → 2 559 ms (`fa23faa`) ; contact 2 256 → 2 916 ms. Sans gzip, le TTFB de contact varie aussi d'une passe à l'autre (160 à 800 ms) ; avec gzip, de 160 à 290 ms.
+`fa23faa` ne garde le modulepreload que sur `/formulaire-de-ramassage` et `/contact`. Mesuré à HEAD, avec et sans ce modulepreload (gzip, mobile, CPU 4x, 4G lent) :
+- clic depuis l'accueil : FCP à ±30 ms près ; LCP formulaire 1 092 → 1 296 ms (+204), contact 2 128 → 2 555 ms (+427) (3 passes) ;
+- page ouverte directement (cache vide) : formulaire monté (îlot React) 2 297 → 1 712 ms (−585), contact 2 696 → 2 137 ms (−559) ; LCP formulaire 1 464 → 1 440 ms, contact 2 104 → 2 544 ms (+440) (5 passes) ;
+- Lighthouse mobile : formulaire 78 → 81 (LCP 3,15 → 2,65 s), contact 80 → 85 (LCP 5,33 → 4,47 s) (3 passes).
+Compromis : le formulaire est utilisable environ 0,6 s plus tôt et la note Lighthouse monte ; le titre de contact s'affiche environ 0,4 s plus tard en vraie 4G. Gardé. Le même commit précharge aussi l'image du héros de l'accueil.
+
+**LCP de `/contact`.** L'élément LCP est le titre `h1`, avant comme après. AVANT, Lighthouse donne soit environ 6,3 s, soit 7,8 à 8,2 s, selon la passe (6 249 à 8 201 ms) ; APRÈS, de 5 939 à 7 898 ms. Les moyennes sont égales. Le FCP gagne bien 0,6 s (1 975 → 1 382 ms).
 
 ### Vérifications de non-régression (Playwright, Chrome sans fenêtre)
 
@@ -453,11 +489,11 @@ Script : `php/perf-audit/scripts/run-regression.mjs`. Résultat : `raw/apres-reg
 ### Objectifs non atteints
 
 - **Lighthouse 90+** : raté sur l'accueil (70 ordinateur, 67 mobile), `/en` (67 / 67), le formulaire (80 / 65) et contact sur mobile (75). Raison principale pour l'accueil : la scène 3D (React + three.js) occupe le processeur au chargement (TBT 4,4 s sur mobile). three.js reste chargé sur mobile, car Anthony a refusé de retarder ou d'alléger la 3D.
-- **LCP < 2,5 s sur mobile** : raté sur toutes les pages intérieures (2,7 à 3,4 s), le formulaire (5,3 s) et contact (7,8 s). Le FCP a baissé, mais le titre principal s'affiche encore tard. La cause sur contact n'a pas été isolée dans cette mesure.
+- **LCP < 2,5 s sur mobile** : raté sur toutes les pages intérieures (2,7 à 3,4 s), le formulaire (5,3 s) et contact (7,8 s). Le FCP a baissé, mais le titre principal s'affiche encore tard. Le 6,4 → 7,8 s de contact est du bruit : sur 13 passes alternées, le LCP de contact varie de 6,2 à 8,2 s AVANT et de 5,9 à 7,9 s APRÈS, avec la même moyenne (7,1 s / 7,2 s).
 - **CLS < 0,1** : raté sur le formulaire de ramassage (0,40 ordinateur, 0,30 mobile). Aucune optimisation n'a visé ce saut.
 - **INP < 200 ms** : non mesurable en laboratoire. Les clics scriptés restent sous 130 ms, mais ce n'est pas l'INP réel.
-- **60 i/s avec CPU 6x (ordinateur) / 4x (mobile)** : raté sur l'accueil (27,6–32,8 i/s en 6x ; 50,8–51,1 i/s sur mobile 4x). Les pages intérieures sont à 55–60 i/s. Le recul de l'accueil en 6x à 1366 px n'a pas été expliqué.
-- **Changement de page** : plus lent qu'avant (clic → premier affichage) : +70 à +160 ms sans limite réseau, +220 à +1 110 ms en 4G. Non expliqué dans cette mesure.
+- **60 i/s avec CPU 6x (ordinateur) / 4x (mobile)** : raté sur l'accueil (27,6–32,8 i/s en 6x ; 50,8–51,1 i/s sur mobile 4x). Les pages intérieures sont à 55–60 i/s. Le recul de l'accueil en 6x à 1366 px était du bruit (29,0 → 29,8 i/s en passes alternées).
+- **Changement de page** : plus lent qu'avant (clic → premier affichage) : +70 à +160 ms sans limite réseau ; en 4G avec gzip, +60 à +130 ms (sans gzip, +220 à +1 110 ms). Causes : `3504ac4` (polices) et `fa23faa` (modulepreload du formulaire et de contact). Les deux sont gardés : ce sont des compromis, avec des gains mesurés ailleurs (voir « Enquête sur les reculs »).
 
 ### Limites de cette mesure
 
