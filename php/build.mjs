@@ -86,7 +86,40 @@ for (const f of walk(varDir)) if (!keep.has(f)) rmSync(f);
 writeFileSync(resolve(out, "images.json"), JSON.stringify(imgManifest));
 console.log(`Variantes d'images : ${keep.size} fichiers (${relative(root, varDir)})`);
 
+/**
+ * Surcharges PHP (php/js/overrides/) : copies de composants de src/components/home
+ * optimisées pour la version PHP seulement (src/ est partagé avec le site Next.js).
+ * Tout import qui vise l'original (« @/components/home/Hero », « ./HeroDevices »…) est
+ * redirigé vers la copie ; les autres imports relatifs des copies (./HeroCopy…)
+ * continuent de résoudre dans src/components/home.
+ */
+const homeDir = resolve(root, "src/components/home");
+const ovDir = resolve(php, "js/overrides");
+const OVERRIDES = new Map(
+  readdirSync(ovDir).filter((f) => /\.tsx?$/.test(f)).map((f) => [f.replace(/\.tsx?$/, ""), resolve(ovDir, f)])
+);
+const overridesPlugin = {
+  name: "php-overrides",
+  setup(b) {
+    b.onResolve({ filter: /^(\.{1,2}\/|@\/components\/home\/)/ }, async (args) => {
+      if (args.pluginData?.ovSkip) return;
+      const fromOv = !!args.importer && resolve(args.importer, "..") === ovDir;
+      const target = args.path.startsWith("@/")
+        ? resolve(homeDir, args.path.slice("@/components/home/".length))
+        : resolve(fromOv ? homeDir : args.resolveDir, args.path);
+      if (resolve(target, "..") === homeDir) {
+        const ov = OVERRIDES.get(target.slice(homeDir.length + 1).replace(/\.tsx?$/, ""));
+        if (ov) return { path: ov };
+      }
+      if (!fromOv) return;
+      const r = await b.resolve(args.path, { kind: args.kind, resolveDir: homeDir, importer: args.importer, pluginData: { ovSkip: true } });
+      return r.errors.length ? { errors: r.errors } : { path: r.path, external: r.external, sideEffects: r.sideEffects };
+    });
+  }
+};
+
 const result = await build({
+  plugins: [overridesPlugin],
   entryPoints: { site: resolve(php, "js/site.ts"), islands: resolve(php, "js/islands.tsx") },
   metafile: true,
   outdir: out,

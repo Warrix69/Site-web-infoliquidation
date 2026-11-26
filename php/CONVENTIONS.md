@@ -44,3 +44,8 @@ ob_start(); ?>
 | lucide `<MapPin className/>` | `icon('MapPin', 'classes')` (liste dans lib/icons.php ; régénérer avec `node php/tools/gen-icons.mjs` après ajout du nom) |
 | `next/image` | `<img … loading="lazy" decoding="async">` (`fetchpriority="high"` si `priority`; `fill` → `class="absolute inset-0 h-full w-full …"`) |
 | Composant client lourd (Hero, StepsTimeline, BinSection, DataDestruction, ClosingBin, PickupForm, ContactForm) | `island('Nom', $props, $fallbackHtml)` — monté par React dans le navigateur ; props = mêmes que dans page.tsx (JSON). Ajouter le nom dans `js/islands.tsx` s'il manque. |
+
+## Surcharges PHP (`js/overrides/`)
+- `Hero.tsx`, `HeroDevices.tsx`, `DataDestruction.tsx` sont des copies de `src/components/home/` optimisées pour la version PHP seulement (performance, rendu identique) ; `src/` reste celui du site Next.js et n'est pas modifié.
+- `build.mjs` (plugin `php-overrides`) redirige tout import de l'original vers la copie ; les autres imports des copies (`./HeroCopy`, `@/…`) résolvent toujours dans `src/`.
+- Toute modification de l'original dans `src/components/home/` doit être reportée à la main dans la copie (sinon la version PHP garde l'ancien comportement).
