@@ -197,19 +197,47 @@ function magnetic() {
 /* ---------------- Carte inclinable ---------------- */
 function tilt() {
   if (reduce) return;
-  $$<HTMLElement>("[data-tilt]").forEach((el) => {
-    el.addEventListener("mousemove", (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
+  const cards = $$<HTMLElement>("[data-tilt]");
+  if (!cards.length) return;
+  // Rect de chaque carte mis en cache pendant le survol (au lieu d'une lecture de mise
+  // en page à chaque mousemove), invalidé au scroll, au redimensionnement et à la fin
+  // d'une transition d'un parent (révélation au scroll).
+  const rects = new Map<HTMLElement, DOMRect>();
+  const reset = () => rects.clear();
+  window.addEventListener("scroll", reset, { passive: true });
+  window.addEventListener("resize", reset, { passive: true });
+  cards.forEach((el) => {
+    let raf = 0, cx = 0, cy = 0;
+    const apply = () => {
+      raf = 0;
+      let rect = rects.get(el);
+      if (!rect) rects.set(el, (rect = el.getBoundingClientRect()));
+      const x = (cx - rect.left) / rect.width;
+      const y = (cy - rect.top) / rect.height;
       el.style.setProperty("--mx", `${x * 100}%`);
       el.style.setProperty("--my", `${y * 100}%`);
       el.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 6}deg) rotateY(${(x - 0.5) * 6}deg) translateZ(0)`;
+    };
+    el.addEventListener("mouseenter", () => rects.delete(el));
+    el.addEventListener("mousemove", (e) => {
+      cx = e.clientX;
+      cy = e.clientY;
+      if (!raf) raf = requestAnimationFrame(apply);
     });
     el.addEventListener("mouseleave", () => {
+      if (raf) cancelAnimationFrame(raf), (raf = 0);
+      rects.delete(el);
       el.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
     });
   });
+  document.addEventListener(
+    "transitionend",
+    (e) => {
+      const t = e.target as HTMLElement;
+      if (rects.size && !t.hasAttribute?.("data-tilt")) for (const el of rects.keys()) if (t.contains(el)) rects.delete(el);
+    },
+    true
+  );
 }
 
 /* ---------------- Accordéon (FAQ) ---------------- */
