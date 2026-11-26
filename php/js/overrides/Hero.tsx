@@ -84,6 +84,8 @@ function SafeHeroDevices({ onDeviceChange }: { onDeviceChange?: (d: DeviceKey) =
     // Le code 3D se télécharge tout de suite ; la scène démarre (compilation des shaders, ~0,5 s de calcul)
     // une fois toutes les animations CSS du texte lancées, pour qu'elles ne soient jamais figées.
     import("./HeroDevices").catch(() => setMode("fallback"));
+    // Mode high : le post-traitement (chunk à part) se télécharge en même temps que la 3D
+    if (!light) import("./HeroEffects").catch(() => undefined);
     const timer = window.setTimeout(() => setMode((m) => (m === "wait" ? "3d" : m)), 600);
     return () => window.clearTimeout(timer);
   }, []);

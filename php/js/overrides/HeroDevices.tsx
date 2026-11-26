@@ -2,10 +2,12 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, RoundedBox } from "@react-three/drei";
-import { EffectComposer, Bloom, N8AO, SMAA } from "@react-three/postprocessing";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+
+// Post-traitement (N8AO, Bloom, SMAA) dans un chunk à part : jamais téléchargé en mode « low »
+const HeroEffects = lazy(() => import("./HeroEffects").then((m) => ({ default: m.HeroEffects })));
 
 export type DeviceKey = "laptop" | "phone" | "tower" | "switch" | "monitor";
 
@@ -27,6 +29,17 @@ export type HeroDevicesProps = {
 
 export function HeroDevices({ onDeviceChange, quality = "high", active = true, onReady, onContextLost }: HeroDevicesProps) {
   const high = quality === "high";
+  // La scène n'est révélée qu'une fois sa première image dessinée ET, en mode high, le
+  // post-traitement en place : elle n'est jamais affichée sans ses effets.
+  const created = useRef(false);
+  const fxReady = useRef(!high);
+  const readySent = useRef(false);
+  const tryReady = () => {
+    if (!created.current || !fxReady.current || readySent.current) return;
+    readySent.current = true;
+    // deux images plus tard, la scène est dessinée : on peut la révéler
+    requestAnimationFrame(() => requestAnimationFrame(() => onReady?.()));
+  };
   return (
     <Canvas
       camera={{ position: [0, 0.6, 6], fov: 30 }}
@@ -48,8 +61,8 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
           e.preventDefault();
           onContextLost?.();
         });
-        // deux images plus tard, la scène est dessinée : on peut la révéler
-        requestAnimationFrame(() => requestAnimationFrame(() => onReady?.()));
+        created.current = true;
+        tryReady();
       }}
       className="pointer-events-none"
     >
@@ -71,11 +84,14 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
 
       {/* Post-traitement studio : ordinateurs seulement */}
       {high && (
-        <EffectComposer multisampling={0} enableNormalPass>
-          <N8AO aoRadius={0.35} intensity={2.2} color="#000000" distanceFalloff={1.0} quality="medium" />
-          <Bloom intensity={0.18} luminanceThreshold={0.9} luminanceSmoothing={0.4} mipmapBlur radius={0.4} />
-          <SMAA />
-        </EffectComposer>
+        <Suspense fallback={null}>
+          <HeroEffects
+            onMounted={() => {
+              fxReady.current = true;
+              tryReady();
+            }}
+          />
+        </Suspense>
       )}
     </Canvas>
   );
