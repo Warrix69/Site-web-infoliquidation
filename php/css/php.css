@@ -58,3 +58,11 @@
     line-height: 1.25rem;
   }
 }
+
+/* Pastilles du ruban des villes : même fond et même bordure que glass-light, sans
+   backdrop-filter (le fond derrière est uni : le flou ne change rien à l'image, mais
+   il était recalculé à chaque image pour chacune des pastilles en mouvement). */
+@utility glass-light-flat {
+  background: rgba(10, 10, 10, 0.04);
+  border: 1px solid var(--color-line);
+}

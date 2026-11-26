@@ -282,11 +282,16 @@ function marquees() {
       return;
     }
     const BASE = 38;
+    // Largeur de la moitié mise en cache (lue une fois, puis à chaque changement de taille)
+    // au lieu d'une lecture de mise en page à chaque image.
+    const cached = "ResizeObserver" in window;
+    let halfWidth = half.offsetWidth;
+    if (cached) new ResizeObserver(() => (halfWidth = half.offsetWidth)).observe(half);
     let x = 0, dir = -1, boost = 0, lastY = window.scrollY, lastT = performance.now(), raf = 0, visible = false, hover = false;
     const loop = (t: number) => {
       const dt = Math.min(0.05, (t - lastT) / 1000);
       lastT = t;
-      const width = half.offsetWidth + 16;
+      const width = (cached ? halfWidth : half.offsetWidth) + 16;
       boost *= 0.92;
       x += dir * (hover ? 0 : BASE + boost) * dt;
       if (width > 0) {
