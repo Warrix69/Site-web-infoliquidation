@@ -33,7 +33,7 @@
 .dropdown-panel:not([hidden]) { animation: dropIn 0.22s cubic-bezier(0.21, 0.47, 0.32, 0.98); }
 .mobile-panel:not([hidden]) { animation: mobileIn 0.25s ease-out; }
 .cookie-panel:not([hidden]) { animation: cookieIn 0.25s ease-out; }
-.cookie-panel.is-leaving { opacity: 0; transform: translateY(24px); transition: all 0.25s ease-out; }
+.cookie-panel.is-leaving { opacity: 0; transform: translateY(24px); transition: opacity 0.25s ease-out, transform 0.25s ease-out; }
 @keyframes dropIn { from { opacity: 0; transform: translate(-50%, 10px) scale(0.98); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
 @keyframes mobileIn { from { opacity: 0; transform: translateY(-12px); } }
 @keyframes cookieIn { from { opacity: 0; transform: translateY(24px); } }

@@ -22,7 +22,7 @@ $dot = '<span aria-hidden="true" class="ms-2 text-line">·</span>';
       </a>
       <p class="font-display text-sm font-bold tracking-[0.2em] text-emerald"><?= te('common.experts') ?></p>
       <p class="text-sm leading-relaxed text-moss"><?= te('footer.aboutText') ?></p>
-      <a href="<?= e(SITE['facebook']) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= te('footer.facebookLabel') ?>" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-emerald-soft text-emerald transition-all duration-300 hover:bg-gradient-accent hover:text-ink hover:shadow-glow">
+      <a href="<?= e(SITE['facebook']) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= te('footer.facebookLabel') ?>" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-emerald-soft text-emerald transition-[color,background-color,box-shadow,outline-color,outline-width,outline-offset,border-radius] duration-300 hover:bg-gradient-accent hover:text-ink hover:shadow-glow">
         <?= icon('Facebook', 'h-5 w-5') ?>
       </a>
     </div>

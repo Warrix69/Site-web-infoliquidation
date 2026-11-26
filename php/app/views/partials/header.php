@@ -18,7 +18,7 @@ $logoH = (int) round($logoW * 80 / 338);
     </div>
   </div>
 
-  <header data-headbar class="border-b border-line bg-paper/95 backdrop-blur transition-all duration-300">
+  <header data-headbar class="border-b border-line bg-paper/95 backdrop-blur transition-[box-shadow] duration-300">
     <div class="mx-auto flex h-[72px] w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
       <a href="<?= e(path('/')) ?>" aria-label="Info Liquidation Recycle" class="shrink-0">
         <span class="inline-flex items-center"><img src="/logo.png" alt="Info Liquidation Recycle" width="<?= $logoW ?>" height="<?= $logoH ?>" fetchpriority="high" class="h-auto w-auto" style="max-width:<?= $logoW ?>px"></span>
@@ -52,7 +52,7 @@ $logoH = (int) round($logoW * 80 / 338);
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="<?= e(path('/formulaire-de-ramassage')) ?>" class="hidden rounded-full bg-gradient-accent px-5 py-2.5 font-display text-sm font-bold text-ink shadow-glow transition-all duration-300 hover:shadow-glow-lg hover:brightness-110 md:inline-flex"><?= te('common.freePickupCta') ?></a>
+        <a href="<?= e(path('/formulaire-de-ramassage')) ?>" class="hidden rounded-full bg-gradient-accent px-5 py-2.5 font-display text-sm font-bold text-ink shadow-glow transition-[box-shadow,filter,outline-color,outline-width,outline-offset,border-radius] duration-300 hover:shadow-glow-lg hover:brightness-110 md:inline-flex"><?= te('common.freePickupCta') ?></a>
         <button type="button" data-menu-btn aria-expanded="false" aria-label="<?= te('nav.openMenu') ?>" data-label-open="<?= te('nav.openMenu') ?>" data-label-close="<?= te('nav.closeMenu') ?>" class="glass-light inline-flex h-10 w-10 items-center justify-center rounded-full text-mist lg:hidden">
           <span data-icon-open><?= icon('Menu', 'h-5 w-5') ?></span>
           <span data-icon-close hidden><?= icon('X', 'h-5 w-5') ?></span>

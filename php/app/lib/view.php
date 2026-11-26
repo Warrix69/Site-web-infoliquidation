@@ -43,7 +43,7 @@ function counter($value, ?string $suffix = null, bool $plain = false): string
 
 function primary_button(string $href, string $label, string $class = '', bool $arrow = true): string
 {
-    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-accent px-7 py-3.5 font-display text-sm font-bold tracking-wide text-ink shadow-glow transition-all duration-300 hover:shadow-glow-lg hover:brightness-110 focus-visible:shadow-glow-lg sm:text-base ' . e($class) . '">'
+    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-accent px-7 py-3.5 font-display text-sm font-bold tracking-wide text-ink shadow-glow transition-[box-shadow,filter,outline-color,outline-width,outline-offset,border-radius] duration-300 hover:shadow-glow-lg hover:brightness-110 focus-visible:shadow-glow-lg sm:text-base ' . e($class) . '">'
         . e($label)
         . ($arrow ? icon('ArrowRight', 'h-4 w-4 transition-transform duration-300 group-hover:translate-x-1') : '')
         . '</a>';
@@ -51,7 +51,7 @@ function primary_button(string $href, string $label, string $class = '', bool $a
 
 function ghost_button(string $href, string $label, string $class = '', bool $arrow = false): string
 {
-    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface/40 px-7 py-3.5 font-display text-sm font-semibold text-mist backdrop-blur transition-all duration-300 hover:border-emerald/50 hover:bg-emerald-soft sm:text-base ' . e($class) . '">'
+    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface/40 px-7 py-3.5 font-display text-sm font-semibold text-mist backdrop-blur transition-[border-color,background-color,outline-color,outline-width,outline-offset,border-radius] duration-300 hover:border-emerald/50 hover:bg-emerald-soft sm:text-base ' . e($class) . '">'
         . e($label)
         . ($arrow ? icon('ArrowRight', 'h-4 w-4 transition-transform duration-300 group-hover:translate-x-1') : '')
         . '</a>';
