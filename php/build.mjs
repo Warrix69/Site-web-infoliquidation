@@ -154,7 +154,10 @@ await vendorHdr();
 
 // Fichiers statiques et textes
 for (const dir of ["images", "models"]) {
-  cpSync(resolve(root, "public", dir), resolve(php, "public", dir), { recursive: true });
+  // public/models peut être vide (git ne garde pas les dossiers vides) : on ne copie que ce qui existe
+  if (existsSync(resolve(root, "public", dir))) {
+    cpSync(resolve(root, "public", dir), resolve(php, "public", dir), { recursive: true });
+  }
 }
 for (const f of ["logo.png", "favicon-logo.png"]) cpSync(resolve(root, "public", f), resolve(php, "public", f));
 cpSync(resolve(root, "src/app/icon.png"), resolve(php, "public/icon.png"));
