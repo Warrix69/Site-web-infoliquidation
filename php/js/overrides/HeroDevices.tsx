@@ -80,7 +80,7 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
         <Lightformer form="ring" color="#a1ffc4" intensity={0.8} position={[0, -2, 4]} scale={4} />
       </Environment>
 
-      <DeviceCarousel onDeviceChange={onDeviceChange} demand={!high} />
+      <DeviceCarousel onDeviceChange={onDeviceChange} demand={!high} active={active} />
 
       {/* Post-traitement studio : ordinateurs seulement */}
       {high && (
@@ -99,8 +99,22 @@ export function HeroDevices({ onDeviceChange, quality = "high", active = true, o
 
 const DEVICES: DeviceKey[] = ["laptop", "phone", "tower", "switch", "monitor"];
 
-function DeviceCarousel({ onDeviceChange, demand = false }: { onDeviceChange?: (d: DeviceKey) => void; demand?: boolean }) {
+function DeviceCarousel({
+  onDeviceChange,
+  demand = false,
+  active = true
+}: {
+  onDeviceChange?: (d: DeviceKey) => void;
+  demand?: boolean;
+  active?: boolean;
+}) {
   const scrollRef = useRef(0);
+  // Héros hors écran : l'écouteur de scroll ne lit plus le layout ; la position est relue
+  // au début de la première image qui suit le retour (même valeur qu'avant).
+  const activeRef = useRef(active);
+  activeRef.current = active;
+  const staleRef = useRef(false);
+  const measureRef = useRef<() => void>(() => {});
   const smoothRef = useRef(0);
   const reduce = useReducedMotion();
   const lastDevice = useRef<DeviceKey>("laptop");
@@ -149,11 +163,13 @@ function DeviceCarousel({ onDeviceChange, demand = false }: { onDeviceChange?: (
   }, [invalidate]);
 
   useEffect(() => {
-    const update = () => {
-      const section =
+    // Élément de la piste mis en cache (cherché de nouveau seulement s'il manquait)
+    let cached: HTMLElement | null = null;
+    const measure = () => {
+      const section = (cached ||=
         (document.querySelector("[data-hero-3d]") as HTMLElement | null) ||
-        document.querySelector("section");
-      if (!section) return;
+        document.querySelector("section"));
+      if (!section) return false;
       const rect = section.getBoundingClientRect();
       // Section épinglée (hero) : 0 en haut de la piste, 1 à la fin de l'épinglage
       if (section.dataset.pinned === "1") {
@@ -164,9 +180,18 @@ function DeviceCarousel({ onDeviceChange, demand = false }: { onDeviceChange?: (
         const traveled = window.innerHeight - rect.top;
         scrollRef.current = Math.min(1, Math.max(0, traveled / total));
       }
-      invalidate();
+      return true;
     };
-    update();
+    measureRef.current = () => void measure();
+    const update = () => {
+      // Rendu suspendu (frameloop « never ») : rien à calculer maintenant
+      if (!activeRef.current) {
+        staleRef.current = true;
+        return;
+      }
+      if (measure()) invalidate();
+    };
+    if (measure()) invalidate();
     smoothRef.current = scrollRef.current;
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
@@ -197,6 +222,10 @@ function DeviceCarousel({ onDeviceChange, demand = false }: { onDeviceChange?: (
   };
 
   useFrame((state) => {
+    if (staleRef.current) {
+      staleRef.current = false;
+      measureRef.current();
+    }
     const rawTarget = reduce ? 0 : scrollRef.current;
     // Progression lissée : les transitions restent fluides même avec une molette par crans
     const k = demand ? 0.22 : 0.12;
