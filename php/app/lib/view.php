@@ -46,7 +46,7 @@ function counter($value, ?string $suffix = null, bool $plain = false): string
 
 function primary_button(string $href, string $label, string $class = '', bool $arrow = true): string
 {
-    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-accent px-7 py-3.5 font-display text-sm font-bold tracking-wide text-ink shadow-glow transition-all duration-300 hover:shadow-glow-lg hover:brightness-110 focus-visible:shadow-glow-lg sm:text-base ' . e($class) . '">'
+    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-accent px-7 py-3.5 font-display text-sm font-bold tracking-wide text-ink shadow-glow transition-[box-shadow,filter,outline-color,outline-width,outline-offset,border-radius] duration-300 hover:shadow-glow-lg hover:brightness-110 focus-visible:shadow-glow-lg sm:text-base ' . e($class) . '">'
         . e($label)
         . ($arrow ? icon('ArrowRight', 'h-4 w-4 transition-transform duration-300 group-hover:translate-x-1') : '')
         . '</a>';
@@ -54,7 +54,7 @@ function primary_button(string $href, string $label, string $class = '', bool $a
 
 function ghost_button(string $href, string $label, string $class = '', bool $arrow = false): string
 {
-    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface/40 px-7 py-3.5 font-display text-sm font-semibold text-mist backdrop-blur transition-all duration-300 hover:border-emerald/50 hover:bg-emerald-soft sm:text-base ' . e($class) . '">'
+    return '<a href="' . e($href) . '" class="group inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface/40 px-7 py-3.5 font-display text-sm font-semibold text-mist backdrop-blur transition-[border-color,background-color,outline-color,outline-width,outline-offset,border-radius] duration-300 hover:border-emerald/50 hover:bg-emerald-soft sm:text-base ' . e($class) . '">'
         . e($label)
         . ($arrow ? icon('ArrowRight', 'h-4 w-4 transition-transform duration-300 group-hover:translate-x-1') : '')
         . '</a>';
@@ -90,10 +90,27 @@ function section_heading(?string $eyebrow, string $title, ?string $subtitle = nu
  */
 function island(string $name, array $props = [], string $fallback = '', string $class = '', string $tag = 'div'): string
 {
-    $GLOBALS['__islands_used'] = true;
+    $GLOBALS['__islands_used'][$name] = true;
     $json = json_encode($props, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP);
     return '<' . $tag . ' data-island="' . e($name) . '"' . ($class ? ' class="' . e($class) . '"' : '')
         . '><script type="application/json" data-props>' . $json . '</script>' . $fallback . '</' . $tag . '>';
+}
+
+/**
+ * <link rel="modulepreload"> pour islands.js, ses imports statiques et les chunks des îlots
+ * présents sur la page (assets/modules.json, écrit par php/build.mjs). Les imports
+ * dynamiques internes (la 3D du héros) ne sont pas préchargés.
+ */
+function islands_modulepreload(): string
+{
+    if (empty($GLOBALS['__islands_used'])) return '';
+    $file = PUBLIC_DIR . '/assets/modules.json';
+    $m = is_file($file) ? (json_decode((string) file_get_contents($file), true) ?: []) : [];
+    $files = $m['islands'] ?? [];
+    foreach (array_keys($GLOBALS['__islands_used']) as $name) array_push($files, ...($m[$name] ?? []));
+    $h = '<link rel="modulepreload" href="' . e(asset('assets/islands.js')) . '">';
+    foreach (array_unique($files) as $f) $h .= "\n" . '<link rel="modulepreload" fetchpriority="low" href="/assets/' . e($f) . '">';
+    return $h;
 }
 
 /* ---------- Équivalents PHP des petits composants client ---------- */

@@ -1,0 +1,1478 @@
+{
+  "home|mobile": {
+    "page": "/",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 67,
+        "fcp": 1683.8204938674717,
+        "lcp": 1683.8204938674717,
+        "tbt": 4416,
+        "cls": 0,
+        "si": 3812.823225647826,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 1682.8229946876418,
+        "lcp": 1682.8229946876418,
+        "tbt": 4457,
+        "cls": 0,
+        "si": 3859.792021398317,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 67,
+        "fcp": 1681.9087703882633,
+        "lcp": 1681.9087703882633,
+        "tbt": 4413,
+        "cls": 0,
+        "si": 3914.8956053741936,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        67,
+        67
+      ],
+      "fcp": 1682.8229946876418,
+      "fcpRange": [
+        1681.9087703882633,
+        1683.8204938674717
+      ],
+      "lcp": 1682.8229946876418,
+      "lcpRange": [
+        1681.9087703882633,
+        1683.8204938674717
+      ],
+      "tbt": 4416,
+      "tbtRange": [
+        4413,
+        4457
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 3859.792021398317,
+      "siRange": [
+        3812.823225647826,
+        3914.8956053741936
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "home|desktop": {
+    "page": "/",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 70,
+        "fcp": 352.9038955369408,
+        "lcp": 352.9038955369408,
+        "tbt": 1135,
+        "cls": 0.0014594989886834618,
+        "si": 1347.0661224187102,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 70,
+        "fcp": 349.43994235791996,
+        "lcp": 349.43994235791996,
+        "tbt": 1171,
+        "cls": 0.0002024043278438409,
+        "si": 1302.0316289142038,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 70,
+        "fcp": 356.91152553466486,
+        "lcp": 356.91152553466486,
+        "tbt": 1182.5,
+        "cls": 0.0002024043278438409,
+        "si": 1275.32442146592,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 70,
+      "scoreRange": [
+        70,
+        70
+      ],
+      "fcp": 352.9038955369408,
+      "fcpRange": [
+        349.43994235791996,
+        356.91152553466486
+      ],
+      "lcp": 352.9038955369408,
+      "lcpRange": [
+        349.43994235791996,
+        356.91152553466486
+      ],
+      "tbt": 1171,
+      "tbtRange": [
+        1135,
+        1182.5
+      ],
+      "cls": 0.0002024043278438409,
+      "clsRange": [
+        0.0002024043278438409,
+        0.0014594989886834618
+      ],
+      "si": 1302.0316289142038,
+      "siRange": [
+        1275.32442146592,
+        1347.0661224187102
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "a-propos|mobile": {
+    "page": "/a-propos",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 92,
+        "fcp": 1373.4649,
+        "lcp": 3335.19735,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1373.4649,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 92,
+      "scoreRange": [
+        92,
+        92
+      ],
+      "fcp": 1373.4649,
+      "fcpRange": [
+        1373.4649,
+        1373.4649
+      ],
+      "lcp": 3335.19735,
+      "lcpRange": [
+        3335.19735,
+        3335.19735
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1373.4649,
+      "siRange": [
+        1373.4649,
+        1373.4649
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "a-propos|desktop": {
+    "page": "/a-propos",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 383.360573222108,
+        "lcp": 675.040859833162,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 429.75863749811566,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 383.360573222108,
+      "fcpRange": [
+        383.360573222108,
+        383.360573222108
+      ],
+      "lcp": 675.040859833162,
+      "lcpRange": [
+        675.040859833162,
+        675.040859833162
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 429.75863749811566,
+      "siRange": [
+        429.75863749811566,
+        429.75863749811566
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "recyclage-ordinateur|mobile": {
+    "page": "/recyclage-ordinateur",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 92,
+        "fcp": 1532.075159992271,
+        "lcp": 3348.1127399884062,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1532.075159992271,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 92,
+        "fcp": 1533.4172933613709,
+        "lcp": 3350.1259400420563,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1533.4172933613709,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 92,
+        "fcp": 1531.6584093907704,
+        "lcp": 3347.4876140861556,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1531.6584093907704,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 92,
+      "scoreRange": [
+        92,
+        92
+      ],
+      "fcp": 1532.075159992271,
+      "fcpRange": [
+        1531.6584093907704,
+        1533.4172933613709
+      ],
+      "lcp": 3348.1127399884062,
+      "lcpRange": [
+        3347.4876140861556,
+        3350.1259400420563
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1532.075159992271,
+      "siRange": [
+        1531.6584093907704,
+        1533.4172933613709
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+      "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "recyclage-ordinateur|desktop": {
+    "page": "/recyclage-ordinateur",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 431.92580249315813,
+        "lcp": 755.8887037397371,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 468.40700246508516,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 432.4953352880059,
+        "lcp": 735.2430029320088,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 473.28713566548004,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 352.77444649214533,
+        "lcp": 769.161669738218,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 387.27296226655983,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 431.92580249315813,
+      "fcpRange": [
+        352.77444649214533,
+        432.4953352880059
+      ],
+      "lcp": 755.8887037397371,
+      "lcpRange": [
+        735.2430029320088,
+        769.161669738218
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 468.40700246508516,
+      "siRange": [
+        387.27296226655983,
+        473.28713566548004
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-disques|mobile": {
+    "page": "/destruction-des-disques-durs",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 91,
+        "fcp": 1532.3905823182768,
+        "lcp": 3423.585873477415,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1532.3905823182768,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 91,
+      "scoreRange": [
+        91,
+        91
+      ],
+      "fcp": 1532.3905823182768,
+      "fcpRange": [
+        1532.3905823182768,
+        1532.3905823182768
+      ],
+      "lcp": 3423.585873477415,
+      "lcpRange": [
+        3423.585873477415,
+        3423.585873477415
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1532.3905823182768,
+      "siRange": [
+        1532.3905823182768,
+        1532.3905823182768
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-disques|desktop": {
+    "page": "/destruction-des-disques-durs",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 352.5917372804761,
+        "lcp": 768.8876059207141,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 387.7914628815346,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 352.5917372804761,
+      "fcpRange": [
+        352.5917372804761,
+        352.5917372804761
+      ],
+      "lcp": 768.8876059207141,
+      "lcpRange": [
+        768.8876059207141,
+        768.8876059207141
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 387.7914628815346,
+      "siRange": [
+        387.7914628815346,
+        387.7914628815346
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-donnees|mobile": {
+    "page": "/destruction-des-donnees",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 91,
+        "fcp": 1375.6473638145696,
+        "lcp": 3413.4710457218544,
+        "tbt": 66,
+        "cls": 0.012490008046598,
+        "si": 1375.6473638145696,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 91,
+      "scoreRange": [
+        91,
+        91
+      ],
+      "fcp": 1375.6473638145696,
+      "fcpRange": [
+        1375.6473638145696,
+        1375.6473638145696
+      ],
+      "lcp": 3413.4710457218544,
+      "lcpRange": [
+        3413.4710457218544,
+        3413.4710457218544
+      ],
+      "tbt": 66,
+      "tbtRange": [
+        66,
+        66
+      ],
+      "cls": 0.012490008046598,
+      "clsRange": [
+        0.012490008046598,
+        0.012490008046598
+      ],
+      "si": 1375.6473638145696,
+      "siRange": [
+        1375.6473638145696,
+        1375.6473638145696
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "destruction-donnees|desktop": {
+    "page": "/destruction-des-donnees",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 352.65036107698756,
+        "lcp": 768.9755416154813,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 416.692922326689,
+        "lcpSelector": "div.space-y-8 > div.is-visible > div.relative > img.relative",
+        "lcpSnippet": "<img src=\"/images/destruction-disque-dur.jpg\" alt=\"Destruction physique d'un disque dur pour protéger les données\" width=\"1920\" height=\"800\" loading=\"lazy\" deco",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 352.65036107698756,
+      "fcpRange": [
+        352.65036107698756,
+        352.65036107698756
+      ],
+      "lcp": 768.9755416154813,
+      "lcpRange": [
+        768.9755416154813,
+        768.9755416154813
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 416.692922326689,
+      "siRange": [
+        416.692922326689,
+        416.692922326689
+      ],
+      "lcpSelector": "div.space-y-8 > div.is-visible > div.relative > img.relative",
+      "lcpSnippet": "<img src=\"/images/destruction-disque-dur.jpg\" alt=\"Destruction physique d'un disque dur pour protéger les données\" width=\"1920\" height=\"800\" loading=\"lazy\" deco",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "formulaire|mobile": {
+    "page": "/formulaire-de-ramassage",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 65,
+        "fcp": 1382.7875,
+        "lcp": 5326.787499999999,
+        "tbt": 44,
+        "cls": 0.3013365735115431,
+        "si": 1382.7875,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 65,
+        "fcp": 1385.535333745495,
+        "lcp": 5333.535333745495,
+        "tbt": 45.000000000000455,
+        "cls": 0.3013365735115431,
+        "si": 1385.535333745495,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 65,
+        "fcp": 1383.7953,
+        "lcp": 5331.795300000001,
+        "tbt": 40.999999999999545,
+        "cls": 0.29997006163179196,
+        "si": 1383.7953,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 65,
+      "scoreRange": [
+        65,
+        65
+      ],
+      "fcp": 1383.7953,
+      "fcpRange": [
+        1382.7875,
+        1385.535333745495
+      ],
+      "lcp": 5331.795300000001,
+      "lcpRange": [
+        5326.787499999999,
+        5333.535333745495
+      ],
+      "tbt": 44,
+      "tbtRange": [
+        40.999999999999545,
+        45.000000000000455
+      ],
+      "cls": 0.3013365735115431,
+      "clsRange": [
+        0.29997006163179196,
+        0.3013365735115431
+      ],
+      "si": 1383.7953,
+      "siRange": [
+        1382.7875,
+        1385.535333745495
+      ],
+      "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+      "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "formulaire|desktop": {
+    "page": "/formulaire-de-ramassage",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 80,
+        "fcp": 352.8849,
+        "lcp": 1084.8849,
+        "tbt": 0,
+        "cls": 0.4022009721890191,
+        "si": 375.2325690231848,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 80,
+        "fcp": 351.6653398227144,
+        "lcp": 1042.6653398227143,
+        "tbt": 0,
+        "cls": 0.4022009721890191,
+        "si": 357.03906163300366,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 79,
+        "fcp": 352.2963,
+        "lcp": 1084.2963,
+        "tbt": 0,
+        "cls": 0.40512215933764373,
+        "si": 357.860504709158,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 80,
+      "scoreRange": [
+        79,
+        80
+      ],
+      "fcp": 352.2963,
+      "fcpRange": [
+        351.6653398227144,
+        352.8849
+      ],
+      "lcp": 1084.2963,
+      "lcpRange": [
+        1042.6653398227143,
+        1084.8849
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.4022009721890191,
+      "clsRange": [
+        0.4022009721890191,
+        0.40512215933764373
+      ],
+      "si": 357.860504709158,
+      "siRange": [
+        357.03906163300366,
+        375.2325690231848
+      ],
+      "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+      "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "contact|mobile": {
+    "page": "/contact",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 75,
+        "fcp": 1382.8815420231276,
+        "lcp": 7776.881542023128,
+        "tbt": 6,
+        "cls": 0,
+        "si": 1382.8815420231276,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 75,
+      "scoreRange": [
+        75,
+        75
+      ],
+      "fcp": 1382.8815420231276,
+      "fcpRange": [
+        1382.8815420231276,
+        1382.8815420231276
+      ],
+      "lcp": 7776.881542023128,
+      "lcpRange": [
+        7776.881542023128,
+        7776.881542023128
+      ],
+      "tbt": 6,
+      "tbtRange": [
+        6,
+        6
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1382.8815420231276,
+      "siRange": [
+        1382.8815420231276,
+        1382.8815420231276
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "contact|desktop": {
+    "page": "/contact",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 98,
+        "fcp": 352.1613445318464,
+        "lcp": 1165.1613445318467,
+        "tbt": 0,
+        "cls": 0.0020412027921707953,
+        "si": 437.3837598183609,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 98,
+      "scoreRange": [
+        98,
+        98
+      ],
+      "fcp": 352.1613445318464,
+      "fcpRange": [
+        352.1613445318464,
+        352.1613445318464
+      ],
+      "lcp": 1165.1613445318467,
+      "lcpRange": [
+        1165.1613445318467,
+        1165.1613445318467
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0020412027921707953,
+      "clsRange": [
+        0.0020412027921707953,
+        0.0020412027921707953
+      ],
+      "si": 437.3837598183609,
+      "siRange": [
+        437.3837598183609,
+        437.3837598183609
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog|mobile": {
+    "page": "/blog",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 92,
+        "fcp": 1525.1075897405217,
+        "lcp": 3337.6613846107825,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1525.1075897405217,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 92,
+      "scoreRange": [
+        92,
+        92
+      ],
+      "fcp": 1525.1075897405217,
+      "fcpRange": [
+        1525.1075897405217,
+        1525.1075897405217
+      ],
+      "lcp": 3337.6613846107825,
+      "lcpRange": [
+        3337.6613846107825,
+        3337.6613846107825
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1525.1075897405217,
+      "siRange": [
+        1525.1075897405217,
+        1525.1075897405217
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog|desktop": {
+    "page": "/blog",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 344.3157,
+        "lcp": 716.4735499999999,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 374.50043476372,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 344.3157,
+      "fcpRange": [
+        344.3157,
+        344.3157
+      ],
+      "lcp": 716.4735499999999,
+      "lcpRange": [
+        716.4735499999999,
+        716.4735499999999
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 374.50043476372,
+      "siRange": [
+        374.50043476372,
+        374.50043476372
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog-article|mobile": {
+    "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 95,
+        "fcp": 1517.5624,
+        "lcp": 2726.3436,
+        "tbt": 69,
+        "cls": 0,
+        "si": 1517.5624,
+        "lcpSelector": "div.mx-auto > div.mx-auto > div.mt-8 > p.mt-3",
+        "lcpSnippet": "<p class=\"mt-3 leading-relaxed text-moss\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 95,
+      "scoreRange": [
+        95,
+        95
+      ],
+      "fcp": 1517.5624,
+      "fcpRange": [
+        1517.5624,
+        1517.5624
+      ],
+      "lcp": 2726.3436,
+      "lcpRange": [
+        2726.3436,
+        2726.3436
+      ],
+      "tbt": 69,
+      "tbtRange": [
+        69,
+        69
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1517.5624,
+      "siRange": [
+        1517.5624,
+        1517.5624
+      ],
+      "lcpSelector": "div.mx-auto > div.mx-auto > div.mt-8 > p.mt-3",
+      "lcpSnippet": "<p class=\"mt-3 leading-relaxed text-moss\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "blog-article|desktop": {
+    "page": "/blog/cybersecurite-et-recyclage-informatique-comment-proteger-les-donnees-de-votre-pme",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 343.3079,
+        "lcp": 634.96185,
+        "tbt": 0,
+        "cls": 0.0002024043278438409,
+        "si": 343.3079,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.mt-3",
+        "lcpSnippet": "<h1 class=\"mt-3 font-display text-3xl font-bold leading-[1.12] text-mist sm:text-4xl …\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 343.3079,
+      "fcpRange": [
+        343.3079,
+        343.3079
+      ],
+      "lcp": 634.96185,
+      "lcpRange": [
+        634.96185,
+        634.96185
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0002024043278438409,
+      "clsRange": [
+        0.0002024043278438409,
+        0.0002024043278438409
+      ],
+      "si": 343.3079,
+      "siRange": [
+        343.3079,
+        343.3079
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.mt-3",
+      "lcpSnippet": "<h1 class=\"mt-3 font-display text-3xl font-bold leading-[1.12] text-mist sm:text-4xl …\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "ville-laval|mobile": {
+    "page": "/laval",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 92,
+        "fcp": 1524.1067220085533,
+        "lcp": 3336.16008301283,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1524.1067220085533,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 92,
+      "scoreRange": [
+        92,
+        92
+      ],
+      "fcp": 1524.1067220085533,
+      "fcpRange": [
+        1524.1067220085533,
+        1524.1067220085533
+      ],
+      "lcp": 3336.16008301283,
+      "lcpRange": [
+        3336.16008301283,
+        3336.16008301283
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1524.1067220085533,
+      "siRange": [
+        1524.1067220085533,
+        1524.1067220085533
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+      "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "ville-laval|desktop": {
+    "page": "/laval",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 346.28153132868977,
+        "lcp": 719.4222969930347,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 381.92188399405256,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 346.28153132868977,
+      "fcpRange": [
+        346.28153132868977,
+        346.28153132868977
+      ],
+      "lcp": 719.4222969930347,
+      "lcpRange": [
+        719.4222969930347,
+        719.4222969930347
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 381.92188399405256,
+      "siRange": [
+        381.92188399405256,
+        381.92188399405256
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "faq|mobile": {
+    "page": "/faq",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 96,
+        "fcp": 1374.5283301406143,
+        "lcp": 2736.7924952109215,
+        "tbt": 0,
+        "cls": 0.01653627705295358,
+        "si": 1374.5283301406143,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 96,
+      "scoreRange": [
+        96,
+        96
+      ],
+      "fcp": 1374.5283301406143,
+      "fcpRange": [
+        1374.5283301406143,
+        1374.5283301406143
+      ],
+      "lcp": 2736.7924952109215,
+      "lcpRange": [
+        2736.7924952109215,
+        2736.7924952109215
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.01653627705295358,
+      "clsRange": [
+        0.01653627705295358,
+        0.01653627705295358
+      ],
+      "si": 1374.5283301406143,
+      "siRange": [
+        1374.5283301406143,
+        1374.5283301406143
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "faq|desktop": {
+    "page": "/faq",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 386.475122048248,
+        "lcp": 636.712683072372,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 415.3150164657535,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 386.475122048248,
+      "fcpRange": [
+        386.475122048248,
+        386.475122048248
+      ],
+      "lcp": 636.712683072372,
+      "lcpRange": [
+        636.712683072372,
+        636.712683072372
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 415.3150164657535,
+      "siRange": [
+        415.3150164657535,
+        415.3150164657535
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "en-home|mobile": {
+    "page": "/en",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 67,
+        "fcp": 1683.277809389083,
+        "lcp": 1683.277809389083,
+        "tbt": 3777.5,
+        "cls": 0,
+        "si": 4108.980492789333,
+        "lcpSelector": null,
+        "lcpSnippet": null,
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        67,
+        67
+      ],
+      "fcp": 1683.277809389083,
+      "fcpRange": [
+        1683.277809389083,
+        1683.277809389083
+      ],
+      "lcp": 1683.277809389083,
+      "lcpRange": [
+        1683.277809389083,
+        1683.277809389083
+      ],
+      "tbt": 3777.5,
+      "tbtRange": [
+        3777.5,
+        3777.5
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 4108.980492789333,
+      "siRange": [
+        4108.980492789333,
+        4108.980492789333
+      ],
+      "lcpSelector": null,
+      "lcpSnippet": null,
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "en-home|desktop": {
+    "page": "/en",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 67,
+        "fcp": 351.9960518436286,
+        "lcp": 1286.992103687257,
+        "tbt": 1147,
+        "cls": 0.0013368120562899056,
+        "si": 1326.6057937071819,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 67,
+      "scoreRange": [
+        67,
+        67
+      ],
+      "fcp": 351.9960518436286,
+      "fcpRange": [
+        351.9960518436286,
+        351.9960518436286
+      ],
+      "lcp": 1286.992103687257,
+      "lcpRange": [
+        1286.992103687257,
+        1286.992103687257
+      ],
+      "tbt": 1147,
+      "tbtRange": [
+        1147,
+        1147
+      ],
+      "cls": 0.0013368120562899056,
+      "clsRange": [
+        0.0013368120562899056,
+        0.0013368120562899056
+      ],
+      "si": 1326.6057937071819,
+      "siRange": [
+        1326.6057937071819,
+        1326.6057937071819
+      ],
+      "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+      "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  }
+}

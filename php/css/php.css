@@ -33,7 +33,7 @@
 .dropdown-panel:not([hidden]) { animation: dropIn 0.22s cubic-bezier(0.21, 0.47, 0.32, 0.98); }
 .mobile-panel:not([hidden]) { animation: mobileIn 0.25s ease-out; }
 .cookie-panel:not([hidden]) { animation: cookieIn 0.25s ease-out; }
-.cookie-panel.is-leaving { opacity: 0; transform: translateY(24px); transition: all 0.25s ease-out; }
+.cookie-panel.is-leaving { opacity: 0; transform: translateY(24px); transition: opacity 0.25s ease-out, transform 0.25s ease-out; }
 @keyframes dropIn { from { opacity: 0; transform: translate(-50%, 10px) scale(0.98); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
 @keyframes mobileIn { from { opacity: 0; transform: translateY(-12px); } }
 @keyframes cookieIn { from { opacity: 0; transform: translateY(24px); } }
@@ -49,3 +49,20 @@
 /* Îlot React : l'enveloppe ne doit pas changer la mise en page */
 [data-island] { display: contents; }
 [data-island] > script[data-props] { display: none; }
+
+/* Champs de formulaire en 16 px sur téléphone : sous 16 px, iOS zoome sur le champ touché.
+   Seulement les champs en text-sm (14 px) ; même interligne qu'avant (20 px), donc mêmes hauteurs. */
+@media (max-width: 639.98px) {
+  form :is(input:not([type]), input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea).text-sm {
+    font-size: 16px;
+    line-height: 1.25rem;
+  }
+}
+
+/* Pastilles du ruban des villes : même fond et même bordure que glass-light, sans
+   backdrop-filter (le fond derrière est uni : le flou ne change rien à l'image, mais
+   il était recalculé à chaque image pour chacune des pastilles en mouvement). */
+@utility glass-light-flat {
+  background: rgba(10, 10, 10, 0.04);
+  border: 1px solid var(--color-line);
+}

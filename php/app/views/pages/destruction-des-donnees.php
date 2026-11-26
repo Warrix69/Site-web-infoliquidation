@@ -9,7 +9,7 @@ $alt = locale() === 'fr'
 ob_start(); ?>
 <?= page_hero($t('eyebrow'), $t('title'), $t('intro'), ['kind' => 'object', 'src' => '/images/bac/ecran.webp', 'width' => 70]) ?>
 
-<?= section_open('pt-0') ?>
+<?= section_open('pt-0 overflow-x-clip') ?>
   <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
     <div<?= reveal() ?>>
       <p class="leading-relaxed text-moss"><?= e($t('p1')) ?></p>

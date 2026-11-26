@@ -2,11 +2,43 @@
 /** Composants serveur partagés (port de src/components/ui|services|home côté serveur). */
 
 /**
+ * Variantes de largeur générées au build (php/build.mjs → assets/images.json) :
+ * [largeur, hauteur, empreinte, [largeurs des variantes]] ou null si l'image n'en a pas.
+ */
+function image_variants(string $src): ?array
+{
+    static $manifest = null;
+    if ($manifest === null) {
+        $file = PUBLIC_DIR . '/assets/images.json';
+        $manifest = is_file($file) ? (json_decode((string) file_get_contents($file), true) ?: []) : [];
+    }
+    return $manifest[$src] ?? null;
+}
+
+/** URL d'une variante (même convention que php/build.mjs). */
+function image_variant_url(string $src, int $width, string $hash): string
+{
+    return '/images/_w/' . preg_replace('/\.[a-z]+$/i', '', substr($src, strlen('/images/'))) . '-' . $width . '-' . $hash . '.webp';
+}
+
+/** Attribut srcset (variantes + original) ou '' si l'image n'a pas de variantes. */
+function image_srcset(string $src): string
+{
+    $v = image_variants($src);
+    if (!$v) return '';
+    [$w, , $hash, $widths] = $v;
+    $set = array_map(fn ($x) => image_variant_url($src, $x, $hash) . ' ' . $x . 'w', $widths);
+    $set[] = $src . ' ' . $w . 'w';
+    return implode(', ', $set);
+}
+
+/**
  * <PageHero> — $image : null | ['kind' => 'object', 'src' => …, 'width' => 72] | ['kind' => 'photo', 'src' => …]
  * $childrenHtml : HTML ajouté sous l'intro.
  */
 function page_hero(?string $eyebrow, string $title, ?string $intro = null, ?array $image = null, string $size = 'default', string $childrenHtml = ''): string
 {
+    $GLOBALS['__page_hero'] = true; // layout.php : préchargement de Poppins 800 (titre)
     $compact = $size === 'compact';
     $h = '<header data-theme="green" class="relative isolate overflow-hidden text-mist ' . ($compact ? 'pb-10 pt-32 sm:pb-12 sm:pt-36' : 'pb-16 pt-32 sm:pb-24 sm:pt-40') . '">';
     $h .= '<div class="mx-auto w-full max-w-6xl px-5 sm:px-8 ' . ($image ? 'grid items-center gap-12 lg:grid-cols-12 lg:gap-10' : '') . '">';
@@ -26,10 +58,18 @@ function page_hero(?string $eyebrow, string $title, ?string $intro = null, ?arra
             . '<img src="' . e($image['src']) . '" alt="" width="560" height="560" fetchpriority="high" class="h-auto w-full drop-shadow-[0_24px_28px_rgba(0,0,0,0.45)]">'
             . '</div></div></div></div>';
     } elseif (($image['kind'] ?? null) === 'photo') {
+        // srcset : la photo (16:9) couvre un cadre 4:3 (object-cover), donc sa largeur affichée vaut
+        // 4/3 de celle du cadre. Cadre : 100vw - padding (px-5 / sm:px-8) ; dès lg, 5 colonnes sur 12
+        // de max-w-6xl (1152 px) moins px-8, avec gap-10 : 5 × (W - 440) / 12 + 160.
+        $srcset = image_srcset($image['src']);
+        $v = image_variants($image['src']);
+        $imgAttrs = $srcset
+            ? ' srcset="' . e($srcset) . '" sizes="(min-width: 1152px) 576px, (min-width: 1024px) calc(55.56vw - 66px), (min-width: 640px) calc(133.34vw - 85px), calc(133.34vw - 53px)" width="' . (int) $v[0] . '" height="' . (int) $v[1] . '"'
+            : '';
         $h .= '<div aria-hidden="true" class="relative lg:col-span-5">'
             . '<div class="absolute -bottom-4 -left-4 h-full w-full rounded-3xl bg-ink"></div>'
             . '<div class="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgba(0,0,0,0.7)]" style="animation:heroFadeIn 900ms ease-out 150ms both">'
-            . '<img src="' . e($image['src']) . '" alt="" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover">'
+            . '<img src="' . e($image['src']) . '"' . $imgAttrs . ' alt="" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover">'
             . '</div></div>';
     }
     return $h . '</div></header>';
@@ -68,7 +108,7 @@ function cities_marquee(string $label): string
 {
     $inner = '';
     foreach (CITIES as $c) {
-        $inner .= '<a href="' . e(path('/[ville]', ['ville' => $c['slug']])) . '" class="glass-light inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-mist/90 transition-colors hover:border-emerald/40 hover:text-emerald">'
+        $inner .= '<a href="' . e(path('/[ville]', ['ville' => $c['slug']])) . '" class="glass-light-flat inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-mist/90 transition-colors hover:border-emerald/40 hover:text-emerald">'
             . icon('MapPin', 'h-3.5 w-3.5 text-emerald') . e($c[locale()]) . '</a>';
     }
     return marquee($inner, $label, 'py-2');

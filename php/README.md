@@ -6,7 +6,7 @@ Même site que la version Next.js (mêmes pages FR/EN, textes, URL, animations, 
 ```
 node php/build.mjs
 ```
-Compile `public/assets/` (CSS Tailwind, JS des animations et de la 3D), copie les images, le modèle 3D et les textes FR/EN depuis le projet Next.js, copie les pages admin dans `app/views/admin/` (hors de la racine web) et copie les polices et éclairages 3D auto-hébergés (`third-party/`, téléchargés une seule fois depuis Google Fonts et le dépôt drei-assets). À relancer après toute modification de `src/`, de `public/admin/` ou des gabarits PHP.
+Compile `public/assets/` (CSS Tailwind, JS des animations et de la 3D), copie les images, le modèle 3D et les textes FR/EN depuis le projet Next.js, copie les pages admin dans `app/views/admin/` (hors de la racine web) et copie la police de signature et les éclairages 3D auto-hébergés (`third-party/`, téléchargés une seule fois depuis Google Fonts et le dépôt drei-assets) ; les polices du site sont dans `public/fonts/`. À relancer après toute modification de `src/`, de `public/admin/` ou des gabarits PHP.
 
 ## Tester en local
 Configuration « php » de `.claude/launch.json` (serveur intégré de PHP sur http://localhost:8080).

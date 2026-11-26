@@ -32,7 +32,8 @@ ob_start(); ?>
 
     <div<?= reveal(0.4) ?>>
       <div class="glass flex h-full flex-col items-center justify-center gap-4 rounded-3xl p-6 text-center">
-        <img src="/images/liste-matieres.png" alt="<?= e($alt) ?>" width="220" height="190" loading="lazy" decoding="async" class="h-auto w-44">
+        <?php $listeV = image_variants('/images/liste-matieres.png'); /* WebP 500 px généré au build, sinon le PNG */ ?>
+        <img src="<?= e($listeV ? image_variant_url('/images/liste-matieres.png', $listeV[3][0], $listeV[2]) : '/images/liste-matieres.png') ?>" alt="<?= e($alt) ?>" width="220" height="190" loading="lazy" decoding="async" class="h-auto w-44">
         <p class="text-sm leading-relaxed text-moss"><?= e($t('note')) ?></p>
       </div>
     </div>

@@ -1,0 +1,143 @@
+{
+  "base": "http://localhost:8080",
+  "date": "2026-11-25T21:23:17.619Z",
+  "device": "iPhone 13",
+  "runs": {
+    "home": {
+      "page": "/",
+      "loadMs": 187,
+      "docHeight": 14353,
+      "vh": 664,
+      "canvas": 2,
+      "frames": 151,
+      "durationMs": 7359,
+      "fps": 20.4,
+      "pctOver16": 79.3,
+      "pctOver33": 55.3,
+      "worstMs": 275,
+      "byScrollY": {
+        "0": {
+          "n": 4,
+          "jank": 4,
+          "worst": 151
+        },
+        "1000": {
+          "n": 3,
+          "jank": 3,
+          "worst": 275
+        },
+        "2000": {
+          "n": 12,
+          "jank": 12,
+          "worst": 52
+        },
+        "3000": {
+          "n": 8,
+          "jank": 8,
+          "worst": 141
+        },
+        "4000": {
+          "n": 6,
+          "jank": 6,
+          "worst": 107
+        },
+        "5000": {
+          "n": 10,
+          "jank": 10,
+          "worst": 93
+        },
+        "6000": {
+          "n": 14,
+          "jank": 14,
+          "worst": 40
+        },
+        "7000": {
+          "n": 10,
+          "jank": 10,
+          "worst": 75
+        },
+        "8000": {
+          "n": 8,
+          "jank": 8,
+          "worst": 76
+        },
+        "9000": {
+          "n": 6,
+          "jank": 6,
+          "worst": 91
+        },
+        "10000": {
+          "n": 7,
+          "jank": 7,
+          "worst": 90
+        },
+        "11000": {
+          "n": 5,
+          "jank": 5,
+          "worst": 122
+        },
+        "12000": {
+          "n": 12,
+          "jank": 12,
+          "worst": 77
+        },
+        "13000": {
+          "n": 45,
+          "jank": 14,
+          "worst": 32
+        }
+      }
+    },
+    "recyclage-ordinateur": {
+      "page": "/recyclage-ordinateur",
+      "loadMs": 165,
+      "docHeight": 7317,
+      "vh": 664,
+      "canvas": 0,
+      "frames": 97,
+      "durationMs": 3827,
+      "fps": 25.1,
+      "pctOver16": 67.7,
+      "pctOver33": 34.4,
+      "worstMs": 188,
+      "byScrollY": {
+        "0": {
+          "n": 7,
+          "jank": 7,
+          "worst": 93
+        },
+        "1000": {
+          "n": 12,
+          "jank": 12,
+          "worst": 188
+        },
+        "2000": {
+          "n": 6,
+          "jank": 6,
+          "worst": 81
+        },
+        "3000": {
+          "n": 6,
+          "jank": 6,
+          "worst": 95
+        },
+        "4000": {
+          "n": 6,
+          "jank": 6,
+          "worst": 95
+        },
+        "5000": {
+          "n": 14,
+          "jank": 14,
+          "worst": 65
+        },
+        "6000": {
+          "n": 45,
+          "jank": 14,
+          "worst": 30
+        }
+      }
+    }
+  },
+  "webkitVersion": "27.2"
+}

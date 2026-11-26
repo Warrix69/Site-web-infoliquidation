@@ -1,0 +1,6 @@
+# Gros fichiers bruts non versionnés (rapports Lighthouse complets, données brutes, journaux, captures)
+lighthouse/
+regression-shots/
+*.log
+*-weight.json
+*-scroll.json

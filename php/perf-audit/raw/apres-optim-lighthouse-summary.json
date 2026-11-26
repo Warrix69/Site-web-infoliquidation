@@ -1,0 +1,812 @@
+{
+  "home|mobile": {
+    "page": "/",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 48,
+        "fcp": 1682.4656815853118,
+        "lcp": 5480.465681585311,
+        "tbt": 4537,
+        "cls": 0,
+        "si": 3437.025238811466,
+        "lcpSelector": "body > div.cookie-panel > div.rounded-2xl > p.text-sm",
+        "lcpSnippet": "<p class=\"text-sm leading-relaxed text-mist\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 43,
+        "fcp": 1682.9856,
+        "lcp": 12813.4784,
+        "tbt": 4791.5,
+        "cls": 0,
+        "si": 3684.8984749271567,
+        "lcpSelector": "body > div.cookie-panel > div.rounded-2xl > p.text-sm",
+        "lcpSnippet": "<p class=\"text-sm leading-relaxed text-mist\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 48,
+        "fcp": 1685.2897000000003,
+        "lcp": 5490.289699999999,
+        "tbt": 4364.5,
+        "cls": 0,
+        "si": 3375.084741345132,
+        "lcpSelector": "body > div.cookie-panel > div.rounded-2xl > p.text-sm",
+        "lcpSnippet": "<p class=\"text-sm leading-relaxed text-mist\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 48,
+      "scoreRange": [
+        43,
+        48
+      ],
+      "fcp": 1682.9856,
+      "fcpRange": [
+        1682.4656815853118,
+        1685.2897000000003
+      ],
+      "lcp": 5490.289699999999,
+      "lcpRange": [
+        5480.465681585311,
+        12813.4784
+      ],
+      "tbt": 4537,
+      "tbtRange": [
+        4364.5,
+        4791.5
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 3437.025238811466,
+      "siRange": [
+        3375.084741345132,
+        3684.8984749271567
+      ],
+      "lcpSelector": "body > div.cookie-panel > div.rounded-2xl > p.text-sm",
+      "lcpSnippet": "<p class=\"text-sm leading-relaxed text-mist\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "home|desktop": {
+    "page": "/",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 68,
+        "fcp": 354.9838913034522,
+        "lcp": 1136.4758369551785,
+        "tbt": 1196.0080543482736,
+        "cls": 0.0014594989886834618,
+        "si": 1188.7688698426086,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 68,
+        "fcp": 355.52773504403893,
+        "lcp": 1149.5277350440388,
+        "tbt": 1187.0000000000002,
+        "cls": 0.0014594989886834618,
+        "si": 1185.9206393709608,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 68,
+        "fcp": 353.9502754631236,
+        "lcp": 1134.9254131946855,
+        "tbt": 1215.0248622684383,
+        "cls": 0.0014594989886834618,
+        "si": 1179.2234053835184,
+        "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+        "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 68,
+      "scoreRange": [
+        68,
+        68
+      ],
+      "fcp": 354.9838913034522,
+      "fcpRange": [
+        353.9502754631236,
+        355.52773504403893
+      ],
+      "lcp": 1136.4758369551785,
+      "lcpRange": [
+        1134.9254131946855,
+        1149.5277350440388
+      ],
+      "tbt": 1196.0080543482736,
+      "tbtRange": [
+        1187.0000000000002,
+        1215.0248622684383
+      ],
+      "cls": 0.0014594989886834618,
+      "clsRange": [
+        0.0014594989886834618,
+        0.0014594989886834618
+      ],
+      "si": 1185.9206393709608,
+      "siRange": [
+        1179.2234053835184,
+        1188.7688698426086
+      ],
+      "lcpSelector": "div.pointer-events-none > div.absolute > div.lg:text-right > p.mt-0.5",
+      "lcpSnippet": "<p class=\"mt-0.5 hidden text-xs font-medium text-paper/80 sm:block sm:text-sm\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "a-propos|mobile": {
+    "page": "/a-propos",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 92,
+        "fcp": 1374.6855,
+        "lcp": 3337.0282500000003,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1374.6855,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 92,
+        "fcp": 1374.5269,
+        "lcp": 3336.7903499999998,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1374.5269,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 92,
+        "fcp": 1373.1951,
+        "lcp": 3334.79265,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1373.1951,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 92,
+      "scoreRange": [
+        92,
+        92
+      ],
+      "fcp": 1374.5269,
+      "fcpRange": [
+        1373.1951,
+        1374.6855
+      ],
+      "lcp": 3336.7903499999998,
+      "lcpRange": [
+        3334.79265,
+        3337.0282500000003
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1374.5269,
+      "siRange": [
+        1373.1951,
+        1374.6855
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "a-propos|desktop": {
+    "page": "/a-propos",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 351.02430999504645,
+        "lcp": 686.5364649925697,
+        "tbt": 0,
+        "cls": 0.0020412027921707953,
+        "si": 376.25295293082456,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 342.3638,
+        "lcp": 673.5457000000001,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 374.9526745959456,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 343.0223,
+        "lcp": 674.53345,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 394.2825675755794,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 343.0223,
+      "fcpRange": [
+        342.3638,
+        351.02430999504645
+      ],
+      "lcp": 674.53345,
+      "lcpRange": [
+        673.5457000000001,
+        686.5364649925697
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0020412027921707953
+      ],
+      "si": 376.25295293082456,
+      "siRange": [
+        374.9526745959456,
+        394.2825675755794
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "formulaire|mobile": {
+    "page": "/formulaire-de-ramassage",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 65,
+        "fcp": 1381.2072262535053,
+        "lcp": 5327.207226253505,
+        "tbt": 31.5,
+        "cls": 0.29997006163179196,
+        "si": 1381.2072262535053,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 65,
+        "fcp": 1382.9466,
+        "lcp": 5329.9466,
+        "tbt": 38.500000000000455,
+        "cls": 0.3013365735115431,
+        "si": 1382.9466,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 65,
+        "fcp": 1382.8397,
+        "lcp": 5327.8396999999995,
+        "tbt": 41.5,
+        "cls": 0.3013365735115431,
+        "si": 1382.8397,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 65,
+      "scoreRange": [
+        65,
+        65
+      ],
+      "fcp": 1382.8397,
+      "fcpRange": [
+        1381.2072262535053,
+        1382.9466
+      ],
+      "lcp": 5327.8396999999995,
+      "lcpRange": [
+        5327.207226253505,
+        5329.9466
+      ],
+      "tbt": 38.500000000000455,
+      "tbtRange": [
+        31.5,
+        41.5
+      ],
+      "cls": 0.3013365735115431,
+      "clsRange": [
+        0.29997006163179196,
+        0.3013365735115431
+      ],
+      "si": 1382.8397,
+      "siRange": [
+        1381.2072262535053,
+        1382.9466
+      ],
+      "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+      "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "formulaire|desktop": {
+    "page": "/formulaire-de-ramassage",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 79,
+        "fcp": 352.1081,
+        "lcp": 1083.1081,
+        "tbt": 0,
+        "cls": 0.40512215933764373,
+        "si": 356.8896088784963,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 79,
+        "fcp": 353.3446457865467,
+        "lcp": 1084.3446457865468,
+        "tbt": 0,
+        "cls": 0.40512215933764373,
+        "si": 358.8425597651693,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 80,
+        "fcp": 353.48,
+        "lcp": 1084.48,
+        "tbt": 0,
+        "cls": 0.40432354977477053,
+        "si": 468.7761762961611,
+        "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+        "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 79,
+      "scoreRange": [
+        79,
+        80
+      ],
+      "fcp": 353.3446457865467,
+      "fcpRange": [
+        352.1081,
+        353.48
+      ],
+      "lcp": 1084.3446457865468,
+      "lcpRange": [
+        1083.1081,
+        1084.48
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.40512215933764373,
+      "clsRange": [
+        0.40432354977477053,
+        0.40512215933764373
+      ],
+      "si": 358.8425597651693,
+      "siRange": [
+        356.8896088784963,
+        468.7761762961611
+      ],
+      "lcpSelector": "main#main > header.relative > div.mx-auto > h1.mt-2",
+      "lcpSnippet": "<h1 class=\"mt-2 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] tex…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "ville-laval|mobile": {
+    "page": "/laval",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 91,
+        "fcp": 1525.4100880101032,
+        "lcp": 3488.115132015155,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1525.4100880101032,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 90,
+        "fcp": 1522.9432358101383,
+        "lcp": 3484.4148537152073,
+        "tbt": 77,
+        "cls": 0,
+        "si": 1522.9432358101383,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 91,
+        "fcp": 1524.9126220519488,
+        "lcp": 3487.368933077923,
+        "tbt": 0,
+        "cls": 0,
+        "si": 1524.9126220519488,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+        "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 91,
+      "scoreRange": [
+        90,
+        91
+      ],
+      "fcp": 1524.9126220519488,
+      "fcpRange": [
+        1522.9432358101383,
+        1525.4100880101032
+      ],
+      "lcp": 3487.368933077923,
+      "lcpRange": [
+        3484.4148537152073,
+        3488.115132015155
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        77
+      ],
+      "cls": 0,
+      "clsRange": [
+        0,
+        0
+      ],
+      "si": 1524.9126220519488,
+      "siRange": [
+        1522.9432358101383,
+        1525.4100880101032
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > p.mt-6",
+      "lcpSnippet": "<p class=\"mt-6 max-w-2xl text-base leading-relaxed text-moss sm:text-lg\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "ville-laval|desktop": {
+    "page": "/laval",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 345.21144265934663,
+        "lcp": 717.81716398902,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 385.57642109527234,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 345.12223183163684,
+        "lcp": 717.6833477474553,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 372.238725749674,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 344.73239815777583,
+        "lcp": 717.0985972366637,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 383.3806698368039,
+        "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 345.12223183163684,
+      "fcpRange": [
+        344.73239815777583,
+        345.21144265934663
+      ],
+      "lcp": 717.6833477474553,
+      "lcpRange": [
+        717.0985972366637,
+        717.81716398902
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 383.3806698368039,
+      "siRange": [
+        372.238725749674,
+        385.57642109527234
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.lg:col-span-7 > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "faq|mobile": {
+    "page": "/faq",
+    "form": "mobile",
+    "runs": [
+      {
+        "score": 96,
+        "fcp": 1372.8335531791809,
+        "lcp": 2734.250329768771,
+        "tbt": 65,
+        "cls": 0.01653627705295358,
+        "si": 1372.8335531791809,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 96,
+        "fcp": 1380.9516,
+        "lcp": 2746.4274,
+        "tbt": 0,
+        "cls": 0.01653627705295358,
+        "si": 1380.9516,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 95,
+        "fcp": 1373.6497800604316,
+        "lcp": 2735.4746700906476,
+        "tbt": 65,
+        "cls": 0.01653627705295358,
+        "si": 1373.6497800604316,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 96,
+      "scoreRange": [
+        95,
+        96
+      ],
+      "fcp": 1373.6497800604316,
+      "fcpRange": [
+        1372.8335531791809,
+        1380.9516
+      ],
+      "lcp": 2735.4746700906476,
+      "lcpRange": [
+        2734.250329768771,
+        2746.4274
+      ],
+      "tbt": 65,
+      "tbtRange": [
+        0,
+        65
+      ],
+      "cls": 0.01653627705295358,
+      "clsRange": [
+        0.01653627705295358,
+        0.01653627705295358
+      ],
+      "si": 1373.6497800604316,
+      "siRange": [
+        1372.8335531791809,
+        1380.9516
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  },
+  "faq|desktop": {
+    "page": "/faq",
+    "form": "desktop",
+    "runs": [
+      {
+        "score": 100,
+        "fcp": 384.0881341795968,
+        "lcp": 634.6322012693953,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 406.28095836895375,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 344.87395408725735,
+        "lcp": 637.310931130886,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 361.24944922041095,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      },
+      {
+        "score": 100,
+        "fcp": 349.5236545532996,
+        "lcp": 644.2854818299494,
+        "tbt": 0,
+        "cls": 0.0007821741395452672,
+        "si": 366.180983118939,
+        "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+        "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+        "lhVersion": "13.6.0",
+        "chrome": "Chrome/157.0.0.0",
+        "runtimeError": null
+      }
+    ],
+    "median": {
+      "score": 100,
+      "scoreRange": [
+        100,
+        100
+      ],
+      "fcp": 349.5236545532996,
+      "fcpRange": [
+        344.87395408725735,
+        384.0881341795968
+      ],
+      "lcp": 637.310931130886,
+      "lcpRange": [
+        634.6322012693953,
+        644.2854818299494
+      ],
+      "tbt": 0,
+      "tbtRange": [
+        0,
+        0
+      ],
+      "cls": 0.0007821741395452672,
+      "clsRange": [
+        0.0007821741395452672,
+        0.0007821741395452672
+      ],
+      "si": 366.180983118939,
+      "siRange": [
+        361.24944922041095,
+        406.28095836895375
+      ],
+      "lcpSelector": "header.relative > div.mx-auto > div.is-visible > h1.max-w-4xl",
+      "lcpSnippet": "<h1 class=\"max-w-4xl font-display font-extrabold leading-[1.04] tracking-[-0.03em] te…\">",
+      "lhVersion": "13.6.0",
+      "chrome": "Chrome/157.0.0.0"
+    }
+  }
+}

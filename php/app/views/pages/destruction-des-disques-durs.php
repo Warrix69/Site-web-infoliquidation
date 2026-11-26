@@ -9,7 +9,7 @@ $alt = locale() === 'fr' ? 'Destruction de disques durs sur place' : 'On-site ha
 ob_start(); ?>
 <?= page_hero($t('eyebrow'), $t('title'), null, ['kind' => 'object', 'src' => '/images/bac/disque-dur.webp', 'width' => 80]) ?>
 
-<?= section_open('pt-0') ?>
+<?= section_open('pt-0 overflow-x-clip') ?>
   <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
     <div<?= reveal() ?>>
       <h2 class="font-display text-2xl font-bold text-mist sm:text-3xl"><?= e($t('whyTitle')) ?></h2>
