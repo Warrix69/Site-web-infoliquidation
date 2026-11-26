@@ -47,8 +47,20 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
     let px = new Float32Array(0), py = new Float32Array(0), th = new Float32Array(0);
     let vx = new Float32Array(0), vy = new Float32Array(0);
     let cr = new Uint8ClampedArray(0), cg = new Uint8ClampedArray(0), cb = new Uint8ClampedArray(0), ca = new Uint8ClampedArray(0);
-    let base: Uint8ClampedArray | null = null;
-    let frameData: ImageData | null = null;
+    // Image nette à pleine résolution (canevas, jamais relue) et « reste » : la base moins les
+    // cases déjà détachées, tenu à jour par incréments (seules les cases nouvellement détachées
+    // sont effacées ; refait en entier seulement quand on remonte).
+    let base: HTMLCanvasElement | null = null;
+    let rem: CanvasRenderingContext2D | null = null;
+    let remIdx = 0; // nombre de cases (triées par seuil) déjà effacées de « rem »
+    let remD = -1;
+    let order = new Uint32Array(0); // cases triées par seuil de détachement croissant
+    // Calque des fragments en vol : mêmes écritures de pixels qu'avant, envoyées au GPU
+    // seulement sur le rectangle qui a changé
+    let frag: ImageData | null = null;
+    let fragCtx: CanvasRenderingContext2D | null = null;
+    let prevX = new Int32Array(0), prevY = new Int32Array(0), prevM = 0;
+    let curX = new Int32Array(0), curY = new Int32Array(0);
     let raf = 0;
     let visible = true;
     let De = 0;
@@ -78,7 +90,21 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
       if (!fctx) return;
       fctx.imageSmoothingQuality = "high";
       fctx.drawImage(img, imgX * dpr, imgY * dpr, imgW * dpr, imgH * dpr);
-      base = fctx.getImageData(0, 0, full.width, full.height).data;
+      // Lecture d'un pixel : force le dessin de la base maintenant, avant la petite grille, dans le
+      // même ordre que l'ancienne version (qui relisait toute la base) : même rééchantillonnage de
+      // l'image, donc même base et même grille de fragments
+      fctx.getImageData(0, 0, 1, 1);
+      base = full;
+      const remCanvas = document.createElement("canvas");
+      remCanvas.width = canvas.width;
+      remCanvas.height = canvas.height;
+      rem = remCanvas.getContext("2d");
+      remD = -1;
+      const fragCanvas = document.createElement("canvas");
+      fragCanvas.width = canvas.width;
+      fragCanvas.height = canvas.height;
+      fragCtx = fragCanvas.getContext("2d");
+      frag = ctx.createImageData(canvas.width, canvas.height);
 
       // grille de fragments (couleur moyenne de chaque case)
       const sw = Math.max(1, Math.round(imgW / STEP));
@@ -109,7 +135,9 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
         vy[k] = 0.6 + Math.random() * 1.6;
         cr[k] = data[i * 4]; cg[k] = data[i * 4 + 1]; cb[k] = data[i * 4 + 2]; ca[k] = data[i * 4 + 3];
       });
-      frameData = ctx.createImageData(canvas.width, canvas.height);
+      order = Uint32Array.from({ length: n }, (_, k) => k).sort((a, b) => th[a] - th[b]);
+      prevX = new Int32Array(n); prevY = new Int32Array(n); curX = new Int32Array(n); curY = new Int32Array(n);
+      prevM = 0;
       kick();
     };
 
@@ -123,30 +151,79 @@ export function DataDestruction({ labels }: { labels: DestructionLabels }) {
       }
     };
 
-    const draw = (D: number) => {
-      if (!frameData || !base) return;
-      const buf = frameData.data;
-      buf.set(base);
-      const cw = canvas.width, chh = canvas.height;
-      // 1) on retire de l'image nette les fragments déjà détachés
-      for (let k = 0; k < n; k++) {
-        if (D <= th[k]) continue;
-        fillBlock(buf, cw, chh,
-          Math.floor(px[k] * dpr), Math.floor(py[k] * dpr),
-          Math.ceil((px[k] + cellW) * dpr), Math.ceil((py[k] + cellH) * dpr), 0, 0, 0, 0);
+    // Case k (rectangle entier en pixels du canevas, mêmes arrondis qu'avant) ajoutée au tracé
+    const cellRect = (c: CanvasRenderingContext2D, k: number) => {
+      const x0 = Math.floor(px[k] * dpr), y0 = Math.floor(py[k] * dpr);
+      c.rect(x0, y0, Math.ceil((px[k] + cellW) * dpr) - x0, Math.ceil((py[k] + cellH) * dpr) - y0);
+    };
+
+    // Efface les cases détachées (D > seuil) de « rem » : coordonnées entières, donc effacement exact
+    const updateRem = (D: number) => {
+      if (!rem || !base) return;
+      if (remD < 0 || D < remD) {
+        rem.globalCompositeOperation = "source-over";
+        rem.clearRect(0, 0, canvas.width, canvas.height);
+        rem.drawImage(base, 0, 0);
+        remIdx = 0;
       }
-      // 2) on dessine les fragments en vol
+      remD = D;
+      if (remIdx >= n || th[order[remIdx]] >= D) return;
+      rem.beginPath();
+      while (remIdx < n && th[order[remIdx]] < D) cellRect(rem, order[remIdx++]);
+      rem.globalCompositeOperation = "destination-out";
+      rem.fill();
+    };
+
+    /**
+     * Même image qu'avant (copie du tampon de base + boucles de pixels + putImageData du canevas
+     * entier), produite autrement : 1) copie du « reste » (base moins les cases détachées) ;
+     * 2) les fragments en vol sont écrits pixel par pixel dans leur calque, exactement comme
+     * avant (le dernier écrit l'emporte), puis les pixels sous eux sont effacés et le calque
+     * est posé par-dessus : chaque fragment remplace donc les pixels sous lui, comme avant.
+     */
+    const draw = (D: number) => {
+      if (!base || !rem || !frag || !fragCtx) return;
+      const buf = frag.data;
+      const cw = canvas.width, chh = canvas.height;
+      updateRem(D);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, cw, chh);
+      ctx.drawImage(rem.canvas, 0, 0);
+
       const size = Math.max(1, Math.round(STEP * dpr * 0.8));
+      // rectangle modifié dans le calque (fragments de l'image précédente + de celle-ci)
+      let bx0 = cw, by0 = chh, bx1 = 0, by1 = 0;
+      for (let j = 0; j < prevM; j++) {
+        const x = prevX[j], y = prevY[j];
+        fillBlock(buf, cw, chh, x, y, x + size, y + size, 0, 0, 0, 0);
+        if (x < bx0) bx0 = x; if (y < by0) by0 = y; if (x + size > bx1) bx1 = x + size; if (y + size > by1) by1 = y + size;
+      }
+      let m = 0;
+      ctx.beginPath();
       for (let k = 0; k < n; k++) {
         const t = clamp((D - th[k]) / 0.28);
         if (t <= 0 || t >= 1) continue;
         const e = t * t;
         const x = Math.round((px[k] + vx[k] * e * 160) * dpr);
         const y = Math.round((py[k] - vy[k] * e * 190) * dpr);
+        if (x >= cw || y >= chh || x + size <= 0 || y + size <= 0) continue;
         fillBlock(buf, cw, chh, x, y, x + size, y + size,
           cr[k] + (46 - cr[k]) * t, cg[k] + (183 - cg[k]) * t, cb[k] + (100 - cb[k]) * t, ca[k] * (1 - t));
+        ctx.rect(x, y, size, size);
+        curX[m] = x; curY[m] = y; m++;
+        if (x < bx0) bx0 = x; if (y < by0) by0 = y; if (x + size > bx1) bx1 = x + size; if (y + size > by1) by1 = y + size;
       }
-      ctx.putImageData(frameData, 0, 0);
+      bx0 = Math.max(0, bx0); by0 = Math.max(0, by0); bx1 = Math.min(cw, bx1); by1 = Math.min(chh, by1);
+      if (bx1 > bx0 && by1 > by0) fragCtx.putImageData(frag, 0, 0, bx0, by0, bx1 - bx0, by1 - by0);
+      if (m) {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.fill();
+        ctx.globalCompositeOperation = "source-over";
+        ctx.drawImage(fragCtx.canvas, 0, 0);
+      }
+      [prevX, curX] = [curX, prevX];
+      [prevY, curY] = [curY, prevY];
+      prevM = m;
     };
 
     const frame = () => {
