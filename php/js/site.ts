@@ -27,11 +27,28 @@ function smoothScroll() {
     wheelMultiplier: 1
   });
   window.__lenis = lenis;
-  const raf = (time: number) => {
+  // La boucle ne tourne que pendant une animation de défilement (molette ou scrollTo) :
+  // au repos, aucune image n'est demandée. Au redémarrage, Lenis reçoit le même pas de
+  // temps qu'avec une boucle permanente (durée d'une image).
+  let id = 0, last = 0, frame = 1000 / 60;
+  const loop = (time: number) => {
+    if (last) frame = Math.min(50, Math.max(4, time - last));
+    else lenis.time = time - frame;
+    last = time;
     lenis.raf(time);
-    requestAnimationFrame(raf);
+    if (lenis.isScrolling === "smooth") id = requestAnimationFrame(loop);
+    else id = last = 0;
   };
-  requestAnimationFrame(raf);
+  const wake = () => {
+    if (!id) id = requestAnimationFrame(loop);
+  };
+  lenis.on("virtual-scroll", wake);
+  const scrollTo = lenis.scrollTo.bind(lenis);
+  lenis.scrollTo = (...args: Parameters<Lenis["scrollTo"]>) => {
+    scrollTo(...args);
+    wake();
+  };
+  wake();
 }
 
 /* ---------------- En-tête ---------------- */
